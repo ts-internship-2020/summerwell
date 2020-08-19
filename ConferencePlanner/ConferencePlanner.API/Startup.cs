@@ -34,7 +34,7 @@ namespace ConferencePlanner.Api
                 {
                     var configuration = serviceProvider.GetService<IConfiguration>();
                     var connectionString = configuration.GetConnectionString("DbConnection");
-
+                    var a = 5;
                     options.UseSqlServer(connectionString, a => a.EnableRetryOnFailure())
                     .UseInternalServiceProvider(serviceProvider);
                 });
