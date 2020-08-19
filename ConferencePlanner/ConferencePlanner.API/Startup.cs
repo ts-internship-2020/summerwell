@@ -38,8 +38,9 @@ namespace ConferencePlanner.Api
                     options.UseSqlServer(connectionString, a => a.EnableRetryOnFailure())
                     .UseInternalServiceProvider(serviceProvider);
                 });
-
+            //comentariu degeaba
             services.AddScoped<IGetDemoRepository, GetDemoRepository>();
+            int onush = 1308;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
