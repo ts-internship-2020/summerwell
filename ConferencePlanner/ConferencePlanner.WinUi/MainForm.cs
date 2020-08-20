@@ -29,6 +29,7 @@ namespace ConferencePlanner.WinUi
             label1.Text = x.FirstOrDefault().Name;
             listBox1.DataSource = x;
             listBox1.DisplayMember = "Name";
+
         }
     }
 }
