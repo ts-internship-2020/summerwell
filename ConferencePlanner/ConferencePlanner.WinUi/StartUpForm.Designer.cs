@@ -31,7 +31,7 @@
             System.Windows.Forms.Label titlu;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartUpForm));
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.EmailBoss = new System.Windows.Forms.TextBox();
             titlu = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -61,16 +61,17 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // EmailBoss
             // 
-            this.textBox1.AccessibleDescription = "";
-            this.textBox1.AccessibleName = "";
-            this.textBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.textBox1.Location = new System.Drawing.Point(171, 141);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PlaceholderText = "TYPE AN EMAIL";
-            this.textBox1.Size = new System.Drawing.Size(198, 23);
-            this.textBox1.TabIndex = 1;
+            this.EmailBoss.AccessibleDescription = "";
+            this.EmailBoss.AccessibleName = "";
+            this.EmailBoss.ForeColor = System.Drawing.Color.DimGray;
+            this.EmailBoss.Location = new System.Drawing.Point(171, 141);
+            this.EmailBoss.Name = "EmailBoss";
+            this.EmailBoss.PlaceholderText = "TYPE AN EMAIL";
+            this.EmailBoss.Size = new System.Drawing.Size(198, 23);
+            this.EmailBoss.TabIndex = 1;
+            this.EmailBoss.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // StartUpForm
             // 
@@ -80,7 +81,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(518, 355);
             this.Controls.Add(titlu);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.EmailBoss);
             this.Controls.Add(this.button1);
             this.Name = "StartUpForm";
             this.Text = "StartUpForm";
@@ -93,7 +94,7 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox EmailBoss;
         private System.Windows.Forms.Label titlu;
     }
 }
