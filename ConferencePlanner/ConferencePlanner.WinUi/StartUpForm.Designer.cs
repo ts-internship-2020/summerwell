@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Label titlu;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartUpForm));
             this.button1 = new System.Windows.Forms.Button();
             this.EmailBoss = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,22 +39,23 @@
             // 
             titlu.AutoSize = true;
             titlu.BackColor = System.Drawing.Color.Transparent;
-            titlu.Font = new System.Drawing.Font("Ravie", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            titlu.ForeColor = System.Drawing.Color.Tomato;
-            titlu.Location = new System.Drawing.Point(64, 9);
+            titlu.Font = new System.Drawing.Font("Rockwell", 27.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            titlu.ForeColor = System.Drawing.Color.IndianRed;
+            titlu.Location = new System.Drawing.Point(110, 60);
             titlu.Name = "titlu";
-            titlu.Size = new System.Drawing.Size(442, 50);
+            titlu.Size = new System.Drawing.Size(332, 42);
             titlu.TabIndex = 2;
             titlu.Text = "TOTALSOFTZOOM";
             titlu.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.GhostWhite;
-            this.button1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.button1.Location = new System.Drawing.Point(182, 202);
+            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.ForeColor = System.Drawing.Color.IndianRed;
+            this.button1.Location = new System.Drawing.Point(168, 238);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 48);
+            this.button1.Size = new System.Drawing.Size(187, 72);
             this.button1.TabIndex = 0;
             this.button1.Text = "OK";
             this.button1.UseMnemonic = false;
@@ -66,11 +66,12 @@
             // 
             this.EmailBoss.AccessibleDescription = "";
             this.EmailBoss.AccessibleName = "";
+            this.EmailBoss.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.EmailBoss.ForeColor = System.Drawing.Color.DimGray;
-            this.EmailBoss.Location = new System.Drawing.Point(171, 141);
+            this.EmailBoss.Location = new System.Drawing.Point(161, 141);
             this.EmailBoss.Name = "EmailBoss";
             this.EmailBoss.PlaceholderText = "TYPE AN EMAIL";
-            this.EmailBoss.Size = new System.Drawing.Size(198, 23);
+            this.EmailBoss.Size = new System.Drawing.Size(208, 29);
             this.EmailBoss.TabIndex = 1;
             this.EmailBoss.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -88,10 +89,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.PapayaWhip;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(518, 355);
-            this.Controls.Add(this.label1);
+            this.BackColor = System.Drawing.Color.FloralWhite;
+            this.ClientSize = new System.Drawing.Size(572, 387);
             this.Controls.Add(titlu);
             this.Controls.Add(this.EmailBoss);
             this.Controls.Add(this.button1);
