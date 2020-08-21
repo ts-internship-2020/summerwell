@@ -22,26 +22,6 @@ namespace ConferencePlanner.WinUi
             
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
 
@@ -49,35 +29,130 @@ namespace ConferencePlanner.WinUi
 
         private void InitializeComponent()
         {
-            this.CategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Speaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttendButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.JoinButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.WithdrawButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.ConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MainSpeaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttendButton = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JoinButton = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WithdrawButton = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CategoryName
+            // tabControl1
             // 
-            this.CategoryName.HeaderText = "CategoryName";
-            this.CategoryName.MinimumWidth = 3;
-            this.CategoryName.Name = "CategoryName";
-            this.CategoryName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(4, 1);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(907, 343);
+            this.tabControl1.TabIndex = 0;
             // 
-            // Duration
+            // tabPage1
             // 
-            this.Duration.HeaderText = "Duration";
-            this.Duration.Name = "Duration";
-            this.Duration.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ConferenceName,
+            this.Time,
+            this.Type,
+            this.Category,
+            this.Adress,
+            this.MainSpeaker,
+            this.AttendButton,
+            this.JoinButton,
+            this.WithdrawButton});
+            this.dataGridView1.Location = new System.Drawing.Point(21, 74);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(859, 233);
+            this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.Text = "dataGridView1";
+            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.dateTimePicker2);
+            this.tabPage1.Controls.Add(this.dateTimePicker1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(899, 315);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(192, 72);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(142, 40);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePicker1.TabIndex = 0;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(618, 40);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePicker2.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(568, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(27, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "To";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(78, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(46, 20);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "From";
+            // 
+            // ConferenceName
+            // 
+            this.ConferenceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ConferenceName.HeaderText = "ConferenceName";
+            this.ConferenceName.Name = "ConferenceName";
+            this.ConferenceName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Type
             // 
@@ -97,11 +172,11 @@ namespace ConferencePlanner.WinUi
             this.Adress.Name = "Adress";
             this.Adress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // Speaker
+            // MainSpeaker
             // 
-            this.Speaker.HeaderText = "Speaker";
-            this.Speaker.Name = "Speaker";
-            this.Speaker.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MainSpeaker.HeaderText = "MainSpeaker";
+            this.MainSpeaker.Name = "MainSpeaker";
+            this.MainSpeaker.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // AttendButton
             // 
@@ -118,89 +193,24 @@ namespace ConferencePlanner.WinUi
             // WithdrawButton
             // 
             this.WithdrawButton.HeaderText = "WithdrawButton";
-            this.WithdrawButton.MinimumWidth = 3;
             this.WithdrawButton.Name = "WithdrawButton";
             this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AccessibleRole = System.Windows.Forms.AccessibleRole.Chart;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CategoryName,
-            this.Duration,
-            this.Type,
-            this.Category,
-            this.Adress,
-            this.Speaker,
-            this.AttendButton,
-            this.JoinButton,
-            this.WithdrawButton});
-            this.dataGridView1.GridColor = System.Drawing.Color.MistyRose;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 113);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(876, 192);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.Text = "dataGridView1";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(168, 72);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker1.TabIndex = 1;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(525, 72);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker2.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Black", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(116, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 20);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "From";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Black", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(492, 72);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 20);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "To";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // MainForm
             // 
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(909, 344);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.Color.Crimson;
             this.Name = "MainForm";
             this.Text = "To";
             this.Load += new System.EventHandler(this.MainForm_Load_1);
+            this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
