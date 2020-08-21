@@ -55,7 +55,6 @@ namespace ConferencePlanner.WinUi
             this.label3 = new System.Windows.Forms.Label();
             this.ConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,7 +93,6 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConferenceName,
             this.StartTime,
-            this.EndTime,
             this.Type,
             this.Category,
             this.Adress,
@@ -280,11 +278,6 @@ namespace ConferencePlanner.WinUi
             this.StartTime.Name = "StartTime";
             this.StartTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // EndTime
-            // 
-            this.EndTime.HeaderText = "EndTime";
-            this.EndTime.Name = "EndTime";
-            // 
             // Type
             // 
             this.Type.HeaderText = "Type";
@@ -327,7 +320,6 @@ namespace ConferencePlanner.WinUi
             this.WithdrawButton.HeaderText = "WithdrawButton";
             this.WithdrawButton.Name = "WithdrawButton";
             this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            changeColor();
             // 
             // MainForm
             // 
@@ -401,7 +393,6 @@ namespace ConferencePlanner.WinUi
         private Button button3;
         private DataGridViewTextBoxColumn ConferenceName;
         private DataGridViewTextBoxColumn StartTime;
-        private DataGridViewTextBoxColumn EndTime;
         private DataGridViewTextBoxColumn Type;
         private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Adress;
