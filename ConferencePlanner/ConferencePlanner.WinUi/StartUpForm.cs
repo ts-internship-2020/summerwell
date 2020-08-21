@@ -38,7 +38,7 @@ namespace ConferencePlanner.WinUi
                 //buton ok
                 var_email = EmailBoss.Text;
                 MessageBox.Show(var_email);
-                MainForm form2 = new MainForm(_ConferenceRepository);
+                MainForm form2 = new MainForm(_ConferenceRepository,var_email);
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();

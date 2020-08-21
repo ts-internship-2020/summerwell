@@ -15,7 +15,7 @@ namespace ConferencePlanner.WinUi
     public partial class MainForm : Form
     {
         private readonly IConferenceRepository _ConferenceRepository;
-        public MainForm(IConferenceRepository ConferenceRepository)
+        public MainForm(IConferenceRepository ConferenceRepository,string var_email)
         {
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
@@ -32,6 +32,12 @@ namespace ConferencePlanner.WinUi
                                         c.DictionaryConferenceCategoryName,
                                         c.DictionaryCityName,
                                         c.SpeakerName);
+                if (c.HostEmail == var_email) {
+                    dataGridView2.Rows.Add(c.ConferenceName, c.StartDate,
+                                            c.DictionaryConferenceTypeName,
+                                            c.DictionaryConferenceCategoryName,
+                                            c.DictionaryCityName,
+                                            c.SpeakerName); }
             }
             
         }
