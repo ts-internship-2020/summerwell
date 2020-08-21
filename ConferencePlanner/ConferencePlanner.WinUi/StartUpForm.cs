@@ -8,15 +8,17 @@ using System.Runtime;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-
+using ConferencePlanner.Abstraction.Repository;
 namespace ConferencePlanner.WinUi
 {
     
     public partial class StartUpForm : Form
     {
         string var_email = "";
-        public StartUpForm()
+        private readonly IConferenceRepository _ConferenceRepository;
+        public StartUpForm(IConferenceRepository ConferenceRepository)
         {
+            _ConferenceRepository = ConferenceRepository;
             InitializeComponent();
         }
 
@@ -32,11 +34,11 @@ namespace ConferencePlanner.WinUi
             if (em==true)
             {
 
-                //MessageBox.Show("Bine ai venit boss");
+                MessageBox.Show("Welcome");
                 //buton ok
                 var_email = EmailBoss.Text;
                 MessageBox.Show(var_email);
-                MainForm form2 = new MainForm();
+                MainForm form2 = new MainForm(_ConferenceRepository);
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();
@@ -54,7 +56,7 @@ namespace ConferencePlanner.WinUi
                 return true;
             else
             {
-                MessageBox.Show("Email gresit boss");
+                MessageBox.Show("Wrong e-mail format");
                 return false;
             }
         }
