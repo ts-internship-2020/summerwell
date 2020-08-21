@@ -27,7 +27,7 @@ namespace ConferencePlanner.WinUi
                 
             foreach(var c in x)
             {
-                ConferenceGrid.Rows.Add(c.ConferenceName, c.StartDate,
+                dataGridView1.Rows.Add(c.ConferenceName, c.StartDate,
                                         c.DictionaryConferenceTypeName,
                                         c.DictionaryConferenceCategoryName,
                                         c.DictionaryCityName,

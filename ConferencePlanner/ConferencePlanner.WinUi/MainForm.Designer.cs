@@ -34,16 +34,16 @@ namespace ConferencePlanner.WinUi
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ConferenceGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainSpeaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Attend = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Join = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Withdraw = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.AttendButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.JoinButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.WithdrawButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
@@ -64,7 +64,7 @@ namespace ConferencePlanner.WinUi
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConferenceGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -163,22 +163,22 @@ namespace ConferencePlanner.WinUi
             // 
             // AttendButton
             // 
-            this.Attend.HeaderText = "AttendButton";
-            this.Attend.Name = "AttendButton";
-            this.Attend.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Attend.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AttendButton.HeaderText = "AttendButton";
+            this.AttendButton.Name = "AttendButton";
+            this.AttendButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AttendButton.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // JoinButton
             // 
-            this.Join.HeaderText = "JoinButton";
-            this.Join.Name = "JoinButton";
-            this.Join.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.JoinButton.HeaderText = "JoinButton";
+            this.JoinButton.Name = "JoinButton";
+            this.JoinButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // WithdrawButton
             // 
-            this.Withdraw.HeaderText = "WithdrawButton";
-            this.Withdraw.Name = "WithdrawButton";
-            this.Withdraw.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.WithdrawButton.HeaderText = "WithdrawButton";
+            this.WithdrawButton.Name = "WithdrawButton";
+            this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // label2
             // 
@@ -358,7 +358,8 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConferenceGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
@@ -396,16 +397,16 @@ namespace ConferencePlanner.WinUi
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.DataGridView ConferenceGrid;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ConferenceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
         private System.Windows.Forms.DataGridViewTextBoxColumn Location;
         private System.Windows.Forms.DataGridViewTextBoxColumn MainSpeaker;
-        private System.Windows.Forms.DataGridViewButtonColumn Attend;
-        private System.Windows.Forms.DataGridViewButtonColumn Join;
-        private System.Windows.Forms.DataGridViewButtonColumn Withdraw;
+        private System.Windows.Forms.DataGridViewButtonColumn AttendButton;
+        private System.Windows.Forms.DataGridViewButtonColumn JoinButton;
+        private System.Windows.Forms.DataGridViewButtonColumn WithdrawButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
