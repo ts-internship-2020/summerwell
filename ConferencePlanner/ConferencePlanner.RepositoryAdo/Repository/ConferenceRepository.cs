@@ -116,5 +116,15 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
+        public void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = string.Format("INSERT INTO ConferenceAudience " +
+                                    "VALUES({0}, {1}, 1)", _conferenceAudienceModel.ConferenceId,
+                                                            _conferenceAudienceModel.Participant);
+            sqlCommand.ExecuteNonQuery();
+        }
+
+
     }
 }

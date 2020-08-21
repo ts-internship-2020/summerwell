@@ -9,6 +9,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using ConferencePlanner.Abstraction.Repository;
+using System.Data.SqlClient;
+
 namespace ConferencePlanner.WinUi
 {
     

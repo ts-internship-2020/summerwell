@@ -9,7 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using ConferencePlanner.Abstraction.Model;
 namespace ConferencePlanner.WinUi
 {
     public partial class MainForm : Form
@@ -53,9 +53,12 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if(colindex.ToString().Equals("6") && isAttend== false)
                 {
+                    ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel;
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
+                    //_conferenceAudienceModel.ConferenceId = dataGridView1.Rows[e.RowIndex].Cells[0] 
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
+
                 }
                 if (colindex.ToString().Equals("7") && isJoin == false)
                 {
@@ -168,5 +171,6 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+        
     }
 }
