@@ -30,16 +30,16 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ConferenceGrid = new System.Windows.Forms.DataGridView();
             this.ConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainSpeaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttendButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.JoinButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.WithdrawButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Attend = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Join = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Withdraw = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
@@ -49,7 +49,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ConferenceGrid)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +65,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.ConferenceGrid);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.dateTimePicker2);
@@ -78,25 +78,25 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // ConferenceGrid
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ConferenceGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ConferenceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ConferenceGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConferenceName,
-            this.Time,
+            this.StartDate,
             this.Type,
             this.Category,
-            this.Adress,
+            this.Location,
             this.MainSpeaker,
-            this.AttendButton,
-            this.JoinButton,
-            this.WithdrawButton});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 73);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(790, 248);
-            this.dataGridView1.TabIndex = 5;
-            this.dataGridView1.Text = "dataGridView1";
+            this.Attend,
+            this.Join,
+            this.Withdraw});
+            this.ConferenceGrid.Location = new System.Drawing.Point(3, 73);
+            this.ConferenceGrid.Name = "ConferenceGrid";
+            this.ConferenceGrid.Size = new System.Drawing.Size(790, 248);
+            this.ConferenceGrid.TabIndex = 5;
+            this.ConferenceGrid.Text = "dataGridView1";
             // 
             // ConferenceName
             // 
@@ -106,9 +106,9 @@
             // 
             // Time
             // 
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
-            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.StartDate.HeaderText = "Time";
+            this.StartDate.Name = "Time";
+            this.StartDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Type
             // 
@@ -124,9 +124,9 @@
             // 
             // Adress
             // 
-            this.Adress.HeaderText = "Adress";
-            this.Adress.Name = "Adress";
-            this.Adress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Location.HeaderText = "Adress";
+            this.Location.Name = "Adress";
+            this.Location.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // MainSpeaker
             // 
@@ -136,22 +136,22 @@
             // 
             // AttendButton
             // 
-            this.AttendButton.HeaderText = "AttendButton";
-            this.AttendButton.Name = "AttendButton";
-            this.AttendButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AttendButton.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Attend.HeaderText = "AttendButton";
+            this.Attend.Name = "AttendButton";
+            this.Attend.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Attend.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // JoinButton
             // 
-            this.JoinButton.HeaderText = "JoinButton";
-            this.JoinButton.Name = "JoinButton";
-            this.JoinButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Join.HeaderText = "JoinButton";
+            this.Join.Name = "JoinButton";
+            this.Join.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // WithdrawButton
             // 
-            this.WithdrawButton.HeaderText = "WithdrawButton";
-            this.WithdrawButton.Name = "WithdrawButton";
-            this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Withdraw.HeaderText = "WithdrawButton";
+            this.Withdraw.Name = "WithdrawButton";
+            this.Withdraw.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // label2
             // 
@@ -228,7 +228,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ConferenceGrid)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -238,16 +238,16 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView ConferenceGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn ConferenceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Adress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
         private System.Windows.Forms.DataGridViewTextBoxColumn MainSpeaker;
-        private System.Windows.Forms.DataGridViewButtonColumn AttendButton;
-        private System.Windows.Forms.DataGridViewButtonColumn JoinButton;
-        private System.Windows.Forms.DataGridViewButtonColumn WithdrawButton;
+        private System.Windows.Forms.DataGridViewButtonColumn Attend;
+        private System.Windows.Forms.DataGridViewButtonColumn Join;
+        private System.Windows.Forms.DataGridViewButtonColumn Withdraw;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;

@@ -8,7 +8,7 @@ using System.Runtime;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-
+using ConferencePlanner.Abstraction.Repository;
 namespace ConferencePlanner.WinUi
 {
     
@@ -36,10 +36,10 @@ namespace ConferencePlanner.WinUi
                 //buton ok
                 var_email = EmailBoss.Text;
                 MessageBox.Show(var_email);
-                MainForm form2 = new MainForm();
-                form2.Tag = this;
-                form2.Show(this);
-                this.Hide();
+                //MainForm form2 = new MainForm();
+               // form2.Tag = this;
+                //form2.Show(this);
+                //this.Hide();
             }
 
 
