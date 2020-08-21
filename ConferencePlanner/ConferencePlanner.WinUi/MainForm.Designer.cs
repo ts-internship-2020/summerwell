@@ -1,4 +1,7 @@
-﻿namespace ConferencePlanner.WinUi
+﻿using System;
+using System.Windows.Forms;
+
+namespace ConferencePlanner.WinUi
 {
     partial class MainForm
     {
@@ -28,6 +31,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -81,6 +85,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage1.BackgroundImage")));
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
@@ -97,6 +102,7 @@
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConferenceName,
@@ -113,6 +119,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(790, 248);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Text = "dataGridView1";
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // ConferenceName
             // 
@@ -168,6 +175,7 @@
             this.WithdrawButton.HeaderText = "WithdrawButton";
             this.WithdrawButton.Name = "WithdrawButton";
             this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            changeColor();
             // 
             // label2
             // 
@@ -353,6 +361,32 @@
 
         }
 
+        private void changeColor()
+        {
+            // 
+            // Button color
+            // 
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[6]);
+                bc.FlatStyle = FlatStyle.Flat;
+                bc.Style.BackColor = System.Drawing.Color.Green;
+                bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
+            }
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
+                bc.FlatStyle = FlatStyle.Flat;
+                bc.Style.BackColor = System.Drawing.Color.Red;
+                bc.Style.ForeColor = System.Drawing.Color.DarkRed;
+
+                DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
+                bc1.FlatStyle = FlatStyle.Flat;
+                bc1.Style.BackColor = System.Drawing.Color.Red;
+                bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+            }
+        }
+
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
@@ -387,4 +421,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn HostAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn HostMainSpeaker;
     }
+
 }
