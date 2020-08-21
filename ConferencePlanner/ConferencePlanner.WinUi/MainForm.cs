@@ -14,6 +14,10 @@ namespace ConferencePlanner.WinUi
     {
         private readonly IGetDemoRepository _getDemoRepository;
 
+        public MainForm()
+        {
+        }
+
         public MainForm(IGetDemoRepository getDemoRepository)
         {
             _getDemoRepository = getDemoRepository;
