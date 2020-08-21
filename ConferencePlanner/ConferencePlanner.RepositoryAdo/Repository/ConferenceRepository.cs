@@ -53,7 +53,6 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferences;
         }
-
         public List<ConferenceDetailModel> GetConferenceDetail()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();

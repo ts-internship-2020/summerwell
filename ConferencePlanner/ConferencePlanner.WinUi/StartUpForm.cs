@@ -15,8 +15,10 @@ namespace ConferencePlanner.WinUi
     public partial class StartUpForm : Form
     {
         string var_email = "";
-        public StartUpForm()
+        private readonly IConferenceRepository _ConferenceRepository;
+        public StartUpForm(IConferenceRepository ConferenceRepository)
         {
+            _ConferenceRepository = ConferenceRepository;
             InitializeComponent();
         }
 
@@ -36,10 +38,10 @@ namespace ConferencePlanner.WinUi
                 //buton ok
                 var_email = EmailBoss.Text;
                 MessageBox.Show(var_email);
-                //MainForm form2 = new MainForm();
-               // form2.Tag = this;
-                //form2.Show(this);
-                //this.Hide();
+                MainForm form2 = new MainForm(_ConferenceRepository);
+                form2.Tag = this;
+                form2.Show(this);
+                this.Hide();
             }
 
 
