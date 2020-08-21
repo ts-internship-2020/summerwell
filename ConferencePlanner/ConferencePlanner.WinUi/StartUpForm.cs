@@ -34,7 +34,7 @@ namespace ConferencePlanner.WinUi
             if (em==true)
             {
 
-                //MessageBox.Show("Bine ai venit boss");
+                MessageBox.Show("Welcome");
                 //buton ok
                 var_email = EmailBoss.Text;
                 MessageBox.Show(var_email);
@@ -56,7 +56,7 @@ namespace ConferencePlanner.WinUi
                 return true;
             else
             {
-                MessageBox.Show("Email gresit boss");
+                MessageBox.Show("Wrong e-mail format");
                 return false;
             }
         }
