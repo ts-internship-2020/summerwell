@@ -53,7 +53,7 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if(colindex.ToString().Equals("6") && isAttend== false)
                 {
-                    ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel;
+                    ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel();
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     //_conferenceAudienceModel.ConferenceId = dataGridView1.Rows[e.RowIndex].Cells[0] 
