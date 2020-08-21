@@ -74,5 +74,10 @@ namespace ConferencePlanner.WinUi
         {
             var senderGrid = (DataGridView)sender;
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
