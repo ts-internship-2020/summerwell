@@ -21,14 +21,5 @@ namespace ConferencePlanner.WinUi
             InitializeComponent();
             
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var x = _getDemoRepository.GetDemo("hello");
-
-            label1.Text = x.FirstOrDefault().Name;
-            listBox1.DataSource = x;
-            listBox1.DisplayMember = "Name";
-        }
     }
 }
