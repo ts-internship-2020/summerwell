@@ -9,7 +9,7 @@ namespace ConferencePlanner.Abstraction.Repository
     {
         List<ConferenceModel> GetConference();
         List<ConferenceDetailModel> GetConferenceDetail();
-       // List<ConferenceModel> GetConference(string email);
-       // List<ConferenceModel> GetConference(DateTime StartDate);
+        // List<ConferenceModel> GetConference(string email);
+        // List<ConferenceModel> GetConference(DateTime StartDate);
     }
 }
