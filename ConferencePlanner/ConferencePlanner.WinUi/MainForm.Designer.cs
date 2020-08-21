@@ -104,7 +104,8 @@ namespace ConferencePlanner.WinUi
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(668, 19);
+            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.button3.Location = new System.Drawing.Point(636, 19);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(79, 36);
             this.button3.TabIndex = 7;
@@ -374,7 +375,7 @@ namespace ConferencePlanner.WinUi
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(815, 386);
             this.Controls.Add(this.tabControl1);
-            this.MinimumSize = new System.Drawing.Size(700, 400);
+            this.MinimumSize = new System.Drawing.Size(780, 400);
             this.Name = "MainForm";
             this.Text = "Home";
             this.Load += new System.EventHandler(this.MainForm_Load);

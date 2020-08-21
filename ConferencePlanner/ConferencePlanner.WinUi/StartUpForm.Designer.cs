@@ -32,11 +32,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.EmailBoss = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.EmailLabel = new System.Windows.Forms.Label();
             titlu = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // titlu
             // 
+            titlu.Anchor = System.Windows.Forms.AnchorStyles.Top;
             titlu.AutoSize = true;
             titlu.BackColor = System.Drawing.Color.Transparent;
             titlu.Font = new System.Drawing.Font("Rockwell", 27.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
@@ -50,10 +52,12 @@
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button1.ForeColor = System.Drawing.Color.IndianRed;
             this.button1.Location = new System.Drawing.Point(168, 238);
+            this.button1.MinimumSize = new System.Drawing.Size(187, 72);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(187, 72);
             this.button1.TabIndex = 0;
@@ -66,6 +70,7 @@
             // 
             this.EmailBoss.AccessibleDescription = "";
             this.EmailBoss.AccessibleName = "";
+            this.EmailBoss.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.EmailBoss.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.EmailBoss.ForeColor = System.Drawing.Color.DimGray;
             this.EmailBoss.Location = new System.Drawing.Point(161, 141);
@@ -85,17 +90,31 @@
             this.label1.Text = "Invalid E-mail";
             this.label1.Click += new System.EventHandler(this.label1_Click_2);
             // 
+            // EmailLabel
+            // 
+            this.EmailLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.EmailLabel.AutoSize = true;
+            this.EmailLabel.Location = new System.Drawing.Point(208, 173);
+            this.EmailLabel.Name = "EmailLabel";
+            this.EmailLabel.Size = new System.Drawing.Size(104, 15);
+            this.EmailLabel.TabIndex = 3;
+            this.EmailLabel.Text = "Please Insert Email";
+            this.EmailLabel.Visible = false;
+            this.EmailLabel.Click += new System.EventHandler(this.label2_Click);
+            // 
             // StartUpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FloralWhite;
             this.ClientSize = new System.Drawing.Size(572, 387);
+            this.Controls.Add(this.EmailLabel);
             this.Controls.Add(titlu);
             this.Controls.Add(this.EmailBoss);
             this.Controls.Add(this.button1);
+            this.MinimumSize = new System.Drawing.Size(588, 426);
             this.Name = "StartUpForm";
-            this.Text = "StartUpForm";
+            this.Text = "Welcome";
             this.Load += new System.EventHandler(this.StartUpForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -108,5 +127,6 @@
         private System.Windows.Forms.TextBox EmailBoss;
         private System.Windows.Forms.Label titlu;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label EmailLabel;
     }
 }

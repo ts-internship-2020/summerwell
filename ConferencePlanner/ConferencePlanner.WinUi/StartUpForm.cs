@@ -34,15 +34,17 @@ namespace ConferencePlanner.WinUi
             if (em==true)
             {
 
-                MessageBox.Show("Welcome");
+                //MessageBox.Show("Welcome");
                 //buton ok
                 var_email = EmailBoss.Text;
-                MessageBox.Show(var_email);
+                //MessageBox.Show(var_email);
+                
                 MainForm form2 = new MainForm(_ConferenceRepository,var_email);
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();
             }
+            
 
 
         }
@@ -56,7 +58,7 @@ namespace ConferencePlanner.WinUi
                 return true;
             else
             {
-                MessageBox.Show("Wrong e-mail format");
+                EmailLabel.Show();
                 return false;
             }
         }
@@ -83,6 +85,11 @@ namespace ConferencePlanner.WinUi
         }
 
         private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
