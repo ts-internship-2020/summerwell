@@ -45,12 +45,24 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.HostConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostStartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostMainSpeaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -62,6 +74,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(804, 453);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -75,7 +88,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(796, 425);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Conferences";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -189,24 +202,107 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.listBox1);
+            this.tabPage2.Controls.Add(this.dataGridView2);
+            this.tabPage2.Controls.Add(this.dateTimePicker4);
+            this.tabPage2.Controls.Add(this.dateTimePicker3);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(796, 425);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Host";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // dataGridView2
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(10, 15);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(776, 334);
-            this.listBox1.TabIndex = 1;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.HostConferenceName,
+            this.HostStartDate,
+            this.HostEndDate,
+            this.HostType,
+            this.HostCategory,
+            this.HostAddress,
+            this.HostMainSpeaker});
+            this.dataGridView2.Location = new System.Drawing.Point(3, 73);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(790, 248);
+            this.dataGridView2.TabIndex = 5;
+            this.dataGridView2.Text = "dataGridView2";
+            // 
+            // HostConferenceName
+            // 
+            this.HostConferenceName.HeaderText = "Conference Name";
+            this.HostConferenceName.Name = "HostConferenceName";
+            // 
+            // HostStartDate
+            // 
+            this.HostStartDate.HeaderText = "Start Date";
+            this.HostStartDate.Name = "HostStartDate";
+            // 
+            // HostEndDate
+            // 
+            this.HostEndDate.HeaderText = "End Date";
+            this.HostEndDate.Name = "HostEndDate";
+            // 
+            // HostType
+            // 
+            this.HostType.HeaderText = "Type";
+            this.HostType.Name = "HostType";
+            // 
+            // HostCategory
+            // 
+            this.HostCategory.HeaderText = "Category";
+            this.HostCategory.Name = "HostCategory";
+            // 
+            // HostAddress
+            // 
+            this.HostAddress.HeaderText = "Address";
+            this.HostAddress.Name = "HostAddress";
+            // 
+            // HostMainSpeaker
+            // 
+            this.HostMainSpeaker.HeaderText = "Main Speaker";
+            this.HostMainSpeaker.Name = "HostMainSpeaker";
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.Location = new System.Drawing.Point(501, 32);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePicker4.TabIndex = 4;
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.Location = new System.Drawing.Point(101, 32);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePicker3.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(459, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(27, 20);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "To";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(49, 35);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "From";
             // 
             // button2
             // 
@@ -214,7 +310,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(168, 39);
             this.button2.TabIndex = 0;
-            this.button2.Text = "button2";
+            this.button2.Text = "Add Event";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // MainForm
@@ -224,12 +320,14 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tabControl1);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Home";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -254,7 +352,18 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HostConferenceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HostStartDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HostEndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HostType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HostCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HostAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HostMainSpeaker;
     }
 }
