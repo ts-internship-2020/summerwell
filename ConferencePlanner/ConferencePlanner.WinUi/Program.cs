@@ -23,7 +23,7 @@ namespace ConferencePlanner.WinUi
             Application.SetCompatibleTextRenderingDefault(false);
             ConfigureServices();
 
-            Application.Run(ServiceProvider.GetService<MainForm>());
+            Application.Run(ServiceProvider.GetService<StartUpForm>());
         }
 
 
@@ -32,7 +32,7 @@ namespace ConferencePlanner.WinUi
         static void ConfigureServices()
         {
             var services = new ServiceCollection();
-            services.AddScoped<MainForm>();
+            services.AddScoped<StartUpForm>();
             services.AddScoped<IGetDemoRepository, GetDemoRepository>();
             services.AddSingleton<SqlConnection>(a =>
             {
