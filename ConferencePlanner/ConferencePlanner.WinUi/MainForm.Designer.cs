@@ -34,8 +34,8 @@ namespace ConferencePlanner.WinUi
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,8 +64,8 @@ namespace ConferencePlanner.WinUi
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -87,8 +87,30 @@ namespace ConferencePlanner.WinUi
             // tabPage1
             // 
             this.tabPage1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage1.BackgroundImage")));
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.dateTimePicker2);
+            this.tabPage1.Controls.Add(this.dateTimePicker1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(811, 361);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Conferences";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // ConferenceGrid
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(668, 19);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(79, 36);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
             // 
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -112,28 +134,57 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Text = "dataGridView1";
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.dataGridView1);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.dateTimePicker2);
-            this.tabPage1.Controls.Add(this.dateTimePicker1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(796, 425);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Conferences";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // ConferenceName
             // 
-            this.button3.Location = new System.Drawing.Point(668, 19);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(79, 36);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.ConferenceName.HeaderText = "ConferenceName";
+            this.ConferenceName.Name = "ConferenceName";
+            this.ConferenceName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // StartDate
+            // 
+            this.StartDate.Name = "StartDate";
+            // 
+            // Type
+            // 
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Category
+            // 
+            this.Category.HeaderText = "Category";
+            this.Category.Name = "Category";
+            this.Category.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Location
+            // 
+            this.Location.Name = "Location";
+            // 
+            // MainSpeaker
+            // 
+            this.MainSpeaker.HeaderText = "MainSpeaker";
+            this.MainSpeaker.Name = "MainSpeaker";
+            this.MainSpeaker.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // AttendButton
+            // 
+            this.AttendButton.HeaderText = "AttendButton";
+            this.AttendButton.Name = "AttendButton";
+            this.AttendButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AttendButton.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // JoinButton
+            // 
+            this.JoinButton.HeaderText = "JoinButton";
+            this.JoinButton.Name = "JoinButton";
+            this.JoinButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // WithdrawButton
+            // 
+            this.WithdrawButton.HeaderText = "WithdrawButton";
+            this.WithdrawButton.Name = "WithdrawButton";
+            this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // label2
             // 
@@ -166,14 +217,13 @@ namespace ConferencePlanner.WinUi
             // dateTimePicker1
             // 
             this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(501, 32);
+            this.dateTimePicker1.Location = new System.Drawing.Point(397, 31);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker1.TabIndex = 1;
             // 
             // tabPage2
             // 
-            this.tabPage2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage2.BackgroundImage")));
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.dateTimePicker4);
             this.tabPage2.Controls.Add(this.dateTimePicker3);
@@ -286,43 +336,7 @@ namespace ConferencePlanner.WinUi
             this.label3.TabIndex = 1;
             this.label3.Text = "From";
             // 
-            // ConferenceName
-            // 
-            this.ConferenceName.HeaderText = "ConferenceName";
-            this.ConferenceName.Name = "ConferenceName";
-            this.ConferenceName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // StartTime
-            // 
-            this.StartTime.HeaderText = "StartTime";
-            this.StartTime.Name = "StartTime";
-            this.StartTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Type
-            // 
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Category
-            // 
-            this.Category.HeaderText = "Category";
-            this.Category.Name = "Category";
-            this.Category.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Adress
-            // 
-            this.Adress.HeaderText = "Adress";
-            this.Adress.Name = "Adress";
-            this.Adress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // MainSpeaker
-            // 
-            this.MainSpeaker.HeaderText = "MainSpeaker";
-            this.MainSpeaker.Name = "MainSpeaker";
-            this.MainSpeaker.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // AttendButton
+            // button2
             // 
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button2.Location = new System.Drawing.Point(305, 311);
@@ -333,22 +347,6 @@ namespace ConferencePlanner.WinUi
             this.button2.TabIndex = 0;
             this.button2.Text = "Add Event";
             this.button2.UseVisualStyleBackColor = true;
-            this.AttendButton.HeaderText = "AttendButton";
-            this.AttendButton.Name = "AttendButton";
-            this.AttendButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AttendButton.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // JoinButton
-            // 
-            this.JoinButton.HeaderText = "JoinButton";
-            this.JoinButton.Name = "JoinButton";
-            this.JoinButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // WithdrawButton
-            // 
-            this.WithdrawButton.HeaderText = "WithdrawButton";
-            this.WithdrawButton.Name = "WithdrawButton";
-            this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // MainForm
             // 
@@ -362,40 +360,14 @@ namespace ConferencePlanner.WinUi
             this.Text = "Home";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
-        }
-
-        private void changeColor()
-        {
-            // 
-            // Button color
-            // 
-            for (int i = 0; i < dataGridView1.RowCount; i++)
-            {
-                DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
-                bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Green;
-                bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
-            }
-            for (int i = 0; i < dataGridView1.RowCount; i++)
-            {
-                DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
-                bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Red;
-                bc.Style.ForeColor = System.Drawing.Color.DarkRed;
-
-                DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[9]);
-                bc1.FlatStyle = FlatStyle.Flat;
-                bc1.Style.BackColor = System.Drawing.Color.Red;
-                bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
-            }
         }
 
         #endregion
@@ -424,8 +396,10 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.DataGridViewTextBoxColumn HostMainSpeaker;
         private Button button3;
         private DataGridViewTextBoxColumn ConferenceName;
+        private DataGridViewTextBoxColumn StartDate;
         private DataGridViewTextBoxColumn StartTime;
         private DataGridViewTextBoxColumn Type;
+        private DataGridViewTextBoxColumn Location;
         private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Adress;
         private DataGridViewTextBoxColumn MainSpeaker;

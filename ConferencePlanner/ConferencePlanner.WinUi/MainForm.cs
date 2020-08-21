@@ -33,7 +33,7 @@ namespace ConferencePlanner.WinUi
                                         c.DictionaryCityName,
                                         c.SpeakerName);
             }
-            
+            changeColor();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -45,18 +45,18 @@ namespace ConferencePlanner.WinUi
                 bool isJoin = false;
                 bool inWithdraw = false;
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
-                if(colindex.ToString().Equals("7") && isAttend== false)
+                if(colindex.ToString().Equals("6") && isAttend== false)
                 {
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
                 }
-                if (colindex.ToString().Equals("8") && isJoin == false)
+                if (colindex.ToString().Equals("7") && isJoin == false)
                 {
                     isJoin = true;
                     pressButtonGreen(sender,e.RowIndex, e.ColumnIndex);
                 }
-                if (colindex.ToString().Equals("9") && inWithdraw == false)
+                if (colindex.ToString().Equals("8") && inWithdraw == false)
                 {
                     inWithdraw = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
@@ -96,7 +96,7 @@ namespace ConferencePlanner.WinUi
         private void timer1_Tick(object sender, EventArgs e, object datagrid, int row, int col)
         {
             var senderGrid = (DataGridView)datagrid;
-            if(!(senderGrid.Rows[row].Cells[1].Value.ToString().Equals("") || senderGrid.Rows[row].Cells[1]==null))
+            if (!(senderGrid.Rows[row].Cells[1] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
             {
                 DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
                 DateTime now = DateTime.Now;
@@ -110,6 +110,32 @@ namespace ConferencePlanner.WinUi
                 }
             }
 
+        }
+
+        private void changeColor()
+        {
+            // 
+            // Button color
+            // 
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[6]);
+                bc.FlatStyle = FlatStyle.Flat;
+                bc.Style.BackColor = System.Drawing.Color.Green;
+                bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
+            }
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
+                bc.FlatStyle = FlatStyle.Flat;
+                bc.Style.BackColor = System.Drawing.Color.Red;
+                bc.Style.ForeColor = System.Drawing.Color.DarkRed;
+
+                DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
+                bc1.FlatStyle = FlatStyle.Flat;
+                bc1.Style.BackColor = System.Drawing.Color.Red;
+                bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+            }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
