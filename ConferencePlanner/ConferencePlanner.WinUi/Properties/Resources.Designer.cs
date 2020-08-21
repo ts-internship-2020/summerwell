@@ -59,5 +59,15 @@ namespace ConferencePlanner.WinUi.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blue_crystal_pattern_background_vector_19752502 {
+            get {
+                object obj = ResourceManager.GetObject("blue-crystal-pattern-background-vector-19752502", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
