@@ -57,7 +57,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "select c.ConferenceName, c.StartDate, d.DictionaryConferenceTypeName," +
-                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName " +
+                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail " +
                 "from Conference c " +
                 "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
                 "INNER JOIN Location l on c.LocationId = l.LocationId " +
@@ -77,6 +77,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
                     var conferenceCityName = "";
                     var conferenceCategoryName = "";
                     var conferenceSpeakerName = "";
+                    var conferenceHostEmail = "";
                     if (!sqlDataReader.IsDBNull("ConferenceName"))
                     {
                         conferenceName = sqlDataReader.GetString("ConferenceName");
@@ -97,6 +98,10 @@ namespace ConferencePlanner.Repository.Ado.Repository
                     {
                         conferenceSpeakerName = sqlDataReader.GetString("SpeakerName");
                     }
+                    if (!sqlDataReader.IsDBNull("HostEmail"))
+                    {
+                        conferenceHostEmail = sqlDataReader.GetString("HostEmail");
+                    }
                     conferenceDetails.Add(new ConferenceDetailModel()
                     {
                         ConferenceName = conferenceName,
@@ -104,7 +109,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                         DictionaryConferenceTypeName = conferenceTypeName,
                         DictionaryCityName = conferenceCityName,
                         DictionaryConferenceCategoryName = conferenceCategoryName,
-                        SpeakerName = conferenceSpeakerName
+                        SpeakerName = conferenceSpeakerName,
+                        HostEmail = conferenceHostEmail
                 });
                 }
             }
