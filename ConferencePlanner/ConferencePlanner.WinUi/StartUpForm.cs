@@ -11,8 +11,10 @@ using System.Text.RegularExpressions;
 
 namespace ConferencePlanner.WinUi
 {
+    
     public partial class StartUpForm : Form
     {
+        string var_email = "";
         public StartUpForm()
         {
             InitializeComponent();
@@ -30,13 +32,16 @@ namespace ConferencePlanner.WinUi
             if (em==true)
             {
 
-                MessageBox.Show("Bine ai venit boss");
+                //MessageBox.Show("Bine ai venit boss");
                 //buton ok
+                var_email = EmailBoss.Text;
+                MessageBox.Show(var_email);
                 MainForm form2 = new MainForm();
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();
             }
+
 
         }
 
