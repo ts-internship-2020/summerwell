@@ -22,7 +22,8 @@ namespace ConferencePlanner.WinUi
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            MainForm main = new MainForm();
+            main.Show(this);
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
