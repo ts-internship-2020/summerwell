@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartUpForm));
             this.button1 = new System.Windows.Forms.Button();
             this.EmailBoss = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             titlu = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -73,6 +74,16 @@
             this.EmailBoss.TabIndex = 1;
             this.EmailBoss.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(228, 253);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Invalid E-mail";
+            this.label1.Click += new System.EventHandler(this.label1_Click_2);
+            // 
             // StartUpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -80,6 +91,7 @@
             this.BackColor = System.Drawing.Color.PapayaWhip;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(518, 355);
+            this.Controls.Add(this.label1);
             this.Controls.Add(titlu);
             this.Controls.Add(this.EmailBoss);
             this.Controls.Add(this.button1);
@@ -96,5 +108,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox EmailBoss;
         private System.Windows.Forms.Label titlu;
+        private System.Windows.Forms.Label label1;
     }
 }
