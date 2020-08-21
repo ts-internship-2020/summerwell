@@ -23,22 +23,24 @@ namespace ConferencePlanner.WinUi
                 bool isAttend = false;
                 bool isJoin = false;
                 bool inWithdraw = false;
-                int rowindex = senderGrid.CurrentCell.ColumnIndex;
-                if(rowindex.ToString().Equals("6") && isAttend== false)
+                int colindex = senderGrid.CurrentCell.ColumnIndex;
+                if(colindex.ToString().Equals("7") && isAttend== false)
                 {
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
-                    InitTimer(sender,e, e.RowIndex, e.ColumnIndex);
+                    InitTimer(sender, e.RowIndex, e.ColumnIndex);
                 }
-                if (rowindex.ToString().Equals("7") && isAttend == false)
+                if (colindex.ToString().Equals("8") && isJoin == false)
                 {
                     isJoin = true;
                     pressButtonGreen(sender,e.RowIndex, e.ColumnIndex);
                 }
-                if (rowindex.ToString().Equals("8") && isAttend == false)
+                if (colindex.ToString().Equals("9") && inWithdraw == false)
                 {
                     inWithdraw = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
+                    isAttend = true;
+                    pressButtonGreen(sender, e.RowIndex, e.ColumnIndex-2);
                 }
             }
         }
@@ -62,17 +64,31 @@ namespace ConferencePlanner.WinUi
         }
 
         private Timer timer1;
-        public void InitTimer(object sender, EventArgs e, int row, int col)
+        public void InitTimer(object datagrid, int row, int col)
         {
             timer1 = new Timer();
-            timer1.Tick += (sender,e) => timer1_Tick(sender, e, row, col);
+            timer1.Tick += (sender,e) => timer1_Tick(sender, e, datagrid, row, col);
             timer1.Interval = 10000; // 10 seconds / 10000 MillSecs
             timer1.Start();
         }
 
-        private void timer1_Tick(object sender, EventArgs e, int row, int col)
+        private void timer1_Tick(object sender, EventArgs e, object datagrid, int row, int col)
         {
-            var senderGrid = (DataGridView)sender;
+            var senderGrid = (DataGridView)datagrid;
+            if(!(senderGrid.Rows[row].Cells[1].Value.ToString().Equals("") || senderGrid.Rows[row].Cells[1]==null))
+            {
+                DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+                DateTime now = DateTime.Now;
+                if(startDate.AddMinutes(5) >= now)
+                {
+                    makeButtonGreen(datagrid, row, col+1);
+                }
+                if(DateTime.Now >= now.AddMinutes(5))
+                {
+                    makeButtonGreen(datagrid, row, col + 2);
+                }
+            }
+
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
