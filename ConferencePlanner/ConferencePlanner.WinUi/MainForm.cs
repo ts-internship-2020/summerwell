@@ -1,5 +1,4 @@
-﻿using ConferencePlanner.Abstraction.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,15 +10,6 @@ namespace ConferencePlanner.WinUi
 {
     public partial class MainForm : Form
     {
-        private readonly IGetDemoRepository _getDemoRepository;
-        public MainForm(IGetDemoRepository getDemoRepository)
-        {
-            _getDemoRepository = getDemoRepository;
-
-            InitializeComponent();
-
-        }
-
         public MainForm()
         {
             InitializeComponent();
