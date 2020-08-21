@@ -8,15 +8,17 @@ using System.Runtime;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-
+using ConferencePlanner.Abstraction.Repository;
 namespace ConferencePlanner.WinUi
 {
     
     public partial class StartUpForm : Form
     {
-        static string current_user = "";
-        public StartUpForm()
+        string var_email = "";
+        private readonly IConferenceRepository _ConferenceRepository;
+        public StartUpForm(IConferenceRepository ConferenceRepository)
         {
+            _ConferenceRepository = ConferenceRepository;
             InitializeComponent();
         }
 
@@ -34,9 +36,9 @@ namespace ConferencePlanner.WinUi
 
                 MessageBox.Show("Welcome");
                 //buton ok
-                current_user = EmailBoss.Text;
-                MessageBox.Show(current_user);
-                MainForm form2 = new MainForm();
+                var_email = EmailBoss.Text;
+                MessageBox.Show(var_email);
+                MainForm form2 = new MainForm(_ConferenceRepository);
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();

@@ -34,12 +34,12 @@ namespace ConferencePlanner.WinUi
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ConferenceGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MainSpeaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.JoinButton = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -65,7 +65,7 @@ namespace ConferencePlanner.WinUi
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConferenceGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -111,10 +111,10 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConferenceName,
-            this.Time,
+            this.StartDate,
             this.Type,
             this.Category,
-            this.Adress,
+            this.Location,
             this.MainSpeaker,
             this.AttendButton,
             this.JoinButton,
@@ -135,9 +135,9 @@ namespace ConferencePlanner.WinUi
             // 
             // Time
             // 
-            this.Time.HeaderText = "Time";
-            this.Time.Name = "Time";
-            this.Time.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.StartDate.HeaderText = "Time";
+            this.StartDate.Name = "Time";
+            this.StartDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Type
             // 
@@ -153,9 +153,9 @@ namespace ConferencePlanner.WinUi
             // 
             // Adress
             // 
-            this.Adress.HeaderText = "Adress";
-            this.Adress.Name = "Adress";
-            this.Adress.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Location.HeaderText = "Adress";
+            this.Location.Name = "Adress";
+            this.Location.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // MainSpeaker
             // 
@@ -377,7 +377,8 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConferenceGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
@@ -417,10 +418,10 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ConferenceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Adress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
         private System.Windows.Forms.DataGridViewTextBoxColumn MainSpeaker;
         private System.Windows.Forms.DataGridViewButtonColumn AttendButton;
         private System.Windows.Forms.DataGridViewButtonColumn JoinButton;
