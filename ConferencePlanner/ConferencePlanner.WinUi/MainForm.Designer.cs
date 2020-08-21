@@ -22,17 +22,6 @@ namespace ConferencePlanner.WinUi
             base.Dispose(disposing);
         }
 
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoryName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Adress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Speaker;
-        private System.Windows.Forms.DataGridViewButtonColumn AttendButton;
-        private System.Windows.Forms.DataGridViewButtonColumn JoinButton;
-        private System.Windows.Forms.DataGridViewButtonColumn WithdrawButton;
-        private System.Windows.Forms.DataGridView dataGridView1;
-
         private void Form1_Load(object sender, System.EventArgs e)
         {
             // Configure the details DataGridView so that its columns automatically
@@ -41,9 +30,22 @@ namespace ConferencePlanner.WinUi
                 DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
-        private Label label1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn ConferenceName;
+        private DataGridViewTextBoxColumn Time;
+        private DataGridViewTextBoxColumn Type;
+        private DataGridViewTextBoxColumn Category;
+        private DataGridViewTextBoxColumn Adress;
+        private DataGridViewTextBoxColumn MainSpeaker;
+        private DataGridViewTextBoxColumn AttendButton;
+        private DataGridViewTextBoxColumn JoinButton;
+        private DataGridViewTextBoxColumn WithdrawButton;
         private Label label2;
+        private Label label1;
+        private DateTimePicker dateTimePicker2;
+        private DateTimePicker dateTimePicker1;
+        private TabPage tabPage2;
     }
 }
