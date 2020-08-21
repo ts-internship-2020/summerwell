@@ -414,13 +414,6 @@ namespace ConferencePlanner.WinUi
         private DataGridViewTextBoxColumn HostAddress;
         private DataGridViewTextBoxColumn HostMainSpeaker;
         private DataGridViewButtonColumn HostEditButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HostConferenceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HostStartDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HostEndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HostType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HostCategory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HostAddress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HostMainSpeaker;
         private Button button3;
         private DataGridViewTextBoxColumn ConferenceName;
         private DataGridViewTextBoxColumn StartDate;
