@@ -50,6 +50,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnAddEvent = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.HostConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HostStartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,7 +64,6 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -104,7 +104,7 @@ namespace ConferencePlanner.WinUi
             // 
             // button3
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button3.Location = new System.Drawing.Point(636, 19);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(79, 36);
@@ -191,6 +191,7 @@ namespace ConferencePlanner.WinUi
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(49, 35);
@@ -201,7 +202,7 @@ namespace ConferencePlanner.WinUi
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(352, 34);
@@ -212,6 +213,7 @@ namespace ConferencePlanner.WinUi
             // 
             // dateTimePicker2
             // 
+            this.dateTimePicker2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dateTimePicker2.Location = new System.Drawing.Point(101, 32);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 23);
@@ -219,7 +221,7 @@ namespace ConferencePlanner.WinUi
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dateTimePicker1.Location = new System.Drawing.Point(397, 31);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
@@ -228,6 +230,7 @@ namespace ConferencePlanner.WinUi
             // tabPage2
             // 
             this.tabPage2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage2.BackgroundImage")));
+            this.tabPage2.Controls.Add(this.btnAddEvent);
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.dateTimePicker4);
             this.tabPage2.Controls.Add(this.dateTimePicker3);
@@ -241,6 +244,16 @@ namespace ConferencePlanner.WinUi
             this.tabPage2.Text = "Host";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // btnAddEvent
+            // 
+            this.btnAddEvent.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnAddEvent.Location = new System.Drawing.Point(259, 311);
+            this.btnAddEvent.Name = "btnAddEvent";
+            this.btnAddEvent.Size = new System.Drawing.Size(285, 39);
+            this.btnAddEvent.TabIndex = 6;
+            this.btnAddEvent.Text = "Add Event";
+            this.btnAddEvent.UseVisualStyleBackColor = true;
             // 
             // dataGridView2
             // 
@@ -319,8 +332,8 @@ namespace ConferencePlanner.WinUi
             // 
             // dateTimePicker4
             // 
-            this.dateTimePicker4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker4.Location = new System.Drawing.Point(501, 32);
+            this.dateTimePicker4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTimePicker4.Location = new System.Drawing.Point(397, 31);
             this.dateTimePicker4.MaximumSize = new System.Drawing.Size(200, 23);
             this.dateTimePicker4.MinimumSize = new System.Drawing.Size(200, 23);
             this.dateTimePicker4.Name = "dateTimePicker4";
@@ -329,6 +342,7 @@ namespace ConferencePlanner.WinUi
             // 
             // dateTimePicker3
             // 
+            this.dateTimePicker3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dateTimePicker3.Location = new System.Drawing.Point(101, 32);
             this.dateTimePicker3.MaximumSize = new System.Drawing.Size(200, 23);
             this.dateTimePicker3.MinimumSize = new System.Drawing.Size(200, 23);
@@ -338,10 +352,10 @@ namespace ConferencePlanner.WinUi
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(459, 34);
+            this.label4.Location = new System.Drawing.Point(352, 34);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 20);
             this.label4.TabIndex = 2;
@@ -349,6 +363,7 @@ namespace ConferencePlanner.WinUi
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(49, 35);
@@ -356,18 +371,6 @@ namespace ConferencePlanner.WinUi
             this.label3.Size = new System.Drawing.Size(46, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "From";
-            // 
-            // button2
-            // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button2.Location = new System.Drawing.Point(305, 311);
-            this.button2.MaximumSize = new System.Drawing.Size(168, 39);
-            this.button2.MinimumSize = new System.Drawing.Size(168, 39);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(168, 39);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Add Event";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -400,9 +403,7 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimePicker4;
@@ -428,6 +429,7 @@ namespace ConferencePlanner.WinUi
         private DataGridViewButtonColumn AttendButton;
         private DataGridViewButtonColumn JoinButton;
         private DataGridViewButtonColumn WithdrawButton;
+        private Button btnAddEvent;
     }
 
 }
