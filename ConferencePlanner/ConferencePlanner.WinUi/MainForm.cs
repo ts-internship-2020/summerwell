@@ -41,7 +41,7 @@ namespace ConferencePlanner.WinUi
             }
             changeColor();
         }
-
+        
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
@@ -73,8 +73,9 @@ namespace ConferencePlanner.WinUi
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex-2);
                 }
             }
-        }
 
+        }
+        
         private void pressButtonGreen(object sender,int row, int col)
         {
             var senderGrid = (DataGridView)sender;
@@ -154,6 +155,7 @@ namespace ConferencePlanner.WinUi
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+          
 
         }
 
@@ -171,6 +173,66 @@ namespace ConferencePlanner.WinUi
         {
 
         }
-        
+
+        private void dataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            {
+
+                if (dataGridView2.CurrentCell == null)
+                {
+
+                    MessageBox.Show("namdate??");
+                    //textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString();
+                    // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
+                }
+                try
+                {
+                    MainSpeakerDetails mf = new MainSpeakerDetails();
+                    mf.textBox1.Text = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
+                    mf.textBox2.Text = this.dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                    mf.textBox3.Text = this.dataGridView2.CurrentRow.Cells[2].Value.ToString();
+                    mf.textBox4.Text = this.dataGridView2.CurrentRow.Cells[3].Value.ToString();
+                    mf.textBox5.Text = this.dataGridView2.CurrentRow.Cells[4].Value.ToString();
+                    mf.textBox6.Text = this.dataGridView2.CurrentRow.Cells[5].Value.ToString();
+                 
+                    mf.ShowDialog();
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBox.Show("You cannot process an empty cell");
+                }
+            }
+
+
+        }
+
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (dataGridView1.CurrentCell == null)
+            {
+
+                MessageBox.Show("namdate??");
+                //textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString();
+               // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
+            }
+            try
+            {
+                MainSpeakerDetails mf = new MainSpeakerDetails();
+                mf.textBox1.Text = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                mf.textBox2.Text = this.dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                mf.textBox3.Text = this.dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                mf.textBox4.Text = this.dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                mf.textBox5.Text = this.dataGridView1.CurrentRow.Cells[4].Value.ToString();
+                mf.textBox6.Text = this.dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                //mf.textBox7.Text = this.dataGridView1.CurrentRow.Cells[6].Value.ToString();
+                //mf.textBox8.Text = this.dataGridView1.CurrentRow.Cells[7].Value.ToString();
+                mf.ShowDialog();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("You cannot process an empty cell");
+            }
+        }
     }
 }
