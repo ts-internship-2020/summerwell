@@ -12,7 +12,6 @@ namespace ConferencePlanner.WinUi
 {
     static class Program
     {
-        //public static SqlConnection sqlConn;
 
         /// <summary>
         ///  The main entry point for the application.
@@ -42,7 +41,6 @@ namespace ConferencePlanner.WinUi
             {
                 SqlConnection sqlConnection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString);
                 sqlConnection.Open();
-                //sqlConn = sqlConnection;
                 return sqlConnection;
             });
             ServiceProvider = services.BuildServiceProvider();

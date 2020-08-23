@@ -34,6 +34,8 @@ namespace ConferencePlanner.WinUi
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,6 +91,8 @@ namespace ConferencePlanner.WinUi
             // tabPage1
             // 
             this.tabPage1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage1.BackgroundImage")));
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.label2);
@@ -103,6 +107,26 @@ namespace ConferencePlanner.WinUi
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conferences";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(683, 492);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(129, 46);
+            this.button2.TabIndex = 9;
+            this.button2.Text = ">";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.nextPage);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(395, 490);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(127, 48);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "<";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.previousPage);
             // 
             // button3
             // 
@@ -134,11 +158,11 @@ namespace ConferencePlanner.WinUi
             this.JoinButton,
             this.WithdrawButton});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 110);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 99);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.Size = new System.Drawing.Size(1208, 416);
+            this.dataGridView1.Size = new System.Drawing.Size(1201, 368);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Text = "dataGridView1";
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -273,6 +297,7 @@ namespace ConferencePlanner.WinUi
             this.btnAddEvent.TabIndex = 6;
             this.btnAddEvent.Text = "Add Event";
             this.btnAddEvent.UseVisualStyleBackColor = true;
+            this.btnAddEvent.Click += new System.EventHandler(this.btnAddEvent_Click);
             // 
             // dataGridView2
             // 
@@ -465,6 +490,8 @@ namespace ConferencePlanner.WinUi
         private DataGridViewButtonColumn JoinButton;
         private DataGridViewButtonColumn WithdrawButton;
         private Button btnAddEvent;
+        private Button button2;
+        private Button button1;
     }
 
 }
