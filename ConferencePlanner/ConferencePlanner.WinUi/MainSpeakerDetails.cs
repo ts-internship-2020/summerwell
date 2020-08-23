@@ -42,20 +42,17 @@ namespace ConferencePlanner.WinUi
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)
-        {   /*
-            if(textBox7.Text!="")
-            { 
-            SqlCommand cmd = new SqlCommand("Select Rating,Nationality from Speaker");
-            cmd.Parameters.AddWithValue("@Rating", string.Parse(textBox7.Text));
-            SqlDataReader da = cmd.ExecuteReader();
-            while (da.Read())
-            {
-                textBox8.Text = da.GetValue(0).ToString();
-                //textBox9.Text = da.GetValue(1).ToString();
-            }
-            }
-            */
+        {  
         }
-            
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainSpeakerDetails_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ConferencePlanner.Abstraction.Model;
+using System.Data.SqlClient;
+
 namespace ConferencePlanner.WinUi
 {
     public partial class MainForm : Form
@@ -186,7 +188,9 @@ namespace ConferencePlanner.WinUi
                     // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
                 }
                 try
-                {
+                { 
+
+
                     MainSpeakerDetails mf = new MainSpeakerDetails();
                     mf.textBox1.Text = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
                     mf.textBox2.Text = this.dataGridView2.CurrentRow.Cells[1].Value.ToString();
@@ -194,6 +198,8 @@ namespace ConferencePlanner.WinUi
                     mf.textBox4.Text = this.dataGridView2.CurrentRow.Cells[3].Value.ToString();
                     mf.textBox5.Text = this.dataGridView2.CurrentRow.Cells[4].Value.ToString();
                     mf.textBox6.Text = this.dataGridView2.CurrentRow.Cells[5].Value.ToString();
+
+                  
                  
                     mf.ShowDialog();
                 }
@@ -209,6 +215,8 @@ namespace ConferencePlanner.WinUi
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
+            
+
             if (dataGridView1.CurrentCell == null)
             {
 
@@ -218,6 +226,29 @@ namespace ConferencePlanner.WinUi
             }
             try
             {
+
+                string rating = "";
+                string nationality = "";
+
+                SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("Select Rating, Nationality from Speaker where SpeakerName=@name", conn);
+                command.Parameters.AddWithValue("@name", this.dataGridView1.CurrentRow.Cells[5].Value.ToString());
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        rating = String.Format("{0}", reader["Rating"]);
+                        nationality = String.Format("{0}", reader["Nationality"]);
+
+                    }
+                }
+
+                conn.Close();
+
+
                 MainSpeakerDetails mf = new MainSpeakerDetails();
                 mf.textBox1.Text = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 mf.textBox2.Text = this.dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -225,8 +256,8 @@ namespace ConferencePlanner.WinUi
                 mf.textBox4.Text = this.dataGridView1.CurrentRow.Cells[3].Value.ToString();
                 mf.textBox5.Text = this.dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 mf.textBox6.Text = this.dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                //mf.textBox7.Text = this.dataGridView1.CurrentRow.Cells[6].Value.ToString();
-                //mf.textBox8.Text = this.dataGridView1.CurrentRow.Cells[7].Value.ToString();
+                mf.textBox7.Text = rating;
+                mf.textBox8.Text = nationality;
                 mf.ShowDialog();
             }
             catch (NullReferenceException)
