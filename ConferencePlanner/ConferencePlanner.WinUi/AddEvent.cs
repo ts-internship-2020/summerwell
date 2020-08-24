@@ -45,7 +45,6 @@ namespace ConferencePlanner.WinUi
             AddName.Text = ConferenceName;
             AddType.SelectedItem = Type;
             AddCategory.SelectedItem = Category;
-            AddAddress.SelectedItem = Address;
             AddMainSpeaker.SelectedItem = MainSpeaker;
             AddStartDate.Value = StartDate;
             AddEndDate.Value = EndDate;
@@ -82,7 +81,56 @@ namespace ConferencePlanner.WinUi
 
         private void button1_Click(object sender, EventArgs e)
         {
+            tabControl1.SelectTab("tabPage6");
+        }
+        private void btnNext1_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage2");
+        }
 
+        private void btnNext2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage3");
+        }
+        private void btnNext3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage4");
+        }
+        private void btnNext4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage5");
+        }
+        private void btnNext5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage8");
+        }
+        private void btnNext6_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage9");
+        }
+        private void btnBack2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage1");
+        }
+        private void btnBack3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage2");
+        }
+        private void btnBack4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage3");
+        }
+        private void btnBack5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage6");
+        }
+        private void btnBack6_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage7");
+        }
+        private void btnBack7_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage8");
         }
 
         private void tabPage6_Click(object sender, EventArgs e)
@@ -91,11 +139,6 @@ namespace ConferencePlanner.WinUi
         }
 
         private void tabPage7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnNext1_Click(object sender, EventArgs e)
         {
 
         }
@@ -113,6 +156,18 @@ namespace ConferencePlanner.WinUi
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage4");
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage7");
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectTab("tabPage5");
         }
     }
 }
