@@ -79,7 +79,7 @@ namespace ConferencePlanner.WinUi
                                         x[i].SpeakerName, null, null, null, x[i].ConferenceId);
                 if (x[i].HostEmail == currentUser)
                 {
-                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,
+                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,x[i].EndDate,
                                             x[i].DictionaryConferenceTypeName,
                                             x[i].DictionaryConferenceCategoryName,
                                             x[i].DictionaryCityName,
@@ -206,7 +206,24 @@ namespace ConferencePlanner.WinUi
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-          
+            var senderGrid = (DataGridView)sender;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                int colindex = senderGrid.CurrentCell.ColumnIndex;
+                if (colindex.ToString().Equals("7"))
+                {
+                    AddEvent form3 = new AddEvent(_ConferenceRepository, currentUser,
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value,
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value,
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value, 
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostAddress"].Value, 
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostMainSpeaker"].Value,
+                        (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostStartDate"].Value,
+                        (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostEndDate"].Value);
+                    form3.Tag = this;
+                    form3.Show(this);
+                }
+            }
 
         }
 
@@ -316,11 +333,14 @@ namespace ConferencePlanner.WinUi
         }
 
         private void btnAddEvent_Click(object sender, EventArgs e)
-        { 
-
-            AddEvent form3 = new AddEvent();
-            form3.Tag = this;
-            form3.Show(this);
+        {
+            
+                    DateTime localDate = DateTime.Now;
+                    AddEvent form3 = new AddEvent(_ConferenceRepository, currentUser, null, null, null, null, null, localDate, localDate);
+                    form3.Tag = this;
+                    form3.Show(this);
+                
+            
         }
 
         private void button2_Click(object sender, EventArgs e)

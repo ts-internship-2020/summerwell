@@ -56,7 +56,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public List<ConferenceDetailModel> GetConferenceDetail()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate, d.DictionaryConferenceTypeName," +
+            sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
                 " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail " +
                 "from Conference c " +
                 "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
@@ -106,6 +106,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
                     {
                         ConferenceName = conferenceName,
                         StartDate = sqlDataReader.GetDateTime("StartDate"),
+                        EndDate = sqlDataReader.GetDateTime("EndDate"),
                         DictionaryConferenceTypeName = conferenceTypeName,
                         DictionaryCityName = conferenceCityName,
                         DictionaryConferenceCategoryName = conferenceCategoryName,
