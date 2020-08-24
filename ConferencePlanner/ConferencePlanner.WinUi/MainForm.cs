@@ -103,6 +103,7 @@ namespace ConferencePlanner.WinUi
                     MessageBox.Show(currentUser);
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
+                    //zx
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
