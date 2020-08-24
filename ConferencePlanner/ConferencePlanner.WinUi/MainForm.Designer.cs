@@ -412,6 +412,8 @@ namespace ConferencePlanner.WinUi
             // 
             this.HostConferenceId.HeaderText = "Conference Id";
             this.HostConferenceId.Name = "HostConferenceId";
+            this.HostConferenceId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.HostConferenceId.Visible = false;
             // 
             // HostStartDate
             // 
