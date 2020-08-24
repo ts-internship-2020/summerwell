@@ -73,16 +73,30 @@ namespace ConferencePlanner.WinUi
                                         x[i].SpeakerName, null, null, null, x[i].ConferenceId);
                 if (x[i].HostEmail == currentUser)
                 {
-                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,x[i].EndDate,
+                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
                                             x[i].DictionaryConferenceTypeName,
                                             x[i].DictionaryConferenceCategoryName,
                                             x[i].DictionaryCityName,
                                             x[i].SpeakerName, null, null, null, x[i].ConferenceId);
                 }
             }
-
-
         }
+            private void populateGridViewByDate(int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
+            {
+                for (int i = startingPoint; i < endingPoint; i++)
+                {
+                    if (x[i].HostEmail == currentUser && x[i].StartDate > StartDate && x[i].EndDate < EndDate)
+                    {
+                        dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
+                                                x[i].DictionaryConferenceTypeName,
+                                                x[i].DictionaryConferenceCategoryName,
+                                                x[i].DictionaryCityName,
+                                                x[i].SpeakerName, null, null, null, x[i].ConferenceId);
+                    }
+                }
+
+
+            }
     
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -247,6 +261,7 @@ namespace ConferencePlanner.WinUi
 
         }
 
+
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
@@ -393,6 +408,12 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+        private void btnHostSearch_Click(object sender, EventArgs e)
+        {
+            dataGridView2.Rows.Clear();
+            populateGridViewByDate(0,5,dateTimePicker4.Value,dateTimePicker3.Value);
+
+        }
 
         private void previousPage(object sender, EventArgs e)
         {
@@ -456,11 +477,6 @@ namespace ConferencePlanner.WinUi
 
         }
 
-        private void btnNextHost_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
             DateTime toDate = DateTime.ParseExact(this.dateTimePicker1.Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
@@ -480,8 +496,10 @@ namespace ConferencePlanner.WinUi
             }
             changeColor();
         }
+        
 
     }
+
 
 
 }
