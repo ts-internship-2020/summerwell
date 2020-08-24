@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEvent));
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.AddStartDate = new System.Windows.Forms.DateTimePicker();
+            this.AddEndDate = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,29 +38,30 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.AddName = new System.Windows.Forms.TextBox();
+            this.AddType = new System.Windows.Forms.ComboBox();
+            this.AddCategory = new System.Windows.Forms.ComboBox();
+            this.AddAddress = new System.Windows.Forms.ComboBox();
+            this.AddMainSpeaker = new System.Windows.Forms.ComboBox();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // AddStartDate
             // 
-            this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dateTimePicker1.Location = new System.Drawing.Point(443, 48);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker1.TabIndex = 5;
+            this.AddStartDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddStartDate.Location = new System.Drawing.Point(443, 48);
+            this.AddStartDate.Name = "AddStartDate";
+            this.AddStartDate.Size = new System.Drawing.Size(200, 23);
+            this.AddStartDate.TabIndex = 5;
             // 
-            // dateTimePicker2
+            // AddEndDate
             // 
-            this.dateTimePicker2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dateTimePicker2.Location = new System.Drawing.Point(443, 99);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker2.TabIndex = 6;
+            this.AddEndDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddEndDate.Location = new System.Drawing.Point(443, 99);
+            this.AddEndDate.Name = "AddEndDate";
+            this.AddEndDate.Size = new System.Drawing.Size(200, 23);
+            this.AddEndDate.TabIndex = 6;
             // 
             // label1
             // 
@@ -133,59 +134,71 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "End Date";
             // 
-            // textBox6
+            // AddName
             // 
-            this.textBox6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox6.Location = new System.Drawing.Point(170, 46);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(121, 23);
-            this.textBox6.TabIndex = 14;
+            this.AddName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddName.Location = new System.Drawing.Point(170, 46);
+            this.AddName.Name = "AddName";
+            this.AddName.Size = new System.Drawing.Size(121, 23);
+            this.AddName.TabIndex = 14;
             // 
-            // comboBox1
+            // AddType
             // 
-            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(170, 99);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
-            this.comboBox1.TabIndex = 15;
+            this.AddType.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddType.FormattingEnabled = true;
+            this.AddType.Location = new System.Drawing.Point(170, 99);
+            this.AddType.Name = "AddType";
+            this.AddType.Size = new System.Drawing.Size(121, 23);
+            this.AddType.TabIndex = 15;
             // 
-            // comboBox2
+            // AddCategory
             // 
-            this.comboBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(170, 148);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 23);
-            this.comboBox2.TabIndex = 16;
+            this.AddCategory.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddCategory.FormattingEnabled = true;
+            this.AddCategory.Location = new System.Drawing.Point(170, 148);
+            this.AddCategory.Name = "AddCategory";
+            this.AddCategory.Size = new System.Drawing.Size(121, 23);
+            this.AddCategory.TabIndex = 16;
             // 
-            // comboBox3
+            // AddAddress
             // 
-            this.comboBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(170, 199);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 23);
-            this.comboBox3.TabIndex = 17;
+            this.AddAddress.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddAddress.FormattingEnabled = true;
+            this.AddAddress.Location = new System.Drawing.Point(170, 199);
+            this.AddAddress.Name = "AddAddress";
+            this.AddAddress.Size = new System.Drawing.Size(121, 23);
+            this.AddAddress.TabIndex = 17;
             // 
-            // comboBox4
+            // AddMainSpeaker
             // 
-            this.comboBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(170, 244);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 23);
-            this.comboBox4.TabIndex = 18;
+            this.AddMainSpeaker.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.AddMainSpeaker.FormattingEnabled = true;
+            this.AddMainSpeaker.Location = new System.Drawing.Point(170, 244);
+            this.AddMainSpeaker.Name = "AddMainSpeaker";
+            this.AddMainSpeaker.Size = new System.Drawing.Size(121, 23);
+            this.AddMainSpeaker.TabIndex = 18;
             // 
-            // button1
+            // btnAdd
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(279, 316);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 46);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnAdd.Location = new System.Drawing.Point(211, 316);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(129, 46);
+            this.btnAdd.TabIndex = 19;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Visible = false;
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnEdit.Location = new System.Drawing.Point(420, 316);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(129, 46);
+            this.btnEdit.TabIndex = 20;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Visible = false;
             // 
             // AddEvent
             // 
@@ -193,12 +206,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(723, 389);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.AddMainSpeaker);
+            this.Controls.Add(this.AddAddress);
+            this.Controls.Add(this.AddCategory);
+            this.Controls.Add(this.AddType);
+            this.Controls.Add(this.AddName);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -206,8 +220,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.AddEndDate);
+            this.Controls.Add(this.AddStartDate);
             this.Name = "AddEvent";
             this.Text = "AddEvent";
             this.ResumeLayout(false);
@@ -216,7 +230,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker AddStartDate;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -225,11 +239,13 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox AddName;
+        private System.Windows.Forms.ComboBox AddType;
+        private System.Windows.Forms.ComboBox AddCategory;
+        private System.Windows.Forms.ComboBox AddAddress;
+        private System.Windows.Forms.ComboBox AddMainSpeaker;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.DateTimePicker AddEndDate;
+        private System.Windows.Forms.Button btnEdit;
     }
 }
