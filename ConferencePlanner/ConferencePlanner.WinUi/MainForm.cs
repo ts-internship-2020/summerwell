@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using ConferencePlanner.Abstraction.Model;
 using System.Data.SqlClient;
 using Accessibility;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace ConferencePlanner.WinUi
 {
@@ -66,6 +67,7 @@ namespace ConferencePlanner.WinUi
             changeColor();
         }
 
+    
 
         private void populateGridView(int startingPoint, int endingPoint)
         {
@@ -110,6 +112,8 @@ namespace ConferencePlanner.WinUi
                 {
                     isJoin = true;
                     pressButtonGreen(sender,e.RowIndex, e.ColumnIndex);
+                    //webView1.Navigate(new Uri("http://www.contoso.com"));
+
                 }
                 if (colindex.ToString().Equals("8") && inWithdraw == false)
                 {
@@ -273,11 +277,12 @@ namespace ConferencePlanner.WinUi
 
                 string rating = "";
                 string nationality = "";
+                string picture = "";
 
                 SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("Select Rating, Nationality from Speaker where SpeakerName=@name", conn);
+                SqlCommand command = new SqlCommand("Select Rating, Nationality, SpeakerImage from Speaker where SpeakerName=@name", conn);
                 command.Parameters.AddWithValue("@name", this.dataGridView1.CurrentRow.Cells[5].Value.ToString());
                 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -286,6 +291,7 @@ namespace ConferencePlanner.WinUi
                     {
                         rating = String.Format("{0}", reader["Rating"]);
                         nationality = String.Format("{0}", reader["Nationality"]);
+                        picture = String.Format("{0}", reader["SpeakerImage"]);
 
                     }
                 }
@@ -302,6 +308,7 @@ namespace ConferencePlanner.WinUi
                 mf.textBox6.Text = this.dataGridView1.CurrentRow.Cells[5].Value.ToString();
                 mf.textBox7.Text = rating;
                 mf.textBox8.Text = nationality;
+                mf.pictureBox1.Text= picture;
                 mf.ShowDialog();
             }
             catch (NullReferenceException)
