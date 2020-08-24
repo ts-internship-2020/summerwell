@@ -83,6 +83,7 @@ namespace ConferencePlanner.WinUi
                 }
             }
 
+
         }
     
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -232,6 +233,7 @@ namespace ConferencePlanner.WinUi
             }
 
         }
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
