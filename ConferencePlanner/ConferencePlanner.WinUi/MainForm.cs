@@ -116,7 +116,14 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.Participant = currentUser;
                     MessageBox.Show(currentUser);
                     _conferenceAudienceModel.ConferenceStatusId = 3;
-                    _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
+                    try
+                    {
+                        _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
+                    }
+                    catch(SqlException ex)
+                    {
+                        _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                    }
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
