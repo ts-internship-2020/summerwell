@@ -44,9 +44,9 @@ namespace ConferencePlanner.WinUi
 
             AddName.Text = ConferenceName;
             AddType.SelectedItem = Type;
-            AddCategory.SelectedItem = Category;
-            AddAddress.SelectedItem = Address;
-            AddMainSpeaker.SelectedItem = MainSpeaker;
+            AddSpeaker.SelectedItem = Category;
+            AddCountry.SelectedItem = Address;
+            AddCounty.SelectedItem = MainSpeaker;
             AddStartDate.Value = StartDate;
             AddEndDate.Value = EndDate;
             if (ConferenceName != null) { btnEdit.Visible = true; }
@@ -111,6 +111,16 @@ namespace ConferencePlanner.WinUi
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
         {
 
         }
