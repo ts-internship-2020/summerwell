@@ -70,6 +70,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnHostSearch = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -287,6 +288,7 @@ namespace ConferencePlanner.WinUi
             // tabPage2
             // 
             this.tabPage2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage2.BackgroundImage")));
+            this.tabPage2.Controls.Add(this.btnHostSearch);
             this.tabPage2.Controls.Add(this.btnBackHost);
             this.tabPage2.Controls.Add(this.btnNextHost);
             this.tabPage2.Controls.Add(this.btnAddEvent);
@@ -474,6 +476,16 @@ namespace ConferencePlanner.WinUi
             this.label3.TabIndex = 1;
             this.label3.Text = "From";
             // 
+            // btnHostSearch
+            // 
+            this.btnHostSearch.Location = new System.Drawing.Point(967, 19);
+            this.btnHostSearch.Name = "btnHostSearch";
+            this.btnHostSearch.Size = new System.Drawing.Size(79, 36);
+            this.btnHostSearch.TabIndex = 9;
+            this.btnHostSearch.Text = "Search";
+            this.btnHostSearch.UseVisualStyleBackColor = true;
+            this.btnHostSearch.Click += new System.EventHandler(this.btnHostSearch_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -538,6 +550,7 @@ namespace ConferencePlanner.WinUi
         private DataGridViewButtonColumn WithdrawButton;
         private DataGridViewTextBoxColumn ConferenceId;
         private DataGridViewTextBoxColumn HostConferenceId;
+        private Button btnHostSearch;
     }
 
 }

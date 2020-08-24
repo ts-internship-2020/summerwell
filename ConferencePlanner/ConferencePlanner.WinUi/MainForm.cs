@@ -75,15 +75,38 @@ namespace ConferencePlanner.WinUi
                                         x[i].SpeakerName, null, null, null, x[i].ConferenceId);
                 if (x[i].HostEmail == currentUser)
                 {
-                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,x[i].EndDate,
+                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
                                             x[i].DictionaryConferenceTypeName,
                                             x[i].DictionaryConferenceCategoryName,
                                             x[i].DictionaryCityName,
                                             x[i].SpeakerName, null, null, null, x[i].ConferenceId);
                 }
             }
+        }
+            private void populateGridViewByDate(DateTime StartDate, DateTime EndDate)
+            {
+                for (int i = startingPoint; i < endingPoint; i++)
+                {
+                    if (x[i].HostEmail == currentUser && x[i].StartDate<StartDate && x[i].EndDate > EndDate)
+                    {
+                        dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
+                                                x[i].DictionaryConferenceTypeName,
+                                                x[i].DictionaryConferenceCategoryName,
+                                                x[i].DictionaryCityName,
+                                                x[i].SpeakerName, null, null, null, x[i].ConferenceId);
+                    }
+                }
 
 
+            }
+
+        private void btnHostSearch_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            foreach (DataGridViewRow item in this.dataGridView2.SelectedRows)
+            {
+                dataGridView1.Rows.RemoveAt(item.Index);
+            }
+            populateGridViewByDate();
         }
     
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -232,6 +255,7 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
