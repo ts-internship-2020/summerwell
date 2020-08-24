@@ -325,7 +325,7 @@ namespace ConferencePlanner.WinUi
             this.btnNextHost.TabIndex = 7;
             this.btnNextHost.Text = ">";
             this.btnNextHost.UseVisualStyleBackColor = true;
-            this.btnNextHost.Click += new System.EventHandler(this.btnNextHost_Click);
+            this.btnNextHost.Click += new System.EventHandler(this.btnHostSearch_Click);
             // 
             // btnAddEvent
             // 
