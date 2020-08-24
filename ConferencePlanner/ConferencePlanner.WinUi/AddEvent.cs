@@ -25,13 +25,6 @@ namespace ConferencePlanner.WinUi
         private int startingPoint;
         private List<ConferenceDetailModel> x;
         private string currentUser;
-        protected string currentConference;
-        private string currentType;
-        private string currentCategory;
-        private string currentAddress;
-        private string currentMainSpeaker;
-        private DateTime currentStartDate;
-        private DateTime currentEndDate;
 
 
         public AddEvent(IConferenceRepository ConferenceRepository, 
@@ -44,18 +37,32 @@ namespace ConferencePlanner.WinUi
             DateTime StartDate, 
             DateTime EndDate)
         {
+            
             InitializeComponent();
 
-            currentConference = ConferenceName;
+            currentUser = var_email;
+
+            AddName.Text = ConferenceName;
+            AddType.Text = Type;
+            AddCategory.Text = Category;
+            AddAddress.Text = Address;
+            AddMainSpeaker.Text = MainSpeaker;
+            AddStartDate.Value = StartDate;
+            AddEndDate.Value = EndDate;
+            if (ConferenceName != null) { btnEdit.Visible = true; }
+            else btnAdd.Visible = true;
+            
+
 
             _ConferenceRepository = ConferenceRepository;
             x = _ConferenceRepository.GetConferenceDetail();
 
             
         }
-        protected void Page_Load(object sender, EventArgs e)
+
+        private void Form3_Activated(object sender, System.EventArgs e)
         {
-                AddName.Text = currentConference;
+            AddName.Text = "string";
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
