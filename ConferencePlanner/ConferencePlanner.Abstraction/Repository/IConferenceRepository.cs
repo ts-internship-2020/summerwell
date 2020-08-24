@@ -10,7 +10,7 @@ namespace ConferencePlanner.Abstraction.Repository
         List<ConferenceModel> GetConference();
         List<ConferenceDetailModel> GetConferenceDetail();
         void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel);
-        void UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
+        int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
         // List<ConferenceModel> GetConference(string email);
         // List<ConferenceModel> GetConference(DateTime StartDate);
     }
