@@ -130,7 +130,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
             command.ExecuteNonQuery();
         }
-        public void UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
+        public int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "UPDATE ConferenceAudience " +
@@ -140,7 +140,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
             command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
 
-            command.ExecuteNonQuery();
+            return(command.ExecuteNonQuery());
         }
 
     }

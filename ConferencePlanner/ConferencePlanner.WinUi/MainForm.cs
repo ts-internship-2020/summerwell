@@ -119,10 +119,17 @@ namespace ConferencePlanner.WinUi
                         _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                         _conferenceAudienceModel.Participant = currentUser;
                         _conferenceAudienceModel.ConferenceStatusId = 1;
-                        _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
-                        JoinConference jc = new JoinConference();
-                        jc.Show(this);
-                        pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
+                        int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                        if (rows_affected > 0)
+                        {
+                            JoinConference jc = new JoinConference();
+                            jc.Show(this);
+                            pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
+                        }
+                        else
+                        {
+                            MessageBox.Show("You have to attend before you can join!");
+                        }
 
                     }
                     else
@@ -136,7 +143,9 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 2;
-                    _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                    int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                    if (rows_affected <= 0)
+                        MessageBox.Show("You have to attend before you can withdraw!");
                     inWithdraw = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     isAttend = true;
