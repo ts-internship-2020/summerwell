@@ -155,7 +155,7 @@ namespace ConferencePlanner.WinUi
             this.JoinButton,
             this.WithdrawButton});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 99);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 73);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
