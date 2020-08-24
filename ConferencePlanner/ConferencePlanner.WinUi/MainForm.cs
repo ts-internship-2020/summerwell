@@ -311,8 +311,11 @@ namespace ConferencePlanner.WinUi
         }
 
         private void btnAddEvent_Click(object sender, EventArgs e)
-        {
+        { 
 
+            AddEvent form3 = new AddEvent();
+            form3.Tag = this;
+            form3.Show(this);
         }
 
         private void button2_Click(object sender, EventArgs e)
