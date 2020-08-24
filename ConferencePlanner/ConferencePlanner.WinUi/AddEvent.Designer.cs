@@ -445,6 +445,7 @@
             this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Visible = false;
             // 
             // btnAdd
             // 
@@ -455,6 +456,7 @@
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Visible = false;
             // 
             // AddEndDate
             // 
