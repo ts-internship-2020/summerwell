@@ -103,7 +103,7 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
                     MessageBox.Show(currentUser);
-                    _conferenceAudienceModel.ConferenceStatusId = 1;
+                    _conferenceAudienceModel.ConferenceStatusId = 3;
                     _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
@@ -111,10 +111,32 @@ namespace ConferencePlanner.WinUi
                 if (colindex.ToString().Equals("7") && isJoin == false)
                 {
                     isJoin = true;
-                    pressButtonGreen(sender,e.RowIndex, e.ColumnIndex);
+                    DateTime startDate = (DateTime)dataGridView1.Rows[e.RowIndex].Cells["StartDate"].Value;
+                    DateTime currentTime = DateTime.Now;
+                    if (currentTime.AddMinutes(5) >= startDate)
+                    {
+                        ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel();
+                        _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                        _conferenceAudienceModel.Participant = currentUser;
+                        _conferenceAudienceModel.ConferenceStatusId = 1;
+                        _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                        JoinConference jc = new JoinConference();
+                        jc.Show(this);
+                        pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("You can't join the conference yet!");
+                    }
                 }
                 if (colindex.ToString().Equals("8") && inWithdraw == false)
                 {
+                    ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel();
+                    _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                    _conferenceAudienceModel.Participant = currentUser;
+                    _conferenceAudienceModel.ConferenceStatusId = 2;
+                    _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
                     inWithdraw = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     isAttend = true;

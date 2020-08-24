@@ -8,11 +8,13 @@ using System.Windows.Forms;
 
 namespace ConferencePlanner.WinUi
 {
-    public partial class Form1 : Form
+    public partial class JoinConference : Form
     {
-        public Form1()
+        public JoinConference()
         {
             InitializeComponent();
+            webView1.Navigate("https://www.google.com");
         }
     }
+    
 }
