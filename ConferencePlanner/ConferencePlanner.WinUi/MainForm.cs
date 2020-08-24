@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using ConferencePlanner.Abstraction.Model;
 using System.Data.SqlClient;
 using Accessibility;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using ConferencePlanner.Repository.Ado.Repository;
 
 namespace ConferencePlanner.WinUi
 {
@@ -25,14 +25,14 @@ namespace ConferencePlanner.WinUi
         private int currentOffset;
         private int startingPoint;
         private List<ConferenceDetailModel> x;
-        private string var_email;
+        private string currentUser;
 
         public MainForm(IConferenceRepository ConferenceRepository, string var_email)
         {
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
             x = _ConferenceRepository.GetConferenceDetail();
-            var_email = var_email;
+            currentUser = var_email;
 
             totalEntries = x.Count;
             currentOffset = 5;
@@ -50,24 +50,19 @@ namespace ConferencePlanner.WinUi
                                           c.DictionaryConferenceCategoryName,
                                           c.DictionaryCityName,
                                           c.SpeakerName);
-                  if (c.HostEmail == var_email) {
+                  if (c.HostEmail == currentUser) {
                       dataGridView2.Rows.Add(c.ConferenceName, c.StartDate,
                                               c.DictionaryConferenceTypeName,
                                               c.DictionaryConferenceCategoryName,
                                               c.DictionaryCityName,
                                               c.SpeakerName); }
               }
-
               */
 
             populateGridView(startingPoint, currentOffset);
-           
-
-
             changeColor();
         }
 
-    
 
         private void populateGridView(int startingPoint, int endingPoint)
         {
@@ -77,14 +72,14 @@ namespace ConferencePlanner.WinUi
                                         x[i].DictionaryConferenceTypeName,
                                         x[i].DictionaryConferenceCategoryName,
                                         x[i].DictionaryCityName,
-                                        x[i].SpeakerName);
-                if (x[i].HostEmail == var_email)
+                                        x[i].SpeakerName, null, null, null, x[i].ConferenceId);
+                if (x[i].HostEmail == currentUser)
                 {
-                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,
+                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,x[i].EndDate,
                                             x[i].DictionaryConferenceTypeName,
                                             x[i].DictionaryConferenceCategoryName,
                                             x[i].DictionaryCityName,
-                                            x[i].SpeakerName);
+                                            x[i].SpeakerName, null, null, null, x[i].ConferenceId);
                 }
             }
 
@@ -104,7 +99,11 @@ namespace ConferencePlanner.WinUi
                     ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel();
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
-                    //_conferenceAudienceModel.ConferenceId = dataGridView1.Rows[e.RowIndex].Cells[0] 
+                    _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                    _conferenceAudienceModel.Participant = currentUser;
+                    MessageBox.Show(currentUser);
+                    _conferenceAudienceModel.ConferenceStatusId = 1;
+                    _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
@@ -112,8 +111,6 @@ namespace ConferencePlanner.WinUi
                 {
                     isJoin = true;
                     pressButtonGreen(sender,e.RowIndex, e.ColumnIndex);
-                    //webView1.Navigate(new Uri("http://www.contoso.com"));
-
                 }
                 if (colindex.ToString().Equals("8") && inWithdraw == false)
                 {
@@ -156,20 +153,30 @@ namespace ConferencePlanner.WinUi
         private void timer1_Tick(object sender, EventArgs e, object datagrid, int row, int col)
         {
             var senderGrid = (DataGridView)datagrid;
-            if (!(senderGrid.Rows[row].Cells[1] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
-            {   //crapa stringu din db?
-                DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
-                DateTime now = DateTime.Now;
-                if(startDate.AddMinutes(5) >= now)
+            try {
+                if (!(senderGrid.Rows[row] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
                 {
-                    makeButtonGreen(datagrid, row, col+1);
-                }
-                if(DateTime.Now >= now.AddMinutes(5))
-                {
-                    makeButtonGreen(datagrid, row, col + 2);
+                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+                    DateTime now = DateTime.Now;
+                    MessageBox.Show(now.ToString());
+                    if (now.AddMinutes(5) >= startDate)
+                    {
+                        makeButtonGreen(datagrid, row, col + 1);
+                    }
+                    if (startDate.AddMinutes(5) <= now)
+                    {
+                        makeButtonGreen(datagrid, row, col + 2);
+                        Timer timer = (Timer)sender;
+                        timer.Stop();
+                    }
                 }
             }
-
+            catch (System.ArgumentOutOfRangeException ex)
+            {
+                Timer timer = (Timer)sender;
+                timer.Stop();
+                System.Environment.Exit(1);
+            }
         }
 
         private void changeColor()
@@ -205,7 +212,24 @@ namespace ConferencePlanner.WinUi
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-          
+            var senderGrid = (DataGridView)sender;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                int colindex = senderGrid.CurrentCell.ColumnIndex;
+                if (colindex.ToString().Equals("7"))
+                {
+                    AddEvent form3 = new AddEvent(_ConferenceRepository, currentUser,
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value,
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value,
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value, 
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostAddress"].Value, 
+                        (string)dataGridView2.Rows[e.RowIndex].Cells["HostMainSpeaker"].Value,
+                        (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostStartDate"].Value,
+                        (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostEndDate"].Value);
+                    form3.Tag = this;
+                    form3.Show(this);
+                }
+            }
 
         }
 
@@ -277,12 +301,11 @@ namespace ConferencePlanner.WinUi
 
                 string rating = "";
                 string nationality = "";
-                string picture = "";
 
                 SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("Select Rating, Nationality, SpeakerImage from Speaker where SpeakerName=@name", conn);
+                SqlCommand command = new SqlCommand("Select Rating, Nationality from Speaker where SpeakerName=@name", conn);
                 command.Parameters.AddWithValue("@name", this.dataGridView1.CurrentRow.Cells[5].Value.ToString());
                 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -291,7 +314,6 @@ namespace ConferencePlanner.WinUi
                     {
                         rating = String.Format("{0}", reader["Rating"]);
                         nationality = String.Format("{0}", reader["Nationality"]);
-                        picture = String.Format("{0}", reader["SpeakerImage"]);
 
                     }
                 }
@@ -308,7 +330,6 @@ namespace ConferencePlanner.WinUi
                 mf.textBox6.Text = this.dataGridView1.CurrentRow.Cells[5].Value.ToString();
                 mf.textBox7.Text = rating;
                 mf.textBox8.Text = nationality;
-                mf.pictureBox1.Text= picture;
                 mf.ShowDialog();
             }
             catch (NullReferenceException)
@@ -319,7 +340,13 @@ namespace ConferencePlanner.WinUi
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-
+            
+                    DateTime localDate = DateTime.Now;
+                    AddEvent form3 = new AddEvent(_ConferenceRepository, currentUser, null, null, null, null, null, localDate, localDate);
+                    form3.Tag = this;
+                    form3.Show(this);
+                
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -382,6 +409,11 @@ namespace ConferencePlanner.WinUi
 
             populateGridView(startingPoint, currentOffset);
 
+
+        }
+
+        private void btnNextHost_Click(object sender, EventArgs e)
+        {
 
         }
     }
