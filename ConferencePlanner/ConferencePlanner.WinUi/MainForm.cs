@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using ConferencePlanner.Abstraction.Model;
 using System.Data.SqlClient;
 using Accessibility;
+using ConferencePlanner.Repository.Ado.Repository;
 
 namespace ConferencePlanner.WinUi
 {
@@ -24,14 +25,14 @@ namespace ConferencePlanner.WinUi
         private int currentOffset;
         private int startingPoint;
         private List<ConferenceDetailModel> x;
-        private string var_email;
+        private string currentUser;
 
         public MainForm(IConferenceRepository ConferenceRepository, string var_email)
         {
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
             x = _ConferenceRepository.GetConferenceDetail();
-            var_email = var_email;
+            currentUser = var_email;
 
             totalEntries = x.Count;
             currentOffset = 5;
@@ -49,7 +50,7 @@ namespace ConferencePlanner.WinUi
                                           c.DictionaryConferenceCategoryName,
                                           c.DictionaryCityName,
                                           c.SpeakerName);
-                  if (c.HostEmail == var_email) {
+                  if (c.HostEmail == currentUser) {
                       dataGridView2.Rows.Add(c.ConferenceName, c.StartDate,
                                               c.DictionaryConferenceTypeName,
                                               c.DictionaryConferenceCategoryName,
@@ -71,14 +72,14 @@ namespace ConferencePlanner.WinUi
                                         x[i].DictionaryConferenceTypeName,
                                         x[i].DictionaryConferenceCategoryName,
                                         x[i].DictionaryCityName,
-                                        x[i].SpeakerName);
-                if (x[i].HostEmail == var_email)
+                                        x[i].SpeakerName, null, null, null, x[i].ConferenceId);
+                if (x[i].HostEmail == currentUser)
                 {
                     dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,
                                             x[i].DictionaryConferenceTypeName,
                                             x[i].DictionaryConferenceCategoryName,
                                             x[i].DictionaryCityName,
-                                            x[i].SpeakerName);
+                                            x[i].SpeakerName, null, null, null, x[i].ConferenceId);
                 }
             }
 
@@ -98,7 +99,11 @@ namespace ConferencePlanner.WinUi
                     ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel();
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
-                    //_conferenceAudienceModel.ConferenceId = dataGridView1.Rows[e.RowIndex].Cells[0] 
+                    _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                    _conferenceAudienceModel.Participant = currentUser;
+                    MessageBox.Show(currentUser);
+                    _conferenceAudienceModel.ConferenceStatusId = 1;
+                    _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
@@ -317,8 +322,11 @@ namespace ConferencePlanner.WinUi
         }
 
         private void btnAddEvent_Click(object sender, EventArgs e)
-        {
+        { 
 
+            AddEvent form3 = new AddEvent();
+            form3.Tag = this;
+            form3.Show(this);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -381,6 +389,11 @@ namespace ConferencePlanner.WinUi
 
             populateGridView(startingPoint, currentOffset);
 
+
+        }
+
+        private void btnNextHost_Click(object sender, EventArgs e)
+        {
 
         }
     }
