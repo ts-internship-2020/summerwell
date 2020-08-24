@@ -87,6 +87,7 @@ namespace ConferencePlanner.WinUi
                 }
             }
 
+
         }
     
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
