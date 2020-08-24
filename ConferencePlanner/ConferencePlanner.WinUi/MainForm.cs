@@ -81,13 +81,13 @@ namespace ConferencePlanner.WinUi
                 }
             }
         }
-            private void populateGridViewByDate(int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
+            private void populateGridViewByDate(DataGridView dataGridView, int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
             {
                 for (int i = startingPoint; i < endingPoint; i++)
                 {
                     if (x[i].HostEmail == currentUser && x[i].StartDate > StartDate && x[i].EndDate < EndDate)
                     {
-                        dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
+                             dataGridView.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
                                                 x[i].DictionaryConferenceTypeName,
                                                 x[i].DictionaryConferenceCategoryName,
                                                 x[i].DictionaryCityName,
@@ -411,7 +411,7 @@ namespace ConferencePlanner.WinUi
         private void btnHostSearch_Click(object sender, EventArgs e)
         {
             dataGridView2.Rows.Clear();
-            populateGridViewByDate(0,5,dateTimePicker4.Value,dateTimePicker3.Value);
+            populateGridViewByDate(dataGridView2,0,5,dateTimePicker4.Value,dateTimePicker3.Value);
 
         }
 

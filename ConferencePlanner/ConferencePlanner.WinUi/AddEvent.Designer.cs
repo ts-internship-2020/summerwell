@@ -1,4 +1,6 @@
-﻿namespace ConferencePlanner.WinUi
+﻿using System;
+
+namespace ConferencePlanner.WinUi
 {
     partial class AddEvent
     {
@@ -170,6 +172,7 @@
             this.btnNext.TabIndex = 9;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // tabCountry
             // 
@@ -191,7 +194,7 @@
             this.btnNext2.TabIndex = 0;
             this.btnNext2.Text = "Next";
             this.btnNext2.UseVisualStyleBackColor = true;
-            this.btnNext2.Visible = false;
+            this.btnNext2.Click += new System.EventHandler(this.btnNext2_Click);
             // 
             // tabSpeaker
             // 
@@ -211,6 +214,7 @@
             this.btnNext3.TabIndex = 0;
             this.btnNext3.Text = "Next";
             this.btnNext3.UseVisualStyleBackColor = true;
+            this.btnNext3.Click += new System.EventHandler(this.btnNext3_Click);
             // 
             // tabCounty
             // 
@@ -230,6 +234,7 @@
             this.btnNext4.TabIndex = 0;
             this.btnNext4.Text = "Next";
             this.btnNext4.UseVisualStyleBackColor = true;
+            this.btnNext4.Click += new System.EventHandler(this.btnNext4_Click);
             // 
             // tabCity
             // 
@@ -249,6 +254,7 @@
             this.btnNext5.TabIndex = 0;
             this.btnNext5.Text = "Next";
             this.btnNext5.UseVisualStyleBackColor = true;
+            this.btnNext5.Click += new System.EventHandler(this.btnNext5_Click);
             // 
             // tabCategory
             // 
@@ -269,6 +275,7 @@
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Visible = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSaveNew
             // 
@@ -280,6 +287,7 @@
             this.btnSaveNew.Text = "Save and New";
             this.btnSaveNew.UseVisualStyleBackColor = true;
             this.btnSaveNew.Visible = false;
+            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
             // button1
             // 

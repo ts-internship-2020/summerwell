@@ -29,9 +29,45 @@ namespace ConferencePlanner.WinUi
             )
         {
             InitializeComponent();
+            if (ConferenceName != null)
+            {
+                AddConferenceName.Text = ConferenceName;
+                AddStartDate.Value = CoferenceStartDate;
+                AddEndDate.Value = ConferenceEndDate;
+                AddAddress.Text = ConferenceAddress;
+            }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnNext2_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnNext3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnNext4_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnNext5_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnSaveNew_Click(object sender, EventArgs e)
         {
 
         }
