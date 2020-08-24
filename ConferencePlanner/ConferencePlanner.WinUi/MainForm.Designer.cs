@@ -53,6 +53,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnHostSearch = new System.Windows.Forms.Button();
             this.btnBackHost = new System.Windows.Forms.Button();
             this.btnNextHost = new System.Windows.Forms.Button();
             this.btnAddEvent = new System.Windows.Forms.Button();
@@ -70,7 +71,6 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnHostSearch = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -135,7 +135,7 @@ namespace ConferencePlanner.WinUi
             // 
             // button3
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.Location = new System.Drawing.Point(967, 19);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(79, 36);
@@ -306,6 +306,17 @@ namespace ConferencePlanner.WinUi
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
+            // btnHostSearch
+            // 
+            this.btnHostSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHostSearch.Location = new System.Drawing.Point(967, 19);
+            this.btnHostSearch.Name = "btnHostSearch";
+            this.btnHostSearch.Size = new System.Drawing.Size(79, 36);
+            this.btnHostSearch.TabIndex = 9;
+            this.btnHostSearch.Text = "Search";
+            this.btnHostSearch.UseVisualStyleBackColor = true;
+            this.btnHostSearch.Click += new System.EventHandler(this.btnHostSearch_Click);
+            // 
             // btnBackHost
             // 
             this.btnBackHost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -475,16 +486,6 @@ namespace ConferencePlanner.WinUi
             this.label3.Size = new System.Drawing.Size(46, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "From";
-            // 
-            // btnHostSearch
-            // 
-            this.btnHostSearch.Location = new System.Drawing.Point(967, 19);
-            this.btnHostSearch.Name = "btnHostSearch";
-            this.btnHostSearch.Size = new System.Drawing.Size(79, 36);
-            this.btnHostSearch.TabIndex = 9;
-            this.btnHostSearch.Text = "Search";
-            this.btnHostSearch.UseVisualStyleBackColor = true;
-            this.btnHostSearch.Click += new System.EventHandler(this.btnHostSearch_Click);
             // 
             // MainForm
             // 
