@@ -22,7 +22,6 @@ namespace ConferencePlanner.WinUi
         private readonly IConferenceRepository _ConferenceRepository;
 
         private int totalEntries;
-        private int currentOffset;
         private int startingPoint;
         private List<ConferenceDetailModel> x;
         private string currentUser;
@@ -35,7 +34,6 @@ namespace ConferencePlanner.WinUi
             currentUser = var_email;
 
             totalEntries = x.Count;
-            currentOffset = 5;
             startingPoint = 0;
 
             if (x == null || x.Count() == 0)
@@ -59,7 +57,7 @@ namespace ConferencePlanner.WinUi
               }
               */
 
-            populateGridView(startingPoint, currentOffset);
+            populateGridView(0, 5);
             changeColor();
         }
 
@@ -393,30 +391,31 @@ namespace ConferencePlanner.WinUi
         {
 
 
-            if ((currentOffset - 5) > 0)
-            {
-
-                startingPoint =startingPoint-5;
-                currentOffset=currentOffset-5;
+            if (startingPoint >= 5)
+            {   
+                startingPoint -= 5;
+                dataGridView1.Rows.Clear();
+                populateGridView(startingPoint, startingPoint + 5);
 
             }
 
-            else if (startingPoint <= 0)
+            else if (startingPoint > 0)
             {
-                Refresh();
+                startingPoint = 0;
+                dataGridView1.Rows.Clear();
+                populateGridView(startingPoint, startingPoint + 5);
 
             }
             
             else {
-                startingPoint=totalEntries-currentOffset;
-                //currentOffset = currentOffset + 5;
+                return;
             }
             
         
 
-            dataGridView1.Rows.Clear();
+            
 
-            populateGridView(startingPoint, currentOffset);
+           
 
 
         }
@@ -424,30 +423,28 @@ namespace ConferencePlanner.WinUi
         private void nextPage(object sender, EventArgs e)
         {
 
-            if((currentOffset + 5) < totalEntries)
+            if(startingPoint <= totalEntries - 5)
             {
-
-                startingPoint = currentOffset;
-                currentOffset += 5;
-
+                startingPoint += 5;
+                dataGridView1.Rows.Clear();
+                if (startingPoint + 5 < totalEntries)
+                    populateGridView(startingPoint, startingPoint + 5);
+                else
+                    populateGridView(startingPoint, totalEntries);
             }
-
-            else if(currentOffset >= totalEntries)
+            else if(startingPoint < totalEntries)
+            {
+                dataGridView1.Rows.Clear();
+                populateGridView(startingPoint, totalEntries);
+                startingPoint = totalEntries;
+            }
+            else
             {
                 return;
-
             }
+            
 
-            else{
-
-                startingPoint = currentOffset;
-                currentOffset += totalEntries - currentOffset;
-
-            }
-
-            dataGridView1.Rows.Clear();
-
-            populateGridView(startingPoint, currentOffset);
+            
 
 
         }
