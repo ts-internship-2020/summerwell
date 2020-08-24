@@ -39,21 +39,21 @@
             // 
             // titlu
             // 
-            titlu.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            titlu.Anchor = System.Windows.Forms.AnchorStyles.None;
             titlu.AutoSize = true;
             titlu.BackColor = System.Drawing.Color.Transparent;
             titlu.Font = new System.Drawing.Font("Century Schoolbook", 28F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             titlu.ForeColor = System.Drawing.Color.LightSlateGray;
-            titlu.Location = new System.Drawing.Point(293, 53);
-            titlu.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            titlu.Location = new System.Drawing.Point(205, 32);
             titlu.Name = "titlu";
-            titlu.Size = new System.Drawing.Size(587, 67);
+            titlu.Size = new System.Drawing.Size(399, 44);
             titlu.TabIndex = 2;
             titlu.Text = "TOTALSOFTZOOM";
             titlu.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.BackColor = System.Drawing.Color.White;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -61,11 +61,10 @@
             this.button1.FlatAppearance.BorderSize = 2;
             this.button1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button1.ForeColor = System.Drawing.Color.SlateGray;
-            this.button1.Location = new System.Drawing.Point(430, 444);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.MinimumSize = new System.Drawing.Size(267, 120);
+            this.button1.Location = new System.Drawing.Point(301, 266);
+            this.button1.MinimumSize = new System.Drawing.Size(187, 72);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(276, 120);
+            this.button1.Size = new System.Drawing.Size(193, 72);
             this.button1.TabIndex = 0;
             this.button1.Text = "JOIN";
             this.button1.UseMnemonic = false;
@@ -76,14 +75,15 @@
             // 
             this.EmailBoss.AccessibleDescription = "";
             this.EmailBoss.AccessibleName = "";
+            this.EmailBoss.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.EmailBoss.Cursor = System.Windows.Forms.Cursors.Hand;
             this.EmailBoss.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.EmailBoss.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.EmailBoss.Location = new System.Drawing.Point(318, 272);
-            this.EmailBoss.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.EmailBoss.Location = new System.Drawing.Point(223, 163);
+            this.EmailBoss.Margin = new System.Windows.Forms.Padding(4);
             this.EmailBoss.Name = "EmailBoss";
             this.EmailBoss.PlaceholderText = "TYPE AN EMAIL";
-            this.EmailBoss.Size = new System.Drawing.Size(486, 39);
+            this.EmailBoss.Size = new System.Drawing.Size(341, 29);
             this.EmailBoss.TabIndex = 1;
             this.EmailBoss.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.EmailBoss.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -100,15 +100,14 @@
             // 
             // EmailLabel
             // 
-            this.EmailLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.EmailLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.EmailLabel.AutoSize = true;
             this.EmailLabel.BackColor = System.Drawing.Color.FloralWhite;
             this.EmailLabel.Font = new System.Drawing.Font("Maiandra GD", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.EmailLabel.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.EmailLabel.Location = new System.Drawing.Point(462, 348);
-            this.EmailLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.EmailLabel.Location = new System.Drawing.Point(323, 209);
             this.EmailLabel.Name = "EmailLabel";
-            this.EmailLabel.Size = new System.Drawing.Size(239, 29);
+            this.EmailLabel.Size = new System.Drawing.Size(162, 19);
             this.EmailLabel.TabIndex = 3;
             this.EmailLabel.Text = "Please Insert An Email";
             this.EmailLabel.Visible = false;
@@ -116,17 +115,16 @@
             // 
             // StartUpForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Ivory;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1207, 645);
+            this.ClientSize = new System.Drawing.Size(845, 387);
             this.Controls.Add(this.EmailLabel);
             this.Controls.Add(titlu);
             this.Controls.Add(this.EmailBoss);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(1220, 546);
+            this.MinimumSize = new System.Drawing.Size(859, 343);
             this.Name = "StartUpForm";
             this.Text = "Welcome";
             this.Load += new System.EventHandler(this.StartUpForm_Load);
