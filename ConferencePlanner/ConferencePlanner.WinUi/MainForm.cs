@@ -10,38 +10,84 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ConferencePlanner.Abstraction.Model;
+using System.Data.SqlClient;
+using Accessibility;
+
 namespace ConferencePlanner.WinUi
 {
+
     public partial class MainForm : Form
     {
         private readonly IConferenceRepository _ConferenceRepository;
-        public MainForm(IConferenceRepository ConferenceRepository,string var_email)
+
+        private int totalEntries;
+        private int currentOffset;
+        private int startingPoint;
+        private List<ConferenceDetailModel> x;
+        private string var_email;
+
+        public MainForm(IConferenceRepository ConferenceRepository, string var_email)
         {
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
-            var x = _ConferenceRepository.GetConferenceDetail();
+            x = _ConferenceRepository.GetConferenceDetail();
+            var_email = var_email;
+
+            totalEntries = x.Count;
+            currentOffset = 5;
+            startingPoint = 0;
+
             if (x == null || x.Count() == 0)
             {
                 return;
             }
-                
-            foreach(var c in x)
-            {
-                dataGridView1.Rows.Add(c.ConferenceName, c.StartDate,
-                                        c.DictionaryConferenceTypeName,
-                                        c.DictionaryConferenceCategoryName,
-                                        c.DictionaryCityName,
-                                        c.SpeakerName);
-                if (c.HostEmail == var_email) {
-                    dataGridView2.Rows.Add(c.ConferenceName, c.StartDate,
-                                            c.DictionaryConferenceTypeName,
-                                            c.DictionaryConferenceCategoryName,
-                                            c.DictionaryCityName,
-                                            c.SpeakerName); }
-            }
+            /*      
+              foreach(var c in x)
+              {
+                  dataGridView1.Rows.Add(c.ConferenceName, c.StartDate,
+                                          c.DictionaryConferenceTypeName,
+                                          c.DictionaryConferenceCategoryName,
+                                          c.DictionaryCityName,
+                                          c.SpeakerName);
+                  if (c.HostEmail == var_email) {
+                      dataGridView2.Rows.Add(c.ConferenceName, c.StartDate,
+                                              c.DictionaryConferenceTypeName,
+                                              c.DictionaryConferenceCategoryName,
+                                              c.DictionaryCityName,
+                                              c.SpeakerName); }
+              }
+
+              */
+
+            populateGridView(startingPoint, currentOffset);
+           
+
+
             changeColor();
         }
-        
+
+
+        private void populateGridView(int startingPoint, int endingPoint)
+        {
+            for (int i = startingPoint; i < endingPoint; i++)
+            {
+                dataGridView1.Rows.Add(x[i].ConferenceName, x[i].StartDate,
+                                        x[i].DictionaryConferenceTypeName,
+                                        x[i].DictionaryConferenceCategoryName,
+                                        x[i].DictionaryCityName,
+                                        x[i].SpeakerName);
+                if (x[i].HostEmail == var_email)
+                {
+                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate,
+                                            x[i].DictionaryConferenceTypeName,
+                                            x[i].DictionaryConferenceCategoryName,
+                                            x[i].DictionaryCityName,
+                                            x[i].SpeakerName);
+                }
+            }
+
+        }
+    
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
@@ -107,7 +153,7 @@ namespace ConferencePlanner.WinUi
         {
             var senderGrid = (DataGridView)datagrid;
             if (!(senderGrid.Rows[row].Cells[1] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
-            {
+            {   //crapa stringu din db?
                 DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
                 DateTime now = DateTime.Now;
                 if(startDate.AddMinutes(5) >= now)
@@ -186,7 +232,9 @@ namespace ConferencePlanner.WinUi
                     // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
                 }
                 try
-                {
+                { 
+
+
                     MainSpeakerDetails mf = new MainSpeakerDetails();
                     mf.textBox1.Text = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
                     mf.textBox2.Text = this.dataGridView2.CurrentRow.Cells[1].Value.ToString();
@@ -194,6 +242,8 @@ namespace ConferencePlanner.WinUi
                     mf.textBox4.Text = this.dataGridView2.CurrentRow.Cells[3].Value.ToString();
                     mf.textBox5.Text = this.dataGridView2.CurrentRow.Cells[4].Value.ToString();
                     mf.textBox6.Text = this.dataGridView2.CurrentRow.Cells[5].Value.ToString();
+
+                  
                  
                     mf.ShowDialog();
                 }
@@ -209,6 +259,8 @@ namespace ConferencePlanner.WinUi
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
+            
+
             if (dataGridView1.CurrentCell == null)
             {
 
@@ -218,6 +270,29 @@ namespace ConferencePlanner.WinUi
             }
             try
             {
+
+                string rating = "";
+                string nationality = "";
+
+                SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("Select Rating, Nationality from Speaker where SpeakerName=@name", conn);
+                command.Parameters.AddWithValue("@name", this.dataGridView1.CurrentRow.Cells[5].Value.ToString());
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        rating = String.Format("{0}", reader["Rating"]);
+                        nationality = String.Format("{0}", reader["Nationality"]);
+
+                    }
+                }
+
+                conn.Close();
+
+
                 MainSpeakerDetails mf = new MainSpeakerDetails();
                 mf.textBox1.Text = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 mf.textBox2.Text = this.dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -225,8 +300,8 @@ namespace ConferencePlanner.WinUi
                 mf.textBox4.Text = this.dataGridView1.CurrentRow.Cells[3].Value.ToString();
                 mf.textBox5.Text = this.dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 mf.textBox6.Text = this.dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                //mf.textBox7.Text = this.dataGridView1.CurrentRow.Cells[6].Value.ToString();
-                //mf.textBox8.Text = this.dataGridView1.CurrentRow.Cells[7].Value.ToString();
+                mf.textBox7.Text = rating;
+                mf.textBox8.Text = nationality;
                 mf.ShowDialog();
             }
             catch (NullReferenceException)
@@ -234,5 +309,75 @@ namespace ConferencePlanner.WinUi
                 MessageBox.Show("You cannot process an empty cell");
             }
         }
+
+        private void btnAddEvent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void previousPage(object sender, EventArgs e)
+        {
+
+
+            if ((currentOffset - 5) > 0)
+            {
+
+                startingPoint -= 5;
+                currentOffset -= 5;
+
+            }
+
+            else if (startingPoint <= 0)
+            {
+                return;
+
+            }
+
+        
+
+            dataGridView1.Rows.Clear();
+
+            populateGridView(startingPoint, currentOffset);
+
+
+        }
+
+        private void nextPage(object sender, EventArgs e)
+        {
+
+            if((currentOffset + 5) <= totalEntries)
+            {
+
+                startingPoint = currentOffset;
+                currentOffset += 5;
+
+            }
+
+            else if(currentOffset >= totalEntries)
+            {
+                return;
+
+            }
+
+            else{
+
+                startingPoint = currentOffset;
+                currentOffset += totalEntries - currentOffset;
+
+            }
+
+            dataGridView1.Rows.Clear();
+
+            populateGridView(startingPoint, currentOffset);
+
+
+        }
     }
+
+
 }
