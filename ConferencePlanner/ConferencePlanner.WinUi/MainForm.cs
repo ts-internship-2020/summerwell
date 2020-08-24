@@ -159,7 +159,7 @@ namespace ConferencePlanner.WinUi
                 {
                     DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
                     DateTime now = DateTime.Now;
-                    MessageBox.Show(now.ToString());
+                    //MessageBox.Show(now.ToString());
                     if (now.AddMinutes(5) >= startDate)
                     {
                         makeButtonGreen(datagrid, row, col + 1);
@@ -418,6 +418,27 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DateTime toDate = DateTime.ParseExact(this.dateTimePicker1.Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+            DateTime fromDate = DateTime.ParseExact(this.dateTimePicker2.Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+            this.dataGridView1.Rows.Clear();
+            foreach (var c in x)
+            {
+                //MessageBox.Show(fromDate.ToString() + ' ' + c.StartDate.ToString() + '\n' + toDate.ToString() + ' '+ c.EndDate.ToString());
+                if (fromDate <= c.StartDate && c.EndDate <= toDate)
+                {
+                    dataGridView1.Rows.Add(c.ConferenceName, c.StartDate,
+                                            c.DictionaryConferenceTypeName,
+                                            c.DictionaryConferenceCategoryName,
+                                            c.DictionaryCityName,
+                                            c.SpeakerName);
+                }
+            }
+            changeColor();
+        }
+
     }
 
 
