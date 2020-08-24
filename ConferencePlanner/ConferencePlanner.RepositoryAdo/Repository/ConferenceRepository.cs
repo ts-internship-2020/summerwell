@@ -56,7 +56,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public List<ConferenceDetailModel> GetConferenceDetail()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = "select c.ConferenceName, c.StartDate, d.DictionaryConferenceTypeName," +
+            sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate, d.DictionaryConferenceTypeName," +
                 " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail " +
                 "from Conference c " +
                 "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
@@ -110,19 +110,24 @@ namespace ConferencePlanner.Repository.Ado.Repository
                         DictionaryCityName = conferenceCityName,
                         DictionaryConferenceCategoryName = conferenceCategoryName,
                         SpeakerName = conferenceSpeakerName,
-                        HostEmail = conferenceHostEmail
-                });
+                        HostEmail = conferenceHostEmail,
+                        ConferenceId = sqlDataReader.GetInt32("ConferenceId")
+                    });
                 }
             }
             return conferenceDetails;
         }
         public void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
-            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = string.Format("INSERT INTO ConferenceAudience " +
-                                    "VALUES({0}, {1}, 1)", _conferenceAudienceModel.ConferenceId,
-                                                            _conferenceAudienceModel.Participant);
-            sqlCommand.ExecuteNonQuery();
+
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "INSERT INTO ConferenceAudience (ConferenceId,Participant,ConferenceStatusId) " +
+                            "VALUES (@ConferenceId, @Participant, @ConferenceStatusId)";
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
+            command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
+            command.Parameters.Add("@ConferenceStatusId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
+
+            command.ExecuteNonQuery();
         }
 
 
