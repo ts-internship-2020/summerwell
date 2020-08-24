@@ -66,6 +66,8 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnNextHost = new System.Windows.Forms.Button();
+            this.btnBackHost = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -109,7 +111,7 @@ namespace ConferencePlanner.WinUi
             // button2
             // 
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button2.Location = new System.Drawing.Point(625, 447);
+            this.button2.Location = new System.Drawing.Point(781, 447);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(129, 46);
             this.button2.TabIndex = 9;
@@ -120,7 +122,7 @@ namespace ConferencePlanner.WinUi
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(287, 446);
+            this.button1.Location = new System.Drawing.Point(173, 446);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 48);
             this.button1.TabIndex = 8;
@@ -268,6 +270,8 @@ namespace ConferencePlanner.WinUi
             // tabPage2
             // 
             this.tabPage2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage2.BackgroundImage")));
+            this.tabPage2.Controls.Add(this.btnBackHost);
+            this.tabPage2.Controls.Add(this.btnNextHost);
             this.tabPage2.Controls.Add(this.btnAddEvent);
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.dateTimePicker4);
@@ -286,10 +290,10 @@ namespace ConferencePlanner.WinUi
             // btnAddEvent
             // 
             this.btnAddEvent.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnAddEvent.Location = new System.Drawing.Point(399, 446);
+            this.btnAddEvent.Location = new System.Drawing.Point(476, 446);
             this.btnAddEvent.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddEvent.Name = "btnAddEvent";
-            this.btnAddEvent.Size = new System.Drawing.Size(190, 39);
+            this.btnAddEvent.Size = new System.Drawing.Size(127, 48);
             this.btnAddEvent.TabIndex = 6;
             this.btnAddEvent.Text = "Add Event";
             this.btnAddEvent.UseVisualStyleBackColor = true;
@@ -423,6 +427,27 @@ namespace ConferencePlanner.WinUi
             this.label3.TabIndex = 1;
             this.label3.Text = "From";
             // 
+            // btnNextHost
+            // 
+            this.btnNextHost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnNextHost.Location = new System.Drawing.Point(781, 447);
+            this.btnNextHost.Name = "btnNextHost";
+            this.btnNextHost.Size = new System.Drawing.Size(127, 48);
+            this.btnNextHost.TabIndex = 7;
+            this.btnNextHost.Text = ">";
+            this.btnNextHost.UseVisualStyleBackColor = true;
+            this.btnNextHost.Click += new System.EventHandler(this.btnNextHost_Click);
+            // 
+            // btnBackHost
+            // 
+            this.btnBackHost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnBackHost.Location = new System.Drawing.Point(173, 446);
+            this.btnBackHost.Name = "btnBackHost";
+            this.btnBackHost.Size = new System.Drawing.Size(127, 48);
+            this.btnBackHost.TabIndex = 8;
+            this.btnBackHost.Text = "<";
+            this.btnBackHost.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -483,6 +508,8 @@ namespace ConferencePlanner.WinUi
         private Button btnAddEvent;
         private Button button2;
         private Button button1;
+        private Button btnBackHost;
+        private Button btnNextHost;
     }
 
 }

@@ -377,6 +377,11 @@ namespace ConferencePlanner.WinUi
 
 
         }
+
+        private void btnNextHost_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
