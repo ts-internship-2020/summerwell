@@ -57,13 +57,9 @@ namespace ConferencePlanner.WinUi
                                               c.DictionaryCityName,
                                               c.SpeakerName); }
               }
-
               */
 
             populateGridView(startingPoint, currentOffset);
-           
-
-
             changeColor();
         }
 
@@ -157,20 +153,30 @@ namespace ConferencePlanner.WinUi
         private void timer1_Tick(object sender, EventArgs e, object datagrid, int row, int col)
         {
             var senderGrid = (DataGridView)datagrid;
-            if (!(senderGrid.Rows[row].Cells[1] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
-            {   //crapa stringu din db?
-                DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
-                DateTime now = DateTime.Now;
-                if(startDate.AddMinutes(5) >= now)
+            try {
+                if (!(senderGrid.Rows[row] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
                 {
-                    makeButtonGreen(datagrid, row, col+1);
-                }
-                if(DateTime.Now >= now.AddMinutes(5))
-                {
-                    makeButtonGreen(datagrid, row, col + 2);
+                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+                    DateTime now = DateTime.Now;
+                    MessageBox.Show(now.ToString());
+                    if (now.AddMinutes(5) >= startDate)
+                    {
+                        makeButtonGreen(datagrid, row, col + 1);
+                    }
+                    if (startDate.AddMinutes(5) <= now)
+                    {
+                        makeButtonGreen(datagrid, row, col + 2);
+                        Timer timer = (Timer)sender;
+                        timer.Stop();
+                    }
                 }
             }
-
+            catch (System.ArgumentOutOfRangeException ex)
+            {
+                Timer timer = (Timer)sender;
+                timer.Stop();
+                System.Environment.Exit(1);
+            }
         }
 
         private void changeColor()
