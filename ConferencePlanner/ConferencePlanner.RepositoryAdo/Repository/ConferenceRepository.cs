@@ -123,14 +123,25 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "INSERT INTO ConferenceAudience (ConferenceId,Participant,ConferenceStatusId) " +
-                            "VALUES (@ConferenceId, @Participant, @ConferenceStatusId)";
+                                    "VALUES (@ConferenceId, @Participant, @ConferenceStatusId)";
             command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
             command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
             command.Parameters.Add("@ConferenceStatusId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
 
             command.ExecuteNonQuery();
         }
+        public void UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE ConferenceAudience " +
+                                    "SET ConferenceStatusId = @ConferenceStatusId " +
+                                    "WHERE Participant = @Participant and ConferenceId = @ConferenceId";
+            command.Parameters.Add("@ConferenceStatusId ", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
+            command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
 
+            command.ExecuteNonQuery();
+        }
 
     }
 }

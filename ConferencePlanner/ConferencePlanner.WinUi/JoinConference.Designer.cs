@@ -1,6 +1,6 @@
 ﻿namespace ConferencePlanner.WinUi
 {
-    partial class Form1
+    partial class JoinConference
     {
         /// <summary>
         /// Required designer variable.
@@ -40,14 +40,14 @@
             this.webView1.Size = new System.Drawing.Size(800, 450);
             this.webView1.TabIndex = 0;
             // 
-            // Form1
+            // JoinConference
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.webView1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "JoinConference";
+            this.Text = "JoinConference";
             ((System.ComponentModel.ISupportInitialize)(this.webView1)).EndInit();
             this.ResumeLayout(false);
 
