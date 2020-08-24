@@ -286,6 +286,7 @@ namespace ConferencePlanner.WinUi
 
         }
 
+
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -303,11 +304,11 @@ namespace ConferencePlanner.WinUi
 
                 string rating = "";
                 string nationality = "";
-
+                string picture = "";
                 SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("Select Rating, Nationality from Speaker where SpeakerName=@name", conn);
+                SqlCommand command = new SqlCommand("Select Rating, Nationality, SpeakerImage from Speaker where SpeakerName=@name", conn);
                 command.Parameters.AddWithValue("@name", this.dataGridView1.CurrentRow.Cells[5].Value.ToString());
                 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -316,6 +317,7 @@ namespace ConferencePlanner.WinUi
                     {
                         rating = String.Format("{0}", reader["Rating"]);
                         nationality = String.Format("{0}", reader["Nationality"]);
+                        picture = String.Format("{0}", reader["SpeakerImage"]);
 
                     }
                 }
@@ -363,17 +365,22 @@ namespace ConferencePlanner.WinUi
             if ((currentOffset - 5) > 0)
             {
 
-                startingPoint -= 5;
-                currentOffset -= 5;
+                startingPoint =startingPoint-5;
+                currentOffset=currentOffset-5;
 
             }
 
             else if (startingPoint <= 0)
             {
-                return;
+                Refresh();
 
             }
-
+            
+            else {
+                startingPoint=totalEntries-currentOffset;
+                //currentOffset = currentOffset + 5;
+            }
+            
         
 
             dataGridView1.Rows.Clear();
@@ -386,7 +393,7 @@ namespace ConferencePlanner.WinUi
         private void nextPage(object sender, EventArgs e)
         {
 
-            if((currentOffset + 5) <= totalEntries)
+            if((currentOffset + 5) < totalEntries)
             {
 
                 startingPoint = currentOffset;
