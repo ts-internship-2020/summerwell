@@ -139,8 +139,9 @@ namespace ConferencePlanner.WinUi
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(79, 36);
             this.button3.TabIndex = 7;
-            this.button3.Text = "button3";
+            this.button3.Text = "Search";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // dataGridView1
             // 
@@ -164,7 +165,7 @@ namespace ConferencePlanner.WinUi
             this.WithdrawButton,
             this.ConferenceId});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 73);
+            this.dataGridView1.Location = new System.Drawing.Point(2, 70);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;

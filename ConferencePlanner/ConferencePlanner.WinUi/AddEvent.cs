@@ -43,10 +43,10 @@ namespace ConferencePlanner.WinUi
             currentUser = var_email;
 
             AddName.Text = ConferenceName;
-            AddType.Text = Type;
-            AddCategory.Text = Category;
-            AddAddress.Text = Address;
-            AddMainSpeaker.Text = MainSpeaker;
+            AddType.SelectedItem = Type;
+            AddCategory.SelectedItem = Category;
+            AddAddress.SelectedItem = Address;
+            AddMainSpeaker.SelectedItem = MainSpeaker;
             AddStartDate.Value = StartDate;
             AddEndDate.Value = EndDate;
             if (ConferenceName != null) { btnEdit.Visible = true; }
@@ -71,6 +71,46 @@ namespace ConferencePlanner.WinUi
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNext1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddMainSpeaker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddEndDate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
