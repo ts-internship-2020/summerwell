@@ -22,12 +22,9 @@ namespace ConferencePlanner.WinUi
      
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
-        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceRepository ConferenceRepository,
-        string var_email = "";
         private IConferenceTypeRepository _ConferenceTypeRepository;
         private List<ConferenceTypeModel> x;
-        public AddEvent(IConferenceRepository ConferenceRepository,
-            IConferenceTypeRepository ConferenceTypeRepository,
+        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -69,7 +66,7 @@ namespace ConferencePlanner.WinUi
             }
             
             
-        }
+        
 
 
             _ConferenceTypeRepository = ConferenceTypeRepository;
