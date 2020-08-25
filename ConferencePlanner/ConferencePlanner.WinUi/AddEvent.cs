@@ -10,16 +10,18 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
+using System.Linq;
+using ConferencePlanner.Abstraction.Model;
 
 namespace ConferencePlanner.WinUi
 {
     public partial class AddEvent : Form
     {
         string var_email = "";
-        
-     
-        private readonly IConferenceRepository _ConferenceRepository;
-        public AddEvent(IConferenceRepository ConferenceRepository, 
+        private IConferenceTypeRepository _ConferenceTypeRepository;
+        private List<ConferenceTypeModel> x;
+        public AddEvent(IConferenceRepository ConferenceRepository,
+            IConferenceTypeRepository ConferenceTypeRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -38,6 +40,14 @@ namespace ConferencePlanner.WinUi
                 AddEndDate.Value = ConferenceEndDate;
                 AddAddress.Text = ConferenceAddress;
             }
+
+            _ConferenceTypeRepository = ConferenceTypeRepository;
+            x = _ConferenceTypeRepository.GetConferenceType();
+            if (x == null || x.Count() == 0)
+            {
+                return;
+            }
+            listView1_populate();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -47,11 +57,7 @@ namespace ConferencePlanner.WinUi
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-           
-            tabControl1.SelectTab(tabCountry);
-           
-            
-
+            tabControl1.SelectTab(tabCountry);  
         }
         private void btnNext2_Click(object sender, EventArgs e)
         {
@@ -89,12 +95,20 @@ namespace ConferencePlanner.WinUi
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count != 0)
-            {
-                MessageBox.Show("Please Select At least one Column");
                 btnNext.Enabled = true;
+        }
+
+        private void listView1_populate()
+        {
+            listView1.View = View.Details;
+            listView1.Columns.Add("Code");
+            listView1.Columns.Add("Name");
+            foreach (var c in x)
+            {
+                listView1.Items.Add(new ListViewItem(new string[] { c.ConferenceTypeId.ToString(), c.Name }));
             }
-            
-            
+            listView1.GridLines = true;
+            btnNext.Enabled = false;
         }
 
         private void listView2_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,5 +150,6 @@ namespace ConferencePlanner.WinUi
             }
        
         }
+
     }
 }
