@@ -182,8 +182,7 @@ namespace ConferencePlanner.WinUi
             this.tabType.Size = new System.Drawing.Size(523, 354);
             this.tabType.TabIndex = 0;
             this.tabType.Text = "Conference Type";
-            this.tabType.UseVisualStyleBackColor = true;
-            this.tabType.Click += new System.EventHandler(this.tabType_Click);
+            //this.tabType.UseVisualStyleBackColor = true;
             // 
             // listView1
             // 
@@ -221,6 +220,7 @@ namespace ConferencePlanner.WinUi
             this.tabCountry.TabIndex = 1;
             this.tabCountry.Text = "Country";
             this.tabCountry.UseVisualStyleBackColor = true;
+            //this.tabCountry.Enabled = false;
             // 
             // listView2
             // 
@@ -257,6 +257,7 @@ namespace ConferencePlanner.WinUi
             this.tabSpeaker.Size = new System.Drawing.Size(523, 354);
             this.tabSpeaker.TabIndex = 2;
             this.tabSpeaker.Text = "Speaker";
+            this.tabSpeaker.Enabled = false;
             // 
             // listView3
             // 
@@ -293,6 +294,7 @@ namespace ConferencePlanner.WinUi
             this.tabCounty.Size = new System.Drawing.Size(523, 354);
             this.tabCounty.TabIndex = 3;
             this.tabCounty.Text = "County";
+            //this.tabCounty.Enabled = false;
             // 
             // listView4
             // 
@@ -308,8 +310,8 @@ namespace ConferencePlanner.WinUi
             // btnNext4
             // 
             this.btnNext4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext4.Location = new System.Drawing.Point(383, 262);
-            this.btnNext4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNext4.Location = new System.Drawing.Point(268, 157);
+            this.btnNext4.Enabled = false;
             this.btnNext4.Name = "btnNext4";
             this.btnNext4.Size = new System.Drawing.Size(133, 82);
             this.btnNext4.TabIndex = 0;
@@ -328,6 +330,7 @@ namespace ConferencePlanner.WinUi
             this.tabCity.Size = new System.Drawing.Size(523, 354);
             this.tabCity.TabIndex = 4;
             this.tabCity.Text = "City";
+            //this.tabCity.Enabled = false;
             // 
             // listView5
             // 
@@ -364,6 +367,7 @@ namespace ConferencePlanner.WinUi
             this.tabCategory.Size = new System.Drawing.Size(523, 354);
             this.tabCategory.TabIndex = 5;
             this.tabCategory.Text = "Category";
+            //this.tabCategory.Enabled = false;
             // 
             // listView6
             // 

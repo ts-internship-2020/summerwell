@@ -26,6 +26,7 @@ namespace ConferencePlanner.WinUi
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
+        private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
 
         private int totalEntries;
         private int startingPoint;

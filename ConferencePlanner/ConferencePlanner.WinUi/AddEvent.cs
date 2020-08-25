@@ -23,6 +23,7 @@ namespace ConferencePlanner.WinUi
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private IConferenceTypeRepository _ConferenceTypeRepository;
+        private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
         private List<ConferenceTypeModel> x;
         public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
             IDictionaryCountryRepository DictionaryCountryRepository,
@@ -37,11 +38,14 @@ namespace ConferencePlanner.WinUi
             )
         {
             InitializeComponent();
+            _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountryRepository = DictionaryCountryRepository;
             _ConferenceRepository = ConferenceRepository;
             List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
             List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
+            List<DictionaryCountyModel> countys = _DictionaryCountyRepository.GetDictionaryCounty();
+            
             if (ConferenceName != null)
             {
                 AddConferenceName.Text = ConferenceName;
@@ -68,21 +72,34 @@ namespace ConferencePlanner.WinUi
             {
                 return;
             }
+
+            if (countys == null) { return; }
            
             listView3.View = View.Details;
             listView3.FullRowSelect = true;
             listView3.GridLines = true;
             listView3.Columns.Add("SpeakerName", -2);
             listView3.Columns.Add("Rating", -2);
+
+            listView4.View = View.Details;
+            listView4.FullRowSelect = true;
+            listView4.GridLines = true;
+            listView4.Columns.Add("Id", -2);
+            listView4.Columns.Add("County", -2);
+
+
             foreach (var speaker in speakers)
             { 
                 listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
                 
                 
             }
-            
-            
-        
+            foreach (var county in countys)
+            {
+                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+
+
+            }
 
 
             _ConferenceTypeRepository = ConferenceTypeRepository;
@@ -101,29 +118,35 @@ namespace ConferencePlanner.WinUi
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCountry);  
+            tabControl1.SelectTab(tabCountry);
+            tabCountry.Enabled = true;
         }
         private void btnNext2_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabSpeaker);
+            tabSpeaker.Enabled = true;
            
              
         }
         private void btnNext3_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCounty);
+            tabCounty.Enabled = true;
+            tabSpeaker.Enabled = false;
         
                 
         }
         private void btnNext4_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCity);
+            tabCity.Enabled = true;
            
                 
         }
         private void btnNext5_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCategory);
+            tabCategory.Enabled = true;
          
                 
         }
@@ -169,8 +192,7 @@ namespace ConferencePlanner.WinUi
         {
             if (listView3.SelectedItems.Count != 0)
             {
-                MessageBox.Show("Please Select At least one Column");
-               // btnNext3.Enabled = true;
+                btnNext3.Enabled = true;
             }
             
         }
@@ -179,7 +201,6 @@ namespace ConferencePlanner.WinUi
         {
             if (listView4.SelectedItems.Count != 0)
             {
-                MessageBox.Show("Please Select At least one Column");
                 btnNext4.Enabled = true;
             }
             

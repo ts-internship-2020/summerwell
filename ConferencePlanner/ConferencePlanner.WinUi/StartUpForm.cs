@@ -27,6 +27,7 @@ namespace ConferencePlanner.WinUi
             _ConferenceRepository = ConferenceRepository;
             _ConferenceTypeRepository = ConferenceTypeRepository;
             _DictionaryCountryRepository = DictionaryCountryRepository;
+            _DictionaryCountyRepository = DictionaryCountyRepository;
             InitializeComponent();
         }
 
