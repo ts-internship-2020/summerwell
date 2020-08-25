@@ -58,6 +58,8 @@ namespace ConferencePlanner.WinUi
             this.listView6 = new System.Windows.Forms.ListView();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
+            this.DictionaryCountryId = new System.Windows.Forms.ColumnHeader();
+            this.DictionaryCountryName = new System.Windows.Forms.ColumnHeader();
             this.tabControl1.SuspendLayout();
             this.tabType.SuspendLayout();
             this.tabCountry.SuspendLayout();
@@ -206,6 +208,10 @@ namespace ConferencePlanner.WinUi
             // 
             // listView2
             // 
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.DictionaryCountryId,
+            this.DictionaryCountryName});
+            this.listView2.GridLines = true;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(22, 25);
             this.listView2.Name = "listView2";
@@ -429,5 +435,7 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.ListView listView4;
         private System.Windows.Forms.ListView listView5;
         private System.Windows.Forms.ListView listView6;
+        private System.Windows.Forms.ColumnHeader DictionaryCountryId;
+        private System.Windows.Forms.ColumnHeader DictionaryCountryName;
     }
 }

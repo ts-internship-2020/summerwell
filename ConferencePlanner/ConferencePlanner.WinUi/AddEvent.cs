@@ -49,6 +49,8 @@ namespace ConferencePlanner.WinUi
         {
            
             tabControl1.SelectTab(tabCountry);
+            Cursor.Current = Cursors.WaitCursor;
+           // using()
            
             
 
@@ -127,6 +129,13 @@ namespace ConferencePlanner.WinUi
             
         }
 
+        private void PopulateListView ()
+        {
+            listView1.View = View.Details;
+            listView1.Columns.Add("Country Id");
+            listView1.Columns.Add("Country Name");
+           
+        }
         private void listView5_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView5.SelectedItems.Count != 0)
