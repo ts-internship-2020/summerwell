@@ -48,8 +48,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                             EndDate = sqlDataReader.GetDateTime("StartDate"),
                             ConferenceName = ConferenceName
                         });
-                                        
-                    }
+
+                }
             }
             return conferences;
         }
@@ -65,7 +65,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 "INNER JOIN DictionaryConferenceCategory dcc on c.ConferenceCategoryId = dcc.DictionaryConferenceCategoryId " +
                 "INNER JOIN  SpeakerxConference spc on c.ConferenceId = spc.ConferenceId " +
                 "INNER JOIN Speaker sp on sp.SpeakerId = spc.SpeakerId " +
-                "WHERE StartDate > GETDATE()";
+                "WHERE StartDate > GETDATE()" +
+                "ORDER BY StartDate";
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             List<ConferenceDetailModel> conferenceDetails = new List<ConferenceDetailModel>();
             if (sqlDataReader.HasRows)
@@ -130,7 +131,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 "INNER JOIN DictionaryConferenceCategory dcc on c.ConferenceCategoryId = dcc.DictionaryConferenceCategoryId " +
                 "INNER JOIN  SpeakerxConference spc on c.ConferenceId = spc.ConferenceId " +
                 "INNER JOIN Speaker sp on sp.SpeakerId = spc.SpeakerId " +
-                "WHERE StartDate > GETDATE()";
+                "WHERE StartDate > GETDATE()" +
+                "ORDER BY StartDate";
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             List<ConferenceDetailModel> conferenceDetails = new List<ConferenceDetailModel>();
             if (sqlDataReader.HasRows)
@@ -186,6 +188,39 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 }
             }
             return conferenceDetails;
+        } 
+
+        public string GetSpeakerImage(string speakerName)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select SpeakerImage, SpeakerName " +
+                "from Speaker";
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    var sspeakerName = "";
+                    if (!sqlDataReader.IsDBNull("SpeakerName"))
+                    {
+                        sspeakerName = sqlDataReader.GetString("SpeakerName");
+                        if (speakerName == sspeakerName)
+                        {
+                            if (!sqlDataReader.IsDBNull("SpeakerImage"))
+                            {
+                                return sqlDataReader.GetString("SpeakerImage");
+                            }
+                            else return "";
+                        }
+                        else return "";
+
+                    }
+                    else return "";
+                }
+
+            }
+            else return "";
+            return "";
         }
         public void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {

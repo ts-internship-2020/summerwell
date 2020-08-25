@@ -18,9 +18,11 @@ namespace ConferencePlanner.WinUi
     {
         string var_email = "";
         private readonly IConferenceRepository _ConferenceRepository;
-        private IConferenceTypeRepository _ConferenceTypeRepository;
-        public StartUpForm(IConferenceRepository ConferenceRepository, IConferenceTypeRepository ConferenceTypeRepository)
+        private readonly IConferenceTypeRepository _ConferenceTypeRepository;
+        private readonly IGetSpeakerDetail _GetSpeakerDetail;
+        public StartUpForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository)
         {
+            _GetSpeakerDetail = GetSpeakerDetail;
             _ConferenceRepository = ConferenceRepository;
             _ConferenceTypeRepository = ConferenceTypeRepository;
             InitializeComponent();
@@ -42,8 +44,8 @@ namespace ConferencePlanner.WinUi
                 //buton ok
                 var_email = EmailBoss.Text;
                 //MessageBox.Show(var_email);
-                
-                MainForm form2 = new MainForm(_ConferenceTypeRepository, _ConferenceRepository, var_email);
+
+                MainForm form2 = new MainForm(_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository, var_email);
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();

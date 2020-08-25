@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConferencePlanner.Abstraction.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,9 +12,21 @@ namespace ConferencePlanner.WinUi
 {
     public partial class MainSpeakerDetails : Form
     {
-        public MainSpeakerDetails()
+        private readonly IConferenceRepository _ConferenceRepository;
+        public MainSpeakerDetails(IConferenceRepository ConferenceRepository,string SpeakerName)
         {
+
             InitializeComponent();
+            _ConferenceRepository = ConferenceRepository;
+            pictureBox1.ImageLocation = Base64Decode(_ConferenceRepository.GetSpeakerImage(SpeakerName));
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.Refresh();
+
+        }
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
         private void label1_Click(object sender, EventArgs e)

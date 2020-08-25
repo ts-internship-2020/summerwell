@@ -17,11 +17,14 @@ namespace ConferencePlanner.WinUi
 {
     public partial class AddEvent : Form
     {
-        string var_email = "";
+        private string var_email = "";
+        
+     
+        private readonly IConferenceRepository _ConferenceRepository;
+        private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private IConferenceTypeRepository _ConferenceTypeRepository;
         private List<ConferenceTypeModel> x;
-        public AddEvent(IConferenceRepository ConferenceRepository,
-            IConferenceTypeRepository ConferenceTypeRepository,
+        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -33,6 +36,10 @@ namespace ConferencePlanner.WinUi
             )
         {
             InitializeComponent();
+            _GetSpeakerDetail = GetSpeakerDetail;
+            _ConferenceRepository = ConferenceRepository;
+            List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
+            
             if (ConferenceName != null)
             {
                 AddConferenceName.Text = ConferenceName;
@@ -40,6 +47,27 @@ namespace ConferencePlanner.WinUi
                 AddEndDate.Value = ConferenceEndDate;
                 AddAddress.Text = ConferenceAddress;
             }
+
+            if (speakers == null)
+            {
+                return;
+            }
+           
+            listView3.View = View.Details;
+            listView3.FullRowSelect = true;
+            listView3.GridLines = true;
+            listView3.Columns.Add("SpeakerName", -2);
+            listView3.Columns.Add("Rating", -2);
+            foreach (var speaker in speakers)
+            { 
+                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
+                
+                
+            }
+            
+            
+        
+
 
             _ConferenceTypeRepository = ConferenceTypeRepository;
             x = _ConferenceTypeRepository.GetConferenceType();
@@ -116,7 +144,7 @@ namespace ConferencePlanner.WinUi
             if (listView2.SelectedItems.Count != 0)
             {
                 MessageBox.Show("Please Select At least one Column");
-                btnNext2.Enabled = true;
+                //btnNext2.Enabled = true;
             }
             
         }
@@ -126,7 +154,7 @@ namespace ConferencePlanner.WinUi
             if (listView3.SelectedItems.Count != 0)
             {
                 MessageBox.Show("Please Select At least one Column");
-                btnNext3.Enabled = true;
+               // btnNext3.Enabled = true;
             }
             
         }
