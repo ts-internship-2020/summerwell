@@ -37,6 +37,7 @@ namespace ConferencePlanner.WinUi
             var services = new ServiceCollection();
             services.AddScoped<StartUpForm>();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
+            services.AddScoped<IGetSpeakerDetail, GetSpeakerDetail>();
             services.AddSingleton<SqlConnection>(a =>
             {
                 SqlConnection sqlConnection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString);

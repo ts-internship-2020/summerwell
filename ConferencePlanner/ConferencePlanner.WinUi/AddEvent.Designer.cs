@@ -150,7 +150,7 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.Controls.Add(this.tabCounty);
             this.tabControl1.Controls.Add(this.tabCity);
             this.tabControl1.Controls.Add(this.tabCategory);
-            this.tabControl1.Enabled = false;
+            this.tabControl1.Enabled = true;
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -183,7 +183,6 @@ namespace ConferencePlanner.WinUi
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Enabled = false;
             this.btnNext.Location = new System.Drawing.Point(268, 157);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(93, 49);
@@ -217,7 +216,6 @@ namespace ConferencePlanner.WinUi
             // btnNext2
             // 
             this.btnNext2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext2.Enabled = false;
             this.btnNext2.Location = new System.Drawing.Point(268, 157);
             this.btnNext2.Name = "btnNext2";
             this.btnNext2.Size = new System.Drawing.Size(93, 49);

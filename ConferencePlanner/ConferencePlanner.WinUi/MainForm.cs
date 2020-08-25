@@ -20,16 +20,18 @@ namespace ConferencePlanner.WinUi
     public partial class MainForm : Form
     {
         private readonly IConferenceRepository _ConferenceRepository;
+        private readonly IGetSpeakerDetail _GetSpeakerDetail;
 
         private int totalEntries;
         private int startingPoint;
         private List<ConferenceDetailModel> x;
         private string currentUser;
 
-        public MainForm(IConferenceRepository ConferenceRepository, string var_email)
+        public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceRepository ConferenceRepository, string var_email)
         {
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
+            _GetSpeakerDetail = GetSpeakerDetail;
             x = _ConferenceRepository.GetConferenceDetail();
             currentUser = var_email;
 
@@ -251,7 +253,7 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if (colindex.ToString().Equals("7"))
                 {
-                    AddEvent form3 = new AddEvent(_ConferenceRepository, currentUser,
+                    AddEvent form3 = new AddEvent(_GetSpeakerDetail, _ConferenceRepository, currentUser,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value, 
@@ -378,7 +380,7 @@ namespace ConferencePlanner.WinUi
         {
             
                     DateTime localDate = DateTime.Now;
-                    AddEvent form3 = new AddEvent(_ConferenceRepository, currentUser, null, null, null, null, null, localDate, localDate);
+                    AddEvent form3 = new AddEvent(_GetSpeakerDetail, _ConferenceRepository, currentUser, null, null, null, null, null, localDate, localDate);
                     form3.Tag = this;
                     form3.Show(this);
                 

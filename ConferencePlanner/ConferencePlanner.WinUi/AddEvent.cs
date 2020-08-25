@@ -10,16 +10,18 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
+using ConferencePlanner.Abstraction.Model;
 
 namespace ConferencePlanner.WinUi
 {
     public partial class AddEvent : Form
     {
-        string var_email = "";
+        private string var_email = "";
         
      
         private readonly IConferenceRepository _ConferenceRepository;
-        public AddEvent(IConferenceRepository ConferenceRepository, 
+        private readonly IGetSpeakerDetail _GetSpeakerDetail;
+        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceRepository ConferenceRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -31,6 +33,10 @@ namespace ConferencePlanner.WinUi
             )
         {
             InitializeComponent();
+            _GetSpeakerDetail = GetSpeakerDetail;
+            _ConferenceRepository = ConferenceRepository;
+            List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
+            
             if (ConferenceName != null)
             {
                 AddConferenceName.Text = ConferenceName;
@@ -38,6 +44,25 @@ namespace ConferencePlanner.WinUi
                 AddEndDate.Value = ConferenceEndDate;
                 AddAddress.Text = ConferenceAddress;
             }
+
+            if (speakers == null)
+            {
+                return;
+            }
+           
+            listView3.View = View.Details;
+            listView3.FullRowSelect = true;
+            listView3.GridLines = true;
+            listView3.Columns.Add("SpeakerName", -2);
+            listView3.Columns.Add("Rating", -2);
+            foreach (var speaker in speakers)
+            { 
+                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
+                
+                
+            }
+            
+            
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,7 +116,7 @@ namespace ConferencePlanner.WinUi
             if (listView1.SelectedItems.Count != 0)
             {
                 MessageBox.Show("Please Select At least one Column");
-                btnNext.Enabled = true;
+               // btnNext.Enabled = true;
             }
             
             
@@ -102,7 +127,7 @@ namespace ConferencePlanner.WinUi
             if (listView2.SelectedItems.Count != 0)
             {
                 MessageBox.Show("Please Select At least one Column");
-                btnNext2.Enabled = true;
+                //btnNext2.Enabled = true;
             }
             
         }
@@ -112,7 +137,7 @@ namespace ConferencePlanner.WinUi
             if (listView3.SelectedItems.Count != 0)
             {
                 MessageBox.Show("Please Select At least one Column");
-                btnNext3.Enabled = true;
+               // btnNext3.Enabled = true;
             }
             
         }

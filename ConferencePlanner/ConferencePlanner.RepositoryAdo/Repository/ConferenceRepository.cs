@@ -118,7 +118,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
-        public List<ConferenceDetailModel> GetConferenceDetail(string hostName)
+        public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
