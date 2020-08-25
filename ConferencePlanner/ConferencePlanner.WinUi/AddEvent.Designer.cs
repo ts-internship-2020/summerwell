@@ -52,7 +52,6 @@ namespace ConferencePlanner.WinUi
             this.tabCategory = new System.Windows.Forms.TabPage();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabType.SuspendLayout();
             this.tabCountry.SuspendLayout();
@@ -289,21 +288,11 @@ namespace ConferencePlanner.WinUi
             this.btnSaveNew.Visible = false;
             this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(421, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(8, 8);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // AddEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(788, 342);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSaveNew);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.AddEndDate);
@@ -351,7 +340,6 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.Button btnSaveNew;
         private System.Windows.Forms.Button btnNext2;
         private System.Windows.Forms.Button btnNext3;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnNext4;
         private System.Windows.Forms.Button btnNext5;
     }
