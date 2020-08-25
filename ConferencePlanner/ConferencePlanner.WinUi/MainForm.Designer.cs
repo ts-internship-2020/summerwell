@@ -328,6 +328,7 @@ namespace ConferencePlanner.WinUi
             this.btnBackHost.TabIndex = 8;
             this.btnBackHost.Text = "<";
             this.btnBackHost.UseVisualStyleBackColor = true;
+            this.btnBackHost.Click += new System.EventHandler(this.btnBackHost_Click);
             // 
             // btnNextHost
             // 
@@ -338,7 +339,7 @@ namespace ConferencePlanner.WinUi
             this.btnNextHost.TabIndex = 7;
             this.btnNextHost.Text = ">";
             this.btnNextHost.UseVisualStyleBackColor = true;
-            this.btnNextHost.Click += new System.EventHandler(this.btnHostSearch_Click);
+            this.btnNextHost.Click += new System.EventHandler(this.btnNextHost_Click);
             // 
             // btnAddEvent
             // 
