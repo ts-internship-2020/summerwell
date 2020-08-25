@@ -13,6 +13,9 @@ using ConferencePlanner.Abstraction.Model;
 using System.Data.SqlClient;
 using Accessibility;
 using ConferencePlanner.Repository.Ado.Repository;
+using System.Drawing.Text;
+using Windows.UI.Xaml.Documents;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ConferencePlanner.WinUi
 {
@@ -23,75 +26,67 @@ namespace ConferencePlanner.WinUi
 
         private int totalEntries;
         private int startingPoint;
+        private int HosttotalEntries;
+        private int HoststartingPoint;
         private List<ConferenceDetailModel> x;
+        private List<ConferenceDetailModel> y;
         private string currentUser;
 
         public MainForm(IConferenceRepository ConferenceRepository, string var_email)
         {
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
-            x = _ConferenceRepository.GetConferenceDetail();
+            x = _ConferenceRepository.GetConferenceDetail();           
             currentUser = var_email;
-
+            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser);
             totalEntries = x.Count;
             startingPoint = 0;
+            HoststartingPoint = 0;
+            HosttotalEntries = y.Count;
 
             if (x == null || x.Count() == 0)
             {
                 return;
-            }
-            /*      
-              foreach(var c in x)
-              {
-                  dataGridView1.Rows.Add(c.ConferenceName, c.StartDate,
-                                          c.DictionaryConferenceTypeName,
-                                          c.DictionaryConferenceCategoryName,
-                                          c.DictionaryCityName,
-                                          c.SpeakerName);
-                  if (c.HostEmail == currentUser) {
-                      dataGridView2.Rows.Add(c.ConferenceName, c.StartDate,
-                                              c.DictionaryConferenceTypeName,
-                                              c.DictionaryConferenceCategoryName,
-                                              c.DictionaryCityName,
-                                              c.SpeakerName); }
-              }
-              */
-
-            populateGridView(0, 5);
+            }s
+            populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
+
+            if (y == null || y.Count() == 0)
+            {
+                return;
+            }
+            populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
+            
         }
 
-
-        private void populateGridView(int startingPoint, int endingPoint)
+        private void populateConferenceGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
         {
             for (int i = startingPoint; i < endingPoint; i++)
             {
-                dataGridView1.Rows.Add(x[i].ConferenceName, x[i].StartDate,
-                                        x[i].DictionaryConferenceTypeName,
-                                        x[i].DictionaryConferenceCategoryName,
-                                        x[i].DictionaryCityName,
-                                        x[i].SpeakerName, null, null, null, x[i].ConferenceId);
-                if (x[i].HostEmail == currentUser)
+                if (x[i].StartDate > StartDate && x[i].StartDate < EndDate)
                 {
-                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
-                                            x[i].DictionaryConferenceTypeName,
-                                            x[i].DictionaryConferenceCategoryName,
-                                            x[i].DictionaryCityName,
-                                            x[i].SpeakerName, null, null, null, x[i].ConferenceId);
+                    dataGridView1.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].DictionaryConferenceTypeName,
+                                       x[i].DictionaryConferenceCategoryName,
+                                       x[i].DictionaryCityName,
+                                       x[i].SpeakerName,
+                                       null, null, null, x[i].ConferenceId);
                 }
             }
+
+
         }
-            private void populateGridViewByDate(DataGridView dataGridView, int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
-            {
+        private void populateHostGridViewByDate(int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
+            {   
                 for (int i = startingPoint; i < endingPoint; i++)
                 {
-                    if (x[i].HostEmail == currentUser && x[i].StartDate > StartDate && x[i].EndDate < EndDate)
+
+                    if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
                     {
-                             dataGridView.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].EndDate,
-                                                x[i].DictionaryConferenceTypeName,
-                                                x[i].DictionaryConferenceCategoryName,
-                                                x[i].DictionaryCityName,
-                                                x[i].SpeakerName, null, null, null, x[i].ConferenceId);
+                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate, y[i].DictionaryConferenceTypeName,
+                                  y[i].DictionaryConferenceCategoryName,
+                                  y[i].DictionaryCityName,
+                                  y[i].SpeakerName,
+                                  null, null, null, y[i].ConferenceId);
                     }
                 }
 
@@ -114,7 +109,6 @@ namespace ConferencePlanner.WinUi
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
-                    MessageBox.Show(currentUser);
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     try
                     {
@@ -212,6 +206,7 @@ namespace ConferencePlanner.WinUi
                     //MessageBox.Show(now.ToString());
                     if (now.AddMinutes(5) >= startDate)
                     {
+ 
                         makeButtonGreen(datagrid, row, col + 1);
                     }
                     if (startDate.AddMinutes(5) <= now)
@@ -411,7 +406,7 @@ namespace ConferencePlanner.WinUi
         private void btnHostSearch_Click(object sender, EventArgs e)
         {
             dataGridView2.Rows.Clear();
-            populateGridViewByDate(dataGridView2,0,5,dateTimePicker4.Value,dateTimePicker3.Value);
+            populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
 
         }
 
@@ -420,10 +415,11 @@ namespace ConferencePlanner.WinUi
 
 
             if (startingPoint >= 5)
-            {   
+            {
                 startingPoint -= 5;
                 dataGridView1.Rows.Clear();
-                populateGridView(startingPoint, startingPoint + 5);
+                populateConferenceGridViewByDate(startingPoint, startingPoint + 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                changeColor();
 
             }
 
@@ -431,22 +427,19 @@ namespace ConferencePlanner.WinUi
             {
                 startingPoint = 0;
                 dataGridView1.Rows.Clear();
-                populateGridView(startingPoint, startingPoint + 5);
+                populateConferenceGridViewByDate(startingPoint, startingPoint + 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                changeColor();
 
             }
-            
-            else {
+
+            else
+            {
                 return;
             }
-            
+        }
+
         
 
-            
-
-           
-
-
-        }
 
         private void nextPage(object sender, EventArgs e)
         {
@@ -455,15 +448,20 @@ namespace ConferencePlanner.WinUi
             {
                 startingPoint += 5;
                 dataGridView1.Rows.Clear();
-                if (startingPoint + 5 < totalEntries)
-                    populateGridView(startingPoint, startingPoint + 5);
-                else
-                    populateGridView(startingPoint, totalEntries);
+                if (startingPoint + 5 < totalEntries) {
+                    populateConferenceGridViewByDate(startingPoint, startingPoint + 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                    changeColor();
+                }
+                
+                else {
+                    populateConferenceGridViewByDate(startingPoint, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
+                    changeColor();
+                }
             }
             else if(startingPoint < totalEntries)
             {
                 dataGridView1.Rows.Clear();
-                populateGridView(startingPoint, totalEntries);
+                populateConferenceGridViewByDate(startingPoint, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
                 startingPoint = totalEntries;
             }
             else
@@ -476,24 +474,62 @@ namespace ConferencePlanner.WinUi
 
 
         }
+        private void btnNextHost_Click(object sender, EventArgs e)
+        {
+            if (HoststartingPoint <= HosttotalEntries - 5)
+            {
+                HoststartingPoint += 5;
+                dataGridView2.Rows.Clear();
+                if (HoststartingPoint + 5 < HosttotalEntries)
+                {
+                    populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+                }
+
+                else
+                {
+                    populateHostGridViewByDate(HoststartingPoint, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+                }
+            }
+            else if (HoststartingPoint < HosttotalEntries)
+            {
+                dataGridView2.Rows.Clear();
+                populateHostGridViewByDate(HoststartingPoint, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+                HoststartingPoint = HosttotalEntries;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void btnBackHost_Click(object sender, EventArgs e)
+        {
+            if (HoststartingPoint >= 5)
+            {
+                HoststartingPoint -= 5;
+                dataGridView2.Rows.Clear();
+                populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+
+            }
+
+            else if (HoststartingPoint > 0)
+            {
+                HoststartingPoint = 0;
+                dataGridView2.Rows.Clear();
+                populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+
+            }
+
+            else
+            {
+                return;
+            }
+        }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DateTime toDate = DateTime.ParseExact(this.dateTimePicker1.Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
-            DateTime fromDate = DateTime.ParseExact(this.dateTimePicker2.Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
-            this.dataGridView1.Rows.Clear();
-            foreach (var c in x)
-            {
-                //MessageBox.Show(fromDate.ToString() + ' ' + c.StartDate.ToString() + '\n' + toDate.ToString() + ' '+ c.EndDate.ToString());
-                if (fromDate <= c.StartDate && c.EndDate <= toDate)
-                {
-                    dataGridView1.Rows.Add(c.ConferenceName, c.StartDate,
-                                            c.DictionaryConferenceTypeName,
-                                            c.DictionaryConferenceCategoryName,
-                                            c.DictionaryCityName,
-                                            c.SpeakerName);
-                }
-            }
+            dataGridView1.Rows.Clear();
+            populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
         }
         
