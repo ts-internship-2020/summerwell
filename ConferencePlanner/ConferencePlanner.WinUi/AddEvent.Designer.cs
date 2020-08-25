@@ -44,6 +44,8 @@ namespace ConferencePlanner.WinUi
             this.btnNext = new System.Windows.Forms.Button();
             this.tabCountry = new System.Windows.Forms.TabPage();
             this.listView2 = new System.Windows.Forms.ListView();
+            this.DictionaryCountryId = new System.Windows.Forms.ColumnHeader();
+            this.DictionaryCountryName = new System.Windows.Forms.ColumnHeader();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.tabSpeaker = new System.Windows.Forms.TabPage();
             this.listView3 = new System.Windows.Forms.ListView();
@@ -58,8 +60,6 @@ namespace ConferencePlanner.WinUi
             this.listView6 = new System.Windows.Forms.ListView();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
-            this.DictionaryCountryId = new System.Windows.Forms.ColumnHeader();
-            this.DictionaryCountryName = new System.Windows.Forms.ColumnHeader();
             this.tabControl1.SuspendLayout();
             this.tabType.SuspendLayout();
             this.tabCountry.SuspendLayout();
@@ -152,7 +152,6 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.Controls.Add(this.tabCounty);
             this.tabControl1.Controls.Add(this.tabCity);
             this.tabControl1.Controls.Add(this.tabCategory);
-            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -185,7 +184,6 @@ namespace ConferencePlanner.WinUi
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Enabled = false;
             this.btnNext.Location = new System.Drawing.Point(268, 157);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(93, 49);
@@ -418,6 +416,7 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabType;
         private System.Windows.Forms.Button btnNext;
+        
         private System.Windows.Forms.TabPage tabCountry;
         private System.Windows.Forms.TabPage tabSpeaker;
         private System.Windows.Forms.TabPage tabCounty;

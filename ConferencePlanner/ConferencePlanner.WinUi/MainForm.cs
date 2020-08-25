@@ -47,7 +47,7 @@ namespace ConferencePlanner.WinUi
             if (x == null || x.Count() == 0)
             {
                 return;
-            }s
+            }
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
 

@@ -10,14 +10,16 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
+using ConferencePlanner.Abstraction.Model;
 
 namespace ConferencePlanner.WinUi
 {
     public partial class AddEvent : Form
     {
         string var_email = "";
-        
-     
+        List<DictionaryCountryModel> list = new List<DictionaryCountryModel>();
+
+
         private readonly IConferenceRepository _ConferenceRepository;
         public AddEvent(IConferenceRepository ConferenceRepository, 
             string var_email,
@@ -37,7 +39,11 @@ namespace ConferencePlanner.WinUi
                 AddStartDate.Value = CoferenceStartDate;
                 AddEndDate.Value = ConferenceEndDate;
                 AddAddress.Text = ConferenceAddress;
+                
+                
             }
+            
+            
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -131,10 +137,17 @@ namespace ConferencePlanner.WinUi
 
         private void PopulateListView ()
         {
-            listView1.View = View.Details;
-            listView1.Columns.Add("Country Id");
-            listView1.Columns.Add("Country Name");
-           
+            listView2.View = View.Details;
+            listView2.Columns.Add("DictionaryCountryId");
+            listView2.Columns.Add("DictionaryCountryName");
+            
+            foreach (var c in list)
+            {
+                listView2.Items.Add(new ListViewItem(new string[] { c.DictionaryCountryId.ToString(), c.DictionaryCountryName }));
+
+            }
+
+
         }
         private void listView5_SelectedIndexChanged(object sender, EventArgs e)
         {
