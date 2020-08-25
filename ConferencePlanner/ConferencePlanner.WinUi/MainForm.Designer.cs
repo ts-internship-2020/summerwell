@@ -276,6 +276,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker2.TabIndex = 2;
+            this.dateTimePicker2.Value = new System.DateTime(1960, 7, 14, 0, 0, 0, 0);
             // 
             // dateTimePicker1
             // 
@@ -284,6 +285,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker1.TabIndex = 1;
+            this.dateTimePicker1.Value = new System.DateTime(2100, 6, 16, 0, 0, 0, 0);
             // 
             // tabPage2
             // 
@@ -454,6 +456,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker4.Name = "dateTimePicker4";
             this.dateTimePicker4.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker4.TabIndex = 4;
+            this.dateTimePicker4.Value = new System.DateTime(1921, 3, 4, 0, 0, 0, 0);
             // 
             // dateTimePicker3
             // 
@@ -464,6 +467,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker3.Name = "dateTimePicker3";
             this.dateTimePicker3.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker3.TabIndex = 3;
+            this.dateTimePicker3.Value = new System.DateTime(2100, 7, 16, 0, 0, 0, 0);
             // 
             // label4
             // 
