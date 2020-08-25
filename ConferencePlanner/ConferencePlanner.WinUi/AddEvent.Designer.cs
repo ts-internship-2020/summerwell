@@ -40,16 +40,22 @@ namespace ConferencePlanner.WinUi
             this.AddEndDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabType = new System.Windows.Forms.TabPage();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.btnNext = new System.Windows.Forms.Button();
             this.tabCountry = new System.Windows.Forms.TabPage();
+            this.listView2 = new System.Windows.Forms.ListView();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.tabSpeaker = new System.Windows.Forms.TabPage();
+            this.listView3 = new System.Windows.Forms.ListView();
             this.btnNext3 = new System.Windows.Forms.Button();
             this.tabCounty = new System.Windows.Forms.TabPage();
+            this.listView4 = new System.Windows.Forms.ListView();
             this.btnNext4 = new System.Windows.Forms.Button();
             this.tabCity = new System.Windows.Forms.TabPage();
+            this.listView5 = new System.Windows.Forms.ListView();
             this.btnNext5 = new System.Windows.Forms.Button();
             this.tabCategory = new System.Windows.Forms.TabPage();
+            this.listView6 = new System.Windows.Forms.ListView();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
@@ -144,6 +150,7 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.Controls.Add(this.tabCounty);
             this.tabControl1.Controls.Add(this.tabCity);
             this.tabControl1.Controls.Add(this.tabCategory);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -153,6 +160,7 @@ namespace ConferencePlanner.WinUi
             // 
             // tabType
             // 
+            this.tabType.Controls.Add(this.listView1);
             this.tabType.Controls.Add(this.btnNext);
             this.tabType.Location = new System.Drawing.Point(4, 24);
             this.tabType.Name = "tabType";
@@ -162,9 +170,20 @@ namespace ConferencePlanner.WinUi
             this.tabType.Text = "Conference Type";
             this.tabType.UseVisualStyleBackColor = true;
             // 
+            // listView1
+            // 
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(22, 25);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(206, 163);
+            this.listView1.TabIndex = 10;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Enabled = false;
             this.btnNext.Location = new System.Drawing.Point(268, 157);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(93, 49);
@@ -175,6 +194,7 @@ namespace ConferencePlanner.WinUi
             // 
             // tabCountry
             // 
+            this.tabCountry.Controls.Add(this.listView2);
             this.tabCountry.Controls.Add(this.btnNext2);
             this.tabCountry.Location = new System.Drawing.Point(4, 24);
             this.tabCountry.Name = "tabCountry";
@@ -184,9 +204,20 @@ namespace ConferencePlanner.WinUi
             this.tabCountry.Text = "Country";
             this.tabCountry.UseVisualStyleBackColor = true;
             // 
+            // listView2
+            // 
+            this.listView2.HideSelection = false;
+            this.listView2.Location = new System.Drawing.Point(22, 25);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(206, 163);
+            this.listView2.TabIndex = 1;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
+            // 
             // btnNext2
             // 
             this.btnNext2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext2.Enabled = false;
             this.btnNext2.Location = new System.Drawing.Point(268, 157);
             this.btnNext2.Name = "btnNext2";
             this.btnNext2.Size = new System.Drawing.Size(93, 49);
@@ -197,6 +228,8 @@ namespace ConferencePlanner.WinUi
             // 
             // tabSpeaker
             // 
+            this.tabSpeaker.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tabSpeaker.Controls.Add(this.listView3);
             this.tabSpeaker.Controls.Add(this.btnNext3);
             this.tabSpeaker.Location = new System.Drawing.Point(4, 24);
             this.tabSpeaker.Name = "tabSpeaker";
@@ -204,9 +237,20 @@ namespace ConferencePlanner.WinUi
             this.tabSpeaker.TabIndex = 2;
             this.tabSpeaker.Text = "Speaker";
             // 
+            // listView3
+            // 
+            this.listView3.HideSelection = false;
+            this.listView3.Location = new System.Drawing.Point(22, 25);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(206, 163);
+            this.listView3.TabIndex = 1;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
+            // 
             // btnNext3
             // 
             this.btnNext3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext3.Enabled = false;
             this.btnNext3.Location = new System.Drawing.Point(268, 157);
             this.btnNext3.Name = "btnNext3";
             this.btnNext3.Size = new System.Drawing.Size(93, 49);
@@ -217,12 +261,24 @@ namespace ConferencePlanner.WinUi
             // 
             // tabCounty
             // 
+            this.tabCounty.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tabCounty.Controls.Add(this.listView4);
             this.tabCounty.Controls.Add(this.btnNext4);
             this.tabCounty.Location = new System.Drawing.Point(4, 24);
             this.tabCounty.Name = "tabCounty";
             this.tabCounty.Size = new System.Drawing.Size(364, 209);
             this.tabCounty.TabIndex = 3;
             this.tabCounty.Text = "County";
+            // 
+            // listView4
+            // 
+            this.listView4.HideSelection = false;
+            this.listView4.Location = new System.Drawing.Point(22, 25);
+            this.listView4.Name = "listView4";
+            this.listView4.Size = new System.Drawing.Size(206, 163);
+            this.listView4.TabIndex = 1;
+            this.listView4.UseCompatibleStateImageBehavior = false;
+            this.listView4.SelectedIndexChanged += new System.EventHandler(this.listView4_SelectedIndexChanged);
             // 
             // btnNext4
             // 
@@ -237,6 +293,8 @@ namespace ConferencePlanner.WinUi
             // 
             // tabCity
             // 
+            this.tabCity.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tabCity.Controls.Add(this.listView5);
             this.tabCity.Controls.Add(this.btnNext5);
             this.tabCity.Location = new System.Drawing.Point(4, 24);
             this.tabCity.Name = "tabCity";
@@ -244,9 +302,20 @@ namespace ConferencePlanner.WinUi
             this.tabCity.TabIndex = 4;
             this.tabCity.Text = "City";
             // 
+            // listView5
+            // 
+            this.listView5.HideSelection = false;
+            this.listView5.Location = new System.Drawing.Point(22, 25);
+            this.listView5.Name = "listView5";
+            this.listView5.Size = new System.Drawing.Size(206, 163);
+            this.listView5.TabIndex = 1;
+            this.listView5.UseCompatibleStateImageBehavior = false;
+            this.listView5.SelectedIndexChanged += new System.EventHandler(this.listView5_SelectedIndexChanged);
+            // 
             // btnNext5
             // 
             this.btnNext5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext5.Enabled = false;
             this.btnNext5.Location = new System.Drawing.Point(268, 157);
             this.btnNext5.Name = "btnNext5";
             this.btnNext5.Size = new System.Drawing.Size(93, 49);
@@ -257,6 +326,8 @@ namespace ConferencePlanner.WinUi
             // 
             // tabCategory
             // 
+            this.tabCategory.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tabCategory.Controls.Add(this.listView6);
             this.tabCategory.Controls.Add(this.btnSave);
             this.tabCategory.Location = new System.Drawing.Point(4, 24);
             this.tabCategory.Name = "tabCategory";
@@ -264,9 +335,19 @@ namespace ConferencePlanner.WinUi
             this.tabCategory.TabIndex = 5;
             this.tabCategory.Text = "Category";
             // 
+            // listView6
+            // 
+            this.listView6.HideSelection = false;
+            this.listView6.Location = new System.Drawing.Point(22, 25);
+            this.listView6.Name = "listView6";
+            this.listView6.Size = new System.Drawing.Size(206, 163);
+            this.listView6.TabIndex = 11;
+            this.listView6.UseCompatibleStateImageBehavior = false;
+            // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(268, 157);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(93, 49);
@@ -342,5 +423,11 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.Button btnNext3;
         private System.Windows.Forms.Button btnNext4;
         private System.Windows.Forms.Button btnNext5;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView listView4;
+        private System.Windows.Forms.ListView listView5;
+        private System.Windows.Forms.ListView listView6;
     }
 }
