@@ -13,6 +13,9 @@ using ConferencePlanner.Abstraction.Model;
 using System.Data.SqlClient;
 using Accessibility;
 using ConferencePlanner.Repository.Ado.Repository;
+using System.Drawing.Text;
+using Windows.UI.Xaml.Documents;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ConferencePlanner.WinUi
 {
@@ -23,27 +26,37 @@ namespace ConferencePlanner.WinUi
 
         private int totalEntries;
         private int startingPoint;
+        private int HosttotalEntries;
+        private int HoststartingPoint;
         private List<ConferenceDetailModel> x;
+        private List<ConferenceDetailModel> y;
         private string currentUser;
 
         public MainForm(IConferenceRepository ConferenceRepository, string var_email)
         {
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
-            x = _ConferenceRepository.GetConferenceDetail();
+            x = _ConferenceRepository.GetConferenceDetail();           
             currentUser = var_email;
-
+            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser);
             totalEntries = x.Count;
             startingPoint = 0;
+            HoststartingPoint = 0;
+            HosttotalEntries = y.Count;
 
             if (x == null || x.Count() == 0)
             {
                 return;
-            }
-
+            }s
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
-            populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
             changeColor();
+
+            if (y == null || y.Count() == 0)
+            {
+                return;
+            }
+            populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
+            
         }
 
         private void populateConferenceGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
@@ -63,17 +76,18 @@ namespace ConferencePlanner.WinUi
 
         }
         private void populateHostGridViewByDate(int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
-            {
+            {   
                 for (int i = startingPoint; i < endingPoint; i++)
                 {
-                    if (x[i].HostEmail == currentUser && x[i].StartDate > StartDate && x[i].StartDate < EndDate)
+
+                    if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
                     {
-                    dataGridView2.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].DictionaryConferenceTypeName,
-                              x[i].DictionaryConferenceCategoryName,
-                              x[i].DictionaryCityName,
-                              x[i].SpeakerName,
-                              null, null, null, x[i].ConferenceId);
-                }
+                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate, y[i].DictionaryConferenceTypeName,
+                                  y[i].DictionaryConferenceCategoryName,
+                                  y[i].DictionaryCityName,
+                                  y[i].SpeakerName,
+                                  null, null, null, y[i].ConferenceId);
+                    }
                 }
 
 
@@ -401,10 +415,10 @@ namespace ConferencePlanner.WinUi
 
 
             if (startingPoint >= 5)
-            {   
+            {
                 startingPoint -= 5;
                 dataGridView1.Rows.Clear();
-                populateConferenceGridViewByDate(startingPoint, startingPoint + 5,dateTimePicker2.Value,dateTimePicker1.Value);
+                populateConferenceGridViewByDate(startingPoint, startingPoint + 5, dateTimePicker2.Value, dateTimePicker1.Value);
                 changeColor();
 
             }
@@ -417,19 +431,15 @@ namespace ConferencePlanner.WinUi
                 changeColor();
 
             }
-            
-            else {
+
+            else
+            {
                 return;
             }
-            
+        }
+
         
 
-            
-
-           
-
-
-        }
 
         private void nextPage(object sender, EventArgs e)
         {
@@ -463,6 +473,57 @@ namespace ConferencePlanner.WinUi
             
 
 
+        }
+        private void btnNextHost_Click(object sender, EventArgs e)
+        {
+            if (HoststartingPoint <= HosttotalEntries - 5)
+            {
+                HoststartingPoint += 5;
+                dataGridView2.Rows.Clear();
+                if (HoststartingPoint + 5 < HosttotalEntries)
+                {
+                    populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+                }
+
+                else
+                {
+                    populateHostGridViewByDate(HoststartingPoint, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+                }
+            }
+            else if (HoststartingPoint < HosttotalEntries)
+            {
+                dataGridView2.Rows.Clear();
+                populateHostGridViewByDate(HoststartingPoint, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+                HoststartingPoint = HosttotalEntries;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void btnBackHost_Click(object sender, EventArgs e)
+        {
+            if (HoststartingPoint >= 5)
+            {
+                HoststartingPoint -= 5;
+                dataGridView2.Rows.Clear();
+                populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+
+            }
+
+            else if (HoststartingPoint > 0)
+            {
+                HoststartingPoint = 0;
+                dataGridView2.Rows.Clear();
+                populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+
+            }
+
+            else
+            {
+                return;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
