@@ -105,29 +105,35 @@ namespace ConferencePlanner.WinUi
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCountry);  
+            tabControl1.SelectTab(tabCountry);
+            tabCountry.Enabled = true;
         }
         private void btnNext2_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabSpeaker);
+            tabSpeaker.Enabled = true;
            
              
         }
         private void btnNext3_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCounty);
+            tabCounty.Enabled = true;
+            tabSpeaker.Enabled = false;
         
                 
         }
         private void btnNext4_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCity);
+            tabCity.Enabled = true;
            
                 
         }
         private void btnNext5_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCategory);
+            tabCategory.Enabled = true;
          
                 
         }
