@@ -25,6 +25,7 @@ namespace ConferencePlanner.WinUi
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
+        private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
 
         private int totalEntries;
         private int startingPoint;
@@ -34,11 +35,12 @@ namespace ConferencePlanner.WinUi
         private List<ConferenceDetailModel> y;
         private string currentUser;
 
-        public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository,  IConferenceRepository ConferenceRepository, string var_email)
+        public MainForm(IDictionaryCountyRepository DictionaryCountyRepository,IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository,  IConferenceRepository ConferenceRepository, string var_email)
         {
             InitializeComponent();
             _ConferenceTypeRepository = conferenceTypeRepository;
             _ConferenceRepository = ConferenceRepository;
+            _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
             x = _ConferenceRepository.GetConferenceDetail();
             currentUser = var_email;
@@ -269,7 +271,11 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if (colindex.ToString().Equals("7"))
                 { 
-                    AddEvent form3 = new AddEvent(_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository, currentUser,
+                    AddEvent form3 = new AddEvent(_GetSpeakerDetail, 
+                        _ConferenceTypeRepository, 
+                        _ConferenceRepository, 
+                        _DictionaryCountyRepository,
+                        currentUser,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value, 
@@ -396,7 +402,9 @@ namespace ConferencePlanner.WinUi
         {
             
                     DateTime localDate = DateTime.Now;
-                    AddEvent form3 = new AddEvent(_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository, currentUser, null, null, null, null, null, localDate, localDate);
+                    AddEvent form3 = new AddEvent(_GetSpeakerDetail, _ConferenceTypeRepository,
+                        _ConferenceRepository, _DictionaryCountyRepository,
+                        currentUser, null, null, null, null, null, localDate, localDate);
                     form3.Tag = this;
                     form3.Show(this);
                 

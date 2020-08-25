@@ -23,8 +23,13 @@ namespace ConferencePlanner.WinUi
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private IConferenceTypeRepository _ConferenceTypeRepository;
+        private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
         private List<ConferenceTypeModel> x;
-        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
+
+        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, 
+            IConferenceTypeRepository ConferenceTypeRepository, 
+            IConferenceRepository ConferenceRepository,
+            IDictionaryCountyRepository DictionaryCountyRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -36,9 +41,11 @@ namespace ConferencePlanner.WinUi
             )
         {
             InitializeComponent();
+            _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
             _ConferenceRepository = ConferenceRepository;
             List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
+            List<DictionaryCountyModel> countys = _DictionaryCountyRepository.GetDictionaryCounty();
             
             if (ConferenceName != null)
             {
@@ -52,21 +59,34 @@ namespace ConferencePlanner.WinUi
             {
                 return;
             }
+
+            if (countys == null) { return; }
            
             listView3.View = View.Details;
             listView3.FullRowSelect = true;
             listView3.GridLines = true;
             listView3.Columns.Add("SpeakerName", -2);
             listView3.Columns.Add("Rating", -2);
+
+            listView4.View = View.Details;
+            listView4.FullRowSelect = true;
+            listView4.GridLines = true;
+            listView4.Columns.Add("Id", -2);
+            listView4.Columns.Add("County", -2);
+
+
             foreach (var speaker in speakers)
             { 
                 listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
                 
                 
             }
-            
-            
-        
+            foreach (var county in countys)
+            {
+                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+
+
+            }
 
 
             _ConferenceTypeRepository = ConferenceTypeRepository;
@@ -153,8 +173,7 @@ namespace ConferencePlanner.WinUi
         {
             if (listView3.SelectedItems.Count != 0)
             {
-                MessageBox.Show("Please Select At least one Column");
-               // btnNext3.Enabled = true;
+                btnNext3.Enabled = true;
             }
             
         }
@@ -163,7 +182,6 @@ namespace ConferencePlanner.WinUi
         {
             if (listView4.SelectedItems.Count != 0)
             {
-                MessageBox.Show("Please Select At least one Column");
                 btnNext4.Enabled = true;
             }
             

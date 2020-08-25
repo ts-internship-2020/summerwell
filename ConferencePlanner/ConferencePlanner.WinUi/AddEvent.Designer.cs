@@ -294,6 +294,7 @@ namespace ConferencePlanner.WinUi
             // 
             this.btnNext4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext4.Location = new System.Drawing.Point(268, 157);
+            this.btnNext4.Enabled = false;
             this.btnNext4.Name = "btnNext4";
             this.btnNext4.Size = new System.Drawing.Size(93, 49);
             this.btnNext4.TabIndex = 0;
