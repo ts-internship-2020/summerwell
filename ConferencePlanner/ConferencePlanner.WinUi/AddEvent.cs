@@ -20,13 +20,14 @@ namespace ConferencePlanner.WinUi
         private string var_email = "";
 
         private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
+        private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
         private List<ConferenceTypeModel> x;
         public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
-            IDictionaryCountryRepository DictionaryCountryRepository,
+            IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -42,10 +43,12 @@ namespace ConferencePlanner.WinUi
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountryRepository = DictionaryCountryRepository;
             _ConferenceRepository = ConferenceRepository;
+            _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
             List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
             List<DictionaryCountyModel> countys = _DictionaryCountyRepository.GetDictionaryCounty();
-            
+            List<DictionaryConferenceCategoryModel> categories = _DictionaryConferenceCategoryRepository.GetDictionaryCategory();
+
             if (ConferenceName != null)
             {
                 AddConferenceName.Text = ConferenceName;
@@ -56,6 +59,7 @@ namespace ConferencePlanner.WinUi
             if (countries == null) { return; }
             else
             {
+              
                 listView2.View = View.Details;
                 listView2.FullRowSelect = true;
                 listView2.GridLines = true;
@@ -65,6 +69,21 @@ namespace ConferencePlanner.WinUi
                 {
                    
                    listView2.Items.Add(new ListViewItem(new string[] { country.DictionaryCountryId.ToString(), country.DictionaryCountryName }));
+
+                }
+            }
+            if (categories == null) { return; }
+            else
+            {
+                listView6.View = View.Details;
+                listView6.FullRowSelect = true;
+                listView6.GridLines = true;
+                listView6.Columns.Add("DictionaryConferenceCategoryId", -2);
+                listView6.Columns.Add("DictionaryConferenceCategoryName", -2);
+                foreach (var category in categories)
+                {
+
+                    listView6.Items.Add(new ListViewItem(new string[] { category.DictionaryConferenceCategoryId.ToString(), category.DictionaryConferenceCategoryName }));
 
                 }
             }
@@ -86,6 +105,9 @@ namespace ConferencePlanner.WinUi
             listView4.GridLines = true;
             listView4.Columns.Add("Id", -2);
             listView4.Columns.Add("County", -2);
+
+           
+
 
 
             foreach (var speaker in speakers)

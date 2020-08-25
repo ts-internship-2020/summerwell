@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
+using ConferencePlanner.Abstraction.Model;
 
 namespace ConferencePlanner.WinUi
 {
@@ -21,13 +22,16 @@ namespace ConferencePlanner.WinUi
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
-        public StartUpForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCountryRepository DictionaryCountryRepository)
+        private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
+        private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
+        public StartUpForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository)
         {
             _GetSpeakerDetail = GetSpeakerDetail;
             _ConferenceRepository = ConferenceRepository;
             _ConferenceTypeRepository = ConferenceTypeRepository;
             _DictionaryCountryRepository = DictionaryCountryRepository;
             _DictionaryCountyRepository = DictionaryCountyRepository;
+            _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             InitializeComponent();
         }
 
@@ -48,7 +52,7 @@ namespace ConferencePlanner.WinUi
                 var_email = EmailBoss.Text;
                 //MessageBox.Show(var_email);
 
-                MainForm form2 = new MainForm(_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository, _DictionaryCountryRepository, var_email);
+                MainForm form2 = new MainForm(_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository, _DictionaryCountryRepository, _DictionaryCountyRepository,_DictionaryConferenceCategoryRepository,var_email);
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();
