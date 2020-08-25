@@ -18,13 +18,14 @@ namespace ConferencePlanner.WinUi
     public partial class AddEvent : Form
     {
         private string var_email = "";
-        
-     
+
+        private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private IConferenceTypeRepository _ConferenceTypeRepository;
         private List<ConferenceTypeModel> x;
         public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
+            IDictionaryCountryRepository DictionaryCountryRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -37,9 +38,10 @@ namespace ConferencePlanner.WinUi
         {
             InitializeComponent();
             _GetSpeakerDetail = GetSpeakerDetail;
+            _DictionaryCountryRepository = DictionaryCountryRepository;
             _ConferenceRepository = ConferenceRepository;
             List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
-            
+            List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
             if (ConferenceName != null)
             {
                 AddConferenceName.Text = ConferenceName;
@@ -47,7 +49,21 @@ namespace ConferencePlanner.WinUi
                 AddEndDate.Value = ConferenceEndDate;
                 AddAddress.Text = ConferenceAddress;
             }
+            if (countries == null) { return; }
+            else
+            {
+                listView2.View = View.Details;
+                listView2.FullRowSelect = true;
+                listView2.GridLines = true;
+                listView2.Columns.Add("DictionaryCountryId", -2);
+                listView2.Columns.Add("DictionaryCountryCity", -2);
+                foreach (var country in countries)
+                {
+                   
+                   listView2.Items.Add(new ListViewItem(new string[] { country.DictionaryCountryId.ToString(), country.DictionaryCountryName }));
 
+                }
+            }
             if (speakers == null)
             {
                 return;
@@ -186,5 +202,9 @@ namespace ConferencePlanner.WinUi
        
         }
 
+        private void tabType_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
