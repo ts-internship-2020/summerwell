@@ -19,7 +19,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public List<DictionaryCityModel> GetCity()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = "select * from DictionaryCity";
+            sqlCommand.CommandText = "select DictionaryCityId, DictionaryCityName, DictionaryCountyId, DictionaryCityCode from DictionaryCity";
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             List<DictionaryCityModel> city = new List<DictionaryCityModel>();
             if (sqlDataReader.HasRows)
