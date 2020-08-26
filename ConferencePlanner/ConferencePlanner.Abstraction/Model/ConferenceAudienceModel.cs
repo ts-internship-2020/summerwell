@@ -10,5 +10,6 @@ namespace ConferencePlanner.Abstraction.Model
         public int ConferenceId { get; set; }
         public string Participant { get; set; }
         public int ConferenceStatusId { get; set; }
+        public string UniqueParticipantCode { get; set; }
     }
 }

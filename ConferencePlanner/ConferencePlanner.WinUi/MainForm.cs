@@ -122,6 +122,7 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
+                    _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
