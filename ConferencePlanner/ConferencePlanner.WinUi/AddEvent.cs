@@ -75,7 +75,7 @@ namespace ConferencePlanner.WinUi
                 listView2.Columns.Add("CountryName", -2);
                 foreach (var country in countries)
                 {
-                   listView2.Items.Add(new ListViewItem(new string[] { country.DictionaryCountryId.ToString(), country.DictionaryCountryName }));
+                   listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName }));
 
                 }
             }
@@ -121,7 +121,7 @@ namespace ConferencePlanner.WinUi
             }
             foreach (var county in countys)
             {
-                        listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+                        listView4.Items.Add(new ListViewItem(new string[] { county.Code.ToString(), county.DictionaryCountyName }));
 
             }
 
@@ -281,7 +281,7 @@ namespace ConferencePlanner.WinUi
             foreach (var c in cityList)
             {
                 if(c.DictionaryCountyId == save_county)
-                    listView5.Items.Add(new ListViewItem(new string[] { c.DictionaryCityId.ToString(), c.Name }));
+                    listView5.Items.Add(new ListViewItem(new string[] { c.Code.ToString(), c.Name }));
             }
             listView5.GridLines = true;
             btnNext5.Enabled = false;
