@@ -121,9 +121,7 @@ namespace ConferencePlanner.WinUi
             }
             foreach (var county in countys)
             {
-                    {
                         listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
-                    }
 
             }
 
