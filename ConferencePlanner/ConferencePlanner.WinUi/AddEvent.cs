@@ -310,5 +310,29 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+        private void EditType_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(eventDetails.ConferenceTypeId.ToString());
+        }
+        private void EditCountry_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void EditCounty_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void EditSpeaker_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void EditCity_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void EditCategory_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

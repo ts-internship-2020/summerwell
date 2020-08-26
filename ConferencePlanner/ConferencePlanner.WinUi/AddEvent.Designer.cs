@@ -183,6 +183,7 @@ namespace ConferencePlanner.WinUi
             this.listView1.TabIndex = 10;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.DoubleClick += new System.EventHandler(this.EditType_Click);
             // 
             // btnNext
             // 
@@ -217,6 +218,7 @@ namespace ConferencePlanner.WinUi
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
+            this.listView2.DoubleClick += new System.EventHandler(this.EditCountry_Click);
             // 
             // btnNext2
             // 
@@ -251,6 +253,7 @@ namespace ConferencePlanner.WinUi
             this.listView3.TabIndex = 1;
             this.listView3.UseCompatibleStateImageBehavior = false;
             this.listView3.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
+            this.listView3.DoubleClick += new System.EventHandler(this.EditSpeaker_Click);
             // 
             // btnNext3
             // 
@@ -284,6 +287,7 @@ namespace ConferencePlanner.WinUi
             this.listView4.TabIndex = 1;
             this.listView4.UseCompatibleStateImageBehavior = false;
             this.listView4.SelectedIndexChanged += new System.EventHandler(this.listView4_SelectedIndexChanged);
+            this.listView4.DoubleClick += new System.EventHandler(this.EditCounty_Click);
             // 
             // btnNext4
             // 
@@ -319,6 +323,7 @@ namespace ConferencePlanner.WinUi
             this.listView5.TabIndex = 1;
             this.listView5.UseCompatibleStateImageBehavior = false;
             this.listView5.SelectedIndexChanged += new System.EventHandler(this.listView5_SelectedIndexChanged);
+            this.listView5.DoubleClick += new System.EventHandler(this.EditCity_Click);
             // 
             // btnNext5
             // 
@@ -352,6 +357,7 @@ namespace ConferencePlanner.WinUi
             this.listView6.TabIndex = 11;
             this.listView6.UseCompatibleStateImageBehavior = false;
             this.listView6.SelectedIndexChanged += new System.EventHandler(this.listView6_SelectedIndexChanged);
+            this.listView6.DoubleClick += new System.EventHandler(this.EditCategory_Click);
             // 
             // btnSave
             // 
