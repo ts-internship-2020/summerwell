@@ -22,7 +22,7 @@ namespace ConferencePlanner.Abstraction.Repository
         public List<DictionaryCountryModel> GetDictionaryCountry()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = "select DictionaryCountryId, DictionaryCountryName from DictionaryCountry";
+            sqlCommand.CommandText = "select * from DictionaryCountry";
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             List<DictionaryCountryModel> countries = new List<DictionaryCountryModel>();
 
@@ -33,7 +33,8 @@ namespace ConferencePlanner.Abstraction.Repository
                     countries.Add(new DictionaryCountryModel()
                     {
                         DictionaryCountryId = sqlDataReader.GetInt32("DictionaryCountryId"),
-                        DictionaryCountryName = sqlDataReader.GetString("DictionaryCountryName")
+                        DictionaryCountryName = sqlDataReader.GetString("DictionaryCountryName"),
+                        Code = sqlDataReader.GetString("DictionaryCountryCode")
                     });
 
 
