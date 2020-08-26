@@ -31,24 +31,36 @@ namespace ConferencePlanner.WinUi
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
         protected AddEvent f;
         private AddEventDetailModel eventDetails;
+        private AddConferenceDetailModel AddConferenceDetailModel;
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private List<ConferenceTypeModel> x;
         private List<DictionaryCityModel> cityList;
         private List<DictionaryCountyModel> countys;
-        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCityRepository dictionaryCityRepository,
-            IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository,
-            string var_email,
-            string ConferenceName,
-            string ConferenceType,
-            string ConferenceCategory,
-            string ConferenceAddress,
-            string ConferenceMainSpeaker,
-            DateTime CoferenceStartDate,
-            DateTime ConferenceEndDate
-            )
+        string ConferenceName = "";
+        DateTime CoferenceStartDate = DateTime.Now;
+        DateTime ConferenceEndDate = DateTime.Now;
+        string ConferenceAddress = "";
+        public AddEvent(AddConferenceDetailModel addConferenceDetailModel, IGetSpeakerDetail GetSpeakerDetail, 
+            IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, 
+            IDictionaryCityRepository dictionaryCityRepository, IDictionaryCountryRepository DictionaryCountryRepository, 
+            IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository)
         {
+           
             InitializeComponent();
-            
+
+            AddConferenceDetailModel = addConferenceDetailModel;
+            if (AddConferenceDetailModel != null)
+            {
+                string ConferenceName = AddConferenceDetailModel.ConferenceName;
+                string ConferenceType = AddConferenceDetailModel.ConferenceTypeName;
+                string ConferenceCategory = AddConferenceDetailModel.ConferenceCategoryName;
+                string ConferenceAddress = AddConferenceDetailModel.Location;
+                string ConferenceMainSpeaker = addConferenceDetailModel.Speaker;
+                DateTime CoferenceStartDate = AddConferenceDetailModel.StartDate;
+                DateTime ConferenceEndDate = AddConferenceDetailModel.EndDate;
+            }
+            var_email = AddConferenceDetailModel.HostEmail;
+
             f = this; // Current form to use in New/Edit Form
             eventDetails = new AddEventDetailModel();
             _DictionaryCountyRepository = DictionaryCountyRepository;
@@ -142,7 +154,7 @@ namespace ConferencePlanner.WinUi
             eventDetails.HostEmail = var_email;
             eventDetails.StartDate = AddStartDate.Value;
             eventDetails.EndDate = AddEndDate.Value;
-            eventDetails.ConferenceName = AddConferenceName.Text;
+            eventDetails.ConferenceName = AddConferenceName.Text.ToString();
         }
 
         private void populateCounty(List<DictionaryCountyModel> countys)
