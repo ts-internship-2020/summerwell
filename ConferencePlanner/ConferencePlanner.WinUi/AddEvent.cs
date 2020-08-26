@@ -141,7 +141,7 @@ namespace ConferencePlanner.WinUi
             foreach (var county in countys)
             {
                 if(county.DictionaryCountryId == eventDetails.DictionaryCountryId)
-                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+                listView4.Items.Add(new ListViewItem(new string[] { county.Code.ToString(), county.DictionaryCountyName, county.DictionaryCountyId.ToString() }));
             }
         }
 
@@ -251,6 +251,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView4.SelectedItems[0];
                 eventDetails.DictionaryCountyCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountyName = selectedItem.SubItems[1].Text;
+                eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[2].Text);
                 btnNext4.Enabled = true;
             }
             
@@ -282,7 +283,7 @@ namespace ConferencePlanner.WinUi
             listView5.Columns.Add("Name");
             int save_county = 0;
             foreach (var ind in countys)
-                if (ind.Code.Equals(eventDetails.DictionaryCountyCode))
+                if (ind.DictionaryCountyId.Equals(eventDetails.DictionaryCountyId))
                     save_county = ind.DictionaryCountyId;
             foreach (var c in cityList)
             {
