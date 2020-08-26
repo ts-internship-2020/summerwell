@@ -41,6 +41,7 @@ namespace ConferencePlanner.WinUi
             services.AddScoped<IConferenceTypeRepository, ConferenceTypeRepository>();
             services.AddScoped<IDictionaryCountryRepository, DictionaryCountryRepository>();
             services.AddScoped<IDictionaryCountyRepository, DictionaryCountyRepository>();
+            services.AddScoped<IDictionaryCityRepository, DictionaryCityRepository>();
             services.AddScoped<IDictionaryConferenceCategoryRepository, DictionaryConferenceCategoryRepository>();
             services.AddSingleton<SqlConnection>(a =>
             {
