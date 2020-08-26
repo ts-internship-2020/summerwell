@@ -83,6 +83,11 @@ namespace ConferencePlanner.WinUi
                                        x[i].SpeakerName,
                                        null, null, null, x[i].ConferenceId);
                 }
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
 
@@ -122,6 +127,7 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
+                    _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
@@ -153,7 +159,7 @@ namespace ConferencePlanner.WinUi
                         }
                         else
                         {
-                            MessageBox.Show("You have to attend before you can join!");
+                           MessageBox.Show("You have to attend before you can join!");
                         }
 
                     }
@@ -185,7 +191,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)sender;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Red;
+            bc.Style.BackColor = Color.DarkRed;
             bc.Style.ForeColor = Color.DarkRed;
         }
 
@@ -194,7 +200,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)datagrid;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Green;
+            bc.Style.BackColor = Color.DarkGreen;
             bc.Style.ForeColor = Color.DarkGreen;
         }
 
@@ -213,7 +219,7 @@ namespace ConferencePlanner.WinUi
             try {
                 if (!(senderGrid.Rows[row] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
                 {
-                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd/MM/yyyy HH:mm:ss", null);
                     DateTime now = DateTime.Now;
                     //MessageBox.Show(now.ToString());
                     if (now.AddMinutes(5) >= startDate)
@@ -246,19 +252,19 @@ namespace ConferencePlanner.WinUi
             {
                 DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[6]);
                 bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Green;
+                bc.Style.BackColor = System.Drawing.Color.DarkGreen;
                 bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
             }
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
                 bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Red;
+                bc.Style.BackColor = System.Drawing.Color.DarkRed;
                 bc.Style.ForeColor = System.Drawing.Color.DarkRed;
 
                 DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
                 bc1.FlatStyle = FlatStyle.Flat;
-                bc1.Style.BackColor = System.Drawing.Color.Red;
+                bc1.Style.BackColor = System.Drawing.Color.DarkRed;
                 bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
             }
         }
@@ -323,7 +329,7 @@ namespace ConferencePlanner.WinUi
                 { 
 
 
-                    MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository, dataGridView2.CurrentRow.Cells["MainSpeaker"].Value.ToString());
+                    MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository, _GetSpeakerDetail, dataGridView2.CurrentRow.Cells["MainSpeaker"].Value.ToString());
                     mf.textBox1.Text = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
                     mf.textBox2.Text = this.dataGridView2.CurrentRow.Cells[1].Value.ToString();
                     mf.textBox3.Text = this.dataGridView2.CurrentRow.Cells[2].Value.ToString();
@@ -383,7 +389,7 @@ namespace ConferencePlanner.WinUi
                 conn.Close();
 
 
-                MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository,dataGridView1.CurrentRow.Cells["MainSpeaker"].Value.ToString());
+                MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository, _GetSpeakerDetail, dataGridView1.CurrentRow.Cells["MainSpeaker"].Value.ToString());
                 mf.textBox1.Text = this.dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 mf.textBox2.Text = this.dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 mf.textBox3.Text = this.dataGridView1.CurrentRow.Cells[2].Value.ToString();
@@ -551,8 +557,11 @@ namespace ConferencePlanner.WinUi
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
         }
-        
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

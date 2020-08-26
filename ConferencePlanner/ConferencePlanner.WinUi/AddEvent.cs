@@ -14,6 +14,7 @@ using System.Linq;
 using ConferencePlanner.Abstraction.Model;
 using Windows.Media.Capture.Core;
 using ConferencePlanner.Repository.Ado.Repository;
+using System.Windows.Forms.Design;
 
 namespace ConferencePlanner.WinUi
 {
@@ -75,7 +76,7 @@ namespace ConferencePlanner.WinUi
                 listView2.Columns.Add("CountryName", -2);
                 foreach (var country in countries)
                 {
-                   listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName }));
+                   listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName, country.DictionaryCountryId.ToString() }));
 
                 }
             }
@@ -141,7 +142,7 @@ namespace ConferencePlanner.WinUi
             foreach (var county in countys)
             {
                 if(county.DictionaryCountryId == eventDetails.DictionaryCountryId)
-                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+                listView4.Items.Add(new ListViewItem(new string[] { county.Code.ToString(), county.DictionaryCountyName, county.DictionaryCountyId.ToString() }));
             }
         }
 
@@ -221,10 +222,11 @@ namespace ConferencePlanner.WinUi
         {
             if (listView2.SelectedItems.Count > 0)
             {
-
+                
                 ListViewItem selectedItem = listView2.SelectedItems[0];
                 eventDetails.DictionaryCountryCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountryName = selectedItem.SubItems[1].Text;
+                eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[2].Text);
                 btnNext2.Enabled = true;
             }
             
@@ -250,6 +252,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView4.SelectedItems[0];
                 eventDetails.DictionaryCountyCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountyName = selectedItem.SubItems[1].Text;
+                eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[2].Text);
                 btnNext4.Enabled = true;
             }
             
@@ -281,7 +284,7 @@ namespace ConferencePlanner.WinUi
             listView5.Columns.Add("Name");
             int save_county = 0;
             foreach (var ind in countys)
-                if (ind.Code.Equals(eventDetails.DictionaryCountyCode))
+                if (ind.DictionaryCountyId.Equals(eventDetails.DictionaryCountyId))
                     save_county = ind.DictionaryCountyId;
             foreach (var c in cityList)
             {
@@ -308,7 +311,65 @@ namespace ConferencePlanner.WinUi
         {
 
         }
-
-       
+        private void EditType_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryConferenceType",eventDetails.ConferenceTypeId.ToString(), eventDetails.ConferenceTypeName);
+            form5.Show();
+        }
+        private void EditCountry_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCountry",eventDetails.DictionaryCountryCode.ToString(), eventDetails.DictionaryCountryName);
+            form5.Show();
+        }
+        private void EditCounty_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCounty",eventDetails.DictionaryCountyCode.ToString(), eventDetails.DictionaryCountyName);
+            form5.Show();
+        }
+        private void EditSpeaker_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("Speaker",eventDetails.SpeakerRating.ToString(), eventDetails.SpeakerName);
+            form5.Show();
+        }
+        private void EditCity_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCity",eventDetails.DictionaryCityCode.ToString(), eventDetails.DictionaryCityName);
+            form5.Show();
+        }
+        private void EditCategory_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryConferenceCategory",eventDetails.DictionaryConferenceCategoryId.ToString(), eventDetails.DictionaryConferenceCategoryName);
+            form5.Show();
+        }
+        private void btnAdd1_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryConferenceCategory", null,null);
+            form5.Show();
+        }
+        private void btnAdd2_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCountry",null,null);
+            form5.Show();
+        }
+        private void btnAdd3_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("Speaker", null,null);
+            form5.Show();
+        }
+        private void btnAdd4_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCounty",null,null);
+            form5.Show();
+        }
+        private void btnAdd5_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCity", null, null);
+            form5.Show();
+        }
+        private void btnAdd6_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCategory", null, null);
+            form5.Show();
+        }
     }
 }
