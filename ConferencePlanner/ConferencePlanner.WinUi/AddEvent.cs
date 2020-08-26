@@ -257,7 +257,7 @@ namespace ConferencePlanner.WinUi
             }
             
         }
-
+        //bunasiuaaaaaaaaa
         private void PopulateListView ()
         {
             listView1.View = View.Details;

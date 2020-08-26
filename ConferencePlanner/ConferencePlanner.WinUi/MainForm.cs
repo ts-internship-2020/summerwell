@@ -336,9 +336,9 @@ namespace ConferencePlanner.WinUi
                     mf.textBox4.Text = this.dataGridView2.CurrentRow.Cells[3].Value.ToString();
                     mf.textBox5.Text = this.dataGridView2.CurrentRow.Cells[4].Value.ToString();
                     mf.textBox6.Text = this.dataGridView2.CurrentRow.Cells[5].Value.ToString();
+                   
 
-                  
-                 
+
                     mf.ShowDialog();
                 }
                 catch (NullReferenceException)
