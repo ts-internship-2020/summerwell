@@ -338,12 +338,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
 
             SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "INSERT INTO ConferenceAudience (ConferenceId,Participant,ConferenceStatusId) " +
-                                    "VALUES (@ConferenceId, @Participant, @ConferenceStatusId)";
+            command.CommandText = "INSERT INTO ConferenceAudience (ConferenceId,Participant,ConferenceStatusId,UniqueParticipantCode) " +
+                                    "VALUES (@ConferenceId, @Participant, @ConferenceStatusId, @UniqueParticipantCode)";
             command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
             command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
             command.Parameters.Add("@ConferenceStatusId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
-
+            command.Parameters.Add("@UniqueParticipantCode", SqlDbType.VarChar, 255).Value = _conferenceAudienceModel.UniqueParticipantCode;
             command.ExecuteNonQuery();
         }
         public int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
@@ -358,6 +358,13 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
             return(command.ExecuteNonQuery());
         }
-
+        public string GetUniqueParticipantCode()
+        {
+            Guid g = Guid.NewGuid();
+            string GuidString = Convert.ToBase64String(g.ToByteArray());
+            GuidString = GuidString.Replace("=", "");
+            GuidString = GuidString.Replace("+", "");
+            return GuidString;
+        }
     }
 }

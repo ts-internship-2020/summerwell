@@ -15,6 +15,7 @@ namespace ConferencePlanner.Abstraction.Model
         public string SpeakerName { get; set; }
         public string HostEmail { get; set; }
         public int ConferenceId { get; set; }
+        
 
 
     }

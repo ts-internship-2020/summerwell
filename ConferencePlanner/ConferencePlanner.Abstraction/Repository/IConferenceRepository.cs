@@ -14,6 +14,7 @@ namespace ConferencePlanner.Abstraction.Repository
         List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate);
         void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
+        string GetUniqueParticipantCode();
         // List<ConferenceModel> GetConference(string email);
         // List<ConferenceModel> GetConference(DateTime StartDate);
     }
