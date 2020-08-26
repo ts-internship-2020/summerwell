@@ -168,7 +168,7 @@ namespace ConferencePlanner.WinUi
             this.tabType.Controls.Add(this.btnNext);
             this.tabType.Location = new System.Drawing.Point(4, 27);
             this.tabType.Name = "tabType";
-            this.tabType.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabType.Padding = new System.Windows.Forms.Padding(3);
             this.tabType.Size = new System.Drawing.Size(364, 206);
             this.tabType.TabIndex = 0;
             this.tabType.Text = "Conference Type";
@@ -201,7 +201,7 @@ namespace ConferencePlanner.WinUi
             this.tabCountry.Controls.Add(this.btnNext2);
             this.tabCountry.Location = new System.Drawing.Point(4, 27);
             this.tabCountry.Name = "tabCountry";
-            this.tabCountry.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabCountry.Padding = new System.Windows.Forms.Padding(3);
             this.tabCountry.Size = new System.Drawing.Size(364, 206);
             this.tabCountry.TabIndex = 1;
             this.tabCountry.Text = "Country";
@@ -289,7 +289,7 @@ namespace ConferencePlanner.WinUi
             this.btnNext4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext4.Enabled = false;
             this.btnNext4.Location = new System.Drawing.Point(269, 155);
-            this.btnNext4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNext4.Margin = new System.Windows.Forms.Padding(2);
             this.btnNext4.Name = "btnNext4";
             this.btnNext4.Size = new System.Drawing.Size(93, 49);
             this.btnNext4.TabIndex = 0;
@@ -350,11 +350,11 @@ namespace ConferencePlanner.WinUi
             this.listView6.Size = new System.Drawing.Size(206, 163);
             this.listView6.TabIndex = 11;
             this.listView6.UseCompatibleStateImageBehavior = false;
+            this.listView6.SelectedIndexChanged += new System.EventHandler(this.listView6_SelectedIndexChanged);
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(268, 157);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(93, 49);
