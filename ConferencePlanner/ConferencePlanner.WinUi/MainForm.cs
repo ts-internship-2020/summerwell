@@ -62,16 +62,25 @@ namespace ConferencePlanner.WinUi
             {
                 return;
             }
-            populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
-            changeColor();
+
+            if (totalEntries < 5)
+            {
+                populateConferenceGridViewByDate(0, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
+                changeColor();
+            }
+            else { populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value); changeColor(); }
 
             if (y == null || y.Count() == 0)
             {
                 return;
             }
-            populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
-            
-        }
+            if (HosttotalEntries < 6) { populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value); 
+                btnBackHost.Enabled = false;
+                btnNextHost.Enabled = false; }
+            else populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
+
+
+            }
 
         private void populateConferenceGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
         {
@@ -85,11 +94,6 @@ namespace ConferencePlanner.WinUi
                                        x[i].SpeakerName,
                                        null, null, null, x[i].ConferenceId);
                 }
-                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
 
@@ -98,7 +102,6 @@ namespace ConferencePlanner.WinUi
             {   
                 for (int i = startingPoint; i < endingPoint; i++)
                 {
-
                     if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
                     {
                         dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate, y[i].DictionaryConferenceTypeName,

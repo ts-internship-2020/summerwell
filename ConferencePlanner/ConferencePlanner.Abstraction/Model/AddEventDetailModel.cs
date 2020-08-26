@@ -22,6 +22,10 @@ namespace ConferencePlanner.Abstraction.Model
 
         public int DictionaryConferenceCategoryId { get; set; }
         public string DictionaryConferenceCategoryName { get; set; }
+        public string HostEmail { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string ConferenceName { get; set; }
 
     }
 }
