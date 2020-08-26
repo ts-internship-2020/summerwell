@@ -8,5 +8,6 @@ namespace ConferencePlanner.Abstraction.Repository
     public interface IGetSpeakerDetail
     {
         List<SpeakerDetailModel> GetSpeakers();
+        string GetSpeakerImage(string speakerImage);
     }
 }

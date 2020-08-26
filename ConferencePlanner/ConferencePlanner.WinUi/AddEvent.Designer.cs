@@ -221,6 +221,7 @@ namespace ConferencePlanner.WinUi
             // btnNext2
             // 
             this.btnNext2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext2.Enabled = false;
             this.btnNext2.Location = new System.Drawing.Point(268, 157);
             this.btnNext2.Name = "btnNext2";
             this.btnNext2.Size = new System.Drawing.Size(93, 49);
