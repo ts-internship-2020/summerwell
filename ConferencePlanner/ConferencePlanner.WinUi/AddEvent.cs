@@ -75,7 +75,7 @@ namespace ConferencePlanner.WinUi
                 listView2.Columns.Add("CountryName", -2);
                 foreach (var country in countries)
                 {
-                   listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName }));
+                   listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName, country.DictionaryCountryId.ToString() }));
 
                 }
             }
@@ -225,6 +225,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView2.SelectedItems[0];
                 eventDetails.DictionaryCountryCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountryName = selectedItem.SubItems[1].Text;
+                eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[2].Text);
                 btnNext2.Enabled = true;
             }
             
