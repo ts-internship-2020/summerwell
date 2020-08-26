@@ -85,6 +85,11 @@ namespace ConferencePlanner.WinUi
                                        x[i].SpeakerName,
                                        null, null, null, x[i].ConferenceId);
                 }
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
 
@@ -159,7 +164,7 @@ namespace ConferencePlanner.WinUi
                         }
                         else
                         {
-                            MessageBox.Show("You have to attend before you can join!");
+                           MessageBox.Show("You have to attend before you can join!");
                         }
 
                     }
@@ -194,7 +199,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)sender;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Red;
+            bc.Style.BackColor = Color.DarkRed;
             bc.Style.ForeColor = Color.DarkRed;
         }
 
@@ -203,7 +208,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)datagrid;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Green;
+            bc.Style.BackColor = Color.DarkGreen;
             bc.Style.ForeColor = Color.DarkGreen;
         }
 
@@ -222,7 +227,7 @@ namespace ConferencePlanner.WinUi
             try {
                 if (!(senderGrid.Rows[row] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
                 {
-                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd/MM/yyyy HH:mm:ss", null);
                     DateTime now = DateTime.Now;
                     //MessageBox.Show(now.ToString());
                     if (now.AddMinutes(5) >= startDate)
@@ -273,7 +278,7 @@ namespace ConferencePlanner.WinUi
             {
                 DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
                 bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Red;
+                bc.Style.BackColor = System.Drawing.Color.DarkRed;
                 bc.Style.ForeColor = System.Drawing.Color.DarkRed;
 
                 DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
@@ -587,8 +592,11 @@ namespace ConferencePlanner.WinUi
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
         }
-        
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

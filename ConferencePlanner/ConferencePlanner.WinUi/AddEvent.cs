@@ -14,6 +14,7 @@ using System.Linq;
 using ConferencePlanner.Abstraction.Model;
 using Windows.Media.Capture.Core;
 using ConferencePlanner.Repository.Ado.Repository;
+using System.Windows.Forms.Design;
 
 namespace ConferencePlanner.WinUi
 {
@@ -309,6 +310,66 @@ namespace ConferencePlanner.WinUi
         private void tabType_Click(object sender, EventArgs e)
         {
 
+        }
+        private void EditType_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryConferenceType",eventDetails.ConferenceTypeId.ToString(), eventDetails.ConferenceTypeName);
+            form5.Show();
+        }
+        private void EditCountry_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCountry",eventDetails.DictionaryCountryCode.ToString(), eventDetails.DictionaryCountryName);
+            form5.Show();
+        }
+        private void EditCounty_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCounty",eventDetails.DictionaryCountyCode.ToString(), eventDetails.DictionaryCountyName);
+            form5.Show();
+        }
+        private void EditSpeaker_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("Speaker",eventDetails.SpeakerRating.ToString(), eventDetails.SpeakerName);
+            form5.Show();
+        }
+        private void EditCity_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCity",eventDetails.DictionaryCityCode.ToString(), eventDetails.DictionaryCityName);
+            form5.Show();
+        }
+        private void EditCategory_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryConferenceCategory",eventDetails.DictionaryConferenceCategoryId.ToString(), eventDetails.DictionaryConferenceCategoryName);
+            form5.Show();
+        }
+        private void btnAdd1_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryConferenceCategory", null,null);
+            form5.Show();
+        }
+        private void btnAdd2_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCountry",null,null);
+            form5.Show();
+        }
+        private void btnAdd3_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("Speaker", null,null);
+            form5.Show();
+        }
+        private void btnAdd4_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCounty",null,null);
+            form5.Show();
+        }
+        private void btnAdd5_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCity", null, null);
+            form5.Show();
+        }
+        private void btnAdd6_Click(object sender, EventArgs e)
+        {
+            NewEditForm form5 = new NewEditForm("DictionaryCategory", null, null);
+            form5.Show();
         }
     }
 }
