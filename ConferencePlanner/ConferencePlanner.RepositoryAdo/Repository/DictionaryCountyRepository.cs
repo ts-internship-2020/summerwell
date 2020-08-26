@@ -21,7 +21,7 @@ namespace ConferencePlanner.Abstraction.Repository
         public List<DictionaryCountyModel> GetDictionaryCounty()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = "select DictionaryCountyId, DictionaryCountyName from DictionaryCounty order by DictionaryCountyId";
+            sqlCommand.CommandText = "select DictionaryCountyId, DictionaryCountyName, DictionaryCountryId from DictionaryCounty order by DictionaryCountyId";
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             List<DictionaryCountyModel> countys = new List<DictionaryCountyModel>();
 
@@ -32,7 +32,8 @@ namespace ConferencePlanner.Abstraction.Repository
                     countys.Add(new DictionaryCountyModel()
                     {
                         DictionaryCountyId = sqlDataReader.GetInt32("DictionaryCountyId"),
-                        DictionaryCountyName = sqlDataReader.GetString("DictionaryCountyName")
+                        DictionaryCountyName = sqlDataReader.GetString("DictionaryCountyName"),
+                        DictionaryCountryId = sqlDataReader.GetInt32("DictionaryCountryId")
                     });
 
 

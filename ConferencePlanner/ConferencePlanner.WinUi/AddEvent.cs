@@ -75,7 +75,6 @@ namespace ConferencePlanner.WinUi
                 listView2.Columns.Add("DictionaryCountryName", -2);
                 foreach (var country in countries)
                 {
-                    IndexCountry = country.DictionaryCountryId;
                    listView2.Items.Add(new ListViewItem(new string[] { country.DictionaryCountryId.ToString(), country.DictionaryCountryName }));
 
                 }
@@ -122,12 +121,9 @@ namespace ConferencePlanner.WinUi
             }
             foreach (var county in countys)
             {
-
-                    if (IndexCountry == county.DictionaryCountyId)
                     {
                         listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
                     }
-
 
             }
 
