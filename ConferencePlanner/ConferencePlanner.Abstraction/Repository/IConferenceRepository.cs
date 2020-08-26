@@ -13,8 +13,12 @@ namespace ConferencePlanner.Abstraction.Repository
         List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName);
         List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate);
         List<ConferenceAudienceModel> GetConferenceAudience(string email);
+        List<ConferenceDetailAttendFirstModel> GetAttendedConferecesFirst(List<ConferenceAudienceModel> _attendedConferences, 
+            string currentUser, DateTime StartDate, DateTime EndDate);
         void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
+        int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel);
+
         string GetUniqueParticipantCode();
     }
 }
