@@ -119,11 +119,6 @@ namespace ConferencePlanner.WinUi
                 
                 
             }
-            foreach (var county in countys)
-            {
-                        listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
-
-            }
 
             _DictionaryCityRepository = dictionaryCityRepository;
             cityList = _DictionaryCityRepository.GetCity();
@@ -141,6 +136,15 @@ namespace ConferencePlanner.WinUi
             listView1_populate();
         }
 
+        private void populateCounty(List<DictionaryCountyModel> countys)
+        {
+            foreach (var county in countys)
+            {
+                if(county.DictionaryCountryId == eventDetails.DictionaryCountryId)
+                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+            }
+        }
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -155,8 +159,9 @@ namespace ConferencePlanner.WinUi
         {
             tabControl1.SelectTab(tabSpeaker);
             tabSpeaker.Enabled = true;
-           
-             
+            populateCounty(_DictionaryCountyRepository.GetDictionaryCounty());
+
+
         }
         private void btnNext3_Click(object sender, EventArgs e)
         {
