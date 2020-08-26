@@ -416,7 +416,11 @@ namespace ConferencePlanner.WinUi
         private void btnHostSearch_Click(object sender, EventArgs e)
         {
             dataGridView2.Rows.Clear();
+            y.Clear();
+            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+            HosttotalEntries = y.Count;
             populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
+
 
         }
 
@@ -539,6 +543,9 @@ namespace ConferencePlanner.WinUi
         private void button3_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
+            x.Clear();
+            x = _ConferenceRepository.GetConferenceDetail(dateTimePicker2.Value, dateTimePicker1.Value);
+            totalEntries = x.Count;
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
         }
