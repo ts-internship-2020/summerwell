@@ -555,5 +555,10 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = index+1;
             command.ExecuteNonQuery();
         }
+
+        public List<ConferenceDetailAttendFirstModel> GetAttendedConferecesFirst(List<ConferenceAudienceModel> _attendedConferences, string currentUser, DateTime StartDate, DateTime EndDate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
