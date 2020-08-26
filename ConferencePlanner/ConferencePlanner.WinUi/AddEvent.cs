@@ -262,7 +262,7 @@ namespace ConferencePlanner.WinUi
             if (listView5.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView5.SelectedItems[0];
-                eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryCityCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
                 btnNext5.Enabled = true;
             }
@@ -280,7 +280,7 @@ namespace ConferencePlanner.WinUi
                     save_county = ind.DictionaryCountyId;
             foreach (var c in cityList)
             {
-                if(save_county != null && c.DictionaryCountyId == save_county)
+                if(c.DictionaryCountyId == save_county)
                     listView5.Items.Add(new ListViewItem(new string[] { c.DictionaryCityId.ToString(), c.Name }));
             }
             listView5.GridLines = true;
