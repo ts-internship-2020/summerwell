@@ -25,6 +25,7 @@ namespace ConferencePlanner.WinUi
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
+        private AddEventDetailModel eventDetails;
         private List<ConferenceTypeModel> x;
         public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
             IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository,
@@ -39,6 +40,7 @@ namespace ConferencePlanner.WinUi
             )
         {
             InitializeComponent();
+            eventDetails = new AddEventDetailModel();
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountryRepository = DictionaryCountryRepository;
@@ -64,7 +66,7 @@ namespace ConferencePlanner.WinUi
                 listView2.FullRowSelect = true;
                 listView2.GridLines = true;
                 listView2.Columns.Add("DictionaryCountryId", -2);
-                listView2.Columns.Add("DictionaryCountryCity", -2);
+                listView2.Columns.Add("DictionaryCountryName", -2);
                 foreach (var country in countries)
                 {
                    
@@ -183,8 +185,13 @@ namespace ConferencePlanner.WinUi
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count != 0)
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                eventDetails.ConferenceTypeId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.ConferenceTypeName = selectedItem.SubItems[1].Text;
                 btnNext.Enabled = true;
+            }
         }
 
         private void listView1_populate()
@@ -202,27 +209,37 @@ namespace ConferencePlanner.WinUi
 
         private void listView2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView2.SelectedItems.Count != 0)
+            if (listView2.SelectedItems.Count > 0)
             {
-                MessageBox.Show("Please Select At least one Column");
-                //btnNext2.Enabled = true;
+
+                ListViewItem selectedItem = listView2.SelectedItems[0];
+                eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryCountryCity = selectedItem.SubItems[1].Text;
+                btnNext2.Enabled = true;
             }
             
         }
 
         private void listView3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView3.SelectedItems.Count != 0)
+            if (listView3.SelectedItems.Count > 0)
             {
+
+                ListViewItem selectedItem = listView3.SelectedItems[0];
+                eventDetails.SpeakerName = selectedItem.SubItems[0].Text;
+                eventDetails.SpeakerRating = selectedItem.SubItems[1].Text;
                 btnNext3.Enabled = true;
             }
-            
+
         }
 
         private void listView4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView4.SelectedItems.Count != 0)
+            if (listView4.SelectedItems.Count > 0)
             {
+                ListViewItem selectedItem = listView4.SelectedItems[0];
+                eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryCountyName = selectedItem.SubItems[1].Text;
                 btnNext4.Enabled = true;
             }
             
@@ -237,12 +254,22 @@ namespace ConferencePlanner.WinUi
         }
         private void listView5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView5.SelectedItems.Count != 0)
+            if (listView5.SelectedItems.Count > 0)
             {
                 MessageBox.Show("Please Select At least one Column");
                 btnNext5.Enabled = true;
             }
        
+        }
+        private void listView6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView6.SelectedItems.Count >= 0)
+            {
+                ListViewItem selectedItem = listView6.SelectedItems[0];
+                eventDetails.DictionaryConferenceCategoryId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryConferenceCategoryName = selectedItem.SubItems[1].Text;
+            }
+
         }
 
         private void tabType_Click(object sender, EventArgs e)
