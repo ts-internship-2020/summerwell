@@ -14,6 +14,8 @@ namespace ConferencePlanner.Abstraction.Model
         public string SpeakerRating { get; set; }
         public int DictionaryCountyId { get; set; }
         public string DictionaryCountyName { get; set; }
+        public int DictionaryCityId { get; set; }
+        public string DictionaryCityName { get; set; }
         public int DictionaryConferenceCategoryId { get; set; }
         public string DictionaryConferenceCategoryName { get; set; }
 

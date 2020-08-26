@@ -260,8 +260,14 @@ namespace ConferencePlanner.WinUi
         }
         private void listView5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView5.SelectedItems.Count != 0)
+            if (listView5.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView5.SelectedItems[0];
+                eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
                 btnNext5.Enabled = true;
+            }
+                
         }
 
         private void listView5_populate()
@@ -279,11 +285,13 @@ namespace ConferencePlanner.WinUi
         }
         private void listView6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView6.SelectedItems.Count >= 0)
+            if (listView6.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView6.SelectedItems[0];
                 eventDetails.DictionaryConferenceCategoryId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.DictionaryConferenceCategoryName = selectedItem.SubItems[1].Text;
+                btnSave.Visible = true;
+                
             }
 
         }
