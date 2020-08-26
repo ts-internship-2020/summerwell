@@ -119,6 +119,77 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
+        public List<ConferenceDetailModel> GetConferenceDetail(DateTime StartDate, DateTime EndDate)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
+                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail " +
+                "from Conference c " +
+                "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
+                "INNER JOIN Location l on c.LocationId = l.LocationId " +
+                "INNER JOIN DictionaryCity ci on l.CityId = ci.DictionaryCityId " +
+                "INNER JOIN DictionaryConferenceCategory dcc on c.ConferenceCategoryId = dcc.DictionaryConferenceCategoryId " +
+                "INNER JOIN  SpeakerxConference spc on c.ConferenceId = spc.ConferenceId " +
+                "INNER JOIN Speaker sp on sp.SpeakerId = spc.SpeakerId " +
+                "WHERE StartDate > GETDATE()" +
+                "ORDER BY StartDate";
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            List<ConferenceDetailModel> conferenceDetails = new List<ConferenceDetailModel>();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    DateTime conferenceStartDate = new DateTime();
+                    conferenceStartDate = sqlDataReader.GetDateTime("StartDate");
+                    if (conferenceStartDate > StartDate && conferenceStartDate < EndDate)
+                    {
+                        var conferenceName = "";
+                        var conferenceTypeName = "";
+                        var conferenceCityName = "";
+                        var conferenceCategoryName = "";
+                        var conferenceSpeakerName = "";
+                        var conferenceHostEmail = "";
+                        if (!sqlDataReader.IsDBNull("ConferenceName"))
+                        {
+                            conferenceName = sqlDataReader.GetString("ConferenceName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryConferenceTypeName"))
+                        {
+                            conferenceTypeName = sqlDataReader.GetString("DictionaryConferenceTypeName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryCityName"))
+                        {
+                            conferenceCityName = sqlDataReader.GetString("DictionaryCityName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryConferenceCategoryName"))
+                        {
+                            conferenceCategoryName = sqlDataReader.GetString("DictionaryConferenceCategoryName");
+                        }
+                        if (!sqlDataReader.IsDBNull("SpeakerName"))
+                        {
+                            conferenceSpeakerName = sqlDataReader.GetString("SpeakerName");
+                        }
+                        if (!sqlDataReader.IsDBNull("HostEmail"))
+                        {
+                            conferenceHostEmail = sqlDataReader.GetString("HostEmail");
+                        }
+                        conferenceDetails.Add(new ConferenceDetailModel()
+                        {
+                            ConferenceName = conferenceName,
+                            StartDate = sqlDataReader.GetDateTime("StartDate"),
+                            EndDate = sqlDataReader.GetDateTime("EndDate"),
+                            DictionaryConferenceTypeName = conferenceTypeName,
+                            DictionaryCityName = conferenceCityName,
+                            DictionaryConferenceCategoryName = conferenceCategoryName,
+                            SpeakerName = conferenceSpeakerName,
+                            HostEmail = conferenceHostEmail,
+                            ConferenceId = sqlDataReader.GetInt32("ConferenceId")
+                        });
+                    }
+                }
+            }
+            return conferenceDetails;
+        }
         public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
@@ -188,7 +259,79 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 }
             }
             return conferenceDetails;
-        } 
+        }
+        public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName,DateTime StartDate, DateTime EndDate)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
+                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail " +
+                "from Conference c " +
+                "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
+                "INNER JOIN Location l on c.LocationId = l.LocationId " +
+                "INNER JOIN DictionaryCity ci on l.CityId = ci.DictionaryCityId " +
+                "INNER JOIN DictionaryConferenceCategory dcc on c.ConferenceCategoryId = dcc.DictionaryConferenceCategoryId " +
+                "INNER JOIN  SpeakerxConference spc on c.ConferenceId = spc.ConferenceId " +
+                "INNER JOIN Speaker sp on sp.SpeakerId = spc.SpeakerId " +
+                "WHERE StartDate > GETDATE()" +
+                "ORDER BY StartDate";
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            List<ConferenceDetailModel> conferenceDetails = new List<ConferenceDetailModel>();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    var conferenceHostEmail = "";
+                    DateTime conferenceStartDate = new DateTime();
+                    if (!sqlDataReader.IsDBNull("HostEmail"))
+                    {
+                        conferenceHostEmail = sqlDataReader.GetString("HostEmail");
+                        conferenceStartDate = sqlDataReader.GetDateTime("StartDate");
+                    }
+                    if (conferenceHostEmail == hostName && conferenceStartDate > StartDate && conferenceStartDate < EndDate)
+                    {
+                        var conferenceName = "";
+                        var conferenceTypeName = "";
+                        var conferenceCityName = "";
+                        var conferenceCategoryName = "";
+                        var conferenceSpeakerName = "";
+
+                        if (!sqlDataReader.IsDBNull("ConferenceName"))
+                        {
+                            conferenceName = sqlDataReader.GetString("ConferenceName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryConferenceTypeName"))
+                        {
+                            conferenceTypeName = sqlDataReader.GetString("DictionaryConferenceTypeName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryCityName"))
+                        {
+                            conferenceCityName = sqlDataReader.GetString("DictionaryCityName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryConferenceCategoryName"))
+                        {
+                            conferenceCategoryName = sqlDataReader.GetString("DictionaryConferenceCategoryName");
+                        }
+                        if (!sqlDataReader.IsDBNull("SpeakerName"))
+                        {
+                            conferenceSpeakerName = sqlDataReader.GetString("SpeakerName");
+                        }
+                        conferenceDetails.Add(new ConferenceDetailModel()
+                        {
+                            ConferenceName = conferenceName,
+                            StartDate = sqlDataReader.GetDateTime("StartDate"),
+                            EndDate = sqlDataReader.GetDateTime("EndDate"),
+                            DictionaryConferenceTypeName = conferenceTypeName,
+                            DictionaryCityName = conferenceCityName,
+                            DictionaryConferenceCategoryName = conferenceCategoryName,
+                            SpeakerName = conferenceSpeakerName,
+                            HostEmail = conferenceHostEmail,
+                            ConferenceId = sqlDataReader.GetInt32("ConferenceId")
+                        });
+                    }
+                }
+            }
+            return conferenceDetails;
+        }
 
         public string GetSpeakerImage(string speakerName)
         {

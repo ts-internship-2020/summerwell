@@ -12,6 +12,7 @@ using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
 using System.Linq;
 using ConferencePlanner.Abstraction.Model;
+using Windows.Media.Capture.Core;
 using ConferencePlanner.Repository.Ado.Repository;
 
 namespace ConferencePlanner.WinUi
@@ -19,6 +20,7 @@ namespace ConferencePlanner.WinUi
     public partial class AddEvent : Form
     {
         private string var_email = "";
+        private int IndexCountry;
 
         private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
         private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
@@ -26,6 +28,7 @@ namespace ConferencePlanner.WinUi
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
+        private AddEventDetailModel eventDetails;
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private List<ConferenceTypeModel> x;
         private List<DictionaryCityModel> cityList;
@@ -43,6 +46,7 @@ namespace ConferencePlanner.WinUi
             )
         {
             InitializeComponent();
+            eventDetails = new AddEventDetailModel();
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountryRepository = DictionaryCountryRepository;
@@ -68,10 +72,10 @@ namespace ConferencePlanner.WinUi
                 listView2.FullRowSelect = true;
                 listView2.GridLines = true;
                 listView2.Columns.Add("DictionaryCountryId", -2);
-                listView2.Columns.Add("DictionaryCountryCity", -2);
+                listView2.Columns.Add("DictionaryCountryName", -2);
                 foreach (var country in countries)
                 {
-                   
+                    IndexCountry = country.DictionaryCountryId;
                    listView2.Items.Add(new ListViewItem(new string[] { country.DictionaryCountryId.ToString(), country.DictionaryCountryName }));
 
                 }
@@ -118,7 +122,11 @@ namespace ConferencePlanner.WinUi
             }
             foreach (var county in countys)
             {
-                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+
+                    if (IndexCountry == county.DictionaryCountyId)
+                    {
+                        listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+                    }
 
 
             }
@@ -189,8 +197,13 @@ namespace ConferencePlanner.WinUi
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count != 0)
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                eventDetails.ConferenceTypeId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.ConferenceTypeName = selectedItem.SubItems[1].Text;
                 btnNext.Enabled = true;
+            }
         }
 
         private void listView1_populate()
@@ -208,8 +221,12 @@ namespace ConferencePlanner.WinUi
 
         private void listView2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView2.SelectedItems.Count != 0)
+            if (listView2.SelectedItems.Count > 0)
             {
+
+                ListViewItem selectedItem = listView2.SelectedItems[0];
+                eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryCountryCity = selectedItem.SubItems[1].Text;
                 btnNext2.Enabled = true;
             }
             
@@ -217,17 +234,24 @@ namespace ConferencePlanner.WinUi
 
         private void listView3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView3.SelectedItems.Count != 0)
+            if (listView3.SelectedItems.Count > 0)
             {
+
+                ListViewItem selectedItem = listView3.SelectedItems[0];
+                eventDetails.SpeakerName = selectedItem.SubItems[0].Text;
+                eventDetails.SpeakerRating = selectedItem.SubItems[1].Text;
                 btnNext3.Enabled = true;
             }
-            
+
         }
 
         private void listView4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView4.SelectedItems.Count != 0)
+            if (listView4.SelectedItems.Count > 0)
             {
+                ListViewItem selectedItem = listView4.SelectedItems[0];
+                eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryCountyName = selectedItem.SubItems[1].Text;
                 btnNext4.Enabled = true;
             }
             
@@ -258,6 +282,16 @@ namespace ConferencePlanner.WinUi
             }
             listView5.GridLines = true;
             btnNext5.Enabled = false;
+        }
+        private void listView6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView6.SelectedItems.Count >= 0)
+            {
+                ListViewItem selectedItem = listView6.SelectedItems[0];
+                eventDetails.DictionaryConferenceCategoryId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryConferenceCategoryName = selectedItem.SubItems[1].Text;
+            }
+
         }
 
         private void tabType_Click(object sender, EventArgs e)
