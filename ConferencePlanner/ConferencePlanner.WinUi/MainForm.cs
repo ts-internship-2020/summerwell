@@ -36,6 +36,7 @@ namespace ConferencePlanner.WinUi
         private int HoststartingPoint;
         private List<ConferenceDetailModel> x;
         private List<ConferenceDetailModel> y;
+        private List<ConferenceAudienceModel> conferencesCurrentUserAttends;
         private string currentUser;
 
         public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository,  IConferenceRepository ConferenceRepository,IDictionaryCountryRepository DictionaryCountryRepository ,IDictionaryCountyRepository DictionaryCountyRepository,IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, string var_email)
@@ -51,6 +52,7 @@ namespace ConferencePlanner.WinUi
             x = _ConferenceRepository.GetConferenceDetail(dateTimePicker2.Value, dateTimePicker1.Value);
             currentUser = var_email;
             y = _ConferenceRepository.GetConferenceDetailForHost(currentUser,dateTimePicker4.Value, dateTimePicker3.Value);
+            conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
             totalEntries = x.Count;
             startingPoint = 0;
             HoststartingPoint = 0;
@@ -136,6 +138,9 @@ namespace ConferencePlanner.WinUi
                     {
                         _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
                     }
+                    conferencesCurrentUserAttends.Clear();
+                    conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+                    changeColor();
                     InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
@@ -150,7 +155,7 @@ namespace ConferencePlanner.WinUi
                         _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                         _conferenceAudienceModel.Participant = currentUser;
                         _conferenceAudienceModel.ConferenceStatusId = 1;
-                        int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                        int rows_affected = _ConferenceRepository.UpdateParticipantToJoin(_conferenceAudienceModel);
                         if (rows_affected > 0)
                         {
                             JoinConference jc = new JoinConference();
@@ -181,6 +186,9 @@ namespace ConferencePlanner.WinUi
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex-2);
+                    conferencesCurrentUserAttends.Clear();
+                    conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+                    changeColor();
                 }
             }
 
@@ -191,7 +199,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)sender;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Red;
+            bc.Style.BackColor = Color.DarkRed;
             bc.Style.ForeColor = Color.DarkRed;
         }
 
@@ -200,7 +208,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)datagrid;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Green;
+            bc.Style.BackColor = Color.DarkGreen;
             bc.Style.ForeColor = Color.DarkGreen;
         }
 
@@ -252,20 +260,47 @@ namespace ConferencePlanner.WinUi
             {
                 DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[6]);
                 bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Green;
-                bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                if (conferencesCurrentUserAttends.Exists(currentConference =>
+                                     currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
+                                     && currentConference.ConferenceStatusId == 3))
+                
+                {
+                    bc.Style.BackColor = System.Drawing.Color.Red;
+                    bc.Style.ForeColor = System.Drawing.Color.DarkRed;
+                }
+                else
+                {
+                    bc.Style.BackColor = System.Drawing.Color.Green;
+                    bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                }
             }
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
                 bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Red;
+                bc.Style.BackColor = System.Drawing.Color.DarkRed;
                 bc.Style.ForeColor = System.Drawing.Color.DarkRed;
 
                 DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
                 bc1.FlatStyle = FlatStyle.Flat;
-                bc1.Style.BackColor = System.Drawing.Color.Red;
-                bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+                if (conferencesCurrentUserAttends.Exists(currentConference =>
+                                     currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
+                                     && currentConference.ConferenceStatusId == 2))
+                {
+                    bc1.Style.BackColor = System.Drawing.Color.Red;
+                    bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+                }
+                else if(!conferencesCurrentUserAttends.Exists(currentConference => 
+                                     currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())))
+                {
+                    bc1.Style.BackColor = System.Drawing.Color.Red;
+                    bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+                }
+                else 
+                {
+                    bc1.Style.BackColor = System.Drawing.Color.Green;
+                    bc1.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                }
             }
         }
 
@@ -336,9 +371,9 @@ namespace ConferencePlanner.WinUi
                     mf.textBox4.Text = this.dataGridView2.CurrentRow.Cells[3].Value.ToString();
                     mf.textBox5.Text = this.dataGridView2.CurrentRow.Cells[4].Value.ToString();
                     mf.textBox6.Text = this.dataGridView2.CurrentRow.Cells[5].Value.ToString();
+                   
 
-                  
-                 
+
                     mf.ShowDialog();
                 }
                 catch (NullReferenceException)
@@ -557,8 +592,11 @@ namespace ConferencePlanner.WinUi
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
         }
-        
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

@@ -332,8 +332,115 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
+        public List<ConferenceAudienceModel> GetConferenceAudience(string email)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT c.ConferenceAudienceId, c.ConferenceId, c.Participant, " +
+                                    "c.ConferenceStatusId, c.UniqueParticipantCode " +
+                                    "FROM ConferenceAudience c " +
+                                    "WHERE c.Participant = @Participant";
+            sqlCommand.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = email;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            List<ConferenceAudienceModel> conferenceAudience = new List<ConferenceAudienceModel>();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    conferenceAudience.Add(new ConferenceAudienceModel()
+                    {
+                        ConferenceAudienceId = sqlDataReader.GetInt32("ConferenceAudienceId"),
+                        ConferenceId = sqlDataReader.GetInt32("ConferenceId"),
+                        Participant = sqlDataReader.GetString("Participant"),
+                        ConferenceStatusId = sqlDataReader.GetInt32("ConferenceStatusId"),
+                        UniqueParticipantCode = sqlDataReader.GetString("UniqueParticipantCode")
 
-       
+                    });
+                }
+                
+            }
+            return conferenceAudience;
+        }
+        /*
+        public List<ConferenceDetailModel> GetAttendedConferecesFirst(List<ConferenceAudienceModel> _attendedConferences,
+             string currentUser, DateTime StartDate, DateTime EndDate)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
+                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail " +
+                "from Conference c " +
+                "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
+                "INNER JOIN Location l on c.LocationId = l.LocationId " +
+                "INNER JOIN DictionaryCity ci on l.CityId = ci.DictionaryCityId " +
+                "INNER JOIN DictionaryConferenceCategory dcc on c.ConferenceCategoryId = dcc.DictionaryConferenceCategoryId " +
+                "INNER JOIN  SpeakerxConference spc on c.ConferenceId = spc.ConferenceId " +
+                "INNER JOIN Speaker sp on sp.SpeakerId = spc.SpeakerId " +
+                "WHERE StartDate > GETDATE()" +
+                "ORDER BY StartDate";
+
+            List<ConferenceDetailAttendFirstModel> conferenceDetails = new List<ConferenceDetailAttendFirstModel>();
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    DateTime conferenceStartDate = new DateTime();
+                    conferenceStartDate = sqlDataReader.GetDateTime("StartDate");
+                    if (conferenceStartDate > StartDate && conferenceStartDate < EndDate)
+                    {
+                        var conferenceName = "";
+                        var conferenceTypeName = "";
+                        var conferenceCityName = "";
+                        var conferenceCategoryName = "";
+                        var conferenceSpeakerName = "";
+                        var conferenceHostEmail = "";
+                        int conferenceId;
+                        if (!sqlDataReader.IsDBNull("ConferenceName"))
+                        {
+                            conferenceName = sqlDataReader.GetString("ConferenceName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryConferenceTypeName"))
+                        {
+                            conferenceTypeName = sqlDataReader.GetString("DictionaryConferenceTypeName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryCityName"))
+                        {
+                            conferenceCityName = sqlDataReader.GetString("DictionaryCityName");
+                        }
+                        if (!sqlDataReader.IsDBNull("DictionaryConferenceCategoryName"))
+                        {
+                            conferenceCategoryName = sqlDataReader.GetString("DictionaryConferenceCategoryName");
+                        }
+                        if (!sqlDataReader.IsDBNull("SpeakerName"))
+                        {
+                            conferenceSpeakerName = sqlDataReader.GetString("SpeakerName");
+                        }
+                        if (!sqlDataReader.IsDBNull("HostEmail"))
+                        {
+                            conferenceHostEmail = sqlDataReader.GetString("HostEmail");
+                        }
+                        conferenceId = sqlDataReader.GetInt32("ConferenceId");
+                        conferenceDetails.Add(new ConferenceDetailAttendFirstModel()
+                        {
+                            ConferenceName = conferenceName,
+                            StartDate = sqlDataReader.GetDateTime("StartDate"),
+                            EndDate = sqlDataReader.GetDateTime("EndDate"),
+                            DictionaryConferenceTypeName = conferenceTypeName,
+                            DictionaryCityName = conferenceCityName,
+                            DictionaryConferenceCategoryName = conferenceCategoryName,
+                            SpeakerName = conferenceSpeakerName,
+                            HostEmail = conferenceHostEmail,
+                            ConferenceId = conferenceId,
+                            ConferenceStatusId = _attendedConferences.Exists(currentConference => 
+                                                currentConference.ConferenceId == conferenceId ? currentConference.ConferenceStatusId : 0) 
+                        
+                        });
+                    }
+
+                }
+            }
+            return conferenceDetails;
+        }
+        */
         public void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
 
@@ -358,6 +465,20 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
             return(command.ExecuteNonQuery());
         }
+        public int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE ConferenceAudience " +
+                                    "SET ConferenceStatusId = @ConferenceStatusId " +
+                                    "WHERE Participant = @Participant and ConferenceId = @ConferenceId " +
+                                    "and ConferenceStatusId = 3";
+            command.Parameters.Add("@ConferenceStatusId ", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
+            command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
+
+            return (command.ExecuteNonQuery());
+        }
+
         public string GetUniqueParticipantCode()
         {
             Guid g = Guid.NewGuid();

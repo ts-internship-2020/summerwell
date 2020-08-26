@@ -247,7 +247,8 @@ namespace ConferencePlanner.WinUi
             this.tabSpeaker.Controls.Add(this.listView3);
             this.tabSpeaker.Controls.Add(this.btnNext3);
             this.tabSpeaker.Enabled = false;
-            this.tabSpeaker.Location = new System.Drawing.Point(4, 27);
+            this.tabSpeaker.Location = new System.Drawing.Point(4, 37);
+            this.tabSpeaker.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabSpeaker.Name = "tabSpeaker";
             this.tabSpeaker.Size = new System.Drawing.Size(364, 206);
             this.tabSpeaker.TabIndex = 2;
