@@ -25,6 +25,11 @@ namespace ConferencePlanner.WinUi
                 catch { }
                 EditOrSave = 0;
             }
+            
+        }
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
