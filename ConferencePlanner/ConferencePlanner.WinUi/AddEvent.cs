@@ -141,7 +141,7 @@ namespace ConferencePlanner.WinUi
             foreach (var county in countys)
             {
                 if(county.DictionaryCountryId == eventDetails.DictionaryCountryId)
-                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+                    listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
             }
         }
 
@@ -221,7 +221,7 @@ namespace ConferencePlanner.WinUi
         {
             if (listView2.SelectedItems.Count > 0)
             {
-
+                
                 ListViewItem selectedItem = listView2.SelectedItems[0];
                 eventDetails.DictionaryCountryCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountryName = selectedItem.SubItems[1].Text;

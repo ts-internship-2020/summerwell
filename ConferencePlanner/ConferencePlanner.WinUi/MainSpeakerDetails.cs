@@ -13,12 +13,14 @@ namespace ConferencePlanner.WinUi
     public partial class MainSpeakerDetails : Form
     {
         private readonly IConferenceRepository _ConferenceRepository;
-        public MainSpeakerDetails(IConferenceRepository ConferenceRepository,string SpeakerName)
+        private readonly IGetSpeakerDetail _GetSpeakerDetail;
+        public MainSpeakerDetails(IConferenceRepository ConferenceRepository, IGetSpeakerDetail GetSpeakerDetail, string SpeakerName)
         {
 
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
-            pictureBox1.ImageLocation = Base64Decode(_ConferenceRepository.GetSpeakerImage(SpeakerName));
+            _GetSpeakerDetail = GetSpeakerDetail;
+            pictureBox1.ImageLocation = Base64Decode(_GetSpeakerDetail.GetSpeakerImage(SpeakerName));
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.Refresh();
 
