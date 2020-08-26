@@ -12,12 +12,14 @@ using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
 using System.Linq;
 using ConferencePlanner.Abstraction.Model;
+using Windows.Media.Capture.Core;
 
 namespace ConferencePlanner.WinUi
 {
     public partial class AddEvent : Form
     {
         private string var_email = "";
+        private int IndexCountry;
 
         private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
         private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
@@ -67,7 +69,7 @@ namespace ConferencePlanner.WinUi
                 listView2.Columns.Add("DictionaryCountryCity", -2);
                 foreach (var country in countries)
                 {
-                   
+                    IndexCountry = country.DictionaryCountryId;
                    listView2.Items.Add(new ListViewItem(new string[] { country.DictionaryCountryId.ToString(), country.DictionaryCountryName }));
 
                 }
@@ -118,7 +120,11 @@ namespace ConferencePlanner.WinUi
             }
             foreach (var county in countys)
             {
-                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+
+                    if (IndexCountry == county.DictionaryCountyId)
+                    {
+                        listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+                    }
 
 
             }
@@ -204,8 +210,7 @@ namespace ConferencePlanner.WinUi
         {
             if (listView2.SelectedItems.Count != 0)
             {
-                MessageBox.Show("Please Select At least one Column");
-                //btnNext2.Enabled = true;
+                btnNext2.Enabled = true;
             }
             
         }
