@@ -186,7 +186,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)sender;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Red;
+            bc.Style.BackColor = Color.DarkRed;
             bc.Style.ForeColor = Color.DarkRed;
         }
 
@@ -195,7 +195,7 @@ namespace ConferencePlanner.WinUi
             var senderGrid = (DataGridView)datagrid;
             DataGridViewButtonCell bc = ((DataGridViewButtonCell)senderGrid.Rows[row].Cells[col]);
             bc.FlatStyle = FlatStyle.Flat;
-            bc.Style.BackColor = Color.Green;
+            bc.Style.BackColor = Color.DarkGreen;
             bc.Style.ForeColor = Color.DarkGreen;
         }
 
@@ -247,19 +247,19 @@ namespace ConferencePlanner.WinUi
             {
                 DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[6]);
                 bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Green;
+                bc.Style.BackColor = System.Drawing.Color.DarkGreen;
                 bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
             }
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
                 bc.FlatStyle = FlatStyle.Flat;
-                bc.Style.BackColor = System.Drawing.Color.Red;
+                bc.Style.BackColor = System.Drawing.Color.DarkRed;
                 bc.Style.ForeColor = System.Drawing.Color.DarkRed;
 
                 DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
                 bc1.FlatStyle = FlatStyle.Flat;
-                bc1.Style.BackColor = System.Drawing.Color.Red;
+                bc1.Style.BackColor = System.Drawing.Color.DarkRed;
                 bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
             }
         }
@@ -552,8 +552,11 @@ namespace ConferencePlanner.WinUi
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
         }
-        
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
