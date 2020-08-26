@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 using System.Data;
+using ConferencePlanner.Abstraction.Repository;
 
 namespace ConferencePlanner.Repository.Ado.Repository
 {
-    public class DictionaryCityRepository
+    public class DictionaryCityRepository :IDictionaryCityRepository
     {
         private readonly SqlConnection _sqlConnection;
 

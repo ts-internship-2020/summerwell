@@ -12,6 +12,7 @@ using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
 using System.Linq;
 using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Repository.Ado.Repository;
 
 namespace ConferencePlanner.WinUi
 {
@@ -23,10 +24,13 @@ namespace ConferencePlanner.WinUi
         private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
-        private IConferenceTypeRepository _ConferenceTypeRepository;
+        private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
+        private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private List<ConferenceTypeModel> x;
-        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
+        private List<DictionaryCityModel> cityList;
+        private string selectedCounty;
+        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCityRepository dictionaryCityRepository,
             IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository,
             string var_email,
             string ConferenceName,
@@ -106,10 +110,6 @@ namespace ConferencePlanner.WinUi
             listView4.Columns.Add("Id", -2);
             listView4.Columns.Add("County", -2);
 
-           
-
-
-
             foreach (var speaker in speakers)
             { 
                 listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
@@ -123,6 +123,12 @@ namespace ConferencePlanner.WinUi
 
             }
 
+            _DictionaryCityRepository = dictionaryCityRepository;
+            cityList = _DictionaryCityRepository.GetCity();
+            if(cityList == null || cityList.Count() == 0)
+            {
+                return;
+            }
 
             _ConferenceTypeRepository = ConferenceTypeRepository;
             x = _ConferenceTypeRepository.GetConferenceType();
@@ -160,10 +166,10 @@ namespace ConferencePlanner.WinUi
         }
         private void btnNext4_Click(object sender, EventArgs e)
         {
+            selectedCounty = listView4.SelectedItems[0].Text;
+            listView5_populate();
             tabControl1.SelectTab(tabCity);
-            tabCity.Enabled = true;
-           
-                
+            tabCity.Enabled = true;    
         }
         private void btnNext5_Click(object sender, EventArgs e)
         {
@@ -204,8 +210,7 @@ namespace ConferencePlanner.WinUi
         {
             if (listView2.SelectedItems.Count != 0)
             {
-                MessageBox.Show("Please Select At least one Column");
-                //btnNext2.Enabled = true;
+                btnNext2.Enabled = true;
             }
             
         }
@@ -238,11 +243,21 @@ namespace ConferencePlanner.WinUi
         private void listView5_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView5.SelectedItems.Count != 0)
-            {
-                MessageBox.Show("Please Select At least one Column");
                 btnNext5.Enabled = true;
+        }
+
+        private void listView5_populate()
+        {
+            listView5.View = View.Details;
+            listView5.Columns.Add("Code");
+            listView5.Columns.Add("Name");
+            foreach (var c in cityList)
+            {
+                if(selectedCounty !=null && c.DictionaryCountyId.ToString().Equals(selectedCounty))
+                    listView5.Items.Add(new ListViewItem(new string[] { c.DictionaryCityId.ToString(), c.Name }));
             }
-       
+            listView5.GridLines = true;
+            btnNext5.Enabled = false;
         }
 
         private void tabType_Click(object sender, EventArgs e)
