@@ -332,8 +332,34 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
+        public List<ConferenceAudienceModel> GetConferenceAudience(string email)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT c.ConferenceAudienceId, c.ConferenceId, c.Participant, " +
+                                    "c.ConferenceStatusId, c.UniqueParticipantCode " +
+                                    "FROM ConferenceAudience c " +
+                                    "WHERE c.Participant = @Participant";
+            sqlCommand.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = email;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            List<ConferenceAudienceModel> conferenceAudience = new List<ConferenceAudienceModel>();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    conferenceAudience.Add(new ConferenceAudienceModel()
+                    {
+                        ConferenceAudienceId = sqlDataReader.GetInt32("ConferenceAudienceId"),
+                        ConferenceId = sqlDataReader.GetInt32("ConferenceId"),
+                        Participant = sqlDataReader.GetString("Participant"),
+                        ConferenceStatusId = sqlDataReader.GetInt32("ConferenceStatusId"),
+                        UniqueParticipantCode = sqlDataReader.GetString("UniqueParticipantCode")
 
-       
+                    });
+                }
+                
+            }
+            return conferenceAudience;
+        }
         public void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
 
@@ -366,5 +392,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             GuidString = GuidString.Replace("+", "");
             return GuidString;
         }
+
+        
     }
 }
