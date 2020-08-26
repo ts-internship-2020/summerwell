@@ -18,6 +18,7 @@ namespace ConferencePlanner.Abstraction.Model
         public string DictionaryCityName { get; set; }
         public int DictionaryConferenceCategoryId { get; set; }
         public string DictionaryConferenceCategoryName { get; set; }
+        public int DictionaryCountryId { get; set; }
 
     }
 }
