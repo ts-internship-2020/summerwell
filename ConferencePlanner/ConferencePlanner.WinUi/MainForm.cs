@@ -46,9 +46,9 @@ namespace ConferencePlanner.WinUi
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
-            x = _ConferenceRepository.GetConferenceDetail();
+            x = _ConferenceRepository.GetConferenceDetail(dateTimePicker2.Value, dateTimePicker1.Value);
             currentUser = var_email;
-            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser);
+            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser,dateTimePicker4.Value, dateTimePicker3.Value);
             totalEntries = x.Count;
             startingPoint = 0;
             HoststartingPoint = 0;
