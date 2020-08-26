@@ -32,7 +32,7 @@ namespace ConferencePlanner.WinUi
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private List<ConferenceTypeModel> x;
         private List<DictionaryCityModel> cityList;
-        private string selectedCounty;
+        private List<DictionaryCountyModel> countys;
         public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCityRepository dictionaryCityRepository,
             IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository,
             string var_email,
@@ -54,7 +54,7 @@ namespace ConferencePlanner.WinUi
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
             List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
-            List<DictionaryCountyModel> countys = _DictionaryCountyRepository.GetDictionaryCounty();
+            countys = _DictionaryCountyRepository.GetDictionaryCounty();
             List<DictionaryConferenceCategoryModel> categories = _DictionaryConferenceCategoryRepository.GetDictionaryCategory();
 
             if (ConferenceName != null)
@@ -71,12 +71,11 @@ namespace ConferencePlanner.WinUi
                 listView2.View = View.Details;
                 listView2.FullRowSelect = true;
                 listView2.GridLines = true;
-                listView2.Columns.Add("DictionaryCountryId", -2);
-                listView2.Columns.Add("DictionaryCountryName", -2);
+                listView2.Columns.Add("Code", -2);
+                listView2.Columns.Add("CountryName", -2);
                 foreach (var country in countries)
                 {
-                    IndexCountry = country.DictionaryCountryId;
-                   listView2.Items.Add(new ListViewItem(new string[] { country.DictionaryCountryId.ToString(), country.DictionaryCountryName }));
+                   listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName }));
 
                 }
             }
@@ -86,8 +85,8 @@ namespace ConferencePlanner.WinUi
                 listView6.View = View.Details;
                 listView6.FullRowSelect = true;
                 listView6.GridLines = true;
-                listView6.Columns.Add("DictionaryConferenceCategoryId", -2);
-                listView6.Columns.Add("DictionaryConferenceCategoryName", -2);
+                listView6.Columns.Add("CategoryId", -2);
+                listView6.Columns.Add("CategoryName", -2);
                 foreach (var category in categories)
                 {
 
@@ -111,7 +110,7 @@ namespace ConferencePlanner.WinUi
             listView4.View = View.Details;
             listView4.FullRowSelect = true;
             listView4.GridLines = true;
-            listView4.Columns.Add("Id", -2);
+            listView4.Columns.Add("Code", -2);
             listView4.Columns.Add("County", -2);
 
             foreach (var speaker in speakers)
@@ -119,16 +118,6 @@ namespace ConferencePlanner.WinUi
                 listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
                 
                 
-            }
-            foreach (var county in countys)
-            {
-
-                    if (IndexCountry == county.DictionaryCountyId)
-                    {
-                        listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
-                    }
-
-
             }
 
             _DictionaryCityRepository = dictionaryCityRepository;
@@ -147,6 +136,15 @@ namespace ConferencePlanner.WinUi
             listView1_populate();
         }
 
+        private void populateCounty(List<DictionaryCountyModel> countys)
+        {
+            foreach (var county in countys)
+            {
+                if(county.DictionaryCountryId == eventDetails.DictionaryCountryId)
+                listView4.Items.Add(new ListViewItem(new string[] { county.DictionaryCountyId.ToString(), county.DictionaryCountyName }));
+            }
+        }
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -161,8 +159,9 @@ namespace ConferencePlanner.WinUi
         {
             tabControl1.SelectTab(tabSpeaker);
             tabSpeaker.Enabled = true;
-           
-             
+            populateCounty(_DictionaryCountyRepository.GetDictionaryCounty());
+
+
         }
         private void btnNext3_Click(object sender, EventArgs e)
         {
@@ -174,7 +173,6 @@ namespace ConferencePlanner.WinUi
         }
         private void btnNext4_Click(object sender, EventArgs e)
         {
-            selectedCounty = listView4.SelectedItems[0].Text;
             listView5_populate();
             tabControl1.SelectTab(tabCity);
             tabCity.Enabled = true;    
@@ -225,8 +223,8 @@ namespace ConferencePlanner.WinUi
             {
 
                 ListViewItem selectedItem = listView2.SelectedItems[0];
-                eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[0].Text);
-                eventDetails.DictionaryCountryCity = selectedItem.SubItems[1].Text;
+                eventDetails.DictionaryCountryCode = selectedItem.SubItems[0].Text;
+                eventDetails.DictionaryCountryName = selectedItem.SubItems[1].Text;
                 btnNext2.Enabled = true;
             }
             
@@ -250,7 +248,7 @@ namespace ConferencePlanner.WinUi
             if (listView4.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView4.SelectedItems[0];
-                eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[0].Text);
+                eventDetails.DictionaryCountyCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountyName = selectedItem.SubItems[1].Text;
                 btnNext4.Enabled = true;
             }
@@ -260,14 +258,20 @@ namespace ConferencePlanner.WinUi
         private void PopulateListView ()
         {
             listView1.View = View.Details;
-            listView1.Columns.Add("Country Id");
+            listView1.Columns.Add("Code");
             listView1.Columns.Add("Country Name");
            
         }
         private void listView5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView5.SelectedItems.Count != 0)
+            if (listView5.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listView5.SelectedItems[0];
+                eventDetails.DictionaryCityCode = selectedItem.SubItems[0].Text;
+                eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
                 btnNext5.Enabled = true;
+            }
+                
         }
 
         private void listView5_populate()
@@ -275,21 +279,27 @@ namespace ConferencePlanner.WinUi
             listView5.View = View.Details;
             listView5.Columns.Add("Code");
             listView5.Columns.Add("Name");
+            int save_county = 0;
+            foreach (var ind in countys)
+                if (ind.Code.Equals(eventDetails.DictionaryCountyCode))
+                    save_county = ind.DictionaryCountyId;
             foreach (var c in cityList)
             {
-                if(selectedCounty !=null && c.DictionaryCountyId.ToString().Equals(selectedCounty))
-                    listView5.Items.Add(new ListViewItem(new string[] { c.DictionaryCityId.ToString(), c.Name }));
+                if(c.DictionaryCountyId == save_county)
+                    listView5.Items.Add(new ListViewItem(new string[] { c.Code.ToString(), c.Name }));
             }
             listView5.GridLines = true;
             btnNext5.Enabled = false;
         }
         private void listView6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView6.SelectedItems.Count >= 0)
+            if (listView6.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listView6.SelectedItems[0];
                 eventDetails.DictionaryConferenceCategoryId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.DictionaryConferenceCategoryName = selectedItem.SubItems[1].Text;
+                btnSave.Visible = true;
+                
             }
 
         }

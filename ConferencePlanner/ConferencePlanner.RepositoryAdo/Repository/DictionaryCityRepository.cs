@@ -30,7 +30,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                     {
                         DictionaryCityId = sqlDataReader.GetInt32("DictionaryCityId"),
                         Name = sqlDataReader.GetString("DictionaryCityName"),
-                        DictionaryCountyId = sqlDataReader.GetInt32("DictionaryCountyId")
+                        DictionaryCountyId = sqlDataReader.GetInt32("DictionaryCountyId"),
+                        Code = sqlDataReader.GetString("DictionaryCityCode")
                     });
                 }
             }
