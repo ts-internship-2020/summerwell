@@ -37,14 +37,14 @@
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.Location = new System.Drawing.Point(0, 0);
             this.webView1.Name = "webView1";
-            this.webView1.Size = new System.Drawing.Size(800, 450);
+            this.webView1.Size = new System.Drawing.Size(998, 638);
             this.webView1.TabIndex = 0;
             // 
             // JoinConference
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(998, 638);
             this.Controls.Add(this.webView1);
             this.Name = "JoinConference";
             this.Text = "JoinConference";

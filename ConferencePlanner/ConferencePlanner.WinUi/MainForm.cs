@@ -83,6 +83,11 @@ namespace ConferencePlanner.WinUi
                                        x[i].SpeakerName,
                                        null, null, null, x[i].ConferenceId);
                 }
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
 
@@ -154,7 +159,7 @@ namespace ConferencePlanner.WinUi
                         }
                         else
                         {
-                            MessageBox.Show("You have to attend before you can join!");
+                           MessageBox.Show("You have to attend before you can join!");
                         }
 
                     }
@@ -214,7 +219,7 @@ namespace ConferencePlanner.WinUi
             try {
                 if (!(senderGrid.Rows[row] == null | senderGrid.Rows[row].Cells[1].Value.ToString().Equals("")))
                 {
-                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd.MM.yyyy HH:mm:ss", null);
+                    DateTime startDate = DateTime.ParseExact(senderGrid.Rows[row].Cells[1].Value.ToString(), "dd/MM/yyyy HH:mm:ss", null);
                     DateTime now = DateTime.Now;
                     //MessageBox.Show(now.ToString());
                     if (now.AddMinutes(5) >= startDate)
