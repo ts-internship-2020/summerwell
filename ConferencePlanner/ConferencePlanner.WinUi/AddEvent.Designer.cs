@@ -311,6 +311,7 @@ namespace ConferencePlanner.WinUi
             // 
             // listView5
             // 
+            this.listView5.FullRowSelect = true;
             this.listView5.HideSelection = false;
             this.listView5.Location = new System.Drawing.Point(22, 25);
             this.listView5.Name = "listView5";

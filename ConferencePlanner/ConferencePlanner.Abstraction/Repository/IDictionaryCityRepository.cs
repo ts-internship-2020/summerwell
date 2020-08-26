@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConferencePlanner.Abstraction.Repository
 {
-    interface IDictionaryCityRepository
+    public interface IDictionaryCityRepository
     {
         List<DictionaryCityModel> GetCity();
     }
