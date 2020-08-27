@@ -44,27 +44,20 @@ namespace ConferencePlanner.WinUi
             IDictionaryCityRepository dictionaryCityRepository, IDictionaryCountryRepository DictionaryCountryRepository, 
             IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository)
         {
-           
+            
             InitializeComponent();
 
+            AddConferenceDetailModel = new AddConferenceDetailModel();
             AddConferenceDetailModel = addConferenceDetailModel;
-            if (AddConferenceDetailModel != null)
-            {
-                eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
-                eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
-                eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
-                eventDetails.EndDate = addConferenceDetailModel.EndDate;
-                eventDetails.StartDate = addConferenceDetailModel.StartDate;
-                eventDetails.SpeakerName = addConferenceDetailModel.Speaker;
-                eventDetails.DictionaryConferenceCategoryName = addConferenceDetailModel.ConferenceCategoryName;
-                eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
-            }
+
+            eventDetails = new AddEventDetailModel();
+
+
             var_email = AddConferenceDetailModel.HostEmail;
 
             
 
             f = this; // Current form to use in New/Edit Form
-            eventDetails = new AddEventDetailModel();
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountryRepository = DictionaryCountryRepository;
@@ -120,7 +113,34 @@ namespace ConferencePlanner.WinUi
             eventDetails.HostEmail = var_email;
             eventDetails.StartDate = AddStartDate.Value;
             eventDetails.EndDate = AddEndDate.Value;
-            
+
+            if (addConferenceDetailModel.ConferenceName != null)
+            {
+                eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
+                eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
+                eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
+                eventDetails.EndDate = addConferenceDetailModel.EndDate;
+                eventDetails.StartDate = addConferenceDetailModel.StartDate;
+                eventDetails.SpeakerName = addConferenceDetailModel.Speaker;
+                eventDetails.DictionaryConferenceCategoryName = addConferenceDetailModel.ConferenceCategoryName;
+                eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
+
+                AddConferenceName.Text = eventDetails.ConferenceName;
+                AddAddress.Text = eventDetails.DictionaryCityName;
+                AddStartDate.Value = eventDetails.StartDate;
+                AddEndDate.Value = eventDetails.EndDate;
+            }
+        }
+
+        void ToSelectItem(ListView list, int itemIndex)
+        {
+            if (itemIndex > list.Items.Count - 1)
+                return;
+            list.Focus();
+            list.Select();
+            list.Items[itemIndex].Focused = true;
+            list.Items[itemIndex].Selected = true;
+            MessageBox.Show(itemIndex.ToString());
         }
 
         private void populateCounty(List<DictionaryCountyModel> countys)
@@ -272,6 +292,7 @@ namespace ConferencePlanner.WinUi
             }
             listView1.GridLines = true;
             btnNext.Enabled = false;
+            
         }
 
         private void listView2_SelectedIndexChanged(object sender, EventArgs e)
