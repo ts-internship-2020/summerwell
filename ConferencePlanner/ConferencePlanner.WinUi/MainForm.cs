@@ -19,9 +19,11 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ConferencePlanner.WinUi
 {
-
+   
     public partial class MainForm : Form
     {
+
+  
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
@@ -43,6 +45,7 @@ namespace ConferencePlanner.WinUi
         public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository,  IConferenceRepository ConferenceRepository,IDictionaryCountryRepository DictionaryCountryRepository ,IDictionaryCountyRepository DictionaryCountyRepository,IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, string var_email)
         {
             InitializeComponent();
+      
             _ConferenceTypeRepository = conferenceTypeRepository;
             _ConferenceRepository = ConferenceRepository;
             _DictionaryCountryRepository = DictionaryCountryRepository;
@@ -84,11 +87,12 @@ namespace ConferencePlanner.WinUi
             if (HosttotalEntries < 6) { populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value); 
                 btnBackHost.Enabled = false;
                 btnNextHost.Enabled = false; }
+         
             else populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
+           
 
-            
 
-            }
+        }
 
         private void populateConferenceGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
         {
@@ -152,7 +156,7 @@ namespace ConferencePlanner.WinUi
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
                     changeColor();
-                    InitTimer(sender, e.RowIndex, e.ColumnIndex);
+                    //InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
                 if (colindex.ToString().Equals("7") && isJoin == false)
@@ -408,14 +412,9 @@ namespace ConferencePlanner.WinUi
 
             
 
-            if (dataGridView1.CurrentCell == null)
-            {
-
-                MessageBox.Show("namdate??");
-                //textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString();
-               // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
-            }
-            try
+            if (dataGridView1.CurrentCell != null & (dataGridView1.CurrentCell.ColumnIndex.ToString().Equals("5")))
+          
+           try
             {
 
                 string rating = "";
@@ -533,14 +532,11 @@ namespace ConferencePlanner.WinUi
                     changeColor();
                 }
             }
-            else if(startingPoint < totalEntries)
+            
+            else if(startingPoint==totalEntries)
+
             {
-                dataGridView1.Rows.Clear();
-                populateConferenceGridViewByDate(startingPoint, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
-                startingPoint = totalEntries;
-            }
-            else
-            {
+                Refresh();
                 return;
             }
             
