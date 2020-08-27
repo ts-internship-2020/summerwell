@@ -29,24 +29,39 @@ namespace ConferencePlanner.WinUi
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
+        protected AddEvent f;
         private AddEventDetailModel eventDetails;
+        private AddConferenceDetailModel AddConferenceDetailModel;
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private List<ConferenceTypeModel> x;
         private List<DictionaryCityModel> cityList;
         private List<DictionaryCountyModel> countys;
-        public AddEvent(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCityRepository dictionaryCityRepository,
-            IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository,
-            string var_email,
-            string ConferenceName,
-            string ConferenceType,
-            string ConferenceCategory,
-            string ConferenceAddress,
-            string ConferenceMainSpeaker,
-            DateTime CoferenceStartDate,
-            DateTime ConferenceEndDate
-            )
+        string ConferenceName = "";
+        DateTime CoferenceStartDate = DateTime.Now;
+        DateTime ConferenceEndDate = DateTime.Now;
+        string ConferenceAddress = "";
+        public AddEvent(AddConferenceDetailModel addConferenceDetailModel, IGetSpeakerDetail GetSpeakerDetail, 
+            IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, 
+            IDictionaryCityRepository dictionaryCityRepository, IDictionaryCountryRepository DictionaryCountryRepository, 
+            IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository)
         {
+           
             InitializeComponent();
+
+            AddConferenceDetailModel = addConferenceDetailModel;
+            if (AddConferenceDetailModel != null)
+            {
+                string ConferenceName = AddConferenceDetailModel.ConferenceName;
+                string ConferenceType = AddConferenceDetailModel.ConferenceTypeName;
+                string ConferenceCategory = AddConferenceDetailModel.ConferenceCategoryName;
+                string ConferenceAddress = AddConferenceDetailModel.Location;
+                string ConferenceMainSpeaker = addConferenceDetailModel.Speaker;
+                DateTime CoferenceStartDate = AddConferenceDetailModel.StartDate;
+                DateTime ConferenceEndDate = AddConferenceDetailModel.EndDate;
+            }
+            var_email = AddConferenceDetailModel.HostEmail;
+
+            f = this; // Current form to use in New/Edit Form
             eventDetails = new AddEventDetailModel();
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
@@ -135,6 +150,11 @@ namespace ConferencePlanner.WinUi
                 return;
             }
             listView1_populate();
+
+            eventDetails.HostEmail = var_email;
+            eventDetails.StartDate = AddStartDate.Value;
+            eventDetails.EndDate = AddEndDate.Value;
+            eventDetails.ConferenceName = AddConferenceName.Text.ToString();
         }
 
         private void populateCounty(List<DictionaryCountyModel> countys)
@@ -146,6 +166,7 @@ namespace ConferencePlanner.WinUi
             }
         }
 
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -154,12 +175,14 @@ namespace ConferencePlanner.WinUi
         private void btnNext_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCountry);
+            tabType.Enabled = false;
             tabCountry.Enabled = true;
         }
         private void btnNext2_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabSpeaker);
             tabSpeaker.Enabled = true;
+            tabCountry.Enabled = false;
             populateCounty(_DictionaryCountyRepository.GetDictionaryCounty());
 
 
@@ -176,18 +199,21 @@ namespace ConferencePlanner.WinUi
         {
             listView5_populate();
             tabControl1.SelectTab(tabCity);
-            tabCity.Enabled = true;    
+            tabCity.Enabled = true;
+            tabCounty.Enabled = false;
         }
         private void btnNext5_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabCategory);
             tabCategory.Enabled = true;
+            tabCity.Enabled = false;
          
                 
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            
+            _ConferenceRepository.AddConference(eventDetails);
+            this.Close();
         }
         private void btnSaveNew_Click(object sender, EventArgs e)
         {
@@ -313,63 +339,72 @@ namespace ConferencePlanner.WinUi
         }
         private void EditType_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryConferenceType",eventDetails.ConferenceTypeId.ToString(), eventDetails.ConferenceTypeName);
+            NewEditForm form5 = new NewEditForm(f,eventDetails,_ConferenceRepository,"DictionaryType",true);
             form5.Show();
         }
         private void EditCountry_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryCountry",eventDetails.DictionaryCountryCode.ToString(), eventDetails.DictionaryCountryName);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCountry", true);
             form5.Show();
         }
         private void EditCounty_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryCounty",eventDetails.DictionaryCountyCode.ToString(), eventDetails.DictionaryCountyName);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCounty", true);
             form5.Show();
         }
         private void EditSpeaker_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("Speaker",eventDetails.SpeakerRating.ToString(), eventDetails.SpeakerName);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"Speaker", true);
             form5.Show();
         }
         private void EditCity_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryCity",eventDetails.DictionaryCityCode.ToString(), eventDetails.DictionaryCityName);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCity", true);
             form5.Show();
         }
         private void EditCategory_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryConferenceCategory",eventDetails.DictionaryConferenceCategoryId.ToString(), eventDetails.DictionaryConferenceCategoryName);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCategory", true);
             form5.Show();
         }
         private void btnAdd1_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryConferenceCategory", null,null);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryType", false);
             form5.Show();
         }
         private void btnAdd2_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryCountry",null,null);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCountry", false);
             form5.Show();
         }
         private void btnAdd3_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("Speaker", null,null);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"Speaker", false);
             form5.Show();
         }
         private void btnAdd4_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryCounty",null,null);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCity", false);
             form5.Show();
         }
         private void btnAdd5_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryCity", null, null);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCounty", false);
             form5.Show();
         }
         private void btnAdd6_Click(object sender, EventArgs e)
         {
-            NewEditForm form5 = new NewEditForm("DictionaryCategory", null, null);
+            NewEditForm form5 = new NewEditForm(f,eventDetails, _ConferenceRepository,"DictionaryCategory", false);
             form5.Show();
+        }
+        public void RefreshLists(string dictionary) 
+        {
+            if (dictionary == "DictionaryCounty") { MessageBox.Show("Facem Update"); listView4.Clear(); populateCounty(_DictionaryCountyRepository.GetDictionaryCounty());}
+            else if (dictionary == "DictionaryCity") { listView5.Clear(); listView5_populate(); }
+            else if (dictionary == "DictionaryType") { listView1.Clear(); listView1_populate(); }
+            //else if (dictionary == "Speaker") { };
+            //else if (dictionary == "DictionaryCountry") { };
+            //else if (dictionary == "DictionaryCategory") { };
         }
     }
 }
