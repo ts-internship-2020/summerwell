@@ -123,12 +123,6 @@ namespace ConferencePlanner.WinUi
             listView3.Columns.Add("SpeakerName", -2);
             listView3.Columns.Add("Rating", -2);
 
-            listView4.View = View.Details;
-            listView4.FullRowSelect = true;
-            listView4.GridLines = true;
-            listView4.Columns.Add("Code", -2);
-            listView4.Columns.Add("County", -2);
-
             foreach (var speaker in speakers)
             { 
                 listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
@@ -160,6 +154,11 @@ namespace ConferencePlanner.WinUi
 
         private void populateCounty(List<DictionaryCountyModel> countys)
         {
+            listView4.View = View.Details;
+            listView4.FullRowSelect = true;
+            listView4.GridLines = true;
+            listView4.Columns.Add("Code", -2);
+            listView4.Columns.Add("County", -2);
             foreach (var county in countys)
             {
                 if(county.DictionaryCountryId == eventDetails.DictionaryCountryId)
