@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using ConferencePlanner.Abstraction.Repository;
 using System.Data.SqlClient;
+using ConferencePlanner.Abstraction.Model;
 
 namespace ConferencePlanner.WinUi
 {
@@ -18,11 +19,21 @@ namespace ConferencePlanner.WinUi
     {
         string var_email = "";
         private readonly IConferenceRepository _ConferenceRepository;
-        private IConferenceTypeRepository _ConferenceTypeRepository;
-        public StartUpForm(IConferenceRepository ConferenceRepository, IConferenceTypeRepository ConferenceTypeRepository)
+        private readonly IConferenceTypeRepository _ConferenceTypeRepository;
+        private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
+        private readonly IGetSpeakerDetail _GetSpeakerDetail;
+        private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
+        private readonly IDictionaryCityRepository _DictionaryCityRepository;
+        private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
+        public StartUpForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository)
         {
+            _DictionaryCityRepository = dictionaryCityRepository;
+            _GetSpeakerDetail = GetSpeakerDetail;
             _ConferenceRepository = ConferenceRepository;
             _ConferenceTypeRepository = ConferenceTypeRepository;
+            _DictionaryCountryRepository = DictionaryCountryRepository;
+            _DictionaryCountyRepository = DictionaryCountyRepository;
+            _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             InitializeComponent();
         }
 
@@ -42,8 +53,8 @@ namespace ConferencePlanner.WinUi
                 //buton ok
                 var_email = EmailBoss.Text;
                 //MessageBox.Show(var_email);
-                
-                MainForm form2 = new MainForm(_ConferenceTypeRepository, _ConferenceRepository, var_email);
+
+                MainForm form2 = new MainForm(_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository, _DictionaryCountryRepository, _DictionaryCountyRepository, _DictionaryCityRepository, _DictionaryConferenceCategoryRepository,var_email);
                 form2.Tag = this;
                 form2.Show(this);
                 this.Hide();

@@ -8,5 +8,6 @@ namespace ConferencePlanner.Abstraction.Model
     {
         public int DictionaryCountryId { get; set; }
         public string DictionaryCountryName { get; set; }
+        public string Code { get; set; }
     }
 }
