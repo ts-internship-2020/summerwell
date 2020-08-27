@@ -179,7 +179,7 @@ namespace ConferencePlanner.WinUi
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.PowderBlue;
             this.dataGridView1.ColumnHeadersHeight = 48;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConferenceName,
@@ -193,10 +193,11 @@ namespace ConferencePlanner.WinUi
             this.WithdrawButton,
             this.ConferenceId});
             this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dataGridView1.GridColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.GridColor = System.Drawing.SystemColors.Desktop;
             this.dataGridView1.Location = new System.Drawing.Point(0, 73);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(905, 331);
             this.dataGridView1.TabIndex = 5;
@@ -209,6 +210,7 @@ namespace ConferencePlanner.WinUi
             this.ConferenceName.HeaderText = "Conference Name";
             this.ConferenceName.MinimumWidth = 8;
             this.ConferenceName.Name = "ConferenceName";
+            this.ConferenceName.ReadOnly = true;
             this.ConferenceName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // StartDate
@@ -216,6 +218,7 @@ namespace ConferencePlanner.WinUi
             this.StartDate.HeaderText = "Start Date";
             this.StartDate.MinimumWidth = 8;
             this.StartDate.Name = "StartDate";
+            this.StartDate.ReadOnly = true;
             this.StartDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Type
@@ -223,6 +226,7 @@ namespace ConferencePlanner.WinUi
             this.Type.HeaderText = "Type";
             this.Type.MinimumWidth = 8;
             this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
             this.Type.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Category
@@ -230,6 +234,7 @@ namespace ConferencePlanner.WinUi
             this.Category.HeaderText = "Category";
             this.Category.MinimumWidth = 8;
             this.Category.Name = "Category";
+            this.Category.ReadOnly = true;
             this.Category.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // Location
@@ -237,6 +242,7 @@ namespace ConferencePlanner.WinUi
             this.Location.HeaderText = "Location";
             this.Location.MinimumWidth = 8;
             this.Location.Name = "Location";
+            this.Location.ReadOnly = true;
             this.Location.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // MainSpeaker
@@ -244,6 +250,7 @@ namespace ConferencePlanner.WinUi
             this.MainSpeaker.HeaderText = "Main Speaker";
             this.MainSpeaker.MinimumWidth = 8;
             this.MainSpeaker.Name = "MainSpeaker";
+            this.MainSpeaker.ReadOnly = true;
             this.MainSpeaker.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // AttendButton
@@ -251,6 +258,7 @@ namespace ConferencePlanner.WinUi
             this.AttendButton.HeaderText = "Attend Button";
             this.AttendButton.MinimumWidth = 8;
             this.AttendButton.Name = "AttendButton";
+            this.AttendButton.ReadOnly = true;
             this.AttendButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.AttendButton.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
@@ -259,6 +267,7 @@ namespace ConferencePlanner.WinUi
             this.JoinButton.HeaderText = "Join Button";
             this.JoinButton.MinimumWidth = 8;
             this.JoinButton.Name = "JoinButton";
+            this.JoinButton.ReadOnly = true;
             this.JoinButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // WithdrawButton
@@ -266,6 +275,7 @@ namespace ConferencePlanner.WinUi
             this.WithdrawButton.HeaderText = "Withdraw Button";
             this.WithdrawButton.MinimumWidth = 8;
             this.WithdrawButton.Name = "WithdrawButton";
+            this.WithdrawButton.ReadOnly = true;
             this.WithdrawButton.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // ConferenceId
@@ -273,6 +283,7 @@ namespace ConferencePlanner.WinUi
             this.ConferenceId.HeaderText = "ConferenceId";
             this.ConferenceId.MinimumWidth = 8;
             this.ConferenceId.Name = "ConferenceId";
+            this.ConferenceId.ReadOnly = true;
             this.ConferenceId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ConferenceId.Visible = false;
             // 
