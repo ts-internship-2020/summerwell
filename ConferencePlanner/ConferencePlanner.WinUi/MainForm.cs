@@ -153,10 +153,11 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
-                    _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel);
+                    
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
+                        _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel);
                     }
                     catch(SqlException ex)
                     {
