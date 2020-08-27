@@ -337,7 +337,7 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if (colindex.ToString().Equals("7"))
                 {
-                    addConferenceDetailModel.ConferenceId = (int)dataGridView2.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                    addConferenceDetailModel.ConferenceId = (int)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceId"].Value;
                     addConferenceDetailModel.ConferenceName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value;
                     addConferenceDetailModel.ConferenceTypeName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value;
                     addConferenceDetailModel.ConferenceCategoryName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value;
