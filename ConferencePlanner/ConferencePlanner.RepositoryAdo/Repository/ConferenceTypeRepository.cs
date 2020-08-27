@@ -19,7 +19,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public List<ConferenceTypeModel> GetConferenceType()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = "select * from DictionaryConferenceType";
+            sqlCommand.CommandText = "select DictionaryConferenceTypeName,DictionaryConferenceTypeId,IsRemote from DictionaryConferenceType";
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             List<ConferenceTypeModel> conferencestype = new List<ConferenceTypeModel>();
             if (sqlDataReader.HasRows)
