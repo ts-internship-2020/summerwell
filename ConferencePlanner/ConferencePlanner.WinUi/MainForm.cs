@@ -357,7 +357,7 @@ namespace ConferencePlanner.WinUi
                     addConferenceDetailModel.StartDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostStartDate"].Value;
                     addConferenceDetailModel.EndDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostEndDate"].Value;
 
-                    AddEvent form3 = new AddEvent(f,addConferenceDetailModel, _GetSpeakerDetail,
+                    AddEvent form3 = new AddEvent(0,f,addConferenceDetailModel, _GetSpeakerDetail,
                         _ConferenceTypeRepository, _ConferenceRepository,
                         _DictionaryCityRepository, _DictionaryCountryRepository,
                         _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
@@ -471,19 +471,20 @@ namespace ConferencePlanner.WinUi
                 MessageBox.Show("You cannot process an empty cell");
             }
         }
-
-        private void btnAddEvent_Click(object sender, EventArgs e)
+        public void AddEventNotEdit()
         {
-                   
-                    AddEvent form3 = new AddEvent(f,addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, 
-                        _ConferenceRepository,_DictionaryCityRepository, _DictionaryCountryRepository, 
+            AddEvent form3 = new AddEvent(1, f, addConferenceDetailModel, _GetSpeakerDetail, _ConferenceTypeRepository,
+                        _ConferenceRepository, _DictionaryCityRepository, _DictionaryCountryRepository,
                         _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
             this.Enabled = false;
             form3.Tag = this;
-                    form3.Show(this);
-                
-            
+            form3.Show(this);
         }
+        private void btnAddEvent_Click(object sender, EventArgs e)
+        {
+            AddEventNotEdit();
+        }
+
 
         private void button2_Click(object sender, EventArgs e)
         {

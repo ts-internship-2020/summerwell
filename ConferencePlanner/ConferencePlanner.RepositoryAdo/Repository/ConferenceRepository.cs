@@ -693,7 +693,18 @@ namespace ConferencePlanner.Repository.Ado.Repository
             SqlCommand commmand = _sqlConnection.CreateCommand();
             commmand.CommandText = "Select LocationId from Location Where Street = @Street and CityId = @CityId";
             commmand.Parameters.Add("@Street", SqlDbType.VarChar, 100).Value = Street;
-            commmand.Parameters.Add("@CityId", SqlDbType.VarChar, 100).Value = CityId;
+            commmand.Parameters.Add("@CityId", SqlDbType.Int, 100).Value = CityId;
+            SqlDataReader sqlDataReader = commmand.ExecuteReader();
+            sqlDataReader.Read();
+
+            return sqlDataReader.GetInt32("LocationId");
+        }
+        public int GetLocationId(string Street)
+        {
+            SqlCommand commmand = _sqlConnection.CreateCommand();
+            commmand.CommandText = "Select LocationId from Location Where Street = @Street ";
+            commmand.Parameters.Add("@Street", SqlDbType.VarChar, 100).Value = Street;
+
             SqlDataReader sqlDataReader = commmand.ExecuteReader();
             sqlDataReader.Read();
 
@@ -709,7 +720,24 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@isMainSpeaker", SqlDbType.Int, 100).Value = 1;
             command.ExecuteNonQuery();
         }
-        public void EditConference(AddEventDetailModel eventDetail) { }
+        public void EditConference(AddEventDetailModel eventDetail) 
+        {
+
+            int findLocationId = GetLocationId(eventDetail.LocationName);
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE Conference SET ConferenceTypeId = @ConferenceTypeId ,LocationId = @LocationId," +
+                "ConferenceCategoryId = @ConferenceCategoryId ,HostEmail = @HostEmail," +
+                "StartDate = @StartDate ,EndDate = @EndDate ,ConferenceName = @ConferenceName WHERE ConferenceId = @ConferenceId ";
+            command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
+            command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = findLocationId;
+            command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
+            command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
+            command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
+            command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
+            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceId.ToString());
+            command.ExecuteNonQuery();
+        }
 
 
 

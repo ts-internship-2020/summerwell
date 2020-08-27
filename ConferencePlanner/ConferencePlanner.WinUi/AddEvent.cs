@@ -40,13 +40,15 @@ namespace ConferencePlanner.WinUi
         DateTime ConferenceEndDate = DateTime.Now;
         protected MainForm formMain;
         string ConferenceAddress = "";
-        public AddEvent(MainForm form,AddConferenceDetailModel addConferenceDetailModel, IGetSpeakerDetail GetSpeakerDetail,
+        int EditNew = 0;
+        public AddEvent(int editnew,MainForm form,AddConferenceDetailModel addConferenceDetailModel, IGetSpeakerDetail GetSpeakerDetail,
             IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
             IDictionaryCityRepository dictionaryCityRepository, IDictionaryCountryRepository DictionaryCountryRepository,
             IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository)
         {
             
             InitializeComponent();
+            EditNew = editnew;
 
             AddConferenceDetailModel = new AddConferenceDetailModel();
             AddConferenceDetailModel = addConferenceDetailModel;
@@ -263,12 +265,31 @@ namespace ConferencePlanner.WinUi
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            eventDetails.ConferenceName = AddConferenceName.Text;
-            eventDetails.LocationName = AddAddress.Text;
-            eventDetails.StartDate = AddStartDate.Value;
-            eventDetails.EndDate = AddEndDate.Value;
-            _ConferenceRepository.AddConference(eventDetails);
-            this.Close();
+            if (EditNew == 1)
+            {
+                eventDetails.ConferenceName = AddConferenceName.Text;
+                eventDetails.LocationName = AddAddress.Text;
+                eventDetails.StartDate = AddStartDate.Value;
+                eventDetails.EndDate = AddEndDate.Value;
+                _ConferenceRepository.AddConference(eventDetails);
+            }
+            else
+            {
+                _ConferenceRepository.EditConference(eventDetails);
+            }
+
+            string message = "Do you want a new Conference?";
+            string caption = "Error Detected in Input";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            result = MessageBox.Show(message, caption,buttons);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                this.Close();
+                formMain.AddEventNotEdit();
+            }
+                this.Close();
         }
         private void btnSaveNew_Click(object sender, EventArgs e)
         {
