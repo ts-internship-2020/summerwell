@@ -218,12 +218,12 @@ namespace ConferencePlanner.WinUi
             // 
             // listView2
             // 
-            this.listView2.GridLines = true;
+            this.listView2.FullRowSelect = true;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(22, 25);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(206, 163);
-            this.listView2.TabIndex = 1;
+            this.listView2.TabIndex = 10;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
             this.listView2.DoubleClick += new System.EventHandler(this.EditCountry_Click);

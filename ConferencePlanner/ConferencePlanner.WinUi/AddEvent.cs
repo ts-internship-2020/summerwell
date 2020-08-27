@@ -151,8 +151,8 @@ namespace ConferencePlanner.WinUi
             listView4.View = View.Details;
             listView4.FullRowSelect = true;
             listView4.GridLines = true;
-            listView4.Columns.Add("Code", -2);
-            listView4.Columns.Add("County", -2);
+            listView4.Columns.Add("Code");
+            listView4.Columns.Add("County");
             foreach (var county in countys)
             {
                 if (county.DictionaryCountryId == eventDetails.DictionaryCountryId)
@@ -164,8 +164,8 @@ namespace ConferencePlanner.WinUi
             listView3.View = View.Details;
             listView3.FullRowSelect = true;
             listView3.GridLines = true;
-            listView3.Columns.Add("SpeakerName", -2);
-            listView3.Columns.Add("Rating", -2);
+            listView3.Columns.Add("SpeakerName");
+            listView3.Columns.Add("Rating");
 
             foreach (var speaker in speakers)
             {
@@ -175,24 +175,25 @@ namespace ConferencePlanner.WinUi
         private void populateCountry(List<DictionaryCountryModel> countries)
         {
             listView2.View = View.Details;
-            listView2.FullRowSelect = true;
-            listView2.GridLines = true;
-            listView2.Columns.Add("Code", -2);
-            listView2.Columns.Add("CountryName", -2);
+            
+            
+            listView2.Columns.Add("Code");
+            listView2.Columns.Add("CountryName");
             foreach (var country in countries)
             {
 
                 listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName, country.DictionaryCountryId.ToString() }));
 
             }
+            listView2.GridLines = true;
         }
         private void populateCity(List<DictionaryCityModel> cities)
         {
             listView5.View = View.Details;
             listView5.FullRowSelect = true;
             listView5.GridLines = true;
-            listView5.Columns.Add("Code", -2);
-            listView5.Columns.Add("CityName", -2);
+            listView5.Columns.Add("Code");
+            listView5.Columns.Add("CityName");
             foreach (var city in cities)
             {
                 if (city.DictionaryCountyId == eventDetails.DictionaryCountyId)
@@ -205,8 +206,8 @@ namespace ConferencePlanner.WinUi
             listView6.View = View.Details;
             listView6.FullRowSelect = true;
             listView6.GridLines = true;
-            listView6.Columns.Add("CategoryId", -2);
-            listView6.Columns.Add("CategoryName", -2);
+            listView6.Columns.Add("CategoryId");
+            listView6.Columns.Add("CategoryName");
             foreach (var category in categories)
             {
 
@@ -290,6 +291,8 @@ namespace ConferencePlanner.WinUi
             listView1.View = View.Details;
             listView1.Columns.Add("Code");
             listView1.Columns.Add("Name");
+            x.Clear();
+            x = _ConferenceTypeRepository.GetConferenceType();
             foreach (var c in x)
             {
                 listView1.Items.Add(new ListViewItem(new string[] { c.ConferenceTypeId.ToString(), c.Name }));

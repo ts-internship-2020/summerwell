@@ -640,11 +640,6 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = SpeakerId;
             command.ExecuteNonQuery();
         }
-        public void EditType(string Name) { }
-        public void EditCategory(string Name) { }
-        public void EditCounty(string Code, string Name, string country) { }
-        public void EditCity(string Code, string Name, string county) { }
-        public void EditSpeaker(string Code, string Name) { }
         public void EditType(int Id,string Name) 
         {
             SqlCommand command = _sqlConnection.CreateCommand();
