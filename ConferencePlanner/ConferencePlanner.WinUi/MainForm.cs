@@ -125,7 +125,7 @@ namespace ConferencePlanner.WinUi
                                   y[i].DictionaryConferenceCategoryName,
                                   y[i].DictionaryCityName,
                                   y[i].SpeakerName,
-                                  null, null, null, y[i].ConferenceId);
+                                  null,  y[i].ConferenceId);
                     }
                 }
 

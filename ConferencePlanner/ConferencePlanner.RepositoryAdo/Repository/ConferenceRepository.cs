@@ -596,7 +596,17 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = index+1;
             command.ExecuteNonQuery();
         }
-        public void EditCountry(string Code, string Name) { }
+        public void EditCountry(int Id, string Code, string Name)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryCountry " +
+                "SET DictionaryCountryName = @CountryName , DictionaryCountryCode = @CountryCode " +
+                "WHERE DictionaryCountryId = @Id ";
+            command.Parameters.Add("@CountryName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CountryCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
+            command.ExecuteNonQuery();
+        }
         public void EditCounty(string Code, string Name, string country) { }
         public void EditCity(string Code, string Name, string county) { }
         public void EditSpeaker(string Code, string Name) { }
