@@ -568,6 +568,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public void EditCategory(string Name) { }
         public void AddConference(AddEventDetailModel eventDetail) {
             {
+                int ConferenceId = 0;
                 SqlCommand command = _sqlConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
                                         "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
@@ -580,7 +581,26 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName; 
                 command.ExecuteNonQuery();
 
+                SqlCommand commmand = _sqlConnection.CreateCommand();
+                commmand.CommandText = "Select ConferenceId from Conference Where ConferenceName = @ConferenceName";
+                commmand.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
+                SqlDataReader sqlDataReader = commmand.ExecuteReader();
+                sqlDataReader.Read();
+
+                ConferenceId = sqlDataReader.GetInt32("ConferenceId");
+
+                AddConferenceXSpeaker(ConferenceId, eventDetail.SpeakerId);
             }
+     }
+        public void AddConferenceXSpeaker(int ConferenceId, int SpeakerId)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "INSERT INTO SpeakerXConference (ConferenceId,SpeakerId,isMainSpeaker) " +
+                                        "VALUES (@ConferenceId, @SpeakerId, @isMainSpeaker)";
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int, 100).Value = ConferenceId;
+            command.Parameters.Add("@SpeakerId", SqlDbType.Int, 100).Value = SpeakerId;
+            command.Parameters.Add("@isMainSpeaker", SqlDbType.Int, 100).Value = 1;
+            command.ExecuteNonQuery();
         }
         public void EditConference(AddEventDetailModel eventDetail) { }
 

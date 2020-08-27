@@ -29,7 +29,7 @@ namespace ConferencePlanner.Abstraction.Repository
         void EditType(string Name);
         void EditCategory(string Name);
         void AddConference(AddEventDetailModel addEvent);
-        public void EditConference(AddEventDetailModel eventDetail) { }
+        public void EditConference(AddEventDetailModel eventDetail);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
         int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel);
 
