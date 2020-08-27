@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace ConferencePlanner.Abstraction.Model
@@ -14,7 +15,7 @@ namespace ConferencePlanner.Abstraction.Model
         public string SpeakerName { get; set; }
         public string SpeakerRating { get; set; }
         public int DictionaryCountyId { get; set; }
-        public string DictionaryCountyCode{ get; set; }
+        public string DictionaryCountyCode { get; set; }
         public string DictionaryCountyName { get; set; }
         public int DictionaryCityId { get; set; }
         public string DictionaryCityCode { get; set; }
@@ -26,6 +27,7 @@ namespace ConferencePlanner.Abstraction.Model
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string ConferenceName { get; set; }
+        public int SpeakerId{ get; set; }
 
     }
 }

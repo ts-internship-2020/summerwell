@@ -132,8 +132,9 @@ namespace ConferencePlanner.WinUi
             foreach (var speaker in speakers)
             { 
                 listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
-                
-                
+                eventDetails.SpeakerId = speaker.SpeakerId;
+
+
             }
 
             _DictionaryCityRepository = dictionaryCityRepository;
@@ -154,7 +155,7 @@ namespace ConferencePlanner.WinUi
             eventDetails.HostEmail = var_email;
             eventDetails.StartDate = AddStartDate.Value;
             eventDetails.EndDate = AddEndDate.Value;
-            eventDetails.ConferenceName = AddConferenceName.Text.ToString();
+            
         }
 
         private void populateCounty(List<DictionaryCountyModel> countys)
@@ -212,6 +213,9 @@ namespace ConferencePlanner.WinUi
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
+            eventDetails.ConferenceName = AddConferenceName.Text;
+            eventDetails.StartDate = AddStartDate.Value;
+            eventDetails.EndDate = AddEndDate.Value;
             _ConferenceRepository.AddConference(eventDetails);
             this.Close();
         }
@@ -227,6 +231,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 eventDetails.ConferenceTypeId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.ConferenceTypeName = selectedItem.SubItems[1].Text;
+                //eventDetails.SpeakerId = SpeakerId;
                 btnNext.Enabled = true;
             }
         }
