@@ -124,9 +124,10 @@ namespace ConferencePlanner.WinUi
                 eventDetails.SpeakerName = addConferenceDetailModel.Speaker;
                 eventDetails.DictionaryConferenceCategoryName = addConferenceDetailModel.ConferenceCategoryName;
                 eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
+                eventDetails.LocationName = addConferenceDetailModel.Location;
 
                 AddConferenceName.Text = eventDetails.ConferenceName;
-                AddAddress.Text = eventDetails.DictionaryCityName;
+                AddAddress.Text = eventDetails.LocationName;
                 AddStartDate.Value = eventDetails.StartDate;
                 AddEndDate.Value = eventDetails.EndDate;
             }
@@ -193,7 +194,7 @@ namespace ConferencePlanner.WinUi
             foreach (var city in cities)
             {
                 if (city.DictionaryCountyId == eventDetails.DictionaryCountyId)
-                    listView5.Items.Add(new ListViewItem(new string[] { city.Code, city.Name , city.DictionaryCountyId.ToString() }));
+                    listView5.Items.Add(new ListViewItem(new string[] { city.Code, city.Name , city.DictionaryCountyId.ToString(), city.DictionaryCityId.ToString() }));
 
             }
         }
@@ -260,6 +261,7 @@ namespace ConferencePlanner.WinUi
         private void btnSave_Click(object sender, EventArgs e)
         {
             eventDetails.ConferenceName = AddConferenceName.Text;
+            eventDetails.LocationName = AddAddress.Text;
             eventDetails.StartDate = AddStartDate.Value;
             eventDetails.EndDate = AddEndDate.Value;
             _ConferenceRepository.AddConference(eventDetails);
@@ -350,6 +352,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView5.SelectedItems[0];
                 eventDetails.DictionaryCityCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
+                eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[2].Text);
                 btnNext5.Enabled = true;
             }
                 
