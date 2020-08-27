@@ -36,8 +36,8 @@ namespace ConferencePlanner.WinUi
             dictionar = dictionary;
 
             if (dictionary.ToString() == "Speaker") label1.Text = "Email";
-            if (dictionary.ToString() == "DictionaryCategory") label1.Enabled = false;
-            if (dictionary.ToString() == "DictionaryType") label1.Enabled = false;
+            if (dictionary.ToString() == "DictionaryCategory") { label1.Visible = false; textBox1.Visible = false; }
+            if (dictionary.ToString() == "DictionaryType") { label1.Visible = false; textBox1.Visible = false; }
             
         }
         private void BtnSave_Click(object sender, EventArgs e)
