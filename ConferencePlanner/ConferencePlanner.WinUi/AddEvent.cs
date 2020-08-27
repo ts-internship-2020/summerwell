@@ -427,7 +427,7 @@ namespace ConferencePlanner.WinUi
         }
         public void RefreshLists(string dictionary) 
         {
-            if (dictionary == "DictionaryCounty") { MessageBox.Show("Facem Update"); listView4.Clear(); populateCounty(_DictionaryCountyRepository.GetDictionaryCounty());}
+            if (dictionary == "DictionaryCounty") { listView4.Clear(); populateCounty(_DictionaryCountyRepository.GetDictionaryCounty());}
             else if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(_DictionaryCityRepository.GetCity()); }
             else if (dictionary == "DictionaryType") { listView1.Clear(); listView1_populate(); }
             else if (dictionary == "Speaker") { listView3.Clear();  populateSpeakers(_GetSpeakerDetail.GetSpeakers()); }
