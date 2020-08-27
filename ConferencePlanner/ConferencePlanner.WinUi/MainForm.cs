@@ -42,6 +42,7 @@ namespace ConferencePlanner.WinUi
 
         public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository,  IConferenceRepository ConferenceRepository,IDictionaryCountryRepository DictionaryCountryRepository ,IDictionaryCountyRepository DictionaryCountyRepository,IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, string var_email)
         {
+           
             InitializeComponent();
             _ConferenceTypeRepository = conferenceTypeRepository;
             _ConferenceRepository = ConferenceRepository;
@@ -138,9 +139,11 @@ namespace ConferencePlanner.WinUi
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                    _conferenceAudienceModel.ConferenceName = (string)dataGridView1.Rows[e.RowIndex].Cells["ConferenceName"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
+                    _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel);
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);

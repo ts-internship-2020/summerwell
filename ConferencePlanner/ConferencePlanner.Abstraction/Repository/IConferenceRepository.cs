@@ -33,7 +33,7 @@ namespace ConferencePlanner.Abstraction.Repository
         int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel);
 
         string GetUniqueParticipantCode();
-        Bitmap GetQRCodeUniqueParticipantCode(string Code);
+        Bitmap GetQRCodeUniqueParticipantCode(ConferenceAudienceModel _conferenceAudienceModel);
         
     }
 }

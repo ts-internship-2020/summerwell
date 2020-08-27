@@ -495,12 +495,29 @@ namespace ConferencePlanner.Repository.Ado.Repository
             GuidString = GuidString.Replace("+", "");
             return GuidString;
         }
-        public Bitmap GetQRCodeUniqueParticipantCode(string Code)
+        public Bitmap GetQRCodeUniqueParticipantCode(ConferenceAudienceModel _conferenceAudienceModel)
         {
             QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
-            var data = QG.CreateQrCode(Code, QRCoder.QRCodeGenerator.ECCLevel.H);
+            var data = QG.CreateQrCode(_conferenceAudienceModel.UniqueParticipantCode, QRCoder.QRCodeGenerator.ECCLevel.Q);
             var QRCode = new QRCoder.QRCode(data);
+          
             Bitmap QRCodeImage = QRCode.GetGraphic(20);
+            QRCodeImage.Save("C:\\Users\\stefan.pogonaru\\Desktop\\QRCode.png", System.Drawing.Imaging.ImageFormat.Png); 
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("aremere333@gmail.com");
+            mail.To.Add(_conferenceAudienceModel.Participant);
+            mail.Subject = "QR Code To Join";
+            mail.Body = String.Format("This is an automatic message so you can join to the conference named {0} via QR Code", _conferenceAudienceModel.ConferenceName);
+            var attachment = new System.Net.Mail.Attachment("C:/Users/stefan.pogonaru/Desktop/QRCode.png");
+            mail.Attachments.Add(attachment);
+            SmtpServer.Host = "smtp.gmail.com";
+            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+            SmtpServer.UseDefaultCredentials = true;
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("aremere333@gmail.com", "Parola12345*");
+            SmtpServer.EnableSsl = true;
+            SmtpServer.Send(mail);
             return QRCodeImage;
         }
         public void AddCountry(string Code, string Name)
