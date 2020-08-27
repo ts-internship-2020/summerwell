@@ -281,12 +281,12 @@ namespace ConferencePlanner.WinUi
                                      && currentConference.ConferenceStatusId == 3))
                 
                 {
-                    bc.Style.BackColor = System.Drawing.Color.Red;
+                    bc.Style.BackColor = System.Drawing.Color.DarkRed;
                     bc.Style.ForeColor = System.Drawing.Color.DarkRed;
                 }
                 else
                 {
-                    bc.Style.BackColor = System.Drawing.Color.Green;
+                    bc.Style.BackColor = System.Drawing.Color.DarkGreen;
                     bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
                 }
             }
@@ -303,18 +303,18 @@ namespace ConferencePlanner.WinUi
                                      currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
                                      && currentConference.ConferenceStatusId == 2))
                 {
-                    bc1.Style.BackColor = System.Drawing.Color.Red;
+                    bc1.Style.BackColor = System.Drawing.Color.DarkRed;
                     bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
                 }
                 else if(!conferencesCurrentUserAttends.Exists(currentConference => 
                                      currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())))
                 {
-                    bc1.Style.BackColor = System.Drawing.Color.Red;
+                    bc1.Style.BackColor = System.Drawing.Color.DarkRed;
                     bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
                 }
                 else 
                 {
-                    bc1.Style.BackColor = System.Drawing.Color.Green;
+                    bc1.Style.BackColor = System.Drawing.Color.DarkGreen;
                     bc1.Style.ForeColor = System.Drawing.Color.DarkGreen;
                 }
             }
@@ -334,7 +334,7 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if (colindex.ToString().Equals("7"))
                 {
-                    addConferenceDetailModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                    addConferenceDetailModel.ConferenceId = (int)dataGridView2.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     addConferenceDetailModel.ConferenceName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value;
                     addConferenceDetailModel.ConferenceTypeName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value;
                     addConferenceDetailModel.ConferenceCategoryName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value;
