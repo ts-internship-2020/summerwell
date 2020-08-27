@@ -21,7 +21,7 @@ namespace ConferencePlanner.Abstraction.Repository
         void AddSpeaker(string Code, string Name);
         void AddType(string Name);
         void AddCategory(string Name);
-        void EditCountry(string Code, string Name);
+        void EditCountry(int Id,string Code, string Name);
         void EditCounty(string Code, string Name, string country);
         void EditCity(string Code, string Name, string county);
         void EditSpeaker(string Code, string Name);
