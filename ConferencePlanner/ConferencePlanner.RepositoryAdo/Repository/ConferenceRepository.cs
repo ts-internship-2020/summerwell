@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 
 namespace ConferencePlanner.Repository.Ado.Repository
@@ -360,9 +361,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceAudience;
         }
-        /*
-        public List<ConferenceDetailModel> GetAttendedConferecesFirst(List<ConferenceAudienceModel> _attendedConferences,
-             string currentUser, DateTime StartDate, DateTime EndDate)
+     
+        public List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst(List<ConferenceAudienceModel> _attendedConferences, DateTime StartDate, DateTime EndDate)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
@@ -394,6 +394,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
                         var conferenceSpeakerName = "";
                         var conferenceHostEmail = "";
                         int conferenceId;
+                        int conferenceStatusId;
                         if (!sqlDataReader.IsDBNull("ConferenceName"))
                         {
                             conferenceName = sqlDataReader.GetString("ConferenceName");
@@ -419,6 +420,10 @@ namespace ConferencePlanner.Repository.Ado.Repository
                             conferenceHostEmail = sqlDataReader.GetString("HostEmail");
                         }
                         conferenceId = sqlDataReader.GetInt32("ConferenceId");
+
+                        conferenceStatusId = _attendedConferences.Exists(currentConference =>
+                                           currentConference.ConferenceId == conferenceId && currentConference.ConferenceStatusId == 3) ? 3 : 0;
+                        
                         conferenceDetails.Add(new ConferenceDetailAttendFirstModel()
                         {
                             ConferenceName = conferenceName,
@@ -430,17 +435,17 @@ namespace ConferencePlanner.Repository.Ado.Repository
                             SpeakerName = conferenceSpeakerName,
                             HostEmail = conferenceHostEmail,
                             ConferenceId = conferenceId,
-                            ConferenceStatusId = _attendedConferences.Exists(currentConference => 
-                                                currentConference.ConferenceId == conferenceId ? currentConference.ConferenceStatusId : 0) 
+                            ConferenceStatusId = conferenceStatusId
                         
                         });
                     }
 
                 }
             }
-            return conferenceDetails;
+            List<ConferenceDetailAttendFirstModel> sortedConferences = conferenceDetails.OrderByDescending(conf => conf.ConferenceStatusId).ToList();
+            return sortedConferences;
         }
-        */
+        
         public void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
 
@@ -581,9 +586,6 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
 
 
-        public List<ConferenceDetailAttendFirstModel> GetAttendedConferecesFirst(List<ConferenceAudienceModel> _attendedConferences, string currentUser, DateTime StartDate, DateTime EndDate)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

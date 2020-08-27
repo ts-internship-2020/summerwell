@@ -35,7 +35,7 @@ namespace ConferencePlanner.WinUi
         private int startingPoint;
         private int HosttotalEntries;
         private int HoststartingPoint;
-        private List<ConferenceDetailModel> x;
+        private List<ConferenceDetailAttendFirstModel> x;
         private List<ConferenceDetailModel> y;
         private List<ConferenceAudienceModel> conferencesCurrentUserAttends;
         protected string currentUser;
@@ -50,10 +50,11 @@ namespace ConferencePlanner.WinUi
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
-            x = _ConferenceRepository.GetConferenceDetail(dateTimePicker2.Value, dateTimePicker1.Value);
+            conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+            x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
             currentUser = var_email;
             y = _ConferenceRepository.GetConferenceDetailForHost(currentUser,dateTimePicker4.Value, dateTimePicker3.Value);
-            conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+            
             totalEntries = x.Count;
             startingPoint = 0;
             HoststartingPoint = 0;
@@ -603,7 +604,7 @@ namespace ConferencePlanner.WinUi
         {
             dataGridView1.Rows.Clear();
             x.Clear();
-            x = _ConferenceRepository.GetConferenceDetail(dateTimePicker2.Value, dateTimePicker1.Value);
+            x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
             totalEntries = x.Count;
             populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
             changeColor();
