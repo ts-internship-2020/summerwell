@@ -519,7 +519,14 @@ namespace ConferencePlanner.Repository.Ado.Repository
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("aremere333@gmail.com", "Parola12345*");
             SmtpServer.EnableSsl = true;
-            SmtpServer.Send(mail);
+            try
+            {
+                SmtpServer.Send(mail);
+            }
+            catch(Exception ex)
+            {
+                
+            }
             return QRCodeImage;
         }
         public void AddCountry(string Code, string Name)

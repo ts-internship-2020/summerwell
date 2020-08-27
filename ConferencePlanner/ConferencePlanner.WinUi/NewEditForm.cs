@@ -134,6 +134,10 @@ namespace ConferencePlanner.WinUi
                     }
                 }
             }
+            else
+            {
+
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
