@@ -488,6 +488,99 @@ namespace ConferencePlanner.Repository.Ado.Repository
             return GuidString;
         }
 
+        public void AddCountry(string Code, string Name)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "INSERT INTO DictionaryCountry (DictionaryCountryName,DictionaryCountryCode) " +
+                                    "VALUES (@CountryName, @CountryCode)";
+            command.Parameters.Add("@CountryName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CountryCode", SqlDbType.VarChar, 100).Value = Code;
+            command.ExecuteNonQuery();
+
+        }
+        public void AddCounty(string Code, string Name, string country)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "INSERT INTO DictionaryCounty (DictionaryCountyName,DictionaryCountyCode,DictionaryCountryId) " +
+                                    "VALUES (@CountyName, @CountyCode, @CountryId)";
+            command.Parameters.Add("@CountyName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CountyCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@CountryId", SqlDbType.Int, 100).Value = Int32.Parse(country);
+            command.ExecuteNonQuery();
+        }
+        public void AddCity(string Code, string Name, string county)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "INSERT INTO DictionaryCity (DictionaryCityName,DictionaryCityCode,DictionaryCountyId) " +
+                                    "VALUES (@CityName, @CityCode, @CountyId)";
+            command.Parameters.Add("@CityName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CityCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@CountyId", SqlDbType.Int, 100).Value = Int32.Parse(county);
+            command.ExecuteNonQuery();
+        }
+        public void AddSpeaker(string Email,string Name)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "INSERT INTO Speaker (SpeakerName,SpeakerEmail) " +
+                                    "VALUES (@SpeakerName,@SpeakerEmail)";
+            command.Parameters.Add("@SpeakerName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@SpeakerEmail", SqlDbType.VarChar, 100).Value = Email;
+            command.ExecuteNonQuery();
+        }
+        public void AddType(string Name)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "INSERT INTO DictionaryConferenceType (DictionaryConferenceTypeName,IsRemote) " +
+                                    "VALUES (@ConferenceName,@IsRemote)";
+            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@IsRemote", SqlDbType.Int, 100).Value = 1;
+            command.ExecuteNonQuery();
+        }
+        public void AddCategory(string Name)
+        {
+            int index = 0;
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "SELECT MAX(DictionaryConferenceCategoryId) abc FROM DictionaryConferenceCategory ";
+            command.ExecuteNonQuery();
+            SqlDataReader sqldatareader = command.ExecuteReader();
+            if (sqldatareader.HasRows)
+            {
+                sqldatareader.Read();
+                index = sqldatareader.GetInt32("abc");
+            }
+            sqldatareader.Close();
+            command.CommandText = "INSERT INTO DictionaryConferenceCategory (DictionaryConferenceCategoryName,DictionaryConferenceCategoryId) " +
+                                    "VALUES (@ConferenceCategoryName,@ConferenceCategoryId)";
+            command.Parameters.Add("@ConferenceCategoryName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = index+1;
+            command.ExecuteNonQuery();
+        }
+        public void EditCountry(string Code, string Name) { }
+        public void EditCounty(string Code, string Name, string country) { }
+        public void EditCity(string Code, string Name, string county) { }
+        public void EditSpeaker(string Code, string Name) { }
+        public void EditType(string Name) { }
+        public void EditCategory(string Name) { }
+        public void AddConference(AddEventDetailModel eventDetail) {
+            {
+                SqlCommand command = _sqlConnection.CreateCommand();
+                command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
+                                        "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
+                command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
+                command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = 1;
+                command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
+                command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
+                command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
+                command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
+                command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName; 
+                command.ExecuteNonQuery();
+
+            }
+        }
+        public void EditConference(AddEventDetailModel eventDetail) { }
+
+
+
         public List<ConferenceDetailAttendFirstModel> GetAttendedConferecesFirst(List<ConferenceAudienceModel> _attendedConferences, string currentUser, DateTime StartDate, DateTime EndDate)
         {
             throw new NotImplementedException();

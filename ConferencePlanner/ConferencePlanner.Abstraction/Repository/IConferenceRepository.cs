@@ -1,6 +1,7 @@
 ﻿using ConferencePlanner.Abstraction.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace ConferencePlanner.Abstraction.Repository
@@ -16,6 +17,20 @@ namespace ConferencePlanner.Abstraction.Repository
         List<ConferenceDetailAttendFirstModel> GetAttendedConferecesFirst(List<ConferenceAudienceModel> _attendedConferences, 
             string currentUser, DateTime StartDate, DateTime EndDate);
         void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel);
+        void AddCountry(string Code, string Name);
+        void AddCounty(string Code, string Name, string country);
+        void AddCity(string Code, string Name,string county);
+        void AddSpeaker(string Code, string Name);
+        void AddType(string Name);
+        void AddCategory(string Name);
+        void EditCountry(string Code, string Name);
+        void EditCounty(string Code, string Name, string country);
+        void EditCity(string Code, string Name, string county);
+        void EditSpeaker(string Code, string Name);
+        void EditType(string Name);
+        void EditCategory(string Name);
+        void AddConference(AddEventDetailModel addEvent);
+        public void EditConference(AddEventDetailModel eventDetail) { }
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
         int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel);
 
