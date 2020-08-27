@@ -6,6 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Drawing;
+using System.Net.Mail;
 
 namespace ConferencePlanner.Repository.Ado.Repository
 {
@@ -20,6 +22,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
         public List<ConferenceModel> GetConference()
         {
+            
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "SELECT c.ConferenceId, c.ConferenceTypeId, c.LocationId, " +
                                         "c.ConferenceCategoryId, c.HostEmail, c.StartDate, c.EndDate, c.ConferenceName " +
@@ -492,7 +495,14 @@ namespace ConferencePlanner.Repository.Ado.Repository
             GuidString = GuidString.Replace("+", "");
             return GuidString;
         }
-
+        public Bitmap GetQRCodeUniqueParticipantCode(string Code)
+        {
+            QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
+            var data = QG.CreateQrCode(Code, QRCoder.QRCodeGenerator.ECCLevel.H);
+            var QRCode = new QRCoder.QRCode(data);
+            Bitmap QRCodeImage = QRCode.GetGraphic(20);
+            return QRCodeImage;
+        }
         public void AddCountry(string Code, string Name)
         {
             SqlCommand command = _sqlConnection.CreateCommand();

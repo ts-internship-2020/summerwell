@@ -1,8 +1,7 @@
 ﻿using ConferencePlanner.Abstraction.Model;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+using System.Drawing;
 
 namespace ConferencePlanner.Abstraction.Repository
 {
@@ -34,5 +33,7 @@ namespace ConferencePlanner.Abstraction.Repository
         int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel);
 
         string GetUniqueParticipantCode();
+        Bitmap GetQRCodeUniqueParticipantCode(string Code);
+        
     }
 }

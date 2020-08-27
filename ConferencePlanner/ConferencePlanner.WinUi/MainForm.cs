@@ -112,7 +112,7 @@ namespace ConferencePlanner.WinUi
                 {
                     if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
                     {
-                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate, y[i].DictionaryConferenceTypeName,
+                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate,y[i].EndDate, y[i].DictionaryConferenceTypeName,
                                   y[i].DictionaryConferenceCategoryName,
                                   y[i].DictionaryCityName,
                                   y[i].SpeakerName,
@@ -152,7 +152,7 @@ namespace ConferencePlanner.WinUi
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
                     changeColor();
-                    InitTimer(sender, e.RowIndex, e.ColumnIndex);
+                    //InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
                 if (colindex.ToString().Equals("7") && isJoin == false)
@@ -460,10 +460,10 @@ namespace ConferencePlanner.WinUi
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-            
-                    DateTime localDate = DateTime.Now;
                    
-                    AddEvent form3 = new AddEvent(addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository,_DictionaryCityRepository, _DictionaryCountryRepository, _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
+                    AddEvent form3 = new AddEvent(addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, 
+                        _ConferenceRepository,_DictionaryCityRepository, _DictionaryCountryRepository, 
+                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
                     form3.Tag = this;
                     form3.Show(this);
                 
