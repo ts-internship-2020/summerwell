@@ -112,7 +112,7 @@ namespace ConferencePlanner.WinUi
                 {
                     if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
                     {
-                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate, y[i].DictionaryConferenceTypeName,
+                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate,y[i].EndDate, y[i].DictionaryConferenceTypeName,
                                   y[i].DictionaryConferenceCategoryName,
                                   y[i].DictionaryCityName,
                                   y[i].SpeakerName,
@@ -318,7 +318,7 @@ namespace ConferencePlanner.WinUi
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //com
         }
 
 
@@ -460,10 +460,10 @@ namespace ConferencePlanner.WinUi
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-            
-                    DateTime localDate = DateTime.Now;
                    
-                    AddEvent form3 = new AddEvent(addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository,_DictionaryCityRepository, _DictionaryCountryRepository, _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
+                    AddEvent form3 = new AddEvent(addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, 
+                        _ConferenceRepository,_DictionaryCityRepository, _DictionaryCountryRepository, 
+                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
                     form3.Tag = this;
                     form3.Show(this);
                 
