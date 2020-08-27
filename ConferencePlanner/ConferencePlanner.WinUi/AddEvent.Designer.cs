@@ -46,8 +46,6 @@ namespace ConferencePlanner.WinUi
             this.btnNext = new System.Windows.Forms.Button();
             this.tabCountry = new System.Windows.Forms.TabPage();
             this.listView2 = new System.Windows.Forms.ListView();
-            this.DictionaryCountryId = new System.Windows.Forms.ColumnHeader();
-            this.DictionaryCountryName = new System.Windows.Forms.ColumnHeader();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.tabSpeaker = new System.Windows.Forms.TabPage();
             this.listView3 = new System.Windows.Forms.ListView();
@@ -151,8 +149,8 @@ namespace ConferencePlanner.WinUi
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Controls.Add(this.tabType);
@@ -501,7 +499,6 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabType;
         private System.Windows.Forms.Button btnNext;
-        
         private System.Windows.Forms.TabPage tabCountry;
         private System.Windows.Forms.TabPage tabSpeaker;
         private System.Windows.Forms.TabPage tabCounty;
