@@ -83,32 +83,13 @@ namespace ConferencePlanner.WinUi
             if (countries == null) { return; }
             else
             {
-              
-                listView2.View = View.Details;
-                listView2.FullRowSelect = true;
-                listView2.GridLines = true;
-                listView2.Columns.Add("Code", -2);
-                listView2.Columns.Add("CountryName", -2);
-                foreach (var country in countries)
-                {
-                   listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName, country.DictionaryCountryId.ToString() }));
-
-                }
+                populateCountry(countries);
+                
             }
             if (categories == null) { return; }
             else
             {
-                listView6.View = View.Details;
-                listView6.FullRowSelect = true;
-                listView6.GridLines = true;
-                listView6.Columns.Add("CategoryId", -2);
-                listView6.Columns.Add("CategoryName", -2);
-                foreach (var category in categories)
-                {
-
-                    listView6.Items.Add(new ListViewItem(new string[] { category.DictionaryConferenceCategoryId.ToString(), category.DictionaryConferenceCategoryName }));
-
-                }
+                populateCategory(categories);
             }
             if (speakers == null)
             {
@@ -116,20 +97,8 @@ namespace ConferencePlanner.WinUi
             }
 
             if (countys == null) { return; }
-           
-            listView3.View = View.Details;
-            listView3.FullRowSelect = true;
-            listView3.GridLines = true;
-            listView3.Columns.Add("SpeakerName", -2);
-            listView3.Columns.Add("Rating", -2);
 
-            foreach (var speaker in speakers)
-            { 
-                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating }));
-                eventDetails.SpeakerId = speaker.SpeakerId;
-
-
-            }
+            populateSpeakers(speakers);
 
             _DictionaryCityRepository = dictionaryCityRepository;
             cityList = _DictionaryCityRepository.GetCity();
@@ -161,8 +130,63 @@ namespace ConferencePlanner.WinUi
             listView4.Columns.Add("County", -2);
             foreach (var county in countys)
             {
-                if(county.DictionaryCountryId == eventDetails.DictionaryCountryId)
-                listView4.Items.Add(new ListViewItem(new string[] { county.Code.ToString(), county.DictionaryCountyName, county.DictionaryCountyId.ToString() }));
+                if (county.DictionaryCountryId == eventDetails.DictionaryCountryId)
+                    listView4.Items.Add(new ListViewItem(new string[] { county.Code.ToString(), county.DictionaryCountyName, county.DictionaryCountyId.ToString() }));
+            }
+        }
+        private void populateSpeakers(List<SpeakerDetailModel> speakers)
+        {
+            listView3.View = View.Details;
+            listView3.FullRowSelect = true;
+            listView3.GridLines = true;
+            listView3.Columns.Add("SpeakerName", -2);
+            listView3.Columns.Add("Rating", -2);
+
+            foreach (var speaker in speakers)
+            {
+                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.SpeakerId.ToString() }));
+            }
+        }
+        private void populateCountry(List<DictionaryCountryModel> countries)
+        {
+            listView2.View = View.Details;
+            listView2.FullRowSelect = true;
+            listView2.GridLines = true;
+            listView2.Columns.Add("Code", -2);
+            listView2.Columns.Add("CountryName", -2);
+            foreach (var country in countries)
+            {
+
+                listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName, country.DictionaryCountryId.ToString() }));
+
+            }
+        }
+        private void populateCity(List<DictionaryCityModel> cities)
+        {
+            listView5.View = View.Details;
+            listView5.FullRowSelect = true;
+            listView5.GridLines = true;
+            listView5.Columns.Add("Code", -2);
+            listView5.Columns.Add("CityName", -2);
+            foreach (var city in cities)
+            {
+                if (city.DictionaryCountyId == eventDetails.DictionaryCountyId)
+                    listView5.Items.Add(new ListViewItem(new string[] { city.Code, city.Name , city.DictionaryCountyId.ToString() }));
+
+            }
+        }
+        private void populateCategory(List<DictionaryConferenceCategoryModel> categories)
+        {
+            listView6.View = View.Details;
+            listView6.FullRowSelect = true;
+            listView6.GridLines = true;
+            listView6.Columns.Add("CategoryId", -2);
+            listView6.Columns.Add("CategoryName", -2);
+            foreach (var category in categories)
+            {
+
+                listView6.Items.Add(new ListViewItem(new string[] { category.DictionaryConferenceCategoryId.ToString(), category.DictionaryConferenceCategoryName }));
+
             }
         }
 
@@ -197,7 +221,8 @@ namespace ConferencePlanner.WinUi
         }
         private void btnNext4_Click(object sender, EventArgs e)
         {
-            listView5_populate();
+            //listView5_populate();
+            populateCity(_DictionaryCityRepository.GetCity());
             tabControl1.SelectTab(tabCity);
             tabCity.Enabled = true;
             tabCounty.Enabled = false;
@@ -230,7 +255,6 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 eventDetails.ConferenceTypeId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.ConferenceTypeName = selectedItem.SubItems[1].Text;
-                //eventDetails.SpeakerId = SpeakerId;
                 btnNext.Enabled = true;
             }
         }
@@ -270,6 +294,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView3.SelectedItems[0];
                 eventDetails.SpeakerName = selectedItem.SubItems[0].Text;
                 eventDetails.SpeakerRating = selectedItem.SubItems[1].Text;
+                eventDetails.SpeakerId = Int32.Parse(selectedItem.SubItems[2].Text);
                 btnNext3.Enabled = true;
             }
 
@@ -306,7 +331,6 @@ namespace ConferencePlanner.WinUi
             }
                 
         }
-
         private void listView5_populate()
         {
             listView5.View = View.Details;
@@ -404,11 +428,11 @@ namespace ConferencePlanner.WinUi
         public void RefreshLists(string dictionary) 
         {
             if (dictionary == "DictionaryCounty") { MessageBox.Show("Facem Update"); listView4.Clear(); populateCounty(_DictionaryCountyRepository.GetDictionaryCounty());}
-            else if (dictionary == "DictionaryCity") { listView5.Clear(); listView5_populate(); }
+            else if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(_DictionaryCityRepository.GetCity()); }
             else if (dictionary == "DictionaryType") { listView1.Clear(); listView1_populate(); }
-            //else if (dictionary == "Speaker") { };
-            //else if (dictionary == "DictionaryCountry") { };
-            //else if (dictionary == "DictionaryCategory") { };
+            else if (dictionary == "Speaker") { listView3.Clear();  populateSpeakers(_GetSpeakerDetail.GetSpeakers()); }
+            else if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(_DictionaryCountryRepository.GetDictionaryCountry()); }
+            else if (dictionary == "DictionaryCategory") { listView6.Clear();populateCategory(_DictionaryConferenceCategoryRepository.GetDictionaryCategory()); }
         }
     }
 }
