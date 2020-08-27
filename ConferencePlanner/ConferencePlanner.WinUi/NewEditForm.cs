@@ -32,7 +32,8 @@ namespace ConferencePlanner.WinUi
 
             InitializeComponent();
             if (dictionary.ToString() == "Speaker") label1.Text = "Email";
-            dictionar = dictionary;
+            if (dictionary.ToString() == "DictionaryCategory") label1.Enabled = false;
+            if (dictionary.ToString() == "DictionaryType") label1.Enabled = false;
             
         }
         private void BtnSave_Click(object sender, EventArgs e)
@@ -133,6 +134,11 @@ namespace ConferencePlanner.WinUi
                     }
                 }
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            form4.Enabled = true;
         }
     }
 }
