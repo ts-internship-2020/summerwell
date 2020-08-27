@@ -642,6 +642,25 @@ namespace ConferencePlanner.Repository.Ado.Repository
         }
         public void EditType(string Name) { }
         public void EditCategory(string Name) { }
+        public void EditCounty(string Code, string Name, string country) { }
+        public void EditCity(string Code, string Name, string county) { }
+        public void EditSpeaker(string Code, string Name) { }
+        public void EditType(int Id,string Name) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryConferenceType SET DictionaryConferenceTypeName = @ConferenceName WHERE DictionaryConferenceTypeId = @Id";
+            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
+            command.ExecuteNonQuery();
+        }
+        public void EditCategory(int Id, string Name) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryConferenceCategory SET DictionaryConferenceCategoryName = @ConferenceName WHERE DictionaryConferenceCategoryId = @Id";
+            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
+            command.ExecuteNonQuery();
+        }
         public void AddConference(AddEventDetailModel eventDetail) 
             {
                 int LocationId = AddLocationId(eventDetail.DictionaryCityId,eventDetail.LocationName);

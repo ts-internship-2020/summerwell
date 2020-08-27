@@ -67,6 +67,8 @@ namespace ConferencePlanner.WinUi
             List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
             countys = _DictionaryCountyRepository.GetDictionaryCounty();
             List<DictionaryConferenceCategoryModel> categories = _DictionaryConferenceCategoryRepository.GetDictionaryCategory();
+            _ConferenceTypeRepository = ConferenceTypeRepository;
+            x = _ConferenceTypeRepository.GetConferenceType();
 
             if (ConferenceName != null)
             {
@@ -102,8 +104,7 @@ namespace ConferencePlanner.WinUi
                 return;
             }
 
-            _ConferenceTypeRepository = ConferenceTypeRepository;
-            x = _ConferenceTypeRepository.GetConferenceType();
+            
             if (x == null || x.Count() == 0)
             {
                 return;
@@ -454,11 +455,11 @@ namespace ConferencePlanner.WinUi
         public void RefreshLists(string dictionary)
         {
             if (dictionary == "DictionaryCounty") { listView4.Clear(); populateCounty(_DictionaryCountyRepository.GetDictionaryCounty()); }
-            else if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(_DictionaryCityRepository.GetCity()); }
-            else if (dictionary == "DictionaryType") { listView1.Clear(); listView1_populate(); }
-            else if (dictionary == "Speaker") { listView3.Clear(); populateSpeakers(_GetSpeakerDetail.GetSpeakers()); }
-            else if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(_DictionaryCountryRepository.GetDictionaryCountry()); }
-            else if (dictionary == "DictionaryCategory") { listView6.Clear(); populateCategory(_DictionaryConferenceCategoryRepository.GetDictionaryCategory()); }
+            if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(_DictionaryCityRepository.GetCity()); }
+            if (dictionary == "DictionaryType") { listView1.Clear(); listView1_populate(); }
+            if (dictionary == "Speaker") { listView3.Clear(); populateSpeakers(_GetSpeakerDetail.GetSpeakers()); }
+            if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(_DictionaryCountryRepository.GetDictionaryCountry()); }
+            if (dictionary == "DictionaryCategory") { listView6.Clear(); populateCategory(_DictionaryConferenceCategoryRepository.GetDictionaryCategory()); }
         }
     }
 }
