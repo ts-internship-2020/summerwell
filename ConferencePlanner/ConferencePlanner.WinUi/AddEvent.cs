@@ -38,8 +38,9 @@ namespace ConferencePlanner.WinUi
         string ConferenceName = "";
         DateTime CoferenceStartDate = DateTime.Now;
         DateTime ConferenceEndDate = DateTime.Now;
+        protected MainForm formMain;
         string ConferenceAddress = "";
-        public AddEvent(AddConferenceDetailModel addConferenceDetailModel, IGetSpeakerDetail GetSpeakerDetail,
+        public AddEvent(MainForm form,AddConferenceDetailModel addConferenceDetailModel, IGetSpeakerDetail GetSpeakerDetail,
             IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
             IDictionaryCityRepository dictionaryCityRepository, IDictionaryCountryRepository DictionaryCountryRepository,
             IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository)
@@ -56,7 +57,7 @@ namespace ConferencePlanner.WinUi
             var_email = AddConferenceDetailModel.HostEmail;
 
 
-
+            formMain = form;
             f = this; // Current form to use in New/Edit Form
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
@@ -460,6 +461,11 @@ namespace ConferencePlanner.WinUi
             if (dictionary == "Speaker") { listView3.Clear(); populateSpeakers(_GetSpeakerDetail.GetSpeakers()); }
             if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(_DictionaryCountryRepository.GetDictionaryCountry()); }
             if (dictionary == "DictionaryCategory") { listView6.Clear(); populateCategory(_DictionaryConferenceCategoryRepository.GetDictionaryCategory()); }
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            formMain.Enabled = true;
+            formMain.PopulateMamam();
         }
     }
 }

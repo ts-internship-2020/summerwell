@@ -41,11 +41,13 @@ namespace ConferencePlanner.WinUi
         private List<ConferenceDetailModel> y;
         private List<ConferenceAudienceModel> conferencesCurrentUserAttends;
         protected string currentUser;
+        protected MainForm f;
 
         public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository,  IConferenceRepository ConferenceRepository,IDictionaryCountryRepository DictionaryCountryRepository ,IDictionaryCountyRepository DictionaryCountyRepository,IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, string var_email)
         {
            
             InitializeComponent();
+            f = this;
             
             _ConferenceTypeRepository = conferenceTypeRepository;
             _ConferenceRepository = ConferenceRepository;
@@ -355,10 +357,11 @@ namespace ConferencePlanner.WinUi
                     addConferenceDetailModel.StartDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostStartDate"].Value;
                     addConferenceDetailModel.EndDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostEndDate"].Value;
 
-                    AddEvent form3 = new AddEvent(addConferenceDetailModel, _GetSpeakerDetail,
+                    AddEvent form3 = new AddEvent(f,addConferenceDetailModel, _GetSpeakerDetail,
                         _ConferenceTypeRepository, _ConferenceRepository,
                         _DictionaryCityRepository, _DictionaryCountryRepository,
                         _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
+                    this.Enabled = false;
                     form3.Tag = this;
                     form3.Show(this);
                 }
@@ -472,10 +475,11 @@ namespace ConferencePlanner.WinUi
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
                    
-                    AddEvent form3 = new AddEvent(addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, 
+                    AddEvent form3 = new AddEvent(f,addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, 
                         _ConferenceRepository,_DictionaryCityRepository, _DictionaryCountryRepository, 
                         _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
-                    form3.Tag = this;
+            this.Enabled = false;
+            form3.Tag = this;
                     form3.Show(this);
                 
             
@@ -622,6 +626,22 @@ namespace ConferencePlanner.WinUi
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+        public void PopulateMamam()
+        {
+            dataGridView2.Rows.Clear();
+            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+            HosttotalEntries = y.Count;
+
+            if (HosttotalEntries < 6)
+            {
+                
+                populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+                btnBackHost.Enabled = false;
+                btnNextHost.Enabled = false;
+            }
+
+            else populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
         }
     }
 
