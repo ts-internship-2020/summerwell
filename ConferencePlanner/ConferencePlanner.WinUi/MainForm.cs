@@ -19,9 +19,11 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ConferencePlanner.WinUi
 {
-
+   
     public partial class MainForm : Form
     {
+
+  
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
@@ -44,6 +46,7 @@ namespace ConferencePlanner.WinUi
         {
            
             InitializeComponent();
+      
             _ConferenceTypeRepository = conferenceTypeRepository;
             _ConferenceRepository = ConferenceRepository;
             _DictionaryCountryRepository = DictionaryCountryRepository;
@@ -85,11 +88,12 @@ namespace ConferencePlanner.WinUi
             if (HosttotalEntries < 6) { populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value); 
                 btnBackHost.Enabled = false;
                 btnNextHost.Enabled = false; }
+         
             else populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
+           
 
-            
 
-            }
+        }
 
         private void populateConferenceGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
         {
@@ -280,12 +284,12 @@ namespace ConferencePlanner.WinUi
                                      && currentConference.ConferenceStatusId == 3))
                 
                 {
-                    bc.Style.BackColor = System.Drawing.Color.Red;
+                    bc.Style.BackColor = System.Drawing.Color.DarkRed;
                     bc.Style.ForeColor = System.Drawing.Color.DarkRed;
                 }
                 else
                 {
-                    bc.Style.BackColor = System.Drawing.Color.Green;
+                    bc.Style.BackColor = System.Drawing.Color.DarkGreen;
                     bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
                 }
             }
@@ -302,18 +306,18 @@ namespace ConferencePlanner.WinUi
                                      currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
                                      && currentConference.ConferenceStatusId == 2))
                 {
-                    bc1.Style.BackColor = System.Drawing.Color.Red;
+                    bc1.Style.BackColor = System.Drawing.Color.DarkRed;
                     bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
                 }
                 else if(!conferencesCurrentUserAttends.Exists(currentConference => 
                                      currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())))
                 {
-                    bc1.Style.BackColor = System.Drawing.Color.Red;
+                    bc1.Style.BackColor = System.Drawing.Color.DarkRed;
                     bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
                 }
                 else 
                 {
-                    bc1.Style.BackColor = System.Drawing.Color.Green;
+                    bc1.Style.BackColor = System.Drawing.Color.DarkGreen;
                     bc1.Style.ForeColor = System.Drawing.Color.DarkGreen;
                 }
             }
@@ -333,7 +337,7 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if (colindex.ToString().Equals("7"))
                 {
-                    addConferenceDetailModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
+                    addConferenceDetailModel.ConferenceId = (int)dataGridView2.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     addConferenceDetailModel.ConferenceName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value;
                     addConferenceDetailModel.ConferenceTypeName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value;
                     addConferenceDetailModel.ConferenceCategoryName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value;
@@ -411,14 +415,9 @@ namespace ConferencePlanner.WinUi
 
             
 
-            if (dataGridView1.CurrentCell == null)
-            {
-
-                MessageBox.Show("namdate??");
-                //textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString();
-               // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
-            }
-            try
+            if (dataGridView1.CurrentCell != null & (dataGridView1.CurrentCell.ColumnIndex.ToString().Equals("5")))
+          
+           try
             {
 
                 string rating = "";
@@ -522,7 +521,7 @@ namespace ConferencePlanner.WinUi
         private void nextPage(object sender, EventArgs e)
         {
 
-            if(startingPoint <= totalEntries - 5)
+            if(startingPoint < totalEntries - 5)
             {
                 startingPoint += 5;
                 dataGridView1.Rows.Clear();
@@ -536,14 +535,11 @@ namespace ConferencePlanner.WinUi
                     changeColor();
                 }
             }
-            else if(startingPoint < totalEntries)
+            
+            else if(startingPoint==totalEntries)
+
             {
-                dataGridView1.Rows.Clear();
-                populateConferenceGridViewByDate(startingPoint, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
-                startingPoint = totalEntries;
-            }
-            else
-            {
+                Refresh();
                 return;
             }
             
