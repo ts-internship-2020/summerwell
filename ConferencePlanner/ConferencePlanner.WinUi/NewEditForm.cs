@@ -97,9 +97,9 @@ namespace ConferencePlanner.WinUi
             {
                 if (dictionar == "DictionaryCountry")
                 {
-                    MessageBox.Show(DetailEvent.DictionaryCountryId.ToString());
                     try { _ConferenceRepository.EditCountry(DetailEvent.DictionaryCountryId, textBox1.Text, textBox2.Text);  }
                     catch { MessageBox.Show(textBox1.Text,textBox2.Text); }
+                    form4.RefreshLists("DictionaryCountry");
                     form4.Enabled = true;
                     this.Close();
                 }
@@ -107,6 +107,7 @@ namespace ConferencePlanner.WinUi
                 {
                     try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text); }
                     catch { MessageBox.Show("Something's wrong"); }
+                    form4.RefreshLists("Speaker");
                     form4.Enabled = true;
                     this.Close();
                 }
@@ -114,6 +115,7 @@ namespace ConferencePlanner.WinUi
                 {
                     try { _ConferenceRepository.EditCounty(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountryId.ToString()); }
                     catch { MessageBox.Show("Something's wrong"); }
+                    form4.RefreshLists("DictionaryCounty");
                     form4.Enabled = true;
                     this.Close();
                 }
@@ -121,20 +123,23 @@ namespace ConferencePlanner.WinUi
                 {
                     try { _ConferenceRepository.EditCity(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountyId.ToString()); }
                     catch { MessageBox.Show("Something's wrong"); }
+                    form4.RefreshLists("DictionaryCity");
                     form4.Enabled = true;
                     this.Close();
                 }
                 else if (dictionar == "DictionaryCategory")
                 {
-                    try { _ConferenceRepository.EditCategory(textBox2.Text); }
+                    try { _ConferenceRepository.EditCategory(DetailEvent.DictionaryConferenceCategoryId, textBox2.Text); }
                     catch { MessageBox.Show("Something's wrong"); }
+                    form4.RefreshLists("DictionaryCategory");
                     form4.Enabled = true;
                     this.Close();
                 }
                 else if (dictionar == "DictionaryType")
                 {
-                    try { _ConferenceRepository.EditType(textBox2.Text); }
+                    try { _ConferenceRepository.EditType(DetailEvent.ConferenceTypeId, textBox2.Text); }
                     catch { MessageBox.Show("Something's wrong"); }
+                    form4.RefreshLists("DictionaryType");
                     form4.Enabled = true;
                     this.Close();
                 }
