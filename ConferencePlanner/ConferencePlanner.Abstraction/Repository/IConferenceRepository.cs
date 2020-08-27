@@ -27,6 +27,11 @@ namespace ConferencePlanner.Abstraction.Repository
         void EditSpeaker(string Code, string Name);
         void EditType(int Id, string Name);
         void EditCategory(int Id ,string Name);
+        void EditCounty(string Code, string Name, int CountyId);
+        void EditCity(string Code, string Name, int CityId);
+        void EditSpeaker(string Email, string Name, int SpeakerId);
+        void EditType(string Name);
+        void EditCategory(string Name);
         void AddConference(AddEventDetailModel addEvent);
         public void EditConference(AddEventDetailModel eventDetail);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);

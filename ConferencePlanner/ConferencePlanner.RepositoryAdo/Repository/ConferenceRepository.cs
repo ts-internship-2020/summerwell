@@ -519,7 +519,14 @@ namespace ConferencePlanner.Repository.Ado.Repository
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("aremere333@gmail.com", "Parola12345*");
             SmtpServer.EnableSsl = true;
-            SmtpServer.Send(mail);
+            try
+            {
+                SmtpServer.Send(mail);
+            }
+            catch(Exception ex)
+            {
+                
+            }
             return QRCodeImage;
         }
         public void AddCountry(string Code, string Name)
@@ -600,6 +607,41 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
             command.ExecuteNonQuery();
         }
+        public void EditCounty(string Code, string Name, int CountyId) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryCounty " +
+                "SET DictionaryCountyName = @CountyName , DictionaryCountyCode = @CountyCode " +
+                "WHERE DictionaryCountyId = @CountyId ";
+            command.Parameters.Add("@CountyName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CountyCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@CountyId", SqlDbType.Int).Value = CountyId;
+            command.ExecuteNonQuery();
+        }
+        public void EditCity(string Code, string Name, int CityId) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryCity " +
+                "SET DictionaryCityName = @CityName , DictionaryCityCode = @CityCode " +
+                "WHERE DictionaryCityId = @CityId ";
+            command.Parameters.Add("@CityName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CityCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@CityId", SqlDbType.Int).Value = CityId;
+            command.ExecuteNonQuery();
+        }
+        public void EditSpeaker(string Email, string Name, int SpeakerId) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE Speaker " +
+                "SET SpeakerName = @SpeakerName , SpeakerEmail = @SpeakerEmail " +
+                "WHERE SpeakerId = @SpeakerId ";
+            command.Parameters.Add("@SpeakerName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@SpeakerEmail", SqlDbType.VarChar, 100).Value = Email;
+            command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = SpeakerId;
+            command.ExecuteNonQuery();
+        }
+        public void EditType(string Name) { }
+        public void EditCategory(string Name) { }
         public void EditCounty(string Code, string Name, string country) { }
         public void EditCity(string Code, string Name, string county) { }
         public void EditSpeaker(string Code, string Name) { }
