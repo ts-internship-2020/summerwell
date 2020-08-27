@@ -518,7 +518,7 @@ namespace ConferencePlanner.WinUi
         private void nextPage(object sender, EventArgs e)
         {
 
-            if(startingPoint <= totalEntries - 5)
+            if(startingPoint < totalEntries - 5)
             {
                 startingPoint += 5;
                 dataGridView1.Rows.Clear();
