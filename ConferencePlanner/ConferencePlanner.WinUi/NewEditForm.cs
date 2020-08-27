@@ -105,21 +105,21 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "Speaker")
                 {
-                    try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text); }
+                    try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text, DetailEvent.SpeakerId); }
                     catch { MessageBox.Show("Something's wrong"); }
                     form4.Enabled = true;
                     this.Close();
                 }
                 else if (dictionar == "DictionaryCounty")
                 {
-                    try { _ConferenceRepository.EditCounty(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountryId.ToString()); }
+                    try { _ConferenceRepository.EditCounty(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountyId); }
                     catch { MessageBox.Show("Something's wrong"); }
                     form4.Enabled = true;
                     this.Close();
                 }
                 else if (dictionar == "DictionaryCity")
                 {
-                    try { _ConferenceRepository.EditCity(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountyId.ToString()); }
+                    try { _ConferenceRepository.EditCity(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCityId); }
                     catch { MessageBox.Show("Something's wrong"); }
                     form4.Enabled = true;
                     this.Close();
