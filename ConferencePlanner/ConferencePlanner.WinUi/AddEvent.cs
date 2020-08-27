@@ -21,7 +21,6 @@ namespace ConferencePlanner.WinUi
     public partial class AddEvent : Form
     {
         private string var_email = "";
-        private int IndexCountry;
 
         private readonly IDictionaryCountryRepository _DictionaryCountryRepository;
         private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
@@ -51,15 +50,18 @@ namespace ConferencePlanner.WinUi
             AddConferenceDetailModel = addConferenceDetailModel;
             if (AddConferenceDetailModel != null)
             {
-                string ConferenceName = AddConferenceDetailModel.ConferenceName;
-                string ConferenceType = AddConferenceDetailModel.ConferenceTypeName;
-                string ConferenceCategory = AddConferenceDetailModel.ConferenceCategoryName;
-                string ConferenceAddress = AddConferenceDetailModel.Location;
-                string ConferenceMainSpeaker = addConferenceDetailModel.Speaker;
-                DateTime CoferenceStartDate = AddConferenceDetailModel.StartDate;
-                DateTime ConferenceEndDate = AddConferenceDetailModel.EndDate;
+                eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
+                eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
+                eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
+                eventDetails.EndDate = addConferenceDetailModel.EndDate;
+                eventDetails.StartDate = addConferenceDetailModel.StartDate;
+                eventDetails.SpeakerName = addConferenceDetailModel.Speaker;
+                eventDetails.DictionaryConferenceCategoryName = addConferenceDetailModel.ConferenceCategoryName;
+                eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
             }
             var_email = AddConferenceDetailModel.HostEmail;
+
+            
 
             f = this; // Current form to use in New/Edit Form
             eventDetails = new AddEventDetailModel();

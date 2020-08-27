@@ -8,6 +8,7 @@ namespace ConferencePlanner.Abstraction.Model
     public class AddEventDetailModel
     {
         public int ConferenceTypeId { get; set; }
+        public int ConferenceId { get; set; }
         public string ConferenceTypeName { get; set; }
         public int DictionaryCountryId { get; set; }
         public string DictionaryCountryCode { get; set; }
