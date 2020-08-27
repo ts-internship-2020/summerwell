@@ -152,7 +152,7 @@ namespace ConferencePlanner.WinUi
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
                     changeColor();
-                    InitTimer(sender, e.RowIndex, e.ColumnIndex);
+                    //InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
                 if (colindex.ToString().Equals("7") && isJoin == false)
