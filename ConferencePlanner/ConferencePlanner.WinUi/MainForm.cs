@@ -24,7 +24,7 @@ namespace ConferencePlanner.WinUi
     {
         private readonly IConferenceRepository _ConferenceRepository;
         private IConferenceTypeRepository _ConferenceTypeRepository;
-
+        IDictionaryCountryRepository _DictionaryCountryRepository;
         private int totalEntries;
         private int startingPoint;
         private int HosttotalEntries;
@@ -267,7 +267,8 @@ namespace ConferencePlanner.WinUi
                 int colindex = senderGrid.CurrentCell.ColumnIndex;
                 if (colindex.ToString().Equals("7"))
                 {
-                    AddEvent form3 = new AddEvent(_ConferenceRepository, _ConferenceTypeRepository, currentUser,
+                    AddEvent form3 = new AddEvent(_ConferenceRepository, _ConferenceTypeRepository, _DictionaryCountryRepository, currentUser,
+                        
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostType"].Value,
                         (string)dataGridView2.Rows[e.RowIndex].Cells["HostCategory"].Value, 
@@ -394,7 +395,8 @@ namespace ConferencePlanner.WinUi
         {
             
                     DateTime localDate = DateTime.Now;
-                    AddEvent form3 = new AddEvent(_ConferenceRepository, _ConferenceTypeRepository, currentUser, null, null, null, null, null, localDate, localDate);
+            
+            AddEvent form3 = new AddEvent(_ConferenceRepository, _ConferenceTypeRepository,_DictionaryCountryRepository, currentUser, null, null, null, null, null, localDate, localDate);
                     form3.Tag = this;
                     form3.Show(this);
                 

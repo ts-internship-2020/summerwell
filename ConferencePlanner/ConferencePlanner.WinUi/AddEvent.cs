@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using ConferencePlanner.Abstraction.Model;
 using System.Linq;
 using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Repository.Ado.Repository;
 
 namespace ConferencePlanner.WinUi
 {
@@ -21,13 +22,18 @@ namespace ConferencePlanner.WinUi
         string var_email = "";
         private IConferenceTypeRepository _ConferenceTypeRepository;
         private List<ConferenceTypeModel> x;
-        public AddEvent(IConferenceRepository ConferenceRepository,
-            IConferenceTypeRepository ConferenceTypeRepository,
-        List<DictionaryCountryModel> list = new List<DictionaryCountryModel>();
+       
+
+        private List<DictionaryCountryModel> list;
+        private IDictionaryCountryRepository _DictionaryCountryRepository;
+
 
 
         private readonly IConferenceRepository _ConferenceRepository;
-        public AddEvent(IConferenceRepository ConferenceRepository, 
+        public AddEvent(
+            IConferenceRepository ConferenceRepository,
+            IConferenceTypeRepository ConferenceTypeRepository,
+            IDictionaryCountryRepository DictionaryCountryRepository,
             string var_email,
             string ConferenceName,
             string ConferenceType,
@@ -56,6 +62,15 @@ namespace ConferencePlanner.WinUi
                 return;
             }
             listView1_populate();
+
+            _DictionaryCountryRepository = DictionaryCountryRepository;
+            list = _DictionaryCountryRepository.GetDictionaryCountry();
+
+            if(list==null || list.Count()==0)
+            { return;}
+            PopulateListView();
+            
+
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
