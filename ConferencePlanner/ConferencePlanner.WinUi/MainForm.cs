@@ -109,7 +109,7 @@ namespace ConferencePlanner.WinUi
                 {
                     dataGridView1.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].DictionaryConferenceTypeName,
                                        x[i].DictionaryConferenceCategoryName,
-                                       x[i].DictionaryCityName,
+                                       x[i].LocationStreet,
                                        x[i].SpeakerName,
                                        null, null, null, x[i].ConferenceId);
                 }
@@ -125,7 +125,7 @@ namespace ConferencePlanner.WinUi
                     {
                         dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate,y[i].EndDate, y[i].DictionaryConferenceTypeName,
                                   y[i].DictionaryConferenceCategoryName,
-                                  y[i].DictionaryCityName,
+                                  y[i].LocationStreet,
                                   y[i].SpeakerName,
                                   null,  y[i].ConferenceId);
                     }

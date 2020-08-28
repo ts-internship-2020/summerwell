@@ -276,12 +276,23 @@ namespace ConferencePlanner.WinUi
             }
             else
             {
-               
-                eventDetails.LocationName = AddAddress.Text;
+
+                //eventDetails.LocationName = AddAddress.Text;
                 MessageBox.Show(eventDetails.LocationName);
+                MessageBox.Show(eventDetails.ConferenceName);
+                MessageBox.Show(eventDetails.DictionaryConferenceCategoryName);
+                MessageBox.Show(eventDetails.DictionaryConferenceCategoryId.ToString());
+                MessageBox.Show(eventDetails.ConferenceTypeName.ToString());
+                MessageBox.Show(eventDetails.ConferenceTypeId.ToString());
+                MessageBox.Show(eventDetails.DictionaryCountryName);
+                MessageBox.Show(eventDetails.DictionaryCountryId.ToString());    
+                MessageBox.Show(eventDetails.DictionaryCountyName);
+                MessageBox.Show(eventDetails.DictionaryCountyId.ToString());
+                MessageBox.Show(eventDetails.DictionaryCityName);
                 MessageBox.Show(eventDetails.DictionaryCityId.ToString());
-               
-                _ConferenceRepository.EditConference(eventDetails);
+                MessageBox.Show(eventDetails.SpeakerName);
+                MessageBox.Show(eventDetails.SpeakerId.ToString());
+                _ConferenceRepository.EditConference(eventDetails, AddAddress.Text, AddConferenceName.Text);
             }
 
             string message = "Do you want a new Conference?";

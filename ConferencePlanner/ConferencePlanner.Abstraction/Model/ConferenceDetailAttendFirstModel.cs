@@ -11,6 +11,7 @@ namespace ConferencePlanner.Abstraction.Model
         public DateTime EndDate { get; set; }
         public string DictionaryConferenceTypeName { get; set; }
         public string DictionaryCityName { get; set; }
+        public string LocationStreet { get; set; }
         public string DictionaryConferenceCategoryName { get; set; }
         public string SpeakerName { get; set; }
         public string HostEmail { get; set; }
