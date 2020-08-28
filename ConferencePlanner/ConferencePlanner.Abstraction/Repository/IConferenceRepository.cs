@@ -21,12 +21,12 @@ namespace ConferencePlanner.Abstraction.Repository
         void AddSpeaker(string Code, string Name);
         void AddType(string Name);
         void AddCategory(string Name);
-        void EditCountry(string Code, string Name);
-        void EditCounty(string Code, string Name, string country);
-        void EditCity(string Code, string Name, string county);
-        void EditSpeaker(string Code, string Name);
-        void EditType(string Name);
-        void EditCategory(string Name);
+        void EditCountry(int Id, string Code, string Name);
+        void EditType(int Id, string Name);
+        void EditCategory(int Id ,string Name);
+        void EditCounty(string Code, string Name, int CountyId);
+        void EditCity(string Code, string Name, int CityId);
+        void EditSpeaker(string Email, string Name, int SpeakerId);
         void AddConference(AddEventDetailModel addEvent);
         public void EditConference(AddEventDetailModel eventDetail);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);

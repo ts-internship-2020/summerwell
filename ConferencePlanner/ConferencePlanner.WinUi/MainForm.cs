@@ -32,7 +32,7 @@ namespace ConferencePlanner.WinUi
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
         private AddConferenceDetailModel addConferenceDetailModel;
-
+        private Timer reloadData;
         private int totalEntries;
         private int startingPoint;
         private int HosttotalEntries;
@@ -41,12 +41,14 @@ namespace ConferencePlanner.WinUi
         private List<ConferenceDetailModel> y;
         private List<ConferenceAudienceModel> conferencesCurrentUserAttends;
         protected string currentUser;
+        protected MainForm f;
 
         public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository,  IConferenceRepository ConferenceRepository,IDictionaryCountryRepository DictionaryCountryRepository ,IDictionaryCountyRepository DictionaryCountyRepository,IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, string var_email)
         {
            
             InitializeComponent();
-      
+            f = this;
+            
             _ConferenceTypeRepository = conferenceTypeRepository;
             _ConferenceRepository = ConferenceRepository;
             _DictionaryCountryRepository = DictionaryCountryRepository;
@@ -56,6 +58,10 @@ namespace ConferencePlanner.WinUi
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             currentUser = var_email;
             conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+            reloadData = new Timer();
+            reloadData.Tick += new EventHandler(timerReloadData_Tick);
+            reloadData.Interval = 10000;
+            reloadData.Start();
             x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
             
             y = _ConferenceRepository.GetConferenceDetailForHost(currentUser,dateTimePicker4.Value, dateTimePicker3.Value);
@@ -147,10 +153,11 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
-                    _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel);
+                    
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
+                        _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel);
                     }
                     catch(SqlException ex)
                     {
@@ -239,7 +246,12 @@ namespace ConferencePlanner.WinUi
             timer1.Interval = 10000; // 10 seconds / 10000 MillSecs
             timer1.Start();
         }
-
+        private void timerReloadData_Tick(object sender, EventArgs e)
+        {
+            x.Clear();
+            x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+            totalEntries = x.Count();
+        }
         private void timer1_Tick(object sender, EventArgs e, object datagrid, int row, int col)
         {
             var senderGrid = (DataGridView)datagrid;
@@ -251,8 +263,8 @@ namespace ConferencePlanner.WinUi
                     //MessageBox.Show(now.ToString());
                     if (now.AddMinutes(5) >= startDate)
                     {
- 
                         makeButtonGreen(datagrid, row, col + 1);
+                        
                     }
                     if (startDate.AddMinutes(5) <= now)
                     {
@@ -346,10 +358,11 @@ namespace ConferencePlanner.WinUi
                     addConferenceDetailModel.StartDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostStartDate"].Value;
                     addConferenceDetailModel.EndDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostEndDate"].Value;
 
-                    AddEvent form3 = new AddEvent(addConferenceDetailModel, _GetSpeakerDetail,
+                    AddEvent form3 = new AddEvent(0,f,addConferenceDetailModel, _GetSpeakerDetail,
                         _ConferenceTypeRepository, _ConferenceRepository,
                         _DictionaryCityRepository, _DictionaryCountryRepository,
                         _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
+                    this.Enabled = false;
                     form3.Tag = this;
                     form3.Show(this);
                 }
@@ -459,18 +472,20 @@ namespace ConferencePlanner.WinUi
                 MessageBox.Show("You cannot process an empty cell");
             }
         }
-
+        public void AddEventNotEdit()
+        {
+            AddEvent form3 = new AddEvent(1, f, addConferenceDetailModel, _GetSpeakerDetail, _ConferenceTypeRepository,
+                        _ConferenceRepository, _DictionaryCityRepository, _DictionaryCountryRepository,
+                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
+            this.Enabled = false;
+            form3.Tag = this;
+            form3.Show(this);
+        }
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-                   
-                    AddEvent form3 = new AddEvent(addConferenceDetailModel ,_GetSpeakerDetail, _ConferenceTypeRepository, 
-                        _ConferenceRepository,_DictionaryCityRepository, _DictionaryCountryRepository, 
-                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
-                    form3.Tag = this;
-                    form3.Show(this);
-                
-            
+            AddEventNotEdit();
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -609,6 +624,22 @@ namespace ConferencePlanner.WinUi
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+        public void PopulateMamam()
+        {
+            dataGridView2.Rows.Clear();
+            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+            HosttotalEntries = y.Count;
+
+            if (HosttotalEntries < 6)
+            {
+                
+                populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+                btnBackHost.Enabled = false;
+                btnNextHost.Enabled = false;
+            }
+
+            else populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
         }
     }
 

@@ -519,7 +519,14 @@ namespace ConferencePlanner.Repository.Ado.Repository
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new System.Net.NetworkCredential("aremere333@gmail.com", "Parola12345*");
             SmtpServer.EnableSsl = true;
-            SmtpServer.Send(mail);
+            try
+            {
+                SmtpServer.Send(mail);
+            }
+            catch(Exception ex)
+            {
+                
+            }
             return QRCodeImage;
         }
         public void AddCountry(string Code, string Name)
@@ -589,12 +596,66 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = index+1;
             command.ExecuteNonQuery();
         }
-        public void EditCountry(string Code, string Name) { }
-        public void EditCounty(string Code, string Name, string country) { }
-        public void EditCity(string Code, string Name, string county) { }
-        public void EditSpeaker(string Code, string Name) { }
-        public void EditType(string Name) { }
-        public void EditCategory(string Name) { }
+        public void EditCountry(int Id, string Code, string Name)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryCountry " +
+                "SET DictionaryCountryName = @CountryName , DictionaryCountryCode = @CountryCode " +
+                "WHERE DictionaryCountryId = @Id ";
+            command.Parameters.Add("@CountryName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CountryCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
+            command.ExecuteNonQuery();
+        }
+        public void EditCounty(string Code, string Name, int CountyId) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryCounty " +
+                "SET DictionaryCountyName = @CountyName , DictionaryCountyCode = @CountyCode " +
+                "WHERE DictionaryCountyId = @CountyId ";
+            command.Parameters.Add("@CountyName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CountyCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@CountyId", SqlDbType.Int).Value = CountyId;
+            command.ExecuteNonQuery();
+        }
+        public void EditCity(string Code, string Name, int CityId) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryCity " +
+                "SET DictionaryCityName = @CityName , DictionaryCityCode = @CityCode " +
+                "WHERE DictionaryCityId = @CityId ";
+            command.Parameters.Add("@CityName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@CityCode", SqlDbType.VarChar, 100).Value = Code;
+            command.Parameters.Add("@CityId", SqlDbType.Int).Value = CityId;
+            command.ExecuteNonQuery();
+        }
+        public void EditSpeaker(string Email, string Name, int SpeakerId) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE Speaker " +
+                "SET SpeakerName = @SpeakerName , SpeakerEmail = @SpeakerEmail " +
+                "WHERE SpeakerId = @SpeakerId ";
+            command.Parameters.Add("@SpeakerName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@SpeakerEmail", SqlDbType.VarChar, 100).Value = Email;
+            command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = SpeakerId;
+            command.ExecuteNonQuery();
+        }
+        public void EditType(int Id,string Name) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryConferenceType SET DictionaryConferenceTypeName = @ConferenceName WHERE DictionaryConferenceTypeId = @Id";
+            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
+            command.ExecuteNonQuery();
+        }
+        public void EditCategory(int Id, string Name) 
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE DictionaryConferenceCategory SET DictionaryConferenceCategoryName = @ConferenceName WHERE DictionaryConferenceCategoryId = @Id";
+            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = Name;
+            command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
+            command.ExecuteNonQuery();
+        }
         public void AddConference(AddEventDetailModel eventDetail) 
             {
                 int LocationId = AddLocationId(eventDetail.DictionaryCityId,eventDetail.LocationName);
@@ -632,7 +693,18 @@ namespace ConferencePlanner.Repository.Ado.Repository
             SqlCommand commmand = _sqlConnection.CreateCommand();
             commmand.CommandText = "Select LocationId from Location Where Street = @Street and CityId = @CityId";
             commmand.Parameters.Add("@Street", SqlDbType.VarChar, 100).Value = Street;
-            commmand.Parameters.Add("@CityId", SqlDbType.VarChar, 100).Value = CityId;
+            commmand.Parameters.Add("@CityId", SqlDbType.Int, 100).Value = CityId;
+            SqlDataReader sqlDataReader = commmand.ExecuteReader();
+            sqlDataReader.Read();
+
+            return sqlDataReader.GetInt32("LocationId");
+        }
+        public int GetLocationId(string Street)
+        {
+            SqlCommand commmand = _sqlConnection.CreateCommand();
+            commmand.CommandText = "Select LocationId from Location Where Street = @Street";
+            commmand.Parameters.Add("@Street", SqlDbType.VarChar, 100).Value = Street;
+
             SqlDataReader sqlDataReader = commmand.ExecuteReader();
             sqlDataReader.Read();
 
@@ -648,7 +720,26 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@isMainSpeaker", SqlDbType.Int, 100).Value = 1;
             command.ExecuteNonQuery();
         }
-        public void EditConference(AddEventDetailModel eventDetail) { }
+        public void EditConference(AddEventDetailModel eventDetail) 
+        {
+            int findLocationId = 0;
+            //try { findLocationId = GetLocationId(eventDetail.LocationName); }
+           //catch { }
+            findLocationId = AddLocationId(eventDetail.DictionaryCityId, eventDetail.LocationName); 
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE Conference SET ConferenceTypeId = @ConferenceTypeId ,LocationId = @LocationId," +
+                "ConferenceCategoryId = @ConferenceCategoryId ,HostEmail = @HostEmail," +
+                "StartDate = @StartDate ,EndDate = @EndDate ,ConferenceName = @ConferenceName WHERE ConferenceId = @ConferenceId ";
+            command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
+            command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = findLocationId;
+            command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
+            command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
+            command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
+            command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
+            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceId.ToString());
+            command.ExecuteNonQuery();
+        }
 
 
 
