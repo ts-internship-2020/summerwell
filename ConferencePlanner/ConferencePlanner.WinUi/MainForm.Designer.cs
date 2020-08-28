@@ -83,7 +83,6 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Book Antiqua", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -106,7 +105,7 @@ namespace ConferencePlanner.WinUi
             this.tabPage1.Controls.Add(this.dateTimePicker1);
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(905, 463);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conferences";
@@ -124,7 +123,7 @@ namespace ConferencePlanner.WinUi
             // 
             // button2
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.AutoSize = true;
             this.button2.BackColor = System.Drawing.Color.Transparent;
             this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
@@ -134,17 +133,17 @@ namespace ConferencePlanner.WinUi
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Britannic Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button2.ForeColor = System.Drawing.Color.Transparent;
-            this.button2.Location = new System.Drawing.Point(905, 627);
+            this.button2.Location = new System.Drawing.Point(666, 395);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 67);
+            this.button2.Size = new System.Drawing.Size(85, 50);
             this.button2.TabIndex = 9;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.nextPage);
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.BackColor = System.Drawing.Color.Transparent;
             this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -153,10 +152,10 @@ namespace ConferencePlanner.WinUi
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Britannic Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button1.ForeColor = System.Drawing.Color.Crimson;
-            this.button1.Location = new System.Drawing.Point(427, 627);
+            this.button1.Location = new System.Drawing.Point(181, 395);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 68);
+            this.button1.Size = new System.Drawing.Size(85, 50);
             this.button1.TabIndex = 8;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.previousPage);
@@ -344,7 +343,7 @@ namespace ConferencePlanner.WinUi
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Location = new System.Drawing.Point(4, 32);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(905, 463);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Host";
@@ -366,7 +365,7 @@ namespace ConferencePlanner.WinUi
             // 
             // btnBackHost
             // 
-            this.btnBackHost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnBackHost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBackHost.BackColor = System.Drawing.Color.Transparent;
             this.btnBackHost.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBackHost.BackgroundImage")));
             this.btnBackHost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -375,17 +374,17 @@ namespace ConferencePlanner.WinUi
             this.btnBackHost.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnBackHost.Font = new System.Drawing.Font("Britannic Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnBackHost.ForeColor = System.Drawing.Color.Transparent;
-            this.btnBackHost.Location = new System.Drawing.Point(427, 623);
+            this.btnBackHost.Location = new System.Drawing.Point(181, 395);
             this.btnBackHost.Margin = new System.Windows.Forms.Padding(4);
             this.btnBackHost.Name = "btnBackHost";
-            this.btnBackHost.Size = new System.Drawing.Size(60, 48);
+            this.btnBackHost.Size = new System.Drawing.Size(85, 50);
             this.btnBackHost.TabIndex = 8;
             this.btnBackHost.UseVisualStyleBackColor = false;
             this.btnBackHost.Click += new System.EventHandler(this.btnBackHost_Click);
             // 
             // btnNextHost
             // 
-            this.btnNextHost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnNextHost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNextHost.BackColor = System.Drawing.Color.Transparent;
             this.btnNextHost.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnNextHost.BackgroundImage")));
             this.btnNextHost.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -394,10 +393,10 @@ namespace ConferencePlanner.WinUi
             this.btnNextHost.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNextHost.Font = new System.Drawing.Font("Britannic Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnNextHost.ForeColor = System.Drawing.Color.White;
-            this.btnNextHost.Location = new System.Drawing.Point(910, 622);
+            this.btnNextHost.Location = new System.Drawing.Point(666, 395);
             this.btnNextHost.Margin = new System.Windows.Forms.Padding(4);
             this.btnNextHost.Name = "btnNextHost";
-            this.btnNextHost.Size = new System.Drawing.Size(60, 48);
+            this.btnNextHost.Size = new System.Drawing.Size(85, 50);
             this.btnNextHost.TabIndex = 7;
             this.btnNextHost.UseVisualStyleBackColor = false;
             this.btnNextHost.Click += new System.EventHandler(this.btnNextHost_Click);
@@ -410,8 +409,8 @@ namespace ConferencePlanner.WinUi
             this.btnAddEvent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddEvent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAddEvent.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAddEvent.Location = new System.Drawing.Point(378, 404);
-            this.btnAddEvent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAddEvent.Location = new System.Drawing.Point(365, 395);
+            this.btnAddEvent.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddEvent.Name = "btnAddEvent";
             this.btnAddEvent.Size = new System.Drawing.Size(191, 49);
             this.btnAddEvent.TabIndex = 6;
@@ -532,7 +531,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker4.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
             this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker4.Location = new System.Drawing.Point(77, 32);
-            this.dateTimePicker4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker4.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker4.Name = "dateTimePicker4";
             this.dateTimePicker4.Size = new System.Drawing.Size(250, 26);
             this.dateTimePicker4.TabIndex = 4;
@@ -546,7 +545,7 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker3.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
             this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker3.Location = new System.Drawing.Point(430, 32);
-            this.dateTimePicker3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker3.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker3.Name = "dateTimePicker3";
             this.dateTimePicker3.Size = new System.Drawing.Size(250, 26);
             this.dateTimePicker3.TabIndex = 3;
