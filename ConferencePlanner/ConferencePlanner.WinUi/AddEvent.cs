@@ -35,11 +35,7 @@ namespace ConferencePlanner.WinUi
         private List<ConferenceTypeModel> x;
         private List<DictionaryCityModel> cityList;
         private List<DictionaryCountyModel> countys;
-        string ConferenceName = "";
-        DateTime CoferenceStartDate = DateTime.Now;
-        DateTime ConferenceEndDate = DateTime.Now;
         protected MainForm formMain;
-        string ConferenceAddress = "";
         int EditNew = 0;
         public AddEvent(int editnew,MainForm form,AddConferenceDetailModel addConferenceDetailModel, IGetSpeakerDetail GetSpeakerDetail,
             IConferenceTypeRepository ConferenceTypeRepository, IConferenceRepository ConferenceRepository,
@@ -282,7 +278,7 @@ namespace ConferencePlanner.WinUi
         private void btnSave_Click(object sender, EventArgs e)
         { if (AddStartDate.Value < System.DateTime.Now) MessageBox.Show("Please select a Start Date after current date");
           else  if (AddEndDate.Value < AddStartDate.Value) MessageBox.Show("Please select a End Date after Start Date");
-            else if (AddConferenceName.Text == "" || AddConferenceName.Text == null) MessageBox.Show("Please select a Start Date after current date");
+            else if (AddConferenceName.Text == "" || AddConferenceName.Text == null) MessageBox.Show("Please don't leave the Name empty");
             else
             {
                 try

@@ -34,12 +34,12 @@ namespace ConferencePlanner.WinUi
             EditOrSave = EditSave;
             dictionar = dictionary;
 
-            if (dictionary.ToString() == "Speaker") label1.Text = "Email";
+            if (dictionary.ToString() == "Speaker") { label1.Text = "Email";label3.Visible = true; textBox3.Visible = true; }
             if (dictionary.ToString() == "DictionaryCategory") { label1.Visible = false; textBox1.Visible = false; }
             if (dictionary.ToString() == "DictionaryType") { label1.Visible = false; textBox1.Visible = false; checkBox1.Visible = true; }
             if (EditOrSave)
             {
-                if (dictionary.ToString() == "Speaker") { textBox1.Text = DetailEvent.SpeakerEmail; textBox2.Text = EventDetail.SpeakerName ; }
+                if (dictionary.ToString() == "Speaker") { textBox1.Text = DetailEvent.SpeakerEmail; textBox2.Text = EventDetail.SpeakerName ; textBox3.Text = DetailEvent.SpeakerNationality; }
                 if (dictionary.ToString() == "DictionaryCategory") { textBox2.Text = EventDetail.DictionaryConferenceCategoryName; }
                 if (dictionary.ToString() == "DictionaryType") { textBox2.Text = EventDetail.ConferenceTypeName; checkBox1.Checked = EventDetail.isRemote; }
                 if (dictionary.ToString() == "DictionaryCity") { textBox1.Text = EventDetail.DictionaryCityCode; textBox2.Text = EventDetail.DictionaryCityName; }
@@ -61,7 +61,7 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "Speaker")
                 {
-                    try { _ConferenceRepository.AddSpeaker(textBox1.Text, textBox2.Text); }
+                    try { _ConferenceRepository.AddSpeaker(textBox1.Text, textBox2.Text, textBox3.Text); }
                     catch { MessageBox.Show("Already Exists"); }
                     form4.RefreshLists("Speaker");
                     form4.Enabled = true;
@@ -112,7 +112,7 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "Speaker")
                 {
-                    try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text, DetailEvent.SpeakerId); }
+                    try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text, DetailEvent.SpeakerId, textBox3.Text); }
                     catch { MessageBox.Show("Something's wrong"); }
                     form4.RefreshLists("Speaker");
                     form4.Enabled = true;
