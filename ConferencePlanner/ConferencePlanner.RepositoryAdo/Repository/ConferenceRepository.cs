@@ -807,6 +807,62 @@ namespace ConferencePlanner.Repository.Ado.Repository
                                 "WHERE SpeakerId = @SpeakerId";
             command.ExecuteNonQuery();
         }
+
+        public void DeleteCounty(int CountyId)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT c.DictionaryCityId " +
+                                "FROM DictionaryCity c " +
+                                "WHERE c.DictionaryCountyId = @CountyId";
+            sqlCommand.Parameters.Add("@CountyId", SqlDbType.Int).Value = CountyId;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    int cityId = sqlDataReader.GetInt32("DictionaryCityId");
+                    SqlCommand sqlCommand3 = _sqlConnection.CreateCommand();
+                    sqlCommand3.CommandText = "SELECT l.LocationId " +
+                                            "FROM Location l " +
+                                            "WHERE l.CityId = @CityId";
+                    sqlCommand3.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    SqlDataReader sqlDataReader3 = sqlCommand3.ExecuteReader();
+                    if (sqlDataReader3.HasRows)
+                    {
+                        while (sqlDataReader3.Read())
+                        {
+                            int locationId = sqlDataReader3.GetInt32("LocationId");
+                            SqlCommand commandLocation = _sqlConnection.CreateCommand();
+                            commandLocation.CommandText = "UPDATE Conference " +
+                                                        "SET LocationId = NULL " +
+                                                        "WHERE LocationId = @LocationId";
+                            commandLocation.Parameters.Add("LocationId", SqlDbType.Int).Value = locationId;
+                            commandLocation.ExecuteNonQuery();
+                        }
+                    }
+                    SqlCommand command = _sqlConnection.CreateCommand();
+                    command.CommandText = "DELETE FROM Location " +
+                                        "WHERE CityId = @CityId";
+                    command.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    command.ExecuteNonQuery();
+                }
+            }
+            SqlCommand command2 = _sqlConnection.CreateCommand();
+            command2.CommandText = "DELETE FROM DictionaryCity " +
+                                "WHERE DictionaryCountyId = @CountyId";
+            command2.Parameters.Add("@CountyId", SqlDbType.Int).Value = CountyId;
+            command2.ExecuteNonQuery();
+
+    
+            SqlCommand command3 = _sqlConnection.CreateCommand();
+            command3.CommandText = "DELETE FROM DictionaryCounty " +
+                                "WHERE DictionaryCountyId = @CountyId";
+            command3.Parameters.Add("@CountyId", SqlDbType.Int).Value = CountyId;
+            command3.ExecuteNonQuery();
+
+         }
+            
+            
         public void AddConference(AddEventDetailModel eventDetail) 
             {
             int LocationId = 0;

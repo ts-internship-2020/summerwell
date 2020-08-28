@@ -539,7 +539,8 @@ namespace ConferencePlanner.WinUi
 
         private void DeleteCounty_Click(object sender, EventArgs e)
         {
-
+            _ConferenceRepository.DeleteCounty(eventDetails.DictionaryCountyId);
+            RefreshLists("DictionaryCounty");
         }
 
         private void DeleteCity_Click(object sender, EventArgs e)
