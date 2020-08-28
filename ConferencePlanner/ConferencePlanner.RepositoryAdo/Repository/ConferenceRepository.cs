@@ -128,7 +128,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
-                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail, l.Street " +
+                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail, l.Street, d.IsRemote " +
                 "from Conference c " +
                 "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
                 "INNER JOIN Location l on c.LocationId = l.LocationId " +
@@ -194,7 +194,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                             DictionaryConferenceCategoryName = conferenceCategoryName,
                             SpeakerName = conferenceSpeakerName,
                             HostEmail = conferenceHostEmail,
-                            ConferenceId = sqlDataReader.GetInt32("ConferenceId")
+                            ConferenceId = sqlDataReader.GetInt32("ConferenceId"),
+                            IsRemote = sqlDataReader.GetBoolean("IsRemote")
                         });
                     }
                 }
@@ -275,7 +276,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
-                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail, l.Street " +
+                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail, l.Street, d.IsRemote " +
                 "from Conference c " +
                 "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
                 "INNER JOIN Location l on c.LocationId = l.LocationId " +
@@ -342,7 +343,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                             DictionaryConferenceCategoryName = conferenceCategoryName,
                             SpeakerName = conferenceSpeakerName,
                             HostEmail = conferenceHostEmail,
-                            ConferenceId = sqlDataReader.GetInt32("ConferenceId")
+                            ConferenceId = sqlDataReader.GetInt32("ConferenceId"),
+                            IsRemote = sqlDataReader.GetBoolean("IsRemote")
                         });
                     }
                 }
@@ -382,7 +384,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "select c.ConferenceId, c.ConferenceName, c.StartDate,c.EndDate, d.DictionaryConferenceTypeName," +
-                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail, l.Street " +
+                " ci.DictionaryCityName, dcc.DictionaryConferenceCategoryName, sp.SpeakerName, c.HostEmail, l.Street, d.IsRemote " +
                 "from Conference c " +
                 "INNER JOIN DictionaryConferenceType d on ConferenceTypeId = d.DictionaryConferenceTypeId " +
                 "INNER JOIN Location l on c.LocationId = l.LocationId " +
@@ -457,7 +459,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                             SpeakerName = conferenceSpeakerName,
                             HostEmail = conferenceHostEmail,
                             ConferenceId = conferenceId,
-                            ConferenceStatusId = conferenceStatusId
+                            ConferenceStatusId = conferenceStatusId,
+                            IsRemote = sqlDataReader.GetBoolean("IsRemote")
                         
                         });
                     }

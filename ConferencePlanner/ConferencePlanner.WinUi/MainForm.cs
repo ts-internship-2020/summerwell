@@ -111,7 +111,7 @@ namespace ConferencePlanner.WinUi
                     dataGridView1.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].DictionaryConferenceTypeName,
                                        x[i].DictionaryConferenceCategoryName,
                                        x[i].LocationStreet,
-                                       x[i].SpeakerName,
+                                       x[i].SpeakerName,x[i].IsRemote,
                                        null, null, null, x[i].ConferenceId);
                 }
             }
@@ -127,7 +127,7 @@ namespace ConferencePlanner.WinUi
                         dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate,y[i].EndDate, y[i].DictionaryConferenceTypeName,
                                   y[i].DictionaryConferenceCategoryName,
                                   y[i].LocationStreet,
-                                  y[i].SpeakerName,
+                                  y[i].SpeakerName, y[i].IsRemote,
                                   null,  y[i].ConferenceId);
                     }
                 }
@@ -143,8 +143,7 @@ namespace ConferencePlanner.WinUi
                 bool isAttend = false;
                 bool isJoin = false;
                 bool inWithdraw = false;
-                int colindex = senderGrid.CurrentCell.ColumnIndex;
-                if (colindex.ToString().Equals("6") && isAttend == false)
+                if (senderGrid.CurrentCell.OwningColumn.Name.ToString().Equals("AttendButton") && isAttend == false)
                 {
                     ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel();
                     isAttend = true;
@@ -172,7 +171,7 @@ namespace ConferencePlanner.WinUi
                     //InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
-                if (colindex.ToString().Equals("7") && isJoin == false)
+                if (senderGrid.CurrentCell.OwningColumn.Name.ToString().Equals("JoinButton") && isJoin == false)
                 {
                     isJoin = true;
                     DateTime startDate = (DateTime)dataGridView1.Rows[e.RowIndex].Cells["StartDate"].Value;
@@ -201,7 +200,7 @@ namespace ConferencePlanner.WinUi
                         MessageBox.Show("You can't join the conference yet!");
                     }
                 }
-                if (colindex.ToString().Equals("8") && inWithdraw == false)
+                if (senderGrid.CurrentCell.OwningColumn.Name.ToString().Equals("WithdrawButton") && inWithdraw == false)
                 {
                     ConferenceAudienceModel _conferenceAudienceModel = new ConferenceAudienceModel();
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
@@ -299,7 +298,7 @@ namespace ConferencePlanner.WinUi
             {
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
-                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
+                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells["JoinButton"]);
                     bc.FlatStyle = FlatStyle.Flat;
                     if (conferencesCurrentUserAttends.Exists(currentConference =>
                                          currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
@@ -330,7 +329,7 @@ namespace ConferencePlanner.WinUi
             try
             {
                 
-                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells[6]);
+                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells["AttendButton"]);
                     bc.FlatStyle = FlatStyle.Flat;
                     if (conferencesCurrentUserAttends.Exists(currentConference =>
                                          currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
@@ -347,7 +346,7 @@ namespace ConferencePlanner.WinUi
                     }
                 
 
-                    DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells[8]);
+                    DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells["WithdrawButton"]);
                     bc1.FlatStyle = FlatStyle.Flat;
                     if (conferencesCurrentUserAttends.Exists(currentConference =>
                                          currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
@@ -380,7 +379,7 @@ namespace ConferencePlanner.WinUi
             {
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
-                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[6]);
+                    DataGridViewButtonCell bc = (DataGridViewButtonCell)dataGridView1.Rows[i].Cells["AttendButton"];
                     bc.FlatStyle = FlatStyle.Flat;
                     if (conferencesCurrentUserAttends.Exists(currentConference =>
                                          currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
@@ -398,12 +397,12 @@ namespace ConferencePlanner.WinUi
                 }
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
-                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
+                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells["JoinButton"]);
                     bc.FlatStyle = FlatStyle.Flat;
                     bc.Style.BackColor = System.Drawing.Color.DarkRed;
                     bc.Style.ForeColor = System.Drawing.Color.DarkRed;
 
-                    DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[8]);
+                    DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells["WithdrawButton"]);
                     bc1.FlatStyle = FlatStyle.Flat;
                     if (conferencesCurrentUserAttends.Exists(currentConference =>
                                          currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
@@ -441,8 +440,7 @@ namespace ConferencePlanner.WinUi
                 var senderGrid = (DataGridView)sender;
                 if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
                 {
-                    int colindex = senderGrid.CurrentCell.ColumnIndex;
-                    if (colindex.ToString().Equals("7"))
+                    if (senderGrid.CurrentCell.OwningColumn.Name.ToString().Equals("HostEditButton"))
                     {
                         addConferenceDetailModel.ConferenceId = (int)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceId"].Value;
                         addConferenceDetailModel.ConferenceName = (string)dataGridView2.Rows[e.RowIndex].Cells["HostConferenceName"].Value;
@@ -494,7 +492,7 @@ namespace ConferencePlanner.WinUi
                     //textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString();
                     // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
                 }
-                try
+               /* try
                 {
 
 
@@ -514,6 +512,7 @@ namespace ConferencePlanner.WinUi
                 {
                     MessageBox.Show("You cannot process an empty cell");
                 }
+               */
             }
 
 
@@ -560,6 +559,7 @@ namespace ConferencePlanner.WinUi
                     mf.textBox4.Text = this.dataGridView1.CurrentRow.Cells[3].Value.ToString();
                     mf.textBox5.Text = this.dataGridView1.CurrentRow.Cells[4].Value.ToString();
                     mf.textBox6.Text = this.dataGridView1.CurrentRow.Cells[5].Value.ToString();
+
                     mf.textBox7.Text = rating;
                     mf.textBox8.Text = nationality;
                     mf.ShowDialog();

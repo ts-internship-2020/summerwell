@@ -16,6 +16,7 @@ namespace ConferencePlanner.Abstraction.Model
         public string DictionaryConferenceCategoryName { get; set; }
         public string SpeakerName { get; set; }
         public string HostEmail { get; set; }
+        public bool IsRemote { get; set; }
        
     
 

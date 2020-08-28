@@ -17,5 +17,6 @@ namespace ConferencePlanner.Abstraction.Model
         public string HostEmail { get; set; }
         public int ConferenceId { get; set; }
         public int ConferenceStatusId { get; set; }
+        public bool IsRemote { get; set; }
     }
 }
