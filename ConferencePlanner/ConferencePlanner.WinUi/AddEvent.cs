@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -73,13 +74,6 @@ namespace ConferencePlanner.WinUi
             _ConferenceTypeRepository = ConferenceTypeRepository;
             x = _ConferenceTypeRepository.GetConferenceType();
 
-            if (ConferenceName != null)
-            {
-                AddConferenceName.Text = ConferenceName;
-                AddStartDate.Value = CoferenceStartDate;
-                AddEndDate.Value = ConferenceEndDate;
-                AddAddress.Text = ConferenceAddress;
-            }
             if (countries == null) { return; }
             else
             {
@@ -118,7 +112,7 @@ namespace ConferencePlanner.WinUi
             eventDetails.StartDate = AddStartDate.Value;
             eventDetails.EndDate = AddEndDate.Value;
 
-            if (addConferenceDetailModel.ConferenceName != null)
+            if (editnew == 0)
             {
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
                 eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
@@ -275,6 +269,11 @@ namespace ConferencePlanner.WinUi
             }
             else
             {
+               
+                eventDetails.LocationName = AddAddress.Text;
+                MessageBox.Show(eventDetails.LocationName);
+                MessageBox.Show(eventDetails.DictionaryCityId.ToString());
+               
                 _ConferenceRepository.EditConference(eventDetails);
             }
 
@@ -378,7 +377,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView5.SelectedItems[0];
                 eventDetails.DictionaryCityCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
-                eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[2].Text);
+                eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[3].Text);
                 btnNext5.Enabled = true;
             }
 
