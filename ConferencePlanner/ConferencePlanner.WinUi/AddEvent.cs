@@ -220,9 +220,19 @@ namespace ConferencePlanner.WinUi
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCountry);
-            tabType.Enabled = false;
-            tabCountry.Enabled = true;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCountry);
+                tabType.Enabled = false;
+                tabCountry.Enabled = true; 
+            }
+            else
+            {
+                tabControl1.SelectTab(tabSpeaker);
+                tabSpeaker.Enabled = true;
+                tabCountry.Enabled = false;
+                tabType.Enabled = false;
+            }
         }
         private void btnNext2_Click(object sender, EventArgs e)
         {
@@ -235,9 +245,20 @@ namespace ConferencePlanner.WinUi
         }
         private void btnNext3_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCounty);
-            tabCounty.Enabled = true;
-            tabSpeaker.Enabled = false;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCounty);
+                tabCounty.Enabled = true;
+                tabSpeaker.Enabled = false;
+            }
+            else
+            {
+                tabControl1.SelectTab(tabCategory);
+                tabSpeaker.Enabled = false;
+                tabCounty.Enabled = false;
+                tabCity.Enabled = false;
+                tabCategory.Enabled = true;
+            }
 
 
         }
@@ -251,6 +272,7 @@ namespace ConferencePlanner.WinUi
         }
         private void btnNext5_Click(object sender, EventArgs e)
         {
+            if(!eventDetails.isRemote) { AddAddress.Visible = true; label4.Visible = true; }
             tabControl1.SelectTab(tabCategory);
             tabCategory.Enabled = true;
             tabCity.Enabled = false;
@@ -258,7 +280,7 @@ namespace ConferencePlanner.WinUi
 
         }
         private void btnSave_Click(object sender, EventArgs e)
-        {
+        { 
             if (EditNew == 1)
             {
                 eventDetails.ConferenceName = AddConferenceName.Text;
@@ -269,22 +291,8 @@ namespace ConferencePlanner.WinUi
             }
             else
             {
-
-                //eventDetails.LocationName = AddAddress.Text;
-                MessageBox.Show(eventDetails.LocationName);
-                MessageBox.Show(eventDetails.ConferenceName);
-                MessageBox.Show(eventDetails.DictionaryConferenceCategoryName);
-                MessageBox.Show(eventDetails.DictionaryConferenceCategoryId.ToString());
-                MessageBox.Show(eventDetails.ConferenceTypeName.ToString());
-                MessageBox.Show(eventDetails.ConferenceTypeId.ToString());
-                MessageBox.Show(eventDetails.DictionaryCountryName);
-                MessageBox.Show(eventDetails.DictionaryCountryId.ToString());    
-                MessageBox.Show(eventDetails.DictionaryCountyName);
-                MessageBox.Show(eventDetails.DictionaryCountyId.ToString());
-                MessageBox.Show(eventDetails.DictionaryCityName);
-                MessageBox.Show(eventDetails.DictionaryCityId.ToString());
-                MessageBox.Show(eventDetails.SpeakerName);
-                MessageBox.Show(eventDetails.SpeakerId.ToString());
+                eventDetails.StartDate = AddStartDate.Value;
+                eventDetails.EndDate = AddEndDate.Value;
                 _ConferenceRepository.EditConference(eventDetails, AddAddress.Text, AddConferenceName.Text);
             }
 
@@ -313,6 +321,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView1.SelectedItems[0];
                 eventDetails.ConferenceTypeId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.ConferenceTypeName = selectedItem.SubItems[1].Text;
+                eventDetails.isRemote = bool.Parse(selectedItem.SubItems[2].Text);
                 btnNext.Enabled = true;
             }
         }
@@ -322,11 +331,12 @@ namespace ConferencePlanner.WinUi
             listView1.View = View.Details;
             listView1.Columns.Add("Code");
             listView1.Columns.Add("Name");
+            listView1.Columns.Add("Is Remote");
             x.Clear();
             x = _ConferenceTypeRepository.GetConferenceType();
             foreach (var c in x)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { c.ConferenceTypeId.ToString(), c.Name }));
+                listView1.Items.Add(new ListViewItem(new string[] { c.ConferenceTypeId.ToString(), c.Name, c.IsRemote.ToString() }));
             }
             listView1.GridLines = true;
             btnNext.Enabled = false;

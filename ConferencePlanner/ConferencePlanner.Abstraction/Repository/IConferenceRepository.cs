@@ -19,10 +19,10 @@ namespace ConferencePlanner.Abstraction.Repository
         void AddCounty(string Code, string Name, string country);
         void AddCity(string Code, string Name,string county);
         void AddSpeaker(string Code, string Name);
-        void AddType(string Name);
+        void AddType(string Name, bool isRemote);
         void AddCategory(string Name);
         void EditCountry(int Id, string Code, string Name);
-        void EditType(int Id, string Name);
+        void EditType(int Id, string Name, bool isRemote);
         void EditCategory(int Id ,string Name);
         void EditCounty(string Code, string Name, int CountyId);
         void EditCity(string Code, string Name, int CityId);
