@@ -189,6 +189,7 @@
             // textBox7
             // 
             this.textBox7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBox7.BackColor = System.Drawing.Color.MistyRose;
             this.textBox7.Location = new System.Drawing.Point(649, 410);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(150, 31);
@@ -198,6 +199,7 @@
             // textBox8
             // 
             this.textBox8.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBox8.BackColor = System.Drawing.Color.MistyRose;
             this.textBox8.Location = new System.Drawing.Point(649, 455);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(150, 31);
