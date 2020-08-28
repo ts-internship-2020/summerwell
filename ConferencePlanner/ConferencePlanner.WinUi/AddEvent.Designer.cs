@@ -78,103 +78,93 @@ namespace ConferencePlanner.WinUi
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(590, 54);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(413, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(208, 28);
+            this.label1.Size = new System.Drawing.Size(141, 21);
             this.label1.TabIndex = 0;
             this.label1.Text = "Conference Name";
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(676, 99);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(473, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 28);
+            this.label2.Size = new System.Drawing.Size(82, 21);
             this.label2.TabIndex = 1;
             this.label2.Text = "Start Date";
             // 
             // label3
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(683, 151);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(478, 91);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 28);
+            this.label3.Size = new System.Drawing.Size(78, 21);
             this.label3.TabIndex = 2;
             this.label3.Text = "End Date";
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(694, 201);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(486, 121);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 28);
+            this.label4.Size = new System.Drawing.Size(70, 21);
             this.label4.TabIndex = 3;
             this.label4.Text = "Address";
             this.label4.Visible = false;
             // 
             // AddConferenceName
             // 
-            this.AddConferenceName.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddConferenceName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddConferenceName.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.AddConferenceName.Location = new System.Drawing.Point(806, 54);
-            this.AddConferenceName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AddConferenceName.Location = new System.Drawing.Point(564, 32);
             this.AddConferenceName.Name = "AddConferenceName";
-            this.AddConferenceName.Size = new System.Drawing.Size(284, 30);
+            this.AddConferenceName.Size = new System.Drawing.Size(200, 23);
             this.AddConferenceName.TabIndex = 4;
             // 
             // AddAddress
             // 
-            this.AddAddress.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddAddress.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddAddress.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.AddAddress.Location = new System.Drawing.Point(806, 201);
-            this.AddAddress.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AddAddress.Location = new System.Drawing.Point(564, 121);
             this.AddAddress.Name = "AddAddress";
-            this.AddAddress.Size = new System.Drawing.Size(284, 30);
+            this.AddAddress.Size = new System.Drawing.Size(200, 23);
             this.AddAddress.TabIndex = 5;
             this.AddAddress.Visible = false;
             // 
             // AddStartDate
             // 
-            this.AddStartDate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddStartDate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddStartDate.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.AddStartDate.Location = new System.Drawing.Point(806, 101);
-            this.AddStartDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AddStartDate.Location = new System.Drawing.Point(564, 61);
             this.AddStartDate.Name = "AddStartDate";
-            this.AddStartDate.Size = new System.Drawing.Size(284, 30);
+            this.AddStartDate.Size = new System.Drawing.Size(200, 23);
             this.AddStartDate.TabIndex = 6;
             this.AddStartDate.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
             this.AddStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             // 
             // AddEndDate
             // 
-            this.AddEndDate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddEndDate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddEndDate.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.AddEndDate.Location = new System.Drawing.Point(806, 151);
-            this.AddEndDate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AddEndDate.Location = new System.Drawing.Point(564, 91);
             this.AddEndDate.Name = "AddEndDate";
-            this.AddEndDate.Size = new System.Drawing.Size(284, 30);
+            this.AddEndDate.Size = new System.Drawing.Size(200, 23);
             this.AddEndDate.TabIndex = 7;
             this.AddEndDate.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
             this.AddEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Controls.Add(this.tabType);
             this.tabControl1.Controls.Add(this.tabCountry);
@@ -182,11 +172,10 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.Controls.Add(this.tabCounty);
             this.tabControl1.Controls.Add(this.tabCity);
             this.tabControl1.Controls.Add(this.tabCategory);
-            this.tabControl1.Location = new System.Drawing.Point(19, 20);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabControl1.Location = new System.Drawing.Point(13, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(531, 395);
+            this.tabControl1.Size = new System.Drawing.Size(372, 237);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 8;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -198,11 +187,10 @@ namespace ConferencePlanner.WinUi
             this.tabType.Controls.Add(this.btnAdd1);
             this.tabType.Controls.Add(this.listView1);
             this.tabType.Controls.Add(this.btnNext);
-            this.tabType.Location = new System.Drawing.Point(4, 37);
-            this.tabType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabType.Location = new System.Drawing.Point(4, 27);
             this.tabType.Name = "tabType";
-            this.tabType.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabType.Size = new System.Drawing.Size(523, 354);
+            this.tabType.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabType.Size = new System.Drawing.Size(364, 206);
             this.tabType.TabIndex = 0;
             this.tabType.Text = "Conference Type";
             // 
@@ -211,10 +199,9 @@ namespace ConferencePlanner.WinUi
             this.btnAdd1.BackColor = System.Drawing.Color.White;
             this.btnAdd1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAdd1.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd1.Location = new System.Drawing.Point(447, 177);
-            this.btnAdd1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd1.Location = new System.Drawing.Point(313, 106);
             this.btnAdd1.Name = "btnAdd1";
-            this.btnAdd1.Size = new System.Drawing.Size(43, 38);
+            this.btnAdd1.Size = new System.Drawing.Size(30, 23);
             this.btnAdd1.TabIndex = 11;
             this.btnAdd1.Text = "+";
             this.btnAdd1.UseVisualStyleBackColor = false;
@@ -225,10 +212,9 @@ namespace ConferencePlanner.WinUi
             this.listView1.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(31, 42);
-            this.listView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listView1.Location = new System.Drawing.Point(22, 25);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(293, 269);
+            this.listView1.Size = new System.Drawing.Size(206, 163);
             this.listView1.TabIndex = 10;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
@@ -240,10 +226,9 @@ namespace ConferencePlanner.WinUi
             this.btnNext.BackColor = System.Drawing.Color.White;
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNext.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNext.Location = new System.Drawing.Point(383, 262);
-            this.btnNext.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNext.Location = new System.Drawing.Point(268, 157);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(133, 82);
+            this.btnNext.Size = new System.Drawing.Size(93, 49);
             this.btnNext.TabIndex = 9;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = false;
@@ -255,11 +240,10 @@ namespace ConferencePlanner.WinUi
             this.tabCountry.Controls.Add(this.btnAdd2);
             this.tabCountry.Controls.Add(this.listView2);
             this.tabCountry.Controls.Add(this.btnNext2);
-            this.tabCountry.Location = new System.Drawing.Point(4, 37);
-            this.tabCountry.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabCountry.Location = new System.Drawing.Point(4, 27);
             this.tabCountry.Name = "tabCountry";
-            this.tabCountry.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabCountry.Size = new System.Drawing.Size(523, 354);
+            this.tabCountry.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabCountry.Size = new System.Drawing.Size(364, 206);
             this.tabCountry.TabIndex = 1;
             this.tabCountry.Text = "Country";
             // 
@@ -267,10 +251,9 @@ namespace ConferencePlanner.WinUi
             // 
             this.btnAdd2.BackColor = System.Drawing.Color.White;
             this.btnAdd2.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd2.Location = new System.Drawing.Point(447, 177);
-            this.btnAdd2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd2.Location = new System.Drawing.Point(313, 106);
             this.btnAdd2.Name = "btnAdd2";
-            this.btnAdd2.Size = new System.Drawing.Size(43, 38);
+            this.btnAdd2.Size = new System.Drawing.Size(30, 23);
             this.btnAdd2.TabIndex = 2;
             this.btnAdd2.Text = "+";
             this.btnAdd2.UseVisualStyleBackColor = false;
@@ -281,10 +264,9 @@ namespace ConferencePlanner.WinUi
             this.listView2.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listView2.FullRowSelect = true;
             this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(31, 42);
-            this.listView2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listView2.Location = new System.Drawing.Point(22, 25);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(293, 269);
+            this.listView2.Size = new System.Drawing.Size(206, 163);
             this.listView2.TabIndex = 10;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
@@ -296,10 +278,9 @@ namespace ConferencePlanner.WinUi
             this.btnNext2.Enabled = false;
             this.btnNext2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNext2.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNext2.Location = new System.Drawing.Point(383, 262);
-            this.btnNext2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNext2.Location = new System.Drawing.Point(268, 157);
             this.btnNext2.Name = "btnNext2";
-            this.btnNext2.Size = new System.Drawing.Size(133, 82);
+            this.btnNext2.Size = new System.Drawing.Size(93, 49);
             this.btnNext2.TabIndex = 0;
             this.btnNext2.Text = "Next";
             this.btnNext2.UseVisualStyleBackColor = true;
@@ -313,20 +294,19 @@ namespace ConferencePlanner.WinUi
             this.tabSpeaker.Controls.Add(this.btnNext3);
             this.tabSpeaker.Enabled = false;
             this.tabSpeaker.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.tabSpeaker.Location = new System.Drawing.Point(4, 37);
-            this.tabSpeaker.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.tabSpeaker.Location = new System.Drawing.Point(4, 27);
+            this.tabSpeaker.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabSpeaker.Name = "tabSpeaker";
-            this.tabSpeaker.Size = new System.Drawing.Size(523, 354);
+            this.tabSpeaker.Size = new System.Drawing.Size(364, 206);
             this.tabSpeaker.TabIndex = 2;
             this.tabSpeaker.Text = "Speaker";
             // 
             // btnAdd3
             // 
             this.btnAdd3.BackColor = System.Drawing.Color.White;
-            this.btnAdd3.Location = new System.Drawing.Point(447, 177);
-            this.btnAdd3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd3.Location = new System.Drawing.Point(313, 106);
             this.btnAdd3.Name = "btnAdd3";
-            this.btnAdd3.Size = new System.Drawing.Size(43, 38);
+            this.btnAdd3.Size = new System.Drawing.Size(30, 23);
             this.btnAdd3.TabIndex = 2;
             this.btnAdd3.Text = "+";
             this.btnAdd3.UseVisualStyleBackColor = false;
@@ -336,10 +316,9 @@ namespace ConferencePlanner.WinUi
             // 
             this.listView3.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listView3.HideSelection = false;
-            this.listView3.Location = new System.Drawing.Point(31, 42);
-            this.listView3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listView3.Location = new System.Drawing.Point(22, 25);
             this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(293, 269);
+            this.listView3.Size = new System.Drawing.Size(206, 163);
             this.listView3.TabIndex = 1;
             this.listView3.UseCompatibleStateImageBehavior = false;
             this.listView3.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
@@ -350,10 +329,9 @@ namespace ConferencePlanner.WinUi
             this.btnNext3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext3.Enabled = false;
             this.btnNext3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNext3.Location = new System.Drawing.Point(383, 262);
-            this.btnNext3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNext3.Location = new System.Drawing.Point(268, 157);
             this.btnNext3.Name = "btnNext3";
-            this.btnNext3.Size = new System.Drawing.Size(133, 82);
+            this.btnNext3.Size = new System.Drawing.Size(93, 49);
             this.btnNext3.TabIndex = 0;
             this.btnNext3.Text = "Next";
             this.btnNext3.UseVisualStyleBackColor = true;
@@ -365,19 +343,17 @@ namespace ConferencePlanner.WinUi
             this.tabCounty.Controls.Add(this.btnAdd5);
             this.tabCounty.Controls.Add(this.listView4);
             this.tabCounty.Controls.Add(this.btnNext4);
-            this.tabCounty.Location = new System.Drawing.Point(4, 37);
-            this.tabCounty.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabCounty.Location = new System.Drawing.Point(4, 27);
             this.tabCounty.Name = "tabCounty";
-            this.tabCounty.Size = new System.Drawing.Size(523, 354);
+            this.tabCounty.Size = new System.Drawing.Size(364, 206);
             this.tabCounty.TabIndex = 3;
             this.tabCounty.Text = "County";
             // 
             // btnAdd5
             // 
-            this.btnAdd5.Location = new System.Drawing.Point(447, 177);
-            this.btnAdd5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd5.Location = new System.Drawing.Point(313, 106);
             this.btnAdd5.Name = "btnAdd5";
-            this.btnAdd5.Size = new System.Drawing.Size(43, 38);
+            this.btnAdd5.Size = new System.Drawing.Size(30, 23);
             this.btnAdd5.TabIndex = 2;
             this.btnAdd5.Text = "+";
             this.btnAdd5.UseVisualStyleBackColor = true;
@@ -386,10 +362,9 @@ namespace ConferencePlanner.WinUi
             // listView4
             // 
             this.listView4.HideSelection = false;
-            this.listView4.Location = new System.Drawing.Point(31, 42);
-            this.listView4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listView4.Location = new System.Drawing.Point(22, 25);
             this.listView4.Name = "listView4";
-            this.listView4.Size = new System.Drawing.Size(293, 269);
+            this.listView4.Size = new System.Drawing.Size(206, 163);
             this.listView4.TabIndex = 1;
             this.listView4.UseCompatibleStateImageBehavior = false;
             this.listView4.SelectedIndexChanged += new System.EventHandler(this.listView4_SelectedIndexChanged);
@@ -399,9 +374,10 @@ namespace ConferencePlanner.WinUi
             // 
             this.btnNext4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext4.Enabled = false;
-            this.btnNext4.Location = new System.Drawing.Point(384, 258);
+            this.btnNext4.Location = new System.Drawing.Point(269, 155);
+            this.btnNext4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNext4.Name = "btnNext4";
-            this.btnNext4.Size = new System.Drawing.Size(133, 82);
+            this.btnNext4.Size = new System.Drawing.Size(93, 49);
             this.btnNext4.TabIndex = 0;
             this.btnNext4.Text = "Next";
             this.btnNext4.UseVisualStyleBackColor = true;
@@ -413,10 +389,9 @@ namespace ConferencePlanner.WinUi
             this.tabCity.Controls.Add(this.btnAdd4);
             this.tabCity.Controls.Add(this.listView5);
             this.tabCity.Controls.Add(this.btnNext5);
-            this.tabCity.Location = new System.Drawing.Point(4, 37);
-            this.tabCity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabCity.Location = new System.Drawing.Point(4, 27);
             this.tabCity.Name = "tabCity";
-            this.tabCity.Size = new System.Drawing.Size(523, 354);
+            this.tabCity.Size = new System.Drawing.Size(364, 206);
             this.tabCity.TabIndex = 4;
             this.tabCity.Text = "City";
             // 
@@ -424,10 +399,9 @@ namespace ConferencePlanner.WinUi
             // 
             this.btnAdd4.BackColor = System.Drawing.Color.White;
             this.btnAdd4.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd4.Location = new System.Drawing.Point(447, 177);
-            this.btnAdd4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd4.Location = new System.Drawing.Point(313, 106);
             this.btnAdd4.Name = "btnAdd4";
-            this.btnAdd4.Size = new System.Drawing.Size(43, 38);
+            this.btnAdd4.Size = new System.Drawing.Size(30, 23);
             this.btnAdd4.TabIndex = 2;
             this.btnAdd4.Text = "+";
             this.btnAdd4.UseVisualStyleBackColor = false;
@@ -437,10 +411,9 @@ namespace ConferencePlanner.WinUi
             // 
             this.listView5.FullRowSelect = true;
             this.listView5.HideSelection = false;
-            this.listView5.Location = new System.Drawing.Point(31, 42);
-            this.listView5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listView5.Location = new System.Drawing.Point(22, 25);
             this.listView5.Name = "listView5";
-            this.listView5.Size = new System.Drawing.Size(293, 269);
+            this.listView5.Size = new System.Drawing.Size(206, 163);
             this.listView5.TabIndex = 1;
             this.listView5.UseCompatibleStateImageBehavior = false;
             this.listView5.SelectedIndexChanged += new System.EventHandler(this.listView5_SelectedIndexChanged);
@@ -453,10 +426,9 @@ namespace ConferencePlanner.WinUi
             this.btnNext5.Enabled = false;
             this.btnNext5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNext5.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNext5.Location = new System.Drawing.Point(383, 262);
-            this.btnNext5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNext5.Location = new System.Drawing.Point(268, 157);
             this.btnNext5.Name = "btnNext5";
-            this.btnNext5.Size = new System.Drawing.Size(133, 82);
+            this.btnNext5.Size = new System.Drawing.Size(93, 49);
             this.btnNext5.TabIndex = 0;
             this.btnNext5.Text = "Next";
             this.btnNext5.UseVisualStyleBackColor = false;
@@ -468,10 +440,9 @@ namespace ConferencePlanner.WinUi
             this.tabCategory.Controls.Add(this.btnAdd6);
             this.tabCategory.Controls.Add(this.listView6);
             this.tabCategory.Controls.Add(this.btnSave);
-            this.tabCategory.Location = new System.Drawing.Point(4, 37);
-            this.tabCategory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabCategory.Location = new System.Drawing.Point(4, 27);
             this.tabCategory.Name = "tabCategory";
-            this.tabCategory.Size = new System.Drawing.Size(523, 354);
+            this.tabCategory.Size = new System.Drawing.Size(364, 206);
             this.tabCategory.TabIndex = 5;
             this.tabCategory.Text = "Category";
             // 
@@ -479,10 +450,9 @@ namespace ConferencePlanner.WinUi
             // 
             this.btnAdd6.BackColor = System.Drawing.Color.White;
             this.btnAdd6.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd6.Location = new System.Drawing.Point(447, 177);
-            this.btnAdd6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAdd6.Location = new System.Drawing.Point(313, 106);
             this.btnAdd6.Name = "btnAdd6";
-            this.btnAdd6.Size = new System.Drawing.Size(43, 38);
+            this.btnAdd6.Size = new System.Drawing.Size(30, 23);
             this.btnAdd6.TabIndex = 12;
             this.btnAdd6.Text = "+";
             this.btnAdd6.UseVisualStyleBackColor = false;
@@ -492,10 +462,9 @@ namespace ConferencePlanner.WinUi
             // 
             this.listView6.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listView6.HideSelection = false;
-            this.listView6.Location = new System.Drawing.Point(31, 42);
-            this.listView6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listView6.Location = new System.Drawing.Point(22, 25);
             this.listView6.Name = "listView6";
-            this.listView6.Size = new System.Drawing.Size(293, 269);
+            this.listView6.Size = new System.Drawing.Size(206, 163);
             this.listView6.TabIndex = 11;
             this.listView6.UseCompatibleStateImageBehavior = false;
             this.listView6.SelectedIndexChanged += new System.EventHandler(this.listView6_SelectedIndexChanged);
@@ -506,10 +475,9 @@ namespace ConferencePlanner.WinUi
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSave.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(383, 262);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSave.Location = new System.Drawing.Point(268, 157);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(133, 82);
+            this.btnSave.Size = new System.Drawing.Size(93, 49);
             this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -521,10 +489,9 @@ namespace ConferencePlanner.WinUi
             this.btnSaveNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveNew.BackColor = System.Drawing.Color.White;
             this.btnSaveNew.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveNew.Location = new System.Drawing.Point(843, 289);
-            this.btnSaveNew.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSaveNew.Location = new System.Drawing.Point(590, 173);
             this.btnSaveNew.Name = "btnSaveNew";
-            this.btnSaveNew.Size = new System.Drawing.Size(216, 91);
+            this.btnSaveNew.Size = new System.Drawing.Size(151, 55);
             this.btnSaveNew.TabIndex = 11;
             this.btnSaveNew.Text = "Save and New";
             this.btnSaveNew.UseVisualStyleBackColor = false;
@@ -533,11 +500,11 @@ namespace ConferencePlanner.WinUi
             // 
             // AddEvent
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1126, 570);
+            this.ClientSize = new System.Drawing.Size(788, 342);
             this.Controls.Add(this.btnSaveNew);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.AddEndDate);
@@ -548,8 +515,7 @@ namespace ConferencePlanner.WinUi
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(1136, 586);
+            this.MinimumSize = new System.Drawing.Size(800, 367);
             this.Name = "AddEvent";
             this.Text = "AddEvent";
             this.tabControl1.ResumeLayout(false);
