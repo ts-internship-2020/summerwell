@@ -280,7 +280,7 @@ namespace ConferencePlanner.WinUi
 
         }
         private void btnSave_Click(object sender, EventArgs e)
-        { if (AddEndDate.Value < System.DateTime.Now) MessageBox.Show("Please select a Start Date after current date");
+        { if (AddStartDate.Value < System.DateTime.Now) MessageBox.Show("Please select a Start Date after current date");
             else
             {
                 try
