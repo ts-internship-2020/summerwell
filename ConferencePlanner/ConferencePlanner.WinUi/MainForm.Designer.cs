@@ -121,6 +121,8 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 26);
             this.dateTimePicker2.TabIndex = 2;
             this.dateTimePicker2.Value = new System.DateTime(1960, 7, 14, 0, 0, 0, 0);
+            this.dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            this.dateTimePicker2.CustomFormat = "dd'/'MM'/'yyyy hh':'mm tt";
             // 
             // button2
             // 
@@ -314,11 +316,15 @@ namespace ConferencePlanner.WinUi
             // dateTimePicker1
             // 
             this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTimePicker1.CustomFormat = "MMMM dd, yyyy - dddd";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(444, 31);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 26);
             this.dateTimePicker1.TabIndex = 1;
             this.dateTimePicker1.Value = new System.DateTime(2100, 6, 16, 0, 0, 0, 0);
+            this.dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            this.dateTimePicker1.CustomFormat = "dd'/'MM'/'yyyy hh':'mm tt";
             // 
             // tabPage2
             // 
@@ -524,6 +530,8 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker4.Size = new System.Drawing.Size(200, 26);
             this.dateTimePicker4.TabIndex = 4;
             this.dateTimePicker4.Value = new System.DateTime(1921, 3, 4, 0, 0, 0, 0);
+            this.dateTimePicker4.Format = DateTimePickerFormat.Custom;
+            this.dateTimePicker4.CustomFormat = "dd'/'MM'/'yyyy hh':'mm tt";
             // 
             // dateTimePicker3
             // 
@@ -535,6 +543,8 @@ namespace ConferencePlanner.WinUi
             this.dateTimePicker3.Size = new System.Drawing.Size(200, 26);
             this.dateTimePicker3.TabIndex = 3;
             this.dateTimePicker3.Value = new System.DateTime(2100, 7, 16, 0, 0, 0, 0);
+            this.dateTimePicker3.Format = DateTimePickerFormat.Custom;
+            this.dateTimePicker3.CustomFormat = "dd'/'MM'/'yyyy hh':'mm tt";
             // 
             // label4
             // 
