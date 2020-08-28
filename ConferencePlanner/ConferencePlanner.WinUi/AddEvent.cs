@@ -518,5 +518,44 @@ namespace ConferencePlanner.WinUi
             formMain.Enabled = true;
             formMain.PopulateMamam();
         }
+
+       
+
+        private void tabType_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void DeleteType_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId);
+            RefreshLists("DictionaryType");
+        }
+
+        private void DeleteSpeaker_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteSpeaker(eventDetails.SpeakerId);
+            RefreshLists("Speaker");
+        }
+
+        private void DeleteCounty_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteCity_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteCountry_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteCountry(eventDetails.DictionaryCountryId);
+            RefreshLists("DictionaryCountry");
+        }
     }
 }
