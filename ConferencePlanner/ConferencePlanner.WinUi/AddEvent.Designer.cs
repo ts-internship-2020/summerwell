@@ -179,6 +179,8 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 8;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl1.ItemSize = new Size(0, 1);
+            this.tabControl1.SizeMode = TabSizeMode.Fixed;
             // 
             // tabType
             // 
