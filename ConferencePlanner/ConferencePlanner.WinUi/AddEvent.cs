@@ -1,5 +1,4 @@
 ﻿using Google.Protobuf.WellKnownTypes;
-using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -165,7 +164,7 @@ namespace ConferencePlanner.WinUi
 
             foreach (var speaker in speakers)
             {
-                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.SpeakerId.ToString() }));
+                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
             }
         }
         private void populateCountry(List<DictionaryCountryModel> countries)
@@ -281,6 +280,8 @@ namespace ConferencePlanner.WinUi
         }
         private void btnSave_Click(object sender, EventArgs e)
         { if (AddStartDate.Value < System.DateTime.Now) MessageBox.Show("Please select a Start Date after current date");
+          else  if (AddEndDate.Value < AddStartDate.Value) MessageBox.Show("Please select a End Date after Start Date");
+            else if (AddConferenceName.Text == "" || AddConferenceName.Text == null) MessageBox.Show("Please select a Start Date after current date");
             else
             {
                 try
@@ -313,7 +314,7 @@ namespace ConferencePlanner.WinUi
                     }
                     this.Close();
                 }
-                catch { MessageBox.Show("Invalid End Date"); }
+                catch { MessageBox.Show("Camp invalid"); }
             }
             }
         private void btnSaveNew_Click(object sender, EventArgs e)
@@ -373,6 +374,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.SpeakerName = selectedItem.SubItems[0].Text;
                 eventDetails.SpeakerRating = selectedItem.SubItems[1].Text;
                 eventDetails.SpeakerId = Int32.Parse(selectedItem.SubItems[2].Text);
+                eventDetails.SpeakerEmail = selectedItem.SubItems[3].Text;
                 btnNext3.Enabled = true;
             }
 

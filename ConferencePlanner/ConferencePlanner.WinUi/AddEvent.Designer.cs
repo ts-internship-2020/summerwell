@@ -148,6 +148,8 @@ namespace ConferencePlanner.WinUi
             this.AddStartDate.Name = "AddStartDate";
             this.AddStartDate.Size = new System.Drawing.Size(200, 23);
             this.AddStartDate.TabIndex = 6;
+            this.AddStartDate.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
+            this.AddStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             // 
             // AddEndDate
             // 
@@ -157,6 +159,8 @@ namespace ConferencePlanner.WinUi
             this.AddEndDate.Name = "AddEndDate";
             this.AddEndDate.Size = new System.Drawing.Size(200, 23);
             this.AddEndDate.TabIndex = 7;
+            this.AddEndDate.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
+            this.AddEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             // 
             // tabControl1
             // 

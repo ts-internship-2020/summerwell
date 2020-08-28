@@ -498,7 +498,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.CommandText = "UPDATE ConferenceAudience " +
                                     "SET ConferenceStatusId = @ConferenceStatusId " +
                                     "WHERE Participant = @Participant and ConferenceId = @ConferenceId " +
-                                    "and ConferenceStatusId = 3";
+                                    "and (ConferenceStatusId = 3 or ConferenceStatusId = 1)";
             command.Parameters.Add("@ConferenceStatusId ", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
             command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
             command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;

@@ -27,7 +27,6 @@ namespace ConferencePlanner.WinUi
 
 
             InitializeComponent();
-
             _ConferenceRepository = ConferenceRepository;
             DetailEvent = EventDetail;
             form4 = f;
@@ -38,7 +37,15 @@ namespace ConferencePlanner.WinUi
             if (dictionary.ToString() == "Speaker") label1.Text = "Email";
             if (dictionary.ToString() == "DictionaryCategory") { label1.Visible = false; textBox1.Visible = false; }
             if (dictionary.ToString() == "DictionaryType") { label1.Visible = false; textBox1.Visible = false; checkBox1.Visible = true; }
-            
+            if (EditOrSave)
+            {
+                if (dictionary.ToString() == "Speaker") { textBox1.Text = DetailEvent.SpeakerEmail; textBox2.Text = EventDetail.SpeakerName ; }
+                if (dictionary.ToString() == "DictionaryCategory") { textBox2.Text = EventDetail.DictionaryConferenceCategoryName; }
+                if (dictionary.ToString() == "DictionaryType") { textBox2.Text = EventDetail.ConferenceTypeName; checkBox1.Checked = EventDetail.isRemote; }
+                if (dictionary.ToString() == "DictionaryCity") { textBox1.Text = EventDetail.DictionaryCityCode; textBox2.Text = EventDetail.DictionaryCityName; }
+                if (dictionary.ToString() == "DictionaryCountry") { textBox1.Text = EventDetail.DictionaryCountryCode; textBox2.Text = EventDetail.DictionaryCountryName; }
+                if (dictionary.ToString() == "DictionaryCounty") { textBox1.Text = EventDetail.DictionaryCountyCode; textBox2.Text = EventDetail.DictionaryCountyName; }
+            }
         }
         private void BtnSave_Click(object sender, EventArgs e)
         {
