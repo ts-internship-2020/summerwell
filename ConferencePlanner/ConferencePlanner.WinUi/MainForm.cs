@@ -109,7 +109,7 @@ namespace ConferencePlanner.WinUi
                 {
                     dataGridView1.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].DictionaryConferenceTypeName,
                                        x[i].DictionaryConferenceCategoryName,
-                                       x[i].DictionaryCityName,
+                                       x[i].LocationStreet,
                                        x[i].SpeakerName,
                                        null, null, null, x[i].ConferenceId);
                 }
@@ -117,19 +117,19 @@ namespace ConferencePlanner.WinUi
 
 
         }
-        private void populateHostGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
-        {
-            for (int i = startingPoint; i < endingPoint; i++)
-            {
-                if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
+        private void populateHostGridViewByDate(int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
+            {   
+                for (int i = startingPoint; i < endingPoint; i++)
                 {
-                    dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate, y[i].EndDate, y[i].DictionaryConferenceTypeName,
-                              y[i].DictionaryConferenceCategoryName,
-                              y[i].DictionaryCityName,
-                              y[i].SpeakerName,
-                              null, y[i].ConferenceId);
+                    if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
+                    {
+                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate,y[i].EndDate, y[i].DictionaryConferenceTypeName,
+                                  y[i].DictionaryConferenceCategoryName,
+                                  y[i].LocationStreet,
+                                  y[i].SpeakerName,
+                                  null,  y[i].ConferenceId);
+                    }
                 }
-            }
 
 
         }
