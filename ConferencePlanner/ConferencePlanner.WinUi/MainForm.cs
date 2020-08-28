@@ -514,14 +514,13 @@ namespace ConferencePlanner.WinUi
                 return;
             }
         }
-
-        
+      
 
 
         private void nextPage(object sender, EventArgs e)
         {
 
-            if(startingPoint < totalEntries - 5)
+            if(startingPoint <= totalEntries - 5)
             {
                 startingPoint += 5;
                 dataGridView1.Rows.Clear();
@@ -564,16 +563,12 @@ namespace ConferencePlanner.WinUi
                     populateHostGridViewByDate(HoststartingPoint, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
                 }
             }
-            else if (HoststartingPoint < HosttotalEntries)
+            else if (HoststartingPoint ==HosttotalEntries)
             {
-                dataGridView2.Rows.Clear();
-                populateHostGridViewByDate(HoststartingPoint, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
-                HoststartingPoint = HosttotalEntries;
-            }
-            else
-            {
+                Refresh();
                 return;
             }
+            
         }
 
         private void btnBackHost_Click(object sender, EventArgs e)
@@ -599,6 +594,7 @@ namespace ConferencePlanner.WinUi
                 return;
             }
         }
+
 
         private void button3_Click(object sender, EventArgs e)
         {
