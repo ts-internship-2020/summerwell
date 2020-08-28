@@ -58,6 +58,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferences;
         }
+        public void RatingChange(int Nota, string Name)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT Speaker, Rating, NoRating " +
+                                        "FROM Speaker";
+        }
         public List<ConferenceDetailModel> GetConferenceDetail()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
@@ -124,6 +130,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
+        
         public List<ConferenceDetailModel> GetConferenceDetail(DateTime StartDate, DateTime EndDate)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
