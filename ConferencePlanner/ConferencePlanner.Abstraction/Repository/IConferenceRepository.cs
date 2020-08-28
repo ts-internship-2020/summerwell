@@ -18,7 +18,7 @@ namespace ConferencePlanner.Abstraction.Repository
         void AddCountry(string Code, string Name);
         void AddCounty(string Code, string Name, string country);
         void AddCity(string Code, string Name,string county);
-        void AddSpeaker(string Code, string Name);
+        void AddSpeaker(string Code, string Name,string Nationality);
         void AddType(string Name, bool isRemote);
         void AddCategory(string Name);
         void EditCountry(int Id, string Code, string Name);
@@ -26,7 +26,7 @@ namespace ConferencePlanner.Abstraction.Repository
         void EditCategory(int Id ,string Name);
         void EditCounty(string Code, string Name, int CountyId);
         void EditCity(string Code, string Name, int CityId);
-        void EditSpeaker(string Email, string Name, int SpeakerId);
+        void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality);
         void AddConference(AddEventDetailModel addEvent);
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string newConferenceName);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
