@@ -687,7 +687,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             catch { LocationId = 69; }
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
-                                    "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
+                "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
             command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
             command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = LocationId;
             command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
@@ -695,13 +695,9 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
             command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
             command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
-            command.Parameters.Add("@ConferenceId", SqlDbType.Int).Direction = ParameterDirection.Output;
             command.ExecuteNonQuery();
 
-               
-          
-                
-                AddConferenceXSpeaker((int)command.Parameters["@ConferenceId"].Value, eventDetail.SpeakerId);
+            AddConferenceXSpeaker((int)command.Parameters["@ConferenceId"].Value, eventDetail.SpeakerId);
                 
             }
         public int AddLocationId(int CityId,string Street) 
