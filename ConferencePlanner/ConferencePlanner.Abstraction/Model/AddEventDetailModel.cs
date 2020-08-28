@@ -8,7 +8,7 @@ namespace ConferencePlanner.Abstraction.Model
     public class AddEventDetailModel
     {
         public int ConferenceTypeId { get; set; }
-        public string SpeakerEmail { get; set; }
+        
         public bool isRemote { get; set; }
         public string LocationName { get; set; }
         public int ConferenceId { get; set; }
@@ -18,6 +18,8 @@ namespace ConferencePlanner.Abstraction.Model
         public string DictionaryCountryName { get; set; }
         public string SpeakerName { get; set; }
         public string SpeakerRating { get; set; }
+        public string SpeakerNationality { get; set; }
+        public string SpeakerEmail { get; set; }
         public int DictionaryCountyId { get; set; }
         public string DictionaryCountyCode { get; set; }
         public string DictionaryCountyName { get; set; }
