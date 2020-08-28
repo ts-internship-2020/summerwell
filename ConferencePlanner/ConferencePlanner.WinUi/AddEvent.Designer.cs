@@ -42,30 +42,30 @@ namespace ConferencePlanner.WinUi
             this.AddEndDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabType = new System.Windows.Forms.TabPage();
+            this.btnAdd1 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.btnNext = new System.Windows.Forms.Button();
             this.tabCountry = new System.Windows.Forms.TabPage();
+            this.btnAdd2 = new System.Windows.Forms.Button();
             this.listView2 = new System.Windows.Forms.ListView();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.tabSpeaker = new System.Windows.Forms.TabPage();
+            this.btnAdd3 = new System.Windows.Forms.Button();
             this.listView3 = new System.Windows.Forms.ListView();
             this.btnNext3 = new System.Windows.Forms.Button();
             this.tabCounty = new System.Windows.Forms.TabPage();
+            this.btnAdd5 = new System.Windows.Forms.Button();
             this.listView4 = new System.Windows.Forms.ListView();
             this.btnNext4 = new System.Windows.Forms.Button();
             this.tabCity = new System.Windows.Forms.TabPage();
+            this.btnAdd4 = new System.Windows.Forms.Button();
             this.listView5 = new System.Windows.Forms.ListView();
             this.btnNext5 = new System.Windows.Forms.Button();
             this.tabCategory = new System.Windows.Forms.TabPage();
+            this.btnAdd6 = new System.Windows.Forms.Button();
             this.listView6 = new System.Windows.Forms.ListView();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
-            this.btnAdd1 = new System.Windows.Forms.Button();
-            this.btnAdd2 = new System.Windows.Forms.Button();
-            this.btnAdd3 = new System.Windows.Forms.Button();
-            this.btnAdd4 = new System.Windows.Forms.Button();
-            this.btnAdd5 = new System.Windows.Forms.Button();
-            this.btnAdd6 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabType.SuspendLayout();
             this.tabCountry.SuspendLayout();
@@ -77,7 +77,7 @@ namespace ConferencePlanner.WinUi
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(402, 28);
             this.label1.Name = "label1";
@@ -87,7 +87,7 @@ namespace ConferencePlanner.WinUi
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(447, 67);
             this.label2.Name = "label2";
@@ -97,7 +97,7 @@ namespace ConferencePlanner.WinUi
             // 
             // label3
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(451, 112);
             this.label3.Name = "label3";
@@ -107,7 +107,7 @@ namespace ConferencePlanner.WinUi
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(456, 148);
             this.label4.Name = "label4";
@@ -117,7 +117,7 @@ namespace ConferencePlanner.WinUi
             // 
             // AddConferenceName
             // 
-            this.AddConferenceName.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddConferenceName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddConferenceName.Location = new System.Drawing.Point(522, 25);
             this.AddConferenceName.Name = "AddConferenceName";
             this.AddConferenceName.Size = new System.Drawing.Size(200, 23);
@@ -125,7 +125,7 @@ namespace ConferencePlanner.WinUi
             // 
             // AddAddress
             // 
-            this.AddAddress.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddAddress.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddAddress.Location = new System.Drawing.Point(522, 145);
             this.AddAddress.Name = "AddAddress";
             this.AddAddress.Size = new System.Drawing.Size(200, 23);
@@ -133,7 +133,7 @@ namespace ConferencePlanner.WinUi
             // 
             // AddStartDate
             // 
-            this.AddStartDate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddStartDate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddStartDate.Location = new System.Drawing.Point(522, 61);
             this.AddStartDate.Name = "AddStartDate";
             this.AddStartDate.Size = new System.Drawing.Size(200, 23);
@@ -141,7 +141,7 @@ namespace ConferencePlanner.WinUi
             // 
             // AddEndDate
             // 
-            this.AddEndDate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.AddEndDate.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.AddEndDate.Location = new System.Drawing.Point(522, 106);
             this.AddEndDate.Name = "AddEndDate";
             this.AddEndDate.Size = new System.Drawing.Size(200, 23);
@@ -149,9 +149,7 @@ namespace ConferencePlanner.WinUi
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Controls.Add(this.tabType);
             this.tabControl1.Controls.Add(this.tabCountry);
@@ -179,6 +177,16 @@ namespace ConferencePlanner.WinUi
             this.tabType.Size = new System.Drawing.Size(364, 206);
             this.tabType.TabIndex = 0;
             this.tabType.Text = "Conference Type";
+            // 
+            // btnAdd1
+            // 
+            this.btnAdd1.Location = new System.Drawing.Point(313, 106);
+            this.btnAdd1.Name = "btnAdd1";
+            this.btnAdd1.Size = new System.Drawing.Size(30, 23);
+            this.btnAdd1.TabIndex = 11;
+            this.btnAdd1.Text = "+";
+            this.btnAdd1.UseVisualStyleBackColor = true;
+            this.btnAdd1.Click += new System.EventHandler(this.btnAdd1_Click);
             // 
             // listView1
             // 
@@ -216,6 +224,16 @@ namespace ConferencePlanner.WinUi
             this.tabCountry.Text = "Country";
             this.tabCountry.UseVisualStyleBackColor = true;
             // 
+            // btnAdd2
+            // 
+            this.btnAdd2.Location = new System.Drawing.Point(313, 106);
+            this.btnAdd2.Name = "btnAdd2";
+            this.btnAdd2.Size = new System.Drawing.Size(30, 23);
+            this.btnAdd2.TabIndex = 2;
+            this.btnAdd2.Text = "+";
+            this.btnAdd2.UseVisualStyleBackColor = true;
+            this.btnAdd2.Click += new System.EventHandler(this.btnAdd2_Click);
+            // 
             // listView2
             // 
             this.listView2.FullRowSelect = true;
@@ -247,12 +265,22 @@ namespace ConferencePlanner.WinUi
             this.tabSpeaker.Controls.Add(this.listView3);
             this.tabSpeaker.Controls.Add(this.btnNext3);
             this.tabSpeaker.Enabled = false;
-            this.tabSpeaker.Location = new System.Drawing.Point(4, 37);
+            this.tabSpeaker.Location = new System.Drawing.Point(4, 27);
             this.tabSpeaker.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabSpeaker.Name = "tabSpeaker";
             this.tabSpeaker.Size = new System.Drawing.Size(364, 206);
             this.tabSpeaker.TabIndex = 2;
             this.tabSpeaker.Text = "Speaker";
+            // 
+            // btnAdd3
+            // 
+            this.btnAdd3.Location = new System.Drawing.Point(313, 106);
+            this.btnAdd3.Name = "btnAdd3";
+            this.btnAdd3.Size = new System.Drawing.Size(30, 23);
+            this.btnAdd3.TabIndex = 2;
+            this.btnAdd3.Text = "+";
+            this.btnAdd3.UseVisualStyleBackColor = true;
+            this.btnAdd3.Click += new System.EventHandler(this.btnAdd3_Click);
             // 
             // listView3
             // 
@@ -288,6 +316,16 @@ namespace ConferencePlanner.WinUi
             this.tabCounty.Size = new System.Drawing.Size(364, 206);
             this.tabCounty.TabIndex = 3;
             this.tabCounty.Text = "County";
+            // 
+            // btnAdd5
+            // 
+            this.btnAdd5.Location = new System.Drawing.Point(313, 106);
+            this.btnAdd5.Name = "btnAdd5";
+            this.btnAdd5.Size = new System.Drawing.Size(30, 23);
+            this.btnAdd5.TabIndex = 2;
+            this.btnAdd5.Text = "+";
+            this.btnAdd5.UseVisualStyleBackColor = true;
+            this.btnAdd5.Click += new System.EventHandler(this.btnAdd5_Click);
             // 
             // listView4
             // 
@@ -325,6 +363,16 @@ namespace ConferencePlanner.WinUi
             this.tabCity.TabIndex = 4;
             this.tabCity.Text = "City";
             // 
+            // btnAdd4
+            // 
+            this.btnAdd4.Location = new System.Drawing.Point(313, 106);
+            this.btnAdd4.Name = "btnAdd4";
+            this.btnAdd4.Size = new System.Drawing.Size(30, 23);
+            this.btnAdd4.TabIndex = 2;
+            this.btnAdd4.Text = "+";
+            this.btnAdd4.UseVisualStyleBackColor = true;
+            this.btnAdd4.Click += new System.EventHandler(this.btnAdd4_Click);
+            // 
             // listView5
             // 
             this.listView5.FullRowSelect = true;
@@ -361,6 +409,16 @@ namespace ConferencePlanner.WinUi
             this.tabCategory.TabIndex = 5;
             this.tabCategory.Text = "Category";
             // 
+            // btnAdd6
+            // 
+            this.btnAdd6.Location = new System.Drawing.Point(313, 106);
+            this.btnAdd6.Name = "btnAdd6";
+            this.btnAdd6.Size = new System.Drawing.Size(30, 23);
+            this.btnAdd6.TabIndex = 12;
+            this.btnAdd6.Text = "+";
+            this.btnAdd6.UseVisualStyleBackColor = true;
+            this.btnAdd6.Click += new System.EventHandler(this.btnAdd6_Click);
+            // 
             // listView6
             // 
             this.listView6.HideSelection = false;
@@ -387,7 +445,7 @@ namespace ConferencePlanner.WinUi
             // btnSaveNew
             // 
             this.btnSaveNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveNew.Location = new System.Drawing.Point(629, 200);
+            this.btnSaveNew.Location = new System.Drawing.Point(629, 235);
             this.btnSaveNew.Name = "btnSaveNew";
             this.btnSaveNew.Size = new System.Drawing.Size(93, 49);
             this.btnSaveNew.TabIndex = 11;
@@ -395,66 +453,6 @@ namespace ConferencePlanner.WinUi
             this.btnSaveNew.UseVisualStyleBackColor = true;
             this.btnSaveNew.Visible = false;
             this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
-            // 
-            // btnAdd1
-            // 
-            this.btnAdd1.Location = new System.Drawing.Point(313, 106);
-            this.btnAdd1.Name = "btnAdd1";
-            this.btnAdd1.Size = new System.Drawing.Size(30, 23);
-            this.btnAdd1.TabIndex = 11;
-            this.btnAdd1.Text = "+";
-            this.btnAdd1.UseVisualStyleBackColor = true;
-            this.btnAdd1.Click += new System.EventHandler(this.btnAdd1_Click);
-            // 
-            // btnAdd2
-            // 
-            this.btnAdd2.Location = new System.Drawing.Point(313, 106);
-            this.btnAdd2.Name = "btnAdd2";
-            this.btnAdd2.Size = new System.Drawing.Size(30, 23);
-            this.btnAdd2.TabIndex = 2;
-            this.btnAdd2.Text = "+";
-            this.btnAdd2.UseVisualStyleBackColor = true;
-            this.btnAdd2.Click += new System.EventHandler(this.btnAdd2_Click);
-            // 
-            // btnAdd3
-            // 
-            this.btnAdd3.Location = new System.Drawing.Point(313, 106);
-            this.btnAdd3.Name = "btnAdd3";
-            this.btnAdd3.Size = new System.Drawing.Size(30, 23);
-            this.btnAdd3.TabIndex = 2;
-            this.btnAdd3.Text = "+";
-            this.btnAdd3.UseVisualStyleBackColor = true;
-            this.btnAdd3.Click += new System.EventHandler(this.btnAdd3_Click);
-            // 
-            // btnAdd4
-            // 
-            this.btnAdd4.Location = new System.Drawing.Point(313, 106);
-            this.btnAdd4.Name = "btnAdd4";
-            this.btnAdd4.Size = new System.Drawing.Size(30, 23);
-            this.btnAdd4.TabIndex = 2;
-            this.btnAdd4.Text = "+";
-            this.btnAdd4.UseVisualStyleBackColor = true;
-            this.btnAdd4.Click += new System.EventHandler(this.btnAdd4_Click);
-            // 
-            // btnAdd5
-            // 
-            this.btnAdd5.Location = new System.Drawing.Point(313, 106);
-            this.btnAdd5.Name = "btnAdd5";
-            this.btnAdd5.Size = new System.Drawing.Size(30, 23);
-            this.btnAdd5.TabIndex = 2;
-            this.btnAdd5.Text = "+";
-            this.btnAdd5.UseVisualStyleBackColor = true;
-            this.btnAdd5.Click += new System.EventHandler(this.btnAdd5_Click);
-            // 
-            // btnAdd6
-            // 
-            this.btnAdd6.Location = new System.Drawing.Point(313, 106);
-            this.btnAdd6.Name = "btnAdd6";
-            this.btnAdd6.Size = new System.Drawing.Size(30, 23);
-            this.btnAdd6.TabIndex = 12;
-            this.btnAdd6.Text = "+";
-            this.btnAdd6.UseVisualStyleBackColor = true;
-            this.btnAdd6.Click += new System.EventHandler(this.btnAdd6_Click);
             // 
             // AddEvent
             // 
