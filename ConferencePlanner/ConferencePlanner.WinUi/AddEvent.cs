@@ -74,13 +74,6 @@ namespace ConferencePlanner.WinUi
             _ConferenceTypeRepository = ConferenceTypeRepository;
             x = _ConferenceTypeRepository.GetConferenceType();
 
-            if (ConferenceName != null)
-            {
-                AddConferenceName.Text = ConferenceName;
-                AddStartDate.Value = CoferenceStartDate;
-                AddEndDate.Value = ConferenceEndDate;
-                AddAddress.Text = ConferenceAddress;
-            }
             if (countries == null) { return; }
             else
             {
@@ -119,7 +112,7 @@ namespace ConferencePlanner.WinUi
             eventDetails.StartDate = AddStartDate.Value;
             eventDetails.EndDate = AddEndDate.Value;
 
-            if (addConferenceDetailModel.ConferenceName != null)
+            if (editnew == 0)
             {
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
                 eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
