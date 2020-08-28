@@ -685,19 +685,19 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 LocationId = AddLocationId(eventDetail.DictionaryCityId, eventDetail.LocationName);
             }
             catch { LocationId = 69; }
-            SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
-                "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
-            command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
-            command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = LocationId;
-            command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
-            command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
-            command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
-            command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
-            command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
-            command.ExecuteNonQuery();
+                SqlCommand command = _sqlConnection.CreateCommand();
+                command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
+                                    "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName) SELECT @@IDENTITY ";
+                command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
+                command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = LocationId;
+                command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
+                command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
+                command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
+                command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
+                command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
+                int ConferenceId = Convert.ToInt32(command.ExecuteScalar());
 
-            AddConferenceXSpeaker((int)command.Parameters["@ConferenceId"].Value, eventDetail.SpeakerId);
+                AddConferenceXSpeaker(ConferenceId, eventDetail.SpeakerId);
                 
             }
         public int AddLocationId(int CityId,string Street) 

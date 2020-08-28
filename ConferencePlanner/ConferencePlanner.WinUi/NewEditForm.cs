@@ -62,7 +62,7 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "Speaker")
                 {
                     try { _ConferenceRepository.AddSpeaker(textBox1.Text, textBox2.Text, textBox3.Text); }
-                    catch { MessageBox.Show("Already Exists"); }
+                    catch { MessageBox.Show("Invalid Email"); }
                     form4.RefreshLists("Speaker");
                     form4.Enabled = true;
                     this.Close();
@@ -113,7 +113,7 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "Speaker")
                 {
                     try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text, DetailEvent.SpeakerId, textBox3.Text); }
-                    catch { MessageBox.Show("Something's wrong"); }
+                    catch { MessageBox.Show("Invalid Email"); }
                     form4.RefreshLists("Speaker");
                     form4.Enabled = true;
                     this.Close();
