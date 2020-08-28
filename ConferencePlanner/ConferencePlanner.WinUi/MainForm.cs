@@ -154,7 +154,7 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
-
+                    //,
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
