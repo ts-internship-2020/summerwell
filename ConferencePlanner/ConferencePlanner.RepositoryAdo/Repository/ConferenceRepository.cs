@@ -577,13 +577,14 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@CountyId", SqlDbType.Int, 100).Value = Int32.Parse(county);
             command.ExecuteNonQuery();
         }
-        public void AddSpeaker(string Email,string Name)
+        public void AddSpeaker(string Email,string Name,string Nationality)
         {
             SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "INSERT INTO Speaker (SpeakerName,SpeakerEmail) " +
-                                    "VALUES (@SpeakerName,@SpeakerEmail)";
+            command.CommandText = "INSERT INTO Speaker (SpeakerName,SpeakerEmail,Nationality) " +
+                                    "VALUES (@SpeakerName,@SpeakerEmail,@Nationality)";
             command.Parameters.Add("@SpeakerName", SqlDbType.VarChar, 100).Value = Name;
             command.Parameters.Add("@SpeakerEmail", SqlDbType.VarChar, 100).Value = Email;
+            command.Parameters.Add("@Nationality", SqlDbType.VarChar, 100).Value = Nationality;
             command.ExecuteNonQuery();
         }
         public void AddType(string Name, bool isRemote)
@@ -647,15 +648,16 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@CityId", SqlDbType.Int).Value = CityId;
             command.ExecuteNonQuery();
         }
-        public void EditSpeaker(string Email, string Name, int SpeakerId) 
+        public void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality) 
         {
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "UPDATE Speaker " +
-                "SET SpeakerName = @SpeakerName , SpeakerEmail = @SpeakerEmail " +
+                "SET SpeakerName = @SpeakerName , SpeakerEmail = @SpeakerEmail, Nationality = @Nationality " +
                 "WHERE SpeakerId = @SpeakerId ";
             command.Parameters.Add("@SpeakerName", SqlDbType.VarChar, 100).Value = Name;
             command.Parameters.Add("@SpeakerEmail", SqlDbType.VarChar, 100).Value = Email;
             command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = SpeakerId;
+            command.Parameters.Add("@Nationality", SqlDbType.VarChar, 100).Value = Nationality;
             command.ExecuteNonQuery();
         }
         public void EditType(int Id,string Name, bool isRemote) 
