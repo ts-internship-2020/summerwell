@@ -280,35 +280,42 @@ namespace ConferencePlanner.WinUi
 
         }
         private void btnSave_Click(object sender, EventArgs e)
-        { 
-            if (EditNew == 1)
-            {
-                eventDetails.ConferenceName = AddConferenceName.Text;
-                eventDetails.LocationName = AddAddress.Text;
-                eventDetails.StartDate = AddStartDate.Value;
-                eventDetails.EndDate = AddEndDate.Value;
-                _ConferenceRepository.AddConference(eventDetails);
-            }
+        { if (AddEndDate.Value < System.DateTime.Now) MessageBox.Show("Please select a Start Date after current date");
             else
             {
-                eventDetails.StartDate = AddStartDate.Value;
-                eventDetails.EndDate = AddEndDate.Value;
-                _ConferenceRepository.EditConference(eventDetails, AddAddress.Text, AddConferenceName.Text);
-            }
+                try
+                {
+                    if (EditNew == 1)
+                    {
+                        eventDetails.ConferenceName = AddConferenceName.Text;
+                        eventDetails.LocationName = AddAddress.Text;
+                        eventDetails.StartDate = AddStartDate.Value;
+                        eventDetails.EndDate = AddEndDate.Value;
+                        _ConferenceRepository.AddConference(eventDetails);
+                    }
+                    else
+                    {
+                        eventDetails.StartDate = AddStartDate.Value;
+                        eventDetails.EndDate = AddEndDate.Value;
+                        _ConferenceRepository.EditConference(eventDetails, AddAddress.Text, AddConferenceName.Text);
+                    }
 
-            string message = "Do you want a new Conference?";
-            string caption = "Error Detected in Input";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result;
+                    string message = "Do you want a new Conference?";
+                    string caption = "Error Detected in Input";
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result;
 
-            result = MessageBox.Show(message, caption,buttons);
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                this.Close();
-                formMain.AddEventNotEdit();
+                    result = MessageBox.Show(message, caption, buttons);
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        this.Close();
+                        formMain.AddEventNotEdit();
+                    }
+                    this.Close();
+                }
+                catch { MessageBox.Show("Invalid End Date"); }
             }
-                this.Close();
-        }
+            }
         private void btnSaveNew_Click(object sender, EventArgs e)
         {
 
