@@ -58,6 +58,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferences;
         }
+        public void RatingChange(int Nota, string Name)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT Speaker, Rating, NoRating " +
+                                        "FROM Speaker";
+        }
         public List<ConferenceDetailModel> GetConferenceDetail()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
@@ -124,6 +130,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
+        
         public List<ConferenceDetailModel> GetConferenceDetail(DateTime StartDate, DateTime EndDate)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
@@ -687,23 +694,15 @@ namespace ConferencePlanner.Repository.Ado.Repository
             catch { LocationId = 69; }
                 SqlCommand command = _sqlConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
-                                        "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
+                                    "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName) SELECT @@IDENTITY ";
                 command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
                 command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = LocationId;
                 command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
                 command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
                 command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
                 command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
-                command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName; 
-                command.ExecuteNonQuery();
-
-                SqlCommand commmand = _sqlConnection.CreateCommand();
-                commmand.CommandText = "Select ConferenceId from Conference Where ConferenceName = @ConferenceName";
-                commmand.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
-                SqlDataReader sqlDataReader = commmand.ExecuteReader();
-                sqlDataReader.Read();
-
-                int ConferenceId = sqlDataReader.GetInt32("ConferenceId");
+                command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
+                int ConferenceId = Convert.ToInt32(command.ExecuteScalar());
 
                 AddConferenceXSpeaker(ConferenceId, eventDetail.SpeakerId);
                 
