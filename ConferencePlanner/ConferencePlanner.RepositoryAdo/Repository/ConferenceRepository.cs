@@ -677,7 +677,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
         }
         public void AddConference(AddEventDetailModel eventDetail) 
             {
-                int LocationId = AddLocationId(eventDetail.DictionaryCityId,eventDetail.LocationName);
+            int LocationId = 0;
+            try
+            {
+                LocationId = AddLocationId(eventDetail.DictionaryCityId, eventDetail.LocationName);
+            }
+            catch { LocationId = 69; }
                 SqlCommand command = _sqlConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
                                         "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
@@ -741,9 +746,13 @@ namespace ConferencePlanner.Repository.Ado.Repository
         }
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string ConferenceName) 
         {
-            int findLocationId;
-            findLocationId = AddLocationId(eventDetail.DictionaryCityId, newAddress); 
-             
+            int findLocationId = 0;
+            try
+            {
+                findLocationId = AddLocationId(eventDetail.DictionaryCityId, newAddress);
+            }
+            catch { findLocationId = 69; }
+
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "UPDATE Conference SET ConferenceTypeId = @ConferenceTypeId ,LocationId = @LocationId," +
                 "ConferenceCategoryId = @ConferenceCategoryId ,HostEmail = @HostEmail," +
