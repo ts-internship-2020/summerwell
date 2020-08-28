@@ -154,7 +154,7 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
-                    //,
+                   
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
@@ -167,7 +167,8 @@ namespace ConferencePlanner.WinUi
                     }
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                    changeColorForSingleButton(dataGridView1, e.RowIndex);
+                    changeColorForSingleButton(e.RowIndex);
+                    changeColorForJoinButtons();
                     //InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
@@ -215,7 +216,8 @@ namespace ConferencePlanner.WinUi
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex - 2);
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                    changeColorForSingleButton(dataGridView1, e.RowIndex);
+                    changeColorForSingleButton(e.RowIndex);
+                    changeColorForJoinButtons();
 
                 }
             }
@@ -260,6 +262,7 @@ namespace ConferencePlanner.WinUi
             x.Clear();
             x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
             totalEntries = x.Count();
+            changeColorForJoinButtons();
         }
         private void timer1_Tick(object sender, EventArgs e, object datagrid, int row, int col)
         {
@@ -290,7 +293,36 @@ namespace ConferencePlanner.WinUi
                 System.Environment.Exit(1);
             }
         }
-        private void changeColorForSingleButton(object datagrid, int row)
+        private void changeColorForJoinButtons()
+        {
+            try
+            {
+                for (int i = 0; i < dataGridView1.RowCount; i++)
+                {
+                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[i].Cells[7]);
+                    bc.FlatStyle = FlatStyle.Flat;
+                    if (conferencesCurrentUserAttends.Exists(currentConference =>
+                                         currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[i].Cells["ConferenceId"].Value.ToString())
+                                         && currentConference.ConferenceStatusId == 3)
+                                         && DateTime.Now.AddMinutes(5) >= (DateTime)dataGridView1.Rows[i].Cells["StartDate"].Value)
+
+                    {
+                        bc.Style.BackColor = System.Drawing.Color.DarkGreen;
+                        bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                    }
+                    else
+                    {
+                        bc.Style.BackColor = System.Drawing.Color.DarkRed;
+                        bc.Style.ForeColor = System.Drawing.Color.DarkRed;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nothing to see here");
+            }
+        }
+        private void changeColorForSingleButton(int row)
         {
             // 
             // Button color
