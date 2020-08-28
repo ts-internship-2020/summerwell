@@ -586,13 +586,13 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@SpeakerEmail", SqlDbType.VarChar, 100).Value = Email;
             command.ExecuteNonQuery();
         }
-        public void AddType(string Name)
+        public void AddType(string Name, bool isRemote)
         {
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "INSERT INTO DictionaryConferenceType (DictionaryConferenceTypeName,IsRemote) " +
                                     "VALUES (@ConferenceName,@IsRemote)";
             command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = Name;
-            command.Parameters.Add("@IsRemote", SqlDbType.Int, 100).Value = 1;
+            command.Parameters.Add("@IsRemote", SqlDbType.Int, 100).Value = isRemote;
             command.ExecuteNonQuery();
         }
         public void AddCategory(string Name)
@@ -658,12 +658,13 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = SpeakerId;
             command.ExecuteNonQuery();
         }
-        public void EditType(int Id,string Name) 
+        public void EditType(int Id,string Name, bool isRemote) 
         {
             SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "UPDATE DictionaryConferenceType SET DictionaryConferenceTypeName = @ConferenceName WHERE DictionaryConferenceTypeId = @Id";
+            command.CommandText = "UPDATE DictionaryConferenceType SET DictionaryConferenceTypeName = @ConferenceName, isRemote = @isRemote WHERE DictionaryConferenceTypeId = @Id";
             command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = Name;
             command.Parameters.Add("@Id", SqlDbType.Int, 100).Value = Id;
+            command.Parameters.Add("@isRemote", SqlDbType.Int, 100).Value = isRemote;
             command.ExecuteNonQuery();
         }
         public void EditCategory(int Id, string Name) 
@@ -676,7 +677,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
         }
         public void AddConference(AddEventDetailModel eventDetail) 
             {
-                int LocationId = AddLocationId(eventDetail.DictionaryCityId,eventDetail.LocationName);
+            int LocationId = 0;
+            try
+            {
+                LocationId = AddLocationId(eventDetail.DictionaryCityId, eventDetail.LocationName);
+            }
+            catch { LocationId = 69; }
                 SqlCommand command = _sqlConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
                                         "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName)";
@@ -740,9 +746,13 @@ namespace ConferencePlanner.Repository.Ado.Repository
         }
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string ConferenceName) 
         {
-            int findLocationId;
-            findLocationId = AddLocationId(eventDetail.DictionaryCityId, newAddress); 
-             
+            int findLocationId = 0;
+            try
+            {
+                findLocationId = AddLocationId(eventDetail.DictionaryCityId, newAddress);
+            }
+            catch { findLocationId = 69; }
+
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "UPDATE Conference SET ConferenceTypeId = @ConferenceTypeId ,LocationId = @LocationId," +
                 "ConferenceCategoryId = @ConferenceCategoryId ,HostEmail = @HostEmail," +
@@ -763,7 +773,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                                 "WHERE ConferenceId = @ConferenceId";
             command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = eventDetail.SpeakerId;
             command.Parameters.Add("ConferenceId", SqlDbType.Int).Value = eventDetail.ConferenceId;
-            command.ExecuteNonQuery();
+            try { command.ExecuteNonQuery(); }
+            catch { };
 
         }
 

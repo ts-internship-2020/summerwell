@@ -16,6 +16,7 @@ using ConferencePlanner.Repository.Ado.Repository;
 using System.Drawing.Text;
 using Windows.UI.Xaml.Documents;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 
 namespace ConferencePlanner.WinUi
 {
@@ -32,7 +33,7 @@ namespace ConferencePlanner.WinUi
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
         private AddConferenceDetailModel addConferenceDetailModel;
-        private Timer reloadData;
+        private System.Windows.Forms.Timer reloadData;
         private int totalEntries;
         private int startingPoint;
         private int HosttotalEntries;
@@ -58,7 +59,7 @@ namespace ConferencePlanner.WinUi
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             currentUser = var_email;
             conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-            reloadData = new Timer();
+            reloadData = new System.Windows.Forms.Timer();
             reloadData.Tick += new EventHandler(timerReloadData_Tick);
             reloadData.Interval = 10000;
             reloadData.Start();
@@ -153,11 +154,12 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
-
+                    //,
                     try
                     {
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
-                        _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel);
+                        Thread thread = new Thread(() => _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel));
+                        thread.Start();
                     }
                     catch (SqlException ex)
                     {
@@ -165,7 +167,7 @@ namespace ConferencePlanner.WinUi
                     }
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                    changeColor();
+                    changeColorForSingleButton(dataGridView1, e.RowIndex);
                     //InitTimer(sender, e.RowIndex, e.ColumnIndex);
 
                 }
@@ -213,7 +215,7 @@ namespace ConferencePlanner.WinUi
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex - 2);
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                    changeColor();
+                    changeColorForSingleButton(dataGridView1, e.RowIndex);
 
                 }
             }
@@ -245,10 +247,10 @@ namespace ConferencePlanner.WinUi
             } catch { MessageBox.Show("Please press again!"); }
         }
 
-        private Timer timer1;
+        private System.Windows.Forms.Timer timer1;
         public void InitTimer(object datagrid, int row, int col)
         {
-            timer1 = new Timer();
+            timer1 = new System.Windows.Forms.Timer();
             timer1.Tick += (sender, e) => timer1_Tick(sender, e, datagrid, row, col);
             timer1.Interval = 10000; // 10 seconds / 10000 MillSecs
             timer1.Start();
@@ -276,19 +278,67 @@ namespace ConferencePlanner.WinUi
                     if (startDate.AddMinutes(5) <= now)
                     {
                         makeButtonGreen(datagrid, row, col + 2);
-                        Timer timer = (Timer)sender;
+                        System.Windows.Forms.Timer timer = (System.Windows.Forms.Timer)sender;
                         timer.Stop();
                     }
                 }
             }
             catch (System.ArgumentOutOfRangeException ex)
             {
-                Timer timer = (Timer)sender;
+                System.Windows.Forms.Timer timer = (System.Windows.Forms.Timer)sender;
                 timer.Stop();
                 System.Environment.Exit(1);
             }
         }
+        private void changeColorForSingleButton(object datagrid, int row)
+        {
+            // 
+            // Button color
+            // 
+            try
+            {
+                
+                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells[6]);
+                    bc.FlatStyle = FlatStyle.Flat;
+                    if (conferencesCurrentUserAttends.Exists(currentConference =>
+                                         currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
+                                         && currentConference.ConferenceStatusId == 3))
 
+                    {
+                        bc.Style.BackColor = System.Drawing.Color.DarkRed;
+                        bc.Style.ForeColor = System.Drawing.Color.DarkRed;
+                    }
+                    else
+                    {
+                        bc.Style.BackColor = System.Drawing.Color.DarkGreen;
+                        bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                    }
+                
+
+                    DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells[8]);
+                    bc1.FlatStyle = FlatStyle.Flat;
+                    if (conferencesCurrentUserAttends.Exists(currentConference =>
+                                         currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
+                                         && currentConference.ConferenceStatusId == 2))
+                    {
+                        bc1.Style.BackColor = System.Drawing.Color.DarkRed;
+                        bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+                    }
+                    else if (!conferencesCurrentUserAttends.Exists(currentConference =>
+                                          currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())))
+                    {
+                        bc1.Style.BackColor = System.Drawing.Color.DarkRed;
+                        bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+                    }
+                    else
+                    {
+                        bc1.Style.BackColor = System.Drawing.Color.DarkGreen;
+                        bc1.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                    }
+                
+            }
+            catch { }
+        }
         private void changeColor()
         {
             // 
