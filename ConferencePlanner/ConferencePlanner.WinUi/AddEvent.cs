@@ -545,12 +545,14 @@ namespace ConferencePlanner.WinUi
 
         private void DeleteCity_Click(object sender, EventArgs e)
         {
-
+            _ConferenceRepository.DeleteCity(eventDetails.DictionaryCityId);
+            RefreshLists("DictionaryCity");
         }
 
         private void DeleteCategory_Click(object sender, EventArgs e)
         {
-
+            _ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
+            RefreshLists("DictionaryCategory");
         }
 
         private void DeleteCountry_Click(object sender, EventArgs e)

@@ -31,6 +31,8 @@ namespace ConferencePlanner.Abstraction.Repository
         void DeleteCountry(int CountryId);
         void DeleteSpeaker(int SpeakerId);
         void DeleteCounty(int CountyId);
+        void DeleteCity(int CityId);
+        void DeleteCategory(int CategoryId);
         void AddConference(AddEventDetailModel addEvent);
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string newConferenceName);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);

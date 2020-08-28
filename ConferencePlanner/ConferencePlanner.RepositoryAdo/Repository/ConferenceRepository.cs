@@ -862,7 +862,51 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
          }
             
-            
+        public void DeleteCity(int CityId)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT l.LocationId " +
+                                "FROM Location l " +
+                                "WHERE CityId = @CityId";
+            sqlCommand.Parameters.Add("@CityId", SqlDbType.Int).Value = CityId;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    int locationId = sqlDataReader.GetInt32("LocationId");
+                    SqlCommand commandLocation = _sqlConnection.CreateCommand();
+                    commandLocation.CommandText = "UPDATE Conference " +
+                                                "SET LocationId = NULL " +
+                                                "WHERE LocationId = @LocationId";
+                    commandLocation.Parameters.Add("LocationId", SqlDbType.Int).Value = locationId;
+                    commandLocation.ExecuteNonQuery();
+                }
+            }
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "DELETE FROM Location " +
+                                "WHERE CityId = @CityId";
+            command.Parameters.Add("@CityId", SqlDbType.Int).Value = CityId;
+            command.ExecuteNonQuery();
+
+            command.CommandText = "DELETE FROM DictionaryCity " +
+                                "WHERE DictionaryCityId = @CityId";
+            command.ExecuteNonQuery();
+        }    
+
+        public void DeleteCategory(int CategoryId)
+        {
+            SqlCommand command = _sqlConnection.CreateCommand();
+            command.CommandText = "UPDATE Conference " +
+                                "SET ConferenceCategoryId = NULL " +
+                                "WHERE ConferenceCategoryId = @CategoryId";
+            command.Parameters.Add("@CategoryId", SqlDbType.Int).Value = CategoryId;
+            command.ExecuteNonQuery();
+
+            command.CommandText = "DELETE FROM DictionaryConferenceCategory " +
+                                "WHERE DictionaryConferenceCategoryId = @CategoryId";
+            command.ExecuteNonQuery();
+        }
         public void AddConference(AddEventDetailModel eventDetail) 
             {
             int LocationId = 0;
