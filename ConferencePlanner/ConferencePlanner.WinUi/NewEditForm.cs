@@ -37,7 +37,7 @@ namespace ConferencePlanner.WinUi
 
             if (dictionary.ToString() == "Speaker") label1.Text = "Email";
             if (dictionary.ToString() == "DictionaryCategory") { label1.Visible = false; textBox1.Visible = false; }
-            if (dictionary.ToString() == "DictionaryType") { label1.Visible = false; textBox1.Visible = false; }
+            if (dictionary.ToString() == "DictionaryType") { label1.Visible = false; textBox1.Visible = false; checkBox1.Visible = true; }
             
         }
         private void BtnSave_Click(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryType")
                 {
-                    try { _ConferenceRepository.AddType(textBox2.Text); }
+                    try { _ConferenceRepository.AddType(textBox2.Text,checkBox1.Checked); }
                     catch { MessageBox.Show("Already Exists"); }
                     form4.RefreshLists("DictionaryType");
                     form4.Enabled = true;
@@ -137,7 +137,7 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryType")
                 {
-                    try { _ConferenceRepository.EditType(DetailEvent.ConferenceTypeId, textBox2.Text); }
+                    try { _ConferenceRepository.EditType(DetailEvent.ConferenceTypeId, textBox2.Text, checkBox1.Checked); }
                     catch { MessageBox.Show("Something's wrong"); }
                     form4.RefreshLists("DictionaryType");
                     form4.Enabled = true;
