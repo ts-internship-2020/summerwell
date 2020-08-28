@@ -58,6 +58,34 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferences;
         }
+        public void RatingChange(int Nota, string Name)
+        {
+            int FinalRating = 0;
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT Rating, NumberOfRatings " +
+                                        "FROM Speaker WHERE SpeakerName = @SpeakerName";
+            sqlCommand.Parameters.Add("@SpeakerName", SqlDbType.VarChar, 100).Value = Name;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                while (sqlDataReader.Read())
+                {
+                    int NoRating = sqlDataReader.GetInt32("NumberOfRatings");
+                    int Rating = int.Parse(sqlDataReader.GetString("Rating"));
+                    FinalRating = ((Rating*NoRating)+Nota)/(NoRating+1);
+                    SqlCommand commmand = _sqlConnection.CreateCommand();
+                    commmand.CommandText = "UPDATE Speaker " +
+                                            "SET Rating = @Rating, NumberOfRatings = @NumberOfRatings " +
+                                            "WHERE SpeakerName = @SpeakerName ";
+                    commmand.Parameters.Add("@Rating ", SqlDbType.VarChar).Value = FinalRating.ToString();
+                    commmand.Parameters.Add("@SpeakerName ", SqlDbType.VarChar).Value = Name;
+                    commmand.Parameters.Add("@NumberOfRatings ", SqlDbType.Int).Value = NoRating+1;
+                    commmand.ExecuteNonQuery();
+
+                }
+
+            }
+        }
         public List<ConferenceDetailModel> GetConferenceDetail()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
@@ -124,6 +152,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             return conferenceDetails;
         }
+        
         public List<ConferenceDetailModel> GetConferenceDetail(DateTime StartDate, DateTime EndDate)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();

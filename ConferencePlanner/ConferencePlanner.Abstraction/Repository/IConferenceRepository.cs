@@ -32,6 +32,8 @@ namespace ConferencePlanner.Abstraction.Repository
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
         int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel);
 
+        void RatingChange(int Nota, string Name);
+
         string GetUniqueParticipantCode();
         Bitmap GetQRCodeUniqueParticipantCode(ConferenceAudienceModel _conferenceAudienceModel);
         

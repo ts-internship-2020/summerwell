@@ -496,7 +496,7 @@ namespace ConferencePlanner.WinUi
                 {
 
 
-                    MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository, _GetSpeakerDetail, dataGridView2.CurrentRow.Cells["MainSpeaker"].Value.ToString());
+                    MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository, _GetSpeakerDetail, dataGridView2.CurrentRow.Cells["HostMainSpeaker"].Value.ToString());
                     mf.textBox1.Text = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
                     mf.textBox2.Text = this.dataGridView2.CurrentRow.Cells[1].Value.ToString();
                     mf.textBox3.Text = this.dataGridView2.CurrentRow.Cells[2].Value.ToString();

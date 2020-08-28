@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Windows.ApplicationModel.Preview.Notes;
 
 namespace ConferencePlanner.WinUi
 {
@@ -14,6 +15,7 @@ namespace ConferencePlanner.WinUi
     {
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
+        protected string speakerName;
         public MainSpeakerDetails(IConferenceRepository ConferenceRepository, IGetSpeakerDetail GetSpeakerDetail, string SpeakerName)
         {
 
@@ -23,6 +25,7 @@ namespace ConferencePlanner.WinUi
             pictureBox1.ImageLocation = Base64Decode(_GetSpeakerDetail.GetSpeakerImage(SpeakerName));
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.Refresh();
+            speakerName = SpeakerName;
 
         }
         public static string Base64Decode(string base64EncodedData)
@@ -34,6 +37,19 @@ namespace ConferencePlanner.WinUi
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+        private void btnRate_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+                int Nota = int.Parse(textBox9.Text);
+                //if (Nota <= 5 && Nota >=1 )
+//{
+                    _ConferenceRepository.RatingChange(Nota, speakerName);
+               // }
+                //else MessageBox.Show("Please enter a rating 1 to 5");
+          //  }
+            //catch { MessageBox.Show("Please enter a rating 1 to 5"); }
         }
 
         private void label2_Click(object sender, EventArgs e)
