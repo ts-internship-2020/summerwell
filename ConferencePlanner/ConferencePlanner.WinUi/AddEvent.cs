@@ -162,10 +162,10 @@ namespace ConferencePlanner.WinUi
             listView3.GridLines = true;
             listView3.Columns.Add("SpeakerName");
             listView3.Columns.Add("Rating");
-
+            listView3.Columns.Add("Nationality");
             foreach (var speaker in speakers)
             {
-                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
+                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.Nationality, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
             }
         }
         private void populateCountry(List<DictionaryCountryModel> countries)
@@ -374,8 +374,9 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView3.SelectedItems[0];
                 eventDetails.SpeakerName = selectedItem.SubItems[0].Text;
                 eventDetails.SpeakerRating = selectedItem.SubItems[1].Text;
-                eventDetails.SpeakerId = Int32.Parse(selectedItem.SubItems[2].Text);
-                eventDetails.SpeakerEmail = selectedItem.SubItems[3].Text;
+                eventDetails.SpeakerNationality = selectedItem.SubItems[2].Text;
+                eventDetails.SpeakerId = Int32.Parse(selectedItem.SubItems[3].Text);
+                eventDetails.SpeakerEmail = selectedItem.SubItems[4].Text;
                 btnNext3.Enabled = true;
             }
 
