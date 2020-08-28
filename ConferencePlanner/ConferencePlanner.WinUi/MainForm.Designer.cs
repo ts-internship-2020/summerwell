@@ -418,6 +418,7 @@ namespace ConferencePlanner.WinUi
             this.btnAddEvent.BackColor = System.Drawing.Color.White;
             this.btnAddEvent.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddEvent.BackgroundImage")));
             this.btnAddEvent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddEvent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAddEvent.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAddEvent.Location = new System.Drawing.Point(570, 622);
             this.btnAddEvent.Name = "btnAddEvent";
