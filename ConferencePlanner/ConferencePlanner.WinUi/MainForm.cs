@@ -563,6 +563,7 @@ namespace ConferencePlanner.WinUi
                     mf.textBox7.Text = rating;
                     mf.textBox8.Text = nationality;
                     mf.ShowDialog();
+                    mf.Enabled = false;
                 }
                 catch (NullReferenceException)
                 {
