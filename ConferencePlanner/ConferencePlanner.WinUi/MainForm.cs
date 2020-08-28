@@ -732,6 +732,11 @@ namespace ConferencePlanner.WinUi
             }
             catch { MessageBox.Show("No more conferences"); }
         }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
