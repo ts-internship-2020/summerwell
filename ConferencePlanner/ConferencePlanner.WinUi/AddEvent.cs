@@ -48,6 +48,7 @@ namespace ConferencePlanner.WinUi
         {
             
             InitializeComponent();
+            tabType.Hide();
             EditNew = editnew;
 
             AddConferenceDetailModel = new AddConferenceDetailModel();
