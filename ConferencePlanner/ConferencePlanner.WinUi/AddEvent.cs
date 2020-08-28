@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -275,6 +276,11 @@ namespace ConferencePlanner.WinUi
             }
             else
             {
+               
+                eventDetails.LocationName = AddAddress.Text;
+                MessageBox.Show(eventDetails.LocationName);
+                MessageBox.Show(eventDetails.DictionaryCityId.ToString());
+               
                 _ConferenceRepository.EditConference(eventDetails);
             }
 
@@ -378,7 +384,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView5.SelectedItems[0];
                 eventDetails.DictionaryCityCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
-                eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[2].Text);
+                eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[3].Text);
                 btnNext5.Enabled = true;
             }
 

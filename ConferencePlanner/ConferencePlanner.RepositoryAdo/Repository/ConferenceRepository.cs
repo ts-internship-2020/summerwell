@@ -702,7 +702,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public int GetLocationId(string Street)
         {
             SqlCommand commmand = _sqlConnection.CreateCommand();
-            commmand.CommandText = "Select LocationId from Location Where Street = @Street ";
+            commmand.CommandText = "Select LocationId from Location Where Street = @Street";
             commmand.Parameters.Add("@Street", SqlDbType.VarChar, 100).Value = Street;
 
             SqlDataReader sqlDataReader = commmand.ExecuteReader();
@@ -722,8 +722,10 @@ namespace ConferencePlanner.Repository.Ado.Repository
         }
         public void EditConference(AddEventDetailModel eventDetail) 
         {
-
-            int findLocationId = GetLocationId(eventDetail.LocationName);
+            int findLocationId = 0;
+            //try { findLocationId = GetLocationId(eventDetail.LocationName); }
+           //catch { }
+            findLocationId = AddLocationId(eventDetail.DictionaryCityId, eventDetail.LocationName); 
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "UPDATE Conference SET ConferenceTypeId = @ConferenceTypeId ,LocationId = @LocationId," +
                 "ConferenceCategoryId = @ConferenceCategoryId ,HostEmail = @HostEmail," +
