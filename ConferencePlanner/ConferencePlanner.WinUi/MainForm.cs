@@ -736,7 +736,14 @@ namespace ConferencePlanner.WinUi
                 x.Clear();
                 x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
                 totalEntries = x.Count;
-                populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                if (totalEntries >= 5)
+                {
+                    populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                }
+                else
+                {
+                    populateConferenceGridViewByDate(0, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
+                }
                 changeColor();
             }
             catch { MessageBox.Show("No conferences"); }

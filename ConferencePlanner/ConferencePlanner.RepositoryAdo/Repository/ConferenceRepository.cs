@@ -710,12 +710,21 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.ExecuteNonQuery();
         }
         
-        public void DeleteType (int TypeId)
+        public void DeleteType (int TypeId, bool IsRemote)
         {
             SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "UPDATE Conference " +
-                                "SET ConferenceTypeId = NULL " +
-                                "WHERE ConferenceTypeId = @ConferenceTypeId";
+            if (IsRemote == true)
+            {
+                command.CommandText = "UPDATE Conference " +
+                                    "SET ConferenceTypeId = 30 " +                          //30 is the id for default remote type
+                                    "WHERE ConferenceTypeId = @ConferenceTypeId";
+            }
+            else
+            {
+                command.CommandText = "UPDATE Conference " +
+                                    "SET ConferenceTypeId = 31 " +                          //31 is the id for default nonremote type
+                                    "WHERE ConferenceTypeId = @ConferenceTypeId";
+            }
             command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int).Value = TypeId;
             command.ExecuteNonQuery();
 
@@ -726,7 +735,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
         }
 
-        public void DeleteCountry(int CountryId)
+        public void DeleteCountry(int CountryId, bool IsRemote)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "SELECT c.DictionaryCountyId " +
@@ -762,9 +771,18 @@ namespace ConferencePlanner.Repository.Ado.Repository
                                 {
                                     int locationId = sqlDataReader3.GetInt32("LocationId");
                                     SqlCommand commandLocation = _sqlConnection.CreateCommand();
-                                    commandLocation.CommandText = "UPDATE Conference " +
-                                                                "SET LocationId = NULL " +
-                                                                "WHERE LocationId = @LocationId";
+                                    if (IsRemote == true)
+                                    {
+                                        commandLocation.CommandText = "UPDATE Conference " +
+                                                                    "SET LocationId = 131 " +
+                                                                    "WHERE LocationId = @LocationId";
+                                    }
+                                    else
+                                    {
+                                        commandLocation.CommandText = "UPDATE Conference " +
+                                                                    "SET LocationId = 132 " +
+                                                                    "WHERE LocationId = @LocationId";
+                                    }
                                     commandLocation.Parameters.Add("LocationId", SqlDbType.Int).Value = locationId;
                                     commandLocation.ExecuteNonQuery();
                                 }
@@ -798,7 +816,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public void DeleteSpeaker(int SpeakerId)
         {
             SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "DELETE FROM SpeakerxConference " +
+            command.CommandText = "UPDATE SpeakerxConference " +
+                                "SET SpeakerId = 30 " +
                                 "WHERE SpeakerId = @SpeakerId";
             command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = SpeakerId;
             command.ExecuteNonQuery();
@@ -808,7 +827,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.ExecuteNonQuery();
         }
 
-        public void DeleteCounty(int CountyId)
+        public void DeleteCounty(int CountyId, bool IsRemote)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "SELECT c.DictionaryCityId " +
@@ -833,9 +852,18 @@ namespace ConferencePlanner.Repository.Ado.Repository
                         {
                             int locationId = sqlDataReader3.GetInt32("LocationId");
                             SqlCommand commandLocation = _sqlConnection.CreateCommand();
-                            commandLocation.CommandText = "UPDATE Conference " +
-                                                        "SET LocationId = NULL " +
-                                                        "WHERE LocationId = @LocationId";
+                            if (IsRemote == true)
+                            {
+                                commandLocation.CommandText = "UPDATE Conference " +
+                                                            "SET LocationId = 131 " +
+                                                            "WHERE LocationId = @LocationId";
+                            }
+                            else
+                            {
+                                commandLocation.CommandText = "UPDATE Conference " +
+                                                            "SET LocationId = 132 " +
+                                                            "WHERE LocationId = @LocationId";
+                            }
                             commandLocation.Parameters.Add("LocationId", SqlDbType.Int).Value = locationId;
                             commandLocation.ExecuteNonQuery();
                         }
@@ -862,7 +890,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
 
          }
             
-        public void DeleteCity(int CityId)
+        public void DeleteCity(int CityId, bool IsRemote)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "SELECT l.LocationId " +
@@ -876,9 +904,18 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 {
                     int locationId = sqlDataReader.GetInt32("LocationId");
                     SqlCommand commandLocation = _sqlConnection.CreateCommand();
-                    commandLocation.CommandText = "UPDATE Conference " +
-                                                "SET LocationId = NULL " +
-                                                "WHERE LocationId = @LocationId";
+                    if (IsRemote == true)
+                    {
+                        commandLocation.CommandText = "UPDATE Conference " +
+                                                    "SET LocationId = 131 " +
+                                                    "WHERE LocationId = @LocationId";
+                    }
+                    else
+                    {
+                        commandLocation.CommandText = "UPDATE Conference " +
+                                                    "SET LocationId = 132 " +
+                                                    "WHERE LocationId = @LocationId";
+                    }
                     commandLocation.Parameters.Add("LocationId", SqlDbType.Int).Value = locationId;
                     commandLocation.ExecuteNonQuery();
                 }
@@ -898,7 +935,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             SqlCommand command = _sqlConnection.CreateCommand();
             command.CommandText = "UPDATE Conference " +
-                                "SET ConferenceCategoryId = NULL " +
+                                "SET ConferenceCategoryId = 1 " +
                                 "WHERE ConferenceCategoryId = @CategoryId";
             command.Parameters.Add("@CategoryId", SqlDbType.Int).Value = CategoryId;
             command.ExecuteNonQuery();
@@ -908,13 +945,29 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.ExecuteNonQuery();
         }
         public void AddConference(AddEventDetailModel eventDetail) 
+        {
+            if (eventDetail.isRemote == true)
             {
-            int LocationId = 0;
-            try
-            {
-                LocationId = AddLocationId(eventDetail.DictionaryCityId, eventDetail.LocationName);
+                SqlCommand command = _sqlConnection.CreateCommand();
+                command.CommandText = "INSERT INTO Conference(ConferenceTypeId, LocationId, ConferenceCategoryId, HostEmail, StartDate, EndDate, ConferenceName) " +
+                                    "VALUES (@ConferenceTypeId, 131, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName) SELECT @@IDENTITY ";
+                command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.ConferenceTypeId.ToString());
+                command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int, 100).Value = int.Parse(eventDetail.DictionaryConferenceCategoryId.ToString());
+                command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
+                command.Parameters.Add("@StartDate", SqlDbType.DateTime, 100).Value = eventDetail.StartDate;
+                command.Parameters.Add("@EndDate", SqlDbType.DateTime, 100).Value = eventDetail.EndDate;
+                command.Parameters.Add("@ConferenceName", SqlDbType.VarChar, 100).Value = eventDetail.ConferenceName;
+                int ConferenceId = Convert.ToInt32(command.ExecuteScalar());
+                AddConferenceXSpeaker(ConferenceId, eventDetail.SpeakerId);
             }
-            catch { LocationId = 69; }
+            else
+            {
+                int LocationId = 0;
+                try
+                {
+                    LocationId = AddLocationId(eventDetail.DictionaryCityId, eventDetail.LocationName);
+                }
+                catch { LocationId = 69; }
                 SqlCommand command = _sqlConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Conference (ConferenceTypeId,LocationId,ConferenceCategoryId,HostEmail,StartDate,EndDate,ConferenceName) " +
                                     "VALUES (@ConferenceTypeId, @LocationId, @ConferenceCategoryId, @HostEmail, @StartDate, @EndDate, @ConferenceName) SELECT @@IDENTITY ";
@@ -928,8 +981,8 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 int ConferenceId = Convert.ToInt32(command.ExecuteScalar());
 
                 AddConferenceXSpeaker(ConferenceId, eventDetail.SpeakerId);
-                
-            }
+            }    
+        }
         public int AddLocationId(int CityId,string Street) 
         {
             SqlCommand command = _sqlConnection.CreateCommand();
@@ -970,6 +1023,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
         }
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string ConferenceName) 
         {
+
             int findLocationId = 0;
             try
             {
@@ -982,7 +1036,14 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 "ConferenceCategoryId = @ConferenceCategoryId ,HostEmail = @HostEmail," +
                 "StartDate = @StartDate ,EndDate = @EndDate ,ConferenceName = @ConferenceName WHERE ConferenceId = @ConferenceId ";
             command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int).Value = eventDetail.ConferenceTypeId;
-            command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = findLocationId;
+            if (eventDetail.isRemote == true)
+            {
+                command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = 131;
+            }
+            else
+            {
+                command.Parameters.Add("@LocationId", SqlDbType.Int, 100).Value = findLocationId;
+            }
             command.Parameters.Add("@ConferenceCategoryId", SqlDbType.Int).Value = eventDetail.DictionaryConferenceCategoryId;
             command.Parameters.Add("@HostEmail", SqlDbType.VarChar, 100).Value = eventDetail.HostEmail.ToString();
             command.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = eventDetail.StartDate;
