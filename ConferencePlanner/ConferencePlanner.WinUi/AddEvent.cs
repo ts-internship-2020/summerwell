@@ -153,6 +153,7 @@ namespace ConferencePlanner.WinUi
                 
                 }
             }
+            DeleteCounty.Enabled = false;
         }
         private void populateSpeakers(List<SpeakerDetailModel> speakers)
         {
@@ -167,6 +168,7 @@ namespace ConferencePlanner.WinUi
                 if(speaker.SpeakerId != 30)
                     listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.Nationality, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
             }
+            DeleteSpeaker.Enabled = false;
         }
         private void populateCountry(List<DictionaryCountryModel> countries)
         {
@@ -182,6 +184,7 @@ namespace ConferencePlanner.WinUi
 
             }
             listView2.GridLines = true;
+            DeleteCountry.Enabled = false;
         }
         private void populateCity(List<DictionaryCityModel> cities)
         {
@@ -196,6 +199,7 @@ namespace ConferencePlanner.WinUi
                     listView5.Items.Add(new ListViewItem(new string[] { city.Code, city.Name , city.DictionaryCountyId.ToString(), city.DictionaryCityId.ToString() }));
 
             }
+            DeleteCity.Enabled = false;
         }
         private void populateCategory(List<DictionaryConferenceCategoryModel> categories)
         {
@@ -210,6 +214,7 @@ namespace ConferencePlanner.WinUi
                     listView6.Items.Add(new ListViewItem(new string[] { category.DictionaryConferenceCategoryId.ToString(), category.DictionaryConferenceCategoryName }));
 
             }
+            DeleteCategory.Enabled = false;
         }
 
 
@@ -333,6 +338,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.isRemote = bool.Parse(selectedItem.SubItems[2].Text);
                 DeleteType.Enabled = true;
                 btnNext.Enabled = true;
+                DeleteType.Enabled = true;
             }
         }
 
@@ -351,6 +357,7 @@ namespace ConferencePlanner.WinUi
             }
             listView1.GridLines = true;
             btnNext.Enabled = false;
+            DeleteType.Enabled = false;
             
         }
 
@@ -365,6 +372,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[2].Text);
                 DeleteCountry.Enabled = true;
                 btnNext2.Enabled = true;
+                DeleteCountry.Enabled = true;
             }
 
         }
@@ -382,6 +390,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.SpeakerEmail = selectedItem.SubItems[4].Text;
                 DeleteSpeaker.Enabled = true;
                 btnNext3.Enabled = true;
+                DeleteSpeaker.Enabled = true;
             }
 
         }
@@ -396,6 +405,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[2].Text);
                 DeleteCounty.Enabled = true;
                 btnNext4.Enabled = true;
+                DeleteCounty.Enabled = true;
             }
 
         }
@@ -417,6 +427,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[3].Text);
                 DeleteCity.Enabled = true;
                 btnNext5.Enabled = true;
+                DeleteCity.Enabled = true;
             }
 
         }
@@ -436,6 +447,7 @@ namespace ConferencePlanner.WinUi
             }
             listView5.GridLines = true;
             btnNext5.Enabled = false;
+            DeleteCountry.Enabled = false;
         }
         private void listView6_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -448,6 +460,7 @@ namespace ConferencePlanner.WinUi
                 btnSave.Visible = true;
 
             }
+            DeleteCategory.Enabled = true;
 
         }
 
@@ -538,6 +551,7 @@ namespace ConferencePlanner.WinUi
         }
         private void DeleteType_Click(object sender, EventArgs e)
         {
+            
             _ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
             RefreshLists("DictionaryType");
             DeleteType.Enabled = false;
