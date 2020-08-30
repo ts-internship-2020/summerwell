@@ -331,6 +331,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.ConferenceTypeId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.ConferenceTypeName = selectedItem.SubItems[1].Text;
                 eventDetails.isRemote = bool.Parse(selectedItem.SubItems[2].Text);
+                DeleteType.Enabled = true;
                 btnNext.Enabled = true;
             }
         }
@@ -362,6 +363,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCountryCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountryName = selectedItem.SubItems[1].Text;
                 eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[2].Text);
+                DeleteCountry.Enabled = true;
                 btnNext2.Enabled = true;
             }
 
@@ -378,6 +380,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.SpeakerNationality = selectedItem.SubItems[2].Text;
                 eventDetails.SpeakerId = Int32.Parse(selectedItem.SubItems[3].Text);
                 eventDetails.SpeakerEmail = selectedItem.SubItems[4].Text;
+                DeleteSpeaker.Enabled = true;
                 btnNext3.Enabled = true;
             }
 
@@ -391,6 +394,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCountyCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountyName = selectedItem.SubItems[1].Text;
                 eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[2].Text);
+                DeleteCounty.Enabled = true;
                 btnNext4.Enabled = true;
             }
 
@@ -411,6 +415,7 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCityCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
                 eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[3].Text);
+                DeleteCity.Enabled = true;
                 btnNext5.Enabled = true;
             }
 
@@ -439,6 +444,7 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView6.SelectedItems[0];
                 eventDetails.DictionaryConferenceCategoryId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.DictionaryConferenceCategoryName = selectedItem.SubItems[1].Text;
+                DeleteCategory.Enabled = true;
                 btnSave.Visible = true;
 
             }
@@ -534,36 +540,48 @@ namespace ConferencePlanner.WinUi
         {
             _ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
             RefreshLists("DictionaryType");
+            DeleteType.Enabled = false;
+            btnNext.Enabled = false;
         }
 
         private void DeleteSpeaker_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteSpeaker(eventDetails.SpeakerId);
             RefreshLists("Speaker");
+            DeleteSpeaker.Enabled = false;
+            btnNext3.Enabled = false;
         }
 
         private void DeleteCounty_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteCounty(eventDetails.DictionaryCountyId, eventDetails.isRemote);
             RefreshLists("DictionaryCounty");
+            DeleteCounty.Enabled = false;
+            btnNext4.Enabled = false;
         }
 
         private void DeleteCity_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteCity(eventDetails.DictionaryCityId, eventDetails.isRemote);
             RefreshLists("DictionaryCity");
+            DeleteCity.Enabled = false;
+            btnNext5.Enabled = false;
         }
 
         private void DeleteCategory_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
             RefreshLists("DictionaryCategory");
+            DeleteCategory.Enabled = false;
+            btnSave.Visible = false;
         }
 
         private void DeleteCountry_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteCountry(eventDetails.DictionaryCountryId, eventDetails.isRemote);
             RefreshLists("DictionaryCountry");
+            DeleteCountry.Enabled = false;
+            btnNext2.Enabled = false;
         }
     }
 }

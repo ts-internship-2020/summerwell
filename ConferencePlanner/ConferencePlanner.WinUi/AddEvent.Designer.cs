@@ -213,6 +213,7 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteType
             // 
+            this.DeleteType.Enabled = false;
             this.DeleteType.Location = new System.Drawing.Point(268, 104);
             this.DeleteType.Name = "DeleteType";
             this.DeleteType.Size = new System.Drawing.Size(93, 24);
@@ -278,6 +279,7 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteCountry
             // 
+            this.DeleteCountry.Enabled = false;
             this.DeleteCountry.Location = new System.Drawing.Point(268, 72);
             this.DeleteCountry.Name = "DeleteCountry";
             this.DeleteCountry.Size = new System.Drawing.Size(75, 23);
@@ -343,6 +345,7 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteSpeaker
             // 
+            this.DeleteSpeaker.Enabled = false;
             this.DeleteSpeaker.Location = new System.Drawing.Point(268, 43);
             this.DeleteSpeaker.Name = "DeleteSpeaker";
             this.DeleteSpeaker.Size = new System.Drawing.Size(75, 24);
@@ -402,6 +405,7 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteCounty
             // 
+            this.DeleteCounty.Enabled = false;
             this.DeleteCounty.Location = new System.Drawing.Point(269, 43);
             this.DeleteCounty.Name = "DeleteCounty";
             this.DeleteCounty.Size = new System.Drawing.Size(84, 33);
@@ -459,6 +463,7 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteCity
             // 
+            this.DeleteCity.Enabled = false;
             this.DeleteCity.Location = new System.Drawing.Point(268, 39);
             this.DeleteCity.Name = "DeleteCity";
             this.DeleteCity.Size = new System.Drawing.Size(75, 28);
@@ -521,6 +526,7 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteCategory
             // 
+            this.DeleteCategory.Enabled = false;
             this.DeleteCategory.Location = new System.Drawing.Point(268, 39);
             this.DeleteCategory.Name = "DeleteCategory";
             this.DeleteCategory.Size = new System.Drawing.Size(93, 28);
