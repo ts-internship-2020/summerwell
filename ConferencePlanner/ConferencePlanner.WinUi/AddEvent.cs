@@ -148,7 +148,10 @@ namespace ConferencePlanner.WinUi
             foreach (var county in countys)
             {
                 if (county.DictionaryCountryId == eventDetails.DictionaryCountryId)
+                {
                     listView4.Items.Add(new ListViewItem(new string[] { county.Code.ToString(), county.DictionaryCountyName, county.DictionaryCountyId.ToString() }));
+                
+                }
             }
         }
         private void populateSpeakers(List<SpeakerDetailModel> speakers)
@@ -161,7 +164,8 @@ namespace ConferencePlanner.WinUi
             listView3.Columns.Add("Nationality");
             foreach (var speaker in speakers)
             {
-                listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.Nationality, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
+                if(speaker.SpeakerId != 30)
+                    listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.Nationality, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
             }
         }
         private void populateCountry(List<DictionaryCountryModel> countries)
@@ -173,8 +177,8 @@ namespace ConferencePlanner.WinUi
             listView2.Columns.Add("CountryName");
             foreach (var country in countries)
             {
-
-                listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName, country.DictionaryCountryId.ToString() }));
+                if(country.DictionaryCountryId.ToString() != "32" && country.DictionaryCountryId.ToString() != "33")
+                    listView2.Items.Add(new ListViewItem(new string[] { country.Code.ToString(), country.DictionaryCountryName, country.DictionaryCountryId.ToString() }));
 
             }
             listView2.GridLines = true;
@@ -202,8 +206,8 @@ namespace ConferencePlanner.WinUi
             listView6.Columns.Add("CategoryName");
             foreach (var category in categories)
             {
-
-                listView6.Items.Add(new ListViewItem(new string[] { category.DictionaryConferenceCategoryId.ToString(), category.DictionaryConferenceCategoryName }));
+                if(category.DictionaryConferenceCategoryId != 1)
+                    listView6.Items.Add(new ListViewItem(new string[] { category.DictionaryConferenceCategoryId.ToString(), category.DictionaryConferenceCategoryName }));
 
             }
         }
@@ -341,7 +345,8 @@ namespace ConferencePlanner.WinUi
             x = _ConferenceTypeRepository.GetConferenceType();
             foreach (var c in x)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { c.ConferenceTypeId.ToString(), c.Name, c.IsRemote.ToString() }));
+                if(c.ConferenceTypeId.ToString() != "30" && c.ConferenceTypeId.ToString() != "31")
+                    listView1.Items.Add(new ListViewItem(new string[] { c.ConferenceTypeId.ToString(), c.Name, c.IsRemote.ToString() }));
             }
             listView1.GridLines = true;
             btnNext.Enabled = false;
@@ -517,6 +522,48 @@ namespace ConferencePlanner.WinUi
         {
             formMain.Enabled = true;
             formMain.PopulateMamam();
+        }
+
+       
+
+        private void tabType_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void DeleteType_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
+            RefreshLists("DictionaryType");
+        }
+
+        private void DeleteSpeaker_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteSpeaker(eventDetails.SpeakerId);
+            RefreshLists("Speaker");
+        }
+
+        private void DeleteCounty_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteCounty(eventDetails.DictionaryCountyId, eventDetails.isRemote);
+            RefreshLists("DictionaryCounty");
+        }
+
+        private void DeleteCity_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteCity(eventDetails.DictionaryCityId, eventDetails.isRemote);
+            RefreshLists("DictionaryCity");
+        }
+
+        private void DeleteCategory_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
+            RefreshLists("DictionaryCategory");
+        }
+
+        private void DeleteCountry_Click(object sender, EventArgs e)
+        {
+            _ConferenceRepository.DeleteCountry(eventDetails.DictionaryCountryId, eventDetails.isRemote);
+            RefreshLists("DictionaryCountry");
         }
     }
 }
