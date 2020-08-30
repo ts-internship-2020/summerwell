@@ -213,6 +213,7 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteType
             // 
+            this.DeleteType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DeleteType.Location = new System.Drawing.Point(268, 104);
             this.DeleteType.Name = "DeleteType";
             this.DeleteType.Size = new System.Drawing.Size(93, 24);

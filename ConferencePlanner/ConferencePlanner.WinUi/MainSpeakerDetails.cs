@@ -40,17 +40,18 @@ namespace ConferencePlanner.WinUi
         }
         private void btnRate_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 int Nota = int.Parse(textBox9.Text);
-                //if (Nota <= 5 && Nota >=1 )
-//{
+                if (Nota <= 5 && Nota >= 1)
+                {
                     _ConferenceRepository.RatingChange(Nota, speakerName);
-               // }
-                //else MessageBox.Show("Please enter a rating 1 to 5");
-          //  }
-            //catch { MessageBox.Show("Please enter a rating 1 to 5"); }
+                }
+                else MessageBox.Show("Please enter a rating 1 to 5");
+            }
+            catch { MessageBox.Show("Please enter a rating 1 to 5"); }
         }
+        
 
         private void label2_Click(object sender, EventArgs e)
         {
