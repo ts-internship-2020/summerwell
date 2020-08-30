@@ -154,6 +154,7 @@ namespace ConferencePlanner.WinUi
                 }
             }
             DeleteCounty.Enabled = false;
+            btnNext4.Enabled = false;
         }
         private void populateSpeakers(List<SpeakerDetailModel> speakers)
         {
@@ -169,6 +170,7 @@ namespace ConferencePlanner.WinUi
                     listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.Nationality, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
             }
             DeleteSpeaker.Enabled = false;
+            btnNext3.Enabled = false;
         }
         private void populateCountry(List<DictionaryCountryModel> countries)
         {
@@ -185,6 +187,7 @@ namespace ConferencePlanner.WinUi
             }
             listView2.GridLines = true;
             DeleteCountry.Enabled = false;
+            btnNext2.Enabled = false;
         }
         private void populateCity(List<DictionaryCityModel> cities)
         {
@@ -200,6 +203,7 @@ namespace ConferencePlanner.WinUi
 
             }
             DeleteCity.Enabled = false;
+            btnNext5.Enabled = false;
         }
         private void populateCategory(List<DictionaryConferenceCategoryModel> categories)
         {
@@ -215,6 +219,8 @@ namespace ConferencePlanner.WinUi
 
             }
             DeleteCategory.Enabled = false;
+            btnSave.Enabled = false;
+            btnSave.Visible = false;
         }
 
 
@@ -461,6 +467,8 @@ namespace ConferencePlanner.WinUi
 
             }
             DeleteCategory.Enabled = true;
+            btnSave.Enabled = true;
+            btnSave.Visible = true;
 
         }
 
