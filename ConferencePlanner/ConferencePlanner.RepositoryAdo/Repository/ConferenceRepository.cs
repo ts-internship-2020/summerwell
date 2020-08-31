@@ -710,30 +710,50 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.ExecuteNonQuery();
         }
         
-        public void DeleteType (int TypeId, bool IsRemote)
-        {
-            SqlCommand command = _sqlConnection.CreateCommand();
-            if (IsRemote == true)
+            public bool DeleteType(int TypeId, bool IsRemote)
             {
-                command.CommandText = "UPDATE Conference " +
-                                    "SET ConferenceTypeId = 30 " +                          //30 is the id for default remote type
-                                    "WHERE ConferenceTypeId = @ConferenceTypeId";
-            }
-            else
-            {
-                command.CommandText = "UPDATE Conference " +
-                                    "SET ConferenceTypeId = 31 " +                          //31 is the id for default nonremote type
-                                    "WHERE ConferenceTypeId = @ConferenceTypeId";
-            }
-            command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int).Value = TypeId;
-            command.ExecuteNonQuery();
+                SqlCommand command = _sqlConnection.CreateCommand();
+                /*if (IsRemote == true)
+                {
+                    command.CommandText = "UPDATE Conference " +
+                                        "SET ConferenceTypeId = 30 " +                          //30 is the id for default remote type
+                                        "WHERE ConferenceTypeId = @ConferenceTypeId";
+                }
+                else
+                {
+                    command.CommandText = "UPDATE Conference " +
+                                        "SET ConferenceTypeId = 31 " +                          //31 is the id for default nonremote type
+                                        "WHERE ConferenceTypeId = @ConferenceTypeId";
+                }
+                command.Parameters.Add("@ConferenceTypeId", SqlDbType.Int).Value = TypeId;
+                command.ExecuteNonQuery();
 
-            command.CommandText = "DELETE FROM DictionaryConferenceType " +
+                command.CommandText = "DELETE FROM DictionaryConferenceType " +
+                                    "WHERE DictionaryConferenceTypeId = @ConferenceTypeId";
+
+                command.ExecuteNonQuery();
+                */
+                // if (IsRemote == true)
+                // {
+                command.CommandText = "SELECT ConferenceTypeId From Conference WHERE ConferenceTypeId = @TypeId";
+                command.Parameters.Add("@TypeId", SqlDbType.Int).Value = TypeId;
+                SqlDataReader sqlDataReader = command.ExecuteReader();
+                if (sqlDataReader.HasRows)
+                {
+                    return false;
+                }
+                else
+                {
+                SqlCommand commmand = _sqlConnection.CreateCommand();
+                commmand.CommandText = commmand.CommandText = "DELETE FROM DictionaryConferenceType " +
                                 "WHERE DictionaryConferenceTypeId = @ConferenceTypeId";
+                commmand.Parameters.Add("@ConferenceTypeId", SqlDbType.Int).Value = TypeId;
+                commmand.ExecuteNonQuery();
+                    return true;
+                }
+                // }
+            }
 
-            command.ExecuteNonQuery();
-
-        }
 
         public void DeleteCountry(int CountryId, bool IsRemote)
         {
@@ -931,10 +951,10 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.ExecuteNonQuery();
         }    
 
-        public void DeleteCategory(int CategoryId)
+        public bool DeleteCategory(int CategoryId)
         {
             SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "UPDATE Conference " +
+            /*command.CommandText = "UPDATE Conference " +
                                 "SET ConferenceCategoryId = 1 " +
                                 "WHERE ConferenceCategoryId = @CategoryId";
             command.Parameters.Add("@CategoryId", SqlDbType.Int).Value = CategoryId;
@@ -943,6 +963,23 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.CommandText = "DELETE FROM DictionaryConferenceCategory " +
                                 "WHERE DictionaryConferenceCategoryId = @CategoryId";
             command.ExecuteNonQuery();
+            */
+            command.CommandText = "SELECT ConferenceCategoryId From Conference WHERE ConferenceCategoryId = @TypeId";
+            command.Parameters.Add("@TypeId", SqlDbType.Int).Value = CategoryId;
+            SqlDataReader sqlDataReader = command.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                return false;
+            }
+            else
+            {
+                SqlCommand commmand = _sqlConnection.CreateCommand();
+                commmand.CommandText = commmand.CommandText = "DELETE FROM DictionaryConferenceCategory " +
+                                "WHERE DictionaryConferenceCategoryId = @CategoryId";
+                commmand.Parameters.Add("@ConferenceTypeId", SqlDbType.Int).Value = CategoryId;
+                commmand.ExecuteNonQuery();
+                return true;
+            }
         }
         public void AddConference(AddEventDetailModel eventDetail) 
         {
