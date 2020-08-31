@@ -757,7 +757,7 @@ namespace ConferencePlanner.WinUi
             try
             {
                 nr_row = dataGridView2.Size.Height / 40;
-                if (HoststartingPoint <= HosttotalEntries - nr_row)
+                if (HoststartingPoint < HosttotalEntries - nr_row)
                 {
                     HoststartingPoint += nr_row;
                     dataGridView2.Rows.Clear();
