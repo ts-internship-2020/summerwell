@@ -32,6 +32,7 @@ namespace ConferencePlanner.WinUi
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEvent));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -73,6 +74,7 @@ namespace ConferencePlanner.WinUi
             this.listView6 = new System.Windows.Forms.ListView();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabControl1.SuspendLayout();
             this.tabType.SuspendLayout();
             this.tabCountry.SuspendLayout();
@@ -213,8 +215,8 @@ namespace ConferencePlanner.WinUi
             // 
             // DeleteType
             // 
-            this.DeleteType.Enabled = false;
             this.DeleteType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteType.Enabled = false;
             this.DeleteType.Location = new System.Drawing.Point(268, 104);
             this.DeleteType.Name = "DeleteType";
             this.DeleteType.Size = new System.Drawing.Size(93, 24);
@@ -588,6 +590,11 @@ namespace ConferencePlanner.WinUi
             this.btnSaveNew.Visible = false;
             this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // AddEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -662,5 +669,6 @@ namespace ConferencePlanner.WinUi
         private Button DeleteCounty;
         private Button DeleteCity;
         private Button DeleteCategory;
+        private NotifyIcon notifyIcon1;
     }
 }

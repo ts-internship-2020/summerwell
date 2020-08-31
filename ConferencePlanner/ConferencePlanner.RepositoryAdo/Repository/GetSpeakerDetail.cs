@@ -105,6 +105,23 @@ namespace ConferencePlanner.Repository.Ado.Repository
             else return "";
             return "";
         }
+        public string GetSpeakerRating(string SpeakerName)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "SELECT Rating FROM Speaker WHERE SpeakerName = @Name";
+            sqlCommand.Parameters.Add("@Name", SqlDbType.VarChar).Value = SpeakerName;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            if (sqlDataReader.HasRows)
+            {
+                string speakerRating = "";
+                while (sqlDataReader.Read())
+                {
+                    speakerRating = sqlDataReader.GetString("Rating");
+                }
+                return speakerRating;
+            }
+            else return "";
+        }
     }
 }
 
