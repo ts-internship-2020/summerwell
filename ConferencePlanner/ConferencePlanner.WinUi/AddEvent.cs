@@ -137,6 +137,14 @@ namespace ConferencePlanner.WinUi
             list.Items[itemIndex].Selected = true;
             MessageBox.Show(itemIndex.ToString());
         }
+        private void SetBalloonTip(string title, string text)
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = title;
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            notifyIcon1.Visible = false;
+        }
 
         private void populateCounty(List<DictionaryCountyModel> countys)
         {
@@ -291,9 +299,18 @@ namespace ConferencePlanner.WinUi
 
         }
         private void btnSave_Click(object sender, EventArgs e)
-        { if (AddStartDate.Value < System.DateTime.Now) MessageBox.Show("Please select a Start Date after current date");
-          else  if (AddEndDate.Value < AddStartDate.Value) MessageBox.Show("Please select a End Date after Start Date");
-            else if (AddConferenceName.Text == "" || AddConferenceName.Text == null) MessageBox.Show("Please don't leave the Name empty");
+        { if (AddStartDate.Value < System.DateTime.Now) { SetBalloonTip("Invalid Start Date", "Please select a Start Date after current date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
+            else if (AddEndDate.Value < AddStartDate.Value) { SetBalloonTip("Invalid End Date", "Please select a End Date after Start Date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
+            else if (AddConferenceName.Text == "" || AddConferenceName.Text == null) { SetBalloonTip("Please don't leave the Name empty", "Please enter a name for the conference");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
             else
             {
                 try
@@ -326,7 +343,12 @@ namespace ConferencePlanner.WinUi
                     }
                     this.Close();
                 }
-                catch { MessageBox.Show("Camp invalid"); }
+                catch
+                {
+                    SetBalloonTip("Invalid entry", "Please enter a valid entry");
+                    notifyIcon1.Visible = true;
+                    notifyIcon1.ShowBalloonTip(3000);
+                }
             }
             }
         private void btnSaveNew_Click(object sender, EventArgs e)
@@ -561,7 +583,12 @@ namespace ConferencePlanner.WinUi
         {
             
             bool hey =_ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
-            if (!hey) MessageBox.Show("There is a conference with this type");
+            if (!hey)
+            {
+                SetBalloonTip("You can't delete this","There is a conference with this type");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
             RefreshLists("DictionaryType");
             DeleteType.Enabled = false;
             btnNext.Enabled = false;
@@ -594,7 +621,12 @@ namespace ConferencePlanner.WinUi
         private void DeleteCategory_Click(object sender, EventArgs e)
         {
             bool hey =_ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
-            if (!hey) MessageBox.Show("There is a conference with this category!");
+            if (!hey)
+            {
+                SetBalloonTip("You can't delete this", "There are conferences in this category");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
             RefreshLists("DictionaryCategory");
             DeleteCategory.Enabled = false;
             btnSave.Visible = false;

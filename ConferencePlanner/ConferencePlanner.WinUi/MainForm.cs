@@ -130,6 +130,14 @@ namespace ConferencePlanner.WinUi
 
 
         }
+        private void SetBalloonTip(string title,string text)
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = title;
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            notifyIcon1.Visible = false;
+        }
 
         private void dataGridView1_SizeChanged(object sender, EventArgs e)
         {
@@ -220,13 +228,17 @@ namespace ConferencePlanner.WinUi
                         }
                         else
                         {
-                            MessageBox.Show("You have to attend before you can join!");
+                            SetBalloonTip("You need to attend first", "You can't join the conference yet!");
+                            notifyIcon1.Visible = true;
+                            notifyIcon1.ShowBalloonTip(30);
                         }
 
                     }
                     else
                     {
-                        MessageBox.Show("You can't join the conference yet!");
+                        SetBalloonTip("You need to attend first","You can't join the conference yet!");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
                     }
                 }
                 if (senderGrid.CurrentCell.OwningColumn.Name.ToString().Equals("WithdrawButton") && inWithdraw == false)
@@ -237,7 +249,11 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceStatusId = 2;
                     int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
                     if (rows_affected <= 0)
-                        MessageBox.Show("You have to attend before you can withdraw!");
+                    {
+                        SetBalloonTip("Please attend first", "You have to attend before you can withdraw!");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     inWithdraw = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     isAttend = true;
@@ -262,7 +278,11 @@ namespace ConferencePlanner.WinUi
                 bc.Style.BackColor = Color.DarkRed;
                 bc.Style.ForeColor = Color.DarkRed;
             }
-            catch { MessageBox.Show("Please press again!"); }
+            catch {
+                SetBalloonTip("Something is wrong", "Please press again!");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
+            }
         }
 
         private void makeButtonGreen(object datagrid, int row, int col)
@@ -274,7 +294,14 @@ namespace ConferencePlanner.WinUi
                 bc.FlatStyle = FlatStyle.Flat;
                 bc.Style.BackColor = Color.DarkGreen;
                 bc.Style.ForeColor = Color.DarkGreen;
-            } catch { MessageBox.Show("Please press again!"); }
+            }
+            catch
+            {
+                SetBalloonTip("Something is wrong", "Please press again!");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
+            }
+            
         }
 
         private System.Windows.Forms.Timer timer1;
@@ -347,7 +374,9 @@ namespace ConferencePlanner.WinUi
             }
             catch
             {
-                MessageBox.Show("Nothing to see here");
+                SetBalloonTip("Something is wrong", "Nothing to see");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
             }
         }
         private void changeColorForSingleButton(int row)
@@ -490,7 +519,11 @@ namespace ConferencePlanner.WinUi
                     }
                 }
             }
-            catch { MessageBox.Show("Press again!"); }
+            catch {
+                SetBalloonTip("Something is wrong", "Please press again!");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
         }
 
@@ -596,7 +629,9 @@ namespace ConferencePlanner.WinUi
                 }
                 catch (NullReferenceException)
                 {
-                    MessageBox.Show("You cannot process an empty cell");
+                    SetBalloonTip("Plese complete with something", "You cannot process an empty cell");
+                    notifyIcon1.Visible = true;
+                    notifyIcon1.ShowBalloonTip(3000);
                 }
         }
         public void AddEventNotEdit()
@@ -628,7 +663,11 @@ namespace ConferencePlanner.WinUi
                 HosttotalEntries = y.Count;
                 populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
             }
-            catch { MessageBox.Show("No conferences"); }
+            catch {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
         }
 
@@ -660,7 +699,12 @@ namespace ConferencePlanner.WinUi
                     return;
                 }
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
         }
 
 
@@ -696,7 +740,12 @@ namespace ConferencePlanner.WinUi
 
 
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
 
         }
@@ -725,7 +774,12 @@ namespace ConferencePlanner.WinUi
                     return;
                 }
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
         }
 
@@ -755,7 +809,11 @@ namespace ConferencePlanner.WinUi
                     return;
                 }
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000); ; }
         }
 
 
@@ -777,7 +835,12 @@ namespace ConferencePlanner.WinUi
                 }
                 changeColor();
             }
-            catch { MessageBox.Show("No conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -801,7 +864,12 @@ namespace ConferencePlanner.WinUi
 
                 else populateHostGridViewByDate(0, nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
         }
 
         private void dateTimePicker4_ValueChanged(object sender, EventArgs e)

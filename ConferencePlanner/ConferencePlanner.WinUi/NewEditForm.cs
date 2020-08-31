@@ -47,6 +47,14 @@ namespace ConferencePlanner.WinUi
                 if (dictionary.ToString() == "DictionaryCounty") { textBox1.Text = EventDetail.DictionaryCountyCode; textBox2.Text = EventDetail.DictionaryCountyName; }
             }
         }
+        private void SetBalloonTip(string title, string text)
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = title;
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            notifyIcon1.Visible = false;
+        }
         private void BtnSave_Click(object sender, EventArgs e)
         {
             if (EditOrSave == false)
@@ -54,7 +62,13 @@ namespace ConferencePlanner.WinUi
                 if (dictionar == "DictionaryCountry")
                 {
                     try { _ConferenceRepository.AddCountry(textBox1.Text, textBox2.Text); }
-                    catch { MessageBox.Show("Already Exists"); }
+                    catch
+                    {
+                        SetBalloonTip("Already Exists", "There is a Country with this name");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
+
                     form4.RefreshLists("DictionaryCountry");
                     form4.Enabled = true;
                     this.Close();
@@ -62,7 +76,12 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "Speaker")
                 {
                     try { _ConferenceRepository.AddSpeaker(textBox1.Text, textBox2.Text, textBox3.Text); }
-                    catch { MessageBox.Show("Invalid Email"); }
+                    catch
+                    {
+                        SetBalloonTip("Already Exists", "There is a Speaker with this name");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("Speaker");
                     form4.Enabled = true;
                     this.Close();
@@ -70,7 +89,11 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "DictionaryCounty")
                 {
                     try { _ConferenceRepository.AddCounty(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountryId.ToString()); }
-                    catch { MessageBox.Show("Already Exists"); }
+                    catch {
+                        SetBalloonTip("Already Exists", "There is a County with this name");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryCounty");
                     form4.Enabled = true;
                     this.Close();
@@ -78,7 +101,11 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "DictionaryCity")
                 {
                     try { _ConferenceRepository.AddCity(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountyId.ToString()); }
-                    catch { MessageBox.Show("Already Exists"); }
+                    catch {
+                        SetBalloonTip("Already Exists", "There is a City with this name");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryCity");
                     form4.Enabled = true;
                     this.Close();
@@ -86,15 +113,23 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "DictionaryCategory")
                 {
                     try { _ConferenceRepository.AddCategory(textBox2.Text); }
-                    catch { MessageBox.Show("Already Exists"); }
+                    catch {
+                        SetBalloonTip("Already Exists", "There is a Category with this name");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryCategory");
                     form4.Enabled = true;
                     this.Close();
                 }
                 else if (dictionar == "DictionaryType")
                 {
-                    try { _ConferenceRepository.AddType(textBox2.Text,checkBox1.Checked); }
-                    catch { MessageBox.Show("Already Exists"); }
+                    try { _ConferenceRepository.AddType(textBox2.Text, checkBox1.Checked); }
+                    catch {
+                        SetBalloonTip("Already Exists", "There is a Type with this name");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryType");
                     form4.Enabled = true;
                     this.Close();
@@ -105,7 +140,11 @@ namespace ConferencePlanner.WinUi
                 if (dictionar == "DictionaryCountry")
                 {
                     try { _ConferenceRepository.EditCountry(DetailEvent.DictionaryCountryId, textBox1.Text, textBox2.Text);  }
-                    catch { MessageBox.Show(textBox1.Text,textBox2.Text); }
+                    catch {
+                        SetBalloonTip("Already Exists", "There is a Country with this name");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryCountry");
                     form4.Enabled = true;
                     this.Close();
@@ -113,7 +152,11 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "Speaker")
                 {
                     try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text, DetailEvent.SpeakerId, textBox3.Text); }
-                    catch { MessageBox.Show("Invalid Email"); }
+                    catch {
+                        SetBalloonTip("Please insert a valid mail", "Invalid Email");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("Speaker");
                     form4.Enabled = true;
                     this.Close();
@@ -121,7 +164,11 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "DictionaryCounty")
                 {
                     try { _ConferenceRepository.EditCounty(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountyId); }
-                    catch { MessageBox.Show("Something's wrong"); }
+                    catch {
+                        SetBalloonTip("Error", "There was a problem");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryCounty");
                     form4.Enabled = true;
                     this.Close();
@@ -129,7 +176,11 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "DictionaryCity")
                 {
                     try { _ConferenceRepository.EditCity(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCityId); }
-                    catch { MessageBox.Show("Something's wrong"); }
+                    catch {
+                        SetBalloonTip("Error", "There was a problem");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryCity");
                     form4.Enabled = true;
                     this.Close();
@@ -137,7 +188,11 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "DictionaryCategory")
                 {
                     try { _ConferenceRepository.EditCategory(DetailEvent.DictionaryConferenceCategoryId, textBox2.Text); }
-                    catch { MessageBox.Show("Something's wrong"); }
+                    catch {
+                        SetBalloonTip("Error", "There was a problem");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryCategory");
                     form4.Enabled = true;
                     this.Close();
@@ -145,7 +200,11 @@ namespace ConferencePlanner.WinUi
                 else if (dictionar == "DictionaryType")
                 {
                     try { _ConferenceRepository.EditType(DetailEvent.ConferenceTypeId, textBox2.Text, checkBox1.Checked); }
-                    catch { MessageBox.Show("Something's wrong"); }
+                    catch {
+                        SetBalloonTip("Error", "There was a problem");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     form4.RefreshLists("DictionaryType");
                     form4.Enabled = true;
                     this.Close();
