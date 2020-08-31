@@ -214,7 +214,6 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.Size = new System.Drawing.Size(909, 287);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Text = "dataGridView1";
-            this.dataGridView1.SizeChanged += dataGridView1_SizeChanged;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
