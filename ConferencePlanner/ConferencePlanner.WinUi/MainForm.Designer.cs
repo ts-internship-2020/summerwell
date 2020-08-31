@@ -54,15 +54,11 @@ namespace ConferencePlanner.WinUi
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.btnHostSearch = new System.Windows.Forms.Button();
             this.btnBackHost = new System.Windows.Forms.Button();
             this.btnNextHost = new System.Windows.Forms.Button();
             this.btnAddEvent = new System.Windows.Forms.Button();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.HostConferenceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HostStartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HostEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,11 +69,15 @@ namespace ConferencePlanner.WinUi
             this.HostIsRemote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HostEditButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.HostConferenceId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -212,6 +212,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.Size = new System.Drawing.Size(909, 287);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Text = "dataGridView1";
+            this.dataGridView1.SizeChanged += dataGridView1_SizeChanged;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
@@ -345,39 +346,6 @@ namespace ConferencePlanner.WinUi
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(175)))), ((int)(((byte)(235)))));
             this.tabPage2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabPage2.BackgroundImage")));
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.HostConferenceName,
-            this.HostStartDate,
-            this.HostEndDate,
-            this.HostType,
-            this.HostCategory,
-            this.HostAddress,
-            this.HostMainSpeaker,
-            this.HostIsRemote,
-            this.HostEditButton,
-            this.HostConferenceId});
-            this.dataGridView2.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 83);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 62;
-            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(896, 287);
-            this.dataGridView2.TabIndex = 5;
-            this.dataGridView2.Text = "dataGridView2";
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             this.tabPage2.Controls.Add(this.btnHostSearch);
             this.tabPage2.Controls.Add(this.btnBackHost);
             this.tabPage2.Controls.Add(this.btnNextHost);
@@ -464,59 +432,39 @@ namespace ConferencePlanner.WinUi
             this.btnAddEvent.UseVisualStyleBackColor = false;
             this.btnAddEvent.Click += new System.EventHandler(this.btnAddEvent_Click);
             // 
-            // dateTimePicker4
+            // dataGridView2
             // 
-            this.dateTimePicker4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dateTimePicker4.CalendarTitleBackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dateTimePicker4.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
-            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker4.Location = new System.Drawing.Point(77, 32);
-            this.dateTimePicker4.Margin = new System.Windows.Forms.Padding(4);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(250, 26);
-            this.dateTimePicker4.TabIndex = 4;
-            this.dateTimePicker4.Value = new System.DateTime(1921, 3, 4, 0, 0, 0, 0);
-            this.dateTimePicker4.ValueChanged += new System.EventHandler(this.dateTimePicker4_ValueChanged);
-            // 
-            // dateTimePicker3
-            // 
-            this.dateTimePicker3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dateTimePicker3.CalendarTitleBackColor = System.Drawing.Color.White;
-            this.dateTimePicker3.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
-            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker3.Location = new System.Drawing.Point(430, 32);
-            this.dateTimePicker3.Margin = new System.Windows.Forms.Padding(4);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(250, 26);
-            this.dateTimePicker3.TabIndex = 3;
-            this.dateTimePicker3.Value = new System.DateTime(2100, 7, 16, 0, 0, 0, 0);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("Book Antiqua", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(378, 32);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 23);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "To";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Book Antiqua", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(5, 32);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 23);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "From";
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.HostConferenceName,
+            this.HostStartDate,
+            this.HostEndDate,
+            this.HostType,
+            this.HostCategory,
+            this.HostAddress,
+            this.HostMainSpeaker,
+            this.HostIsRemote,
+            this.HostEditButton,
+            this.HostConferenceId});
+            this.dataGridView2.GridColor = System.Drawing.SystemColors.Control;
+            this.dataGridView2.Location = new System.Drawing.Point(6, 83);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 62;
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView2.Size = new System.Drawing.Size(896, 287);
+            this.dataGridView2.TabIndex = 5;
+            this.dataGridView2.Text = "dataGridView2";
+            this.dataGridView2.SizeChanged += dataGridView2_SizeChanged;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             // 
             // HostConferenceName
             // 
@@ -599,11 +547,64 @@ namespace ConferencePlanner.WinUi
             this.HostConferenceId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.HostConferenceId.Visible = false;
             // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTimePicker4.CalendarTitleBackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dateTimePicker4.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
+            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker4.Location = new System.Drawing.Point(77, 32);
+            this.dateTimePicker4.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(250, 26);
+            this.dateTimePicker4.TabIndex = 4;
+            this.dateTimePicker4.Value = new System.DateTime(1921, 3, 4, 0, 0, 0, 0);
+            this.dateTimePicker4.ValueChanged += new System.EventHandler(this.dateTimePicker4_ValueChanged);
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTimePicker3.CalendarTitleBackColor = System.Drawing.Color.White;
+            this.dateTimePicker3.CustomFormat = "dd\'/\'MM\'/\'yyyy hh\':\'mm tt";
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker3.Location = new System.Drawing.Point(430, 32);
+            this.dateTimePicker3.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(250, 26);
+            this.dateTimePicker3.TabIndex = 3;
+            this.dateTimePicker3.Value = new System.DateTime(2100, 7, 16, 0, 0, 0, 0);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("Book Antiqua", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(378, 32);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 23);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "To";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Book Antiqua", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(5, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 23);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "From";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoSize = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 499);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(770, 370);
@@ -614,12 +615,14 @@ namespace ConferencePlanner.WinUi
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
+
+        
 
         #endregion
 
