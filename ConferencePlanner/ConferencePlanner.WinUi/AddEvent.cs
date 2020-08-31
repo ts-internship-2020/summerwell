@@ -560,7 +560,8 @@ namespace ConferencePlanner.WinUi
         private void DeleteType_Click(object sender, EventArgs e)
         {
             
-            _ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
+            bool hey =_ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
+            if (!hey) MessageBox.Show("There is a conference with this type");
             RefreshLists("DictionaryType");
             DeleteType.Enabled = false;
             btnNext.Enabled = false;
@@ -592,7 +593,8 @@ namespace ConferencePlanner.WinUi
 
         private void DeleteCategory_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
+            bool hey =_ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
+            if (!hey) MessageBox.Show("There is a conference with this category!");
             RefreshLists("DictionaryCategory");
             DeleteCategory.Enabled = false;
             btnSave.Visible = false;
