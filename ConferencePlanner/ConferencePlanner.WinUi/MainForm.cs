@@ -168,7 +168,10 @@ namespace ConferencePlanner.WinUi
                     populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
                 }
 
-                else populateHostGridViewByDate(0, nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
+                else
+                {
+                    populateHostGridViewByDate(0, nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
+                }
             }
         }
 
@@ -753,7 +756,7 @@ namespace ConferencePlanner.WinUi
         {
             try
             {
-                nr_row = dataGridView1.Size.Height / 40;
+                nr_row = dataGridView2.Size.Height / 40;
                 if (HoststartingPoint <= HosttotalEntries - nr_row)
                 {
                     HoststartingPoint += nr_row;
@@ -787,7 +790,7 @@ namespace ConferencePlanner.WinUi
         {
             try
             {
-                nr_row = dataGridView1.Size.Height / 40;
+                nr_row = dataGridView2.Size.Height / 40;
                 if (HoststartingPoint >= nr_row)
                 {
                     HoststartingPoint -= nr_row;
