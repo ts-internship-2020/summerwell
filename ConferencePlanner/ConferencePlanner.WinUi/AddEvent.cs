@@ -580,6 +580,7 @@ namespace ConferencePlanner.WinUi
             RefreshLists("DictionaryCounty");
             DeleteCounty.Enabled = false;
             btnNext4.Enabled = false;
+            
         }
 
         private void DeleteCity_Click(object sender, EventArgs e)
@@ -588,6 +589,7 @@ namespace ConferencePlanner.WinUi
             RefreshLists("DictionaryCity");
             DeleteCity.Enabled = false;
             btnNext5.Enabled = false;
+            
         }
 
         private void DeleteCategory_Click(object sender, EventArgs e)
@@ -604,6 +606,7 @@ namespace ConferencePlanner.WinUi
             RefreshLists("DictionaryCountry");
             DeleteCountry.Enabled = false;
             btnNext2.Enabled = false;
+            
         }
     }
 }

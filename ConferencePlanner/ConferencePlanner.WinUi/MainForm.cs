@@ -156,13 +156,20 @@ namespace ConferencePlanner.WinUi
                    
                     try
                     {
+                        
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
+                        x.Clear();
+                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+                        totalEntries = x.Count();
                         Thread thread = new Thread(() => _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel));
                         thread.Start();
                     }
                     catch (SqlException ex)
-                    {
+                    { 
                         _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                        x.Clear();
+                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+                        totalEntries = x.Count();
                     }
                     conferencesCurrentUserAttends.Clear();
                     conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
