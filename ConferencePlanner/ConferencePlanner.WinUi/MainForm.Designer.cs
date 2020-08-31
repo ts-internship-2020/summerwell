@@ -211,8 +211,8 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(909, 287);
             this.dataGridView1.TabIndex = 5;
-            this.dataGridView1.SizeChanged += dataGridView1_SizeChanged;
             this.dataGridView1.Text = "dataGridView1";
+            this.dataGridView1.SizeChanged += dataGridView1_SizeChanged;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
@@ -603,9 +603,8 @@ namespace ConferencePlanner.WinUi
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoSize = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 499);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(770, 370);
