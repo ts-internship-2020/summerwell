@@ -42,7 +42,7 @@ namespace ConferencePlanner.Api
                 });
             //comentariu degeaba
             services.AddScoped<IGetDemoRepository, GetDemoRepository>();
-
+            services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddSwagger();
         }
 

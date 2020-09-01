@@ -195,20 +195,34 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 3;
                     _conferenceAudienceModel.UniqueParticipantCode = _ConferenceRepository.GetUniqueParticipantCode();
-                   
+
                     try
                     {
+
                         _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
+                        conferencesCurrentUserAttends.Clear();
+                        conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+                        x.Clear();
+                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+                        totalEntries = x.Count();
+
                         Thread thread = new Thread(() => _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel));
                         thread.Start();
                     }
                     catch (SqlException ex)
                     {
                         _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                        conferencesCurrentUserAttends.Clear();
+                        conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+                        x.Clear();
+                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+                        totalEntries = x.Count();
+
                     }
-                    conferencesCurrentUserAttends.Clear();
-                    conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                    changeColorForSingleButton(e.RowIndex);
+                    startingPoint = 0;
+                    dataGridView1.Rows.Clear();
+                    populateConferenceGridViewByDate(startingPoint, startingPoint + nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
+                    changeColor();
                     changeColorForJoinButtons();
                     //InitTimer(sender, e.RowIndex, e.ColumnIndex);
 

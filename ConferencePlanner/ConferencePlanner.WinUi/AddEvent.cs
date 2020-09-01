@@ -663,6 +663,7 @@ namespace ConferencePlanner.WinUi
             RefreshLists("DictionaryCounty");
             DeleteCounty.Enabled = false;
             btnNext4.Enabled = false;
+            
         }
 
         private void DeleteCity_Click(object sender, EventArgs e)
@@ -671,6 +672,7 @@ namespace ConferencePlanner.WinUi
             RefreshLists("DictionaryCity");
             DeleteCity.Enabled = false;
             btnNext5.Enabled = false;
+            
         }
 
         private void DeleteCategory_Click(object sender, EventArgs e)
@@ -693,6 +695,7 @@ namespace ConferencePlanner.WinUi
             RefreshLists("DictionaryCountry");
             DeleteCountry.Enabled = false;
             btnNext2.Enabled = false;
+            
         }
         private void btnBack2_Click(object sender, EventArgs e)
         {
@@ -702,19 +705,27 @@ namespace ConferencePlanner.WinUi
         }
         private void btnBack3_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabCountry);
+            tabCountry.Enabled = true;
+            tabType.Enabled = false;
         }
         private void btnBack4_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabSpeaker);
+            tabSpeaker.Enabled = true;
+            tabCountry.Enabled = false;
         }
         private void btnBack5_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabCounty);
+            tabCounty.Enabled = true;
+            tabSpeaker.Enabled = false;
         }
         private void btnBack6_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabCity);
+            tabCity.Enabled = true;
+            tabCounty.Enabled = false;
         }
     }
 }
