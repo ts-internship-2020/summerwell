@@ -10,18 +10,18 @@ namespace ConferencePlanner.Repository.Ef.Repository
 {
     public class GetDemoRepository : IGetDemoRepository
     {
-        private readonly neverseaContext _dbContext;
+        private readonly summerwellContext _dbContext;
 
-        public GetDemoRepository(neverseaContext dbContext)
+        public GetDemoRepository(summerwellContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         public List<DemoModel> GetDemo(string name)
         {
-            List<Demo> demos = _dbContext.Demo.ToList();
+            List<Conference> demos = _dbContext.Conference.ToList();
 
-            List<DemoModel> demoModels = demos.Select(a => new DemoModel() { Id = a.Id, Name = a.Name }).ToList();
+            List<DemoModel> demoModels = demos.Select(a => new DemoModel() { Id = a.ConferenceId, Name = a.ConferenceName }).ToList();
 
             return demoModels;
         }

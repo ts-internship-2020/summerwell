@@ -113,10 +113,8 @@ namespace ConferencePlanner.WinUi
 
             if (editnew == 0)
             {
-                //eventDetails.DictionaryCountryName = addConferenceDetailModel.CountryName;
-                //eventDetails.DictionaryCountryName = addConferenceDetailModel.CountyName;
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
-                int locationid = -1;
+                /*int locationid = -1;
                 foreach ( var c in conferences)
                 {
                     if (c.ConferenceId == eventDetails.ConferenceId)
@@ -142,13 +140,17 @@ namespace ConferencePlanner.WinUi
                     {
                         eventDetails.DictionaryCountyName = c.DictionaryCountyName;
                         eventDetails.DictionaryCountyCode = c.Code;
-
+                        eventDetails.DictionaryCountryId = c.DictionaryCountryId;
                     }
                 }
                 foreach(var c in countries)
                 {
-
-                }
+                    if(eventDetails.DictionaryCountryId == c.DictionaryCountryId)
+                    {
+                        eventDetails.DictionaryCountryCode = c.Code;
+                        eventDetails.DictionaryCountryName = c.DictionaryCountryName;
+                    }
+                }*/
                 eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
                 eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
                 eventDetails.EndDate = addConferenceDetailModel.EndDate;
@@ -162,7 +164,7 @@ namespace ConferencePlanner.WinUi
                 AddAddress.Text = eventDetails.LocationName;
                 AddStartDate.Value = eventDetails.StartDate;
                 AddEndDate.Value = eventDetails.EndDate;
-                ToSelectItem();
+                //ToSelectItem();
             }
         }
 
@@ -176,11 +178,9 @@ namespace ConferencePlanner.WinUi
                     break;
                 }
 
-            MessageBox.Show(eventDetails.DictionaryCountryName);
             foreach (ListViewItem item in listView2.Items)
                 if (item.SubItems[1].Text == eventDetails.DictionaryCountryName)
                 {
-                    MessageBox.Show(item.SubItems[1].Text);
                     listView2.Items[item.Index].Selected = true;
                     listView2.Select();
                     break;
