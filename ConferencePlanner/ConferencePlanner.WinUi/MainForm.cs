@@ -237,7 +237,6 @@ namespace ConferencePlanner.WinUi
                             notifyIcon1.Visible = true;
                             notifyIcon1.ShowBalloonTip(30);
                         }
-
                     }
                     else
                     {
@@ -490,12 +489,6 @@ namespace ConferencePlanner.WinUi
             catch { }
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //com
-        }
-
-
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -513,37 +506,23 @@ namespace ConferencePlanner.WinUi
                         addConferenceDetailModel.Speaker = (string)dataGridView2.Rows[e.RowIndex].Cells["HostMainSpeaker"].Value;
                         addConferenceDetailModel.StartDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostStartDate"].Value;
                         addConferenceDetailModel.EndDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostEndDate"].Value;
-
+                        
                         AddEvent form3 = new AddEvent(0, f, addConferenceDetailModel, _GetSpeakerDetail,
                             _ConferenceTypeRepository, _ConferenceRepository,
                             _DictionaryCityRepository, _DictionaryCountryRepository,
                             _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository, _Locationrepository);
+
                         this.Enabled = false;
                         form3.Tag = this;
                         form3.Show(this);
                     }
                 }
             }
-            catch {
+            catch (Exception ex){
                 SetBalloonTip("Something is wrong", "Please press again!");
                 notifyIcon1.Visible = true;
                 notifyIcon1.ShowBalloonTip(3000);
             }
-
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -585,14 +564,10 @@ namespace ConferencePlanner.WinUi
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
-
-
             if (dataGridView1.CurrentCell != null & (dataGridView1.CurrentCell.ColumnIndex.ToString().Equals("5")))
 
                 try
                 {
-
                     string rating = "";
                     string nationality = "";
                     string picture = "";

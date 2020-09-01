@@ -96,7 +96,6 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(913, 499);
             this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -216,6 +215,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.Size = new System.Drawing.Size(909, 287);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Text = "dataGridView1";
+            this.dataGridView1.Resize += dataGridView1_SizeChanged;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
@@ -364,7 +364,6 @@ namespace ConferencePlanner.WinUi
             this.tabPage2.Size = new System.Drawing.Size(905, 463);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Host";
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // btnHostSearch
             // 
@@ -465,6 +464,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView2.Size = new System.Drawing.Size(896, 287);
             this.dataGridView2.TabIndex = 5;
             this.dataGridView2.Text = "dataGridView2";
+            this.dataGridView2.Resize += dataGridView2_SizeChanged;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             // 
@@ -617,7 +617,6 @@ namespace ConferencePlanner.WinUi
             this.MinimumSize = new System.Drawing.Size(770, 370);
             this.Name = "MainForm";
             this.Text = "Home";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

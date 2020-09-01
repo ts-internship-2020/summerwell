@@ -14,6 +14,7 @@ namespace ConferencePlanner.Abstraction.Repository
         List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate);
         List<ConferenceAudienceModel> GetConferenceAudience(string email);
         List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst(List<ConferenceAudienceModel> _attendedConferences, DateTime StartDate, DateTime EndDate);
+        DictionaryCityModel GetCity(int conferenceId);
         void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel);
         void AddCountry(string Code, string Name);
         void AddCounty(string Code, string Name, string country);

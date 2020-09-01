@@ -28,6 +28,7 @@ namespace ConferencePlanner.WinUi
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
+        private readonly ILocationRepository _LocationRepository;
         protected AddEvent f;
         private AddEventDetailModel eventDetails;
         private AddConferenceDetailModel AddConferenceDetailModel;
@@ -64,6 +65,7 @@ namespace ConferencePlanner.WinUi
             _DictionaryCountryRepository = DictionaryCountryRepository;
             _ConferenceRepository = ConferenceRepository;
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
+            _LocationRepository = locationRepository;
             List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
             List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
             countys = _DictionaryCountyRepository.GetDictionaryCounty();
@@ -71,7 +73,9 @@ namespace ConferencePlanner.WinUi
             _ConferenceTypeRepository = ConferenceTypeRepository;
             x = _ConferenceTypeRepository.GetConferenceType();
             conferences = _ConferenceRepository.GetConference();
-            location = locationRepository.GetLocation();
+            
+            //location = _LocationRepository.GetLocation();
+
 
             if (countries == null) { return; }
             else
@@ -114,17 +118,11 @@ namespace ConferencePlanner.WinUi
             if (editnew == 0)
             {
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
-                /*int locationid = -1;
-                foreach ( var c in conferences)
-                {
-                    if (c.ConferenceId == eventDetails.ConferenceId)
-                        locationid = c.LocationId;
-                }
-                foreach (var c in location)
-                {
-                    if(locationid == c.LocationId)
-                        eventDetails.DictionaryCityId= c.CityId;
-                }
+                DictionaryCityModel city = _ConferenceRepository.GetCity(eventDetails.ConferenceId);
+                eventDetails.DictionaryCityId = city.DictionaryCityId;
+                eventDetails.DictionaryCityName = city.Name;
+                eventDetails.DictionaryCityCode = city.Code;
+                /*
                 foreach(var c in cityList)
                 {
                     if (eventDetails.DictionaryCityId == c.DictionaryCityId)
@@ -178,7 +176,7 @@ namespace ConferencePlanner.WinUi
                     break;
                 }
 
-            foreach (ListViewItem item in listView2.Items)
+            /*foreach (ListViewItem item in listView2.Items)
                 if (item.SubItems[1].Text == eventDetails.DictionaryCountryName)
                 {
                     listView2.Items[item.Index].Selected = true;
@@ -192,7 +190,7 @@ namespace ConferencePlanner.WinUi
                     listView3.Items[item.Index].Selected = true;
                     listView3.Select();
                     break;
-                }
+                }*/
         }
         private void SetBalloonTip(string title, string text)
         {

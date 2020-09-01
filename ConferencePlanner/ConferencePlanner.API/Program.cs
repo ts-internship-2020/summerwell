@@ -23,5 +23,4 @@ namespace ConferencePlanner.Api
                     webBuilder.UseStartup<Startup>();
                 });
     }
-    //helllooooo
 }
