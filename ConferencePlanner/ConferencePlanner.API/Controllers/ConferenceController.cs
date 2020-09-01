@@ -2,15 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace ConferencePlanner.Api.Controllers
 {
     public class ConferenceController : Controller
     {
-        public IActionResult Index()
+        private readonly ILogger<ConferenceController> _logger;
+        private readonly IConferenceRepository _conferenceRepository;
+        public ConferenceController(ILogger<ConferenceController> logger, IConferenceRepository conferenceRepository)
         {
-            return View();
+            _logger = logger;
+            _conferenceRepository = conferenceRepository;
+        }
+        [HttpGet]
+        [Route("Conference")]
+        public IActionResult GetConferences()
+        {
+            List<ConferenceModel> conferences = _conferenceRepository.GetConference();
+            return Ok(conferences);
         }
     }
 }
