@@ -46,6 +46,25 @@ namespace ConferencePlanner.Repository.Ado.Repository
             return categories;
 
         }
+
+        public DictionaryConferenceCategoryModel GetDictionaryCategory(int conferenceId)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select dcc.DictionaryConferenceCategoryId as Id, dcc.DictionaryConferenceCategoryName as Name "+
+                                        "from DictionaryConferenceCategory dcc "+
+                                        "join Conference c on dcc.DictionaryConferenceCategoryId = c.ConferenceCategoryId "+
+                                        "where c.ConferenceId = @conferenceId";
+            sqlCommand.Parameters.Add("@conferenceId", SqlDbType.Int).Value = conferenceId;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DictionaryConferenceCategoryModel categoryModel = new DictionaryConferenceCategoryModel();
+            if (sqlDataReader.HasRows)
+            {
+                sqlDataReader.Read();
+                categoryModel.DictionaryConferenceCategoryName = sqlDataReader.GetString("Name");
+                categoryModel.DictionaryConferenceCategoryId = sqlDataReader.GetInt32("Id");
+            }
+            return categoryModel;
+        }
     }
 }
 

@@ -200,7 +200,6 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.Size = new System.Drawing.Size(372, 237);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 8;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabType
             // 
@@ -666,7 +665,6 @@ namespace ConferencePlanner.WinUi
             this.btnSaveNew.Text = "Save and New";
             this.btnSaveNew.UseVisualStyleBackColor = false;
             this.btnSaveNew.Visible = false;
-            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
             // notifyIcon1
             // 

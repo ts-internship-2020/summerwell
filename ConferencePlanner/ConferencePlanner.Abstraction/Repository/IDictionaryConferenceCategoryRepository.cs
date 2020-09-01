@@ -8,5 +8,6 @@ namespace ConferencePlanner.Abstraction.Repository
     public interface IDictionaryConferenceCategoryRepository
     {
         List<DictionaryConferenceCategoryModel> GetDictionaryCategory();
+        DictionaryConferenceCategoryModel GetDictionaryCategory(int conferenceId);
     }
 }

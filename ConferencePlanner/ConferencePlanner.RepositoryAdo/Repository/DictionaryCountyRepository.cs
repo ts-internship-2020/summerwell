@@ -48,5 +48,25 @@ namespace ConferencePlanner.Abstraction.Repository
             return countys;
 
         }
+
+        public DictionaryCountyModel GetCounty(int countyId)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select dc.DictionaryCountyName as Name, dc.DictionaryCountyId as Id, dc.DictionaryCountyCode as Code, dc.DictionaryCountryId as CountryId " +
+                                       "from DictionaryCounty dc " +
+                                       "where dc.DictionaryCountyId = @countyId";
+            sqlCommand.Parameters.Add("@countyId", SqlDbType.Int).Value = countyId;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DictionaryCountyModel countyModel = new DictionaryCountyModel();
+            if (sqlDataReader.HasRows)
+            {
+                sqlDataReader.Read();
+                countyModel.DictionaryCountyId = countyId;
+                countyModel.DictionaryCountyName = sqlDataReader.GetString("Name");
+                countyModel.Code = sqlDataReader.GetString("Code");
+                countyModel.DictionaryCountryId = sqlDataReader.GetInt32("CountryId");
+            }
+            return countyModel;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace ConferencePlanner.Abstraction.Repository
     public interface IDictionaryCountyRepository
     {
         List<DictionaryCountyModel> GetDictionaryCounty();
+        DictionaryCountyModel GetCounty(int countyId);
     }
 }
