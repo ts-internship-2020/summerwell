@@ -116,28 +116,38 @@ namespace ConferencePlanner.WinUi
                 //eventDetails.DictionaryCountryName = addConferenceDetailModel.CountryName;
                 //eventDetails.DictionaryCountryName = addConferenceDetailModel.CountyName;
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
-                int locationid;
+                int locationid = -1;
                 foreach ( var c in conferences)
                 {
                     if (c.ConferenceId == eventDetails.ConferenceId)
                         locationid = c.LocationId;
                 }
-                foreach (var c in loca)
+                foreach (var c in location)
                 {
-                    if(eventDetails.DictionaryCityId == c.DictionaryCountyId)
+                    if(locationid == c.LocationId)
+                        eventDetails.DictionaryCityId= c.CityId;
+                }
+                foreach(var c in cityList)
+                {
+                    if (eventDetails.DictionaryCityId == c.DictionaryCityId)
+                    {
+                        eventDetails.DictionaryCityName = c.Name;
+                        eventDetails.DictionaryCityCode = c.Code;
+                        eventDetails.DictionaryCountyId = c.DictionaryCountyId;
+                    }
+                }
+                foreach(var c in countys)
+                {
+                    if(eventDetails.DictionaryCountyId == c.DictionaryCountyId)
                     {
                         eventDetails.DictionaryCountyName = c.DictionaryCountyName;
                         eventDetails.DictionaryCountyCode = c.Code;
-                        eventDetails.DictionaryCountryId = c.DictionaryCountryId;
+
                     }
                 }
                 foreach(var c in countries)
                 {
-                    if (eventDetails.DictionaryCountryId == c.DictionaryCountryId)
-                    {
-                        eventDetails.DictionaryCountryName = c.DictionaryCountryName;
-                        eventDetails.DictionaryCountryCode = c.Code;
-                    }
+
                 }
                 eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
                 eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
