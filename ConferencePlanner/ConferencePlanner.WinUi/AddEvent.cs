@@ -686,5 +686,27 @@ namespace ConferencePlanner.WinUi
             DeleteCountry.Enabled = false;
             btnNext2.Enabled = false;
         }
+        private void btnBack2_Click(object sender, EventArgs e)
+        {
+                tabControl1.SelectTab(tabType);
+                tabType.Enabled = true;
+                tabCountry.Enabled = false;
+        }
+        private void btnBack3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnBack4_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnBack5_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnBack6_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
