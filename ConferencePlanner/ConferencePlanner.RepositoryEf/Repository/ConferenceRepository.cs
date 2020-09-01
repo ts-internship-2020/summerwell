@@ -130,6 +130,42 @@ namespace ConferencePlanner.Repository.Ef.Repository
             throw new NotImplementedException();
         }
 
+        public DictionaryCityModel GetCity(int conferenceId)
+        {
+
+            List<Conference> conferences = _dbContext.Conference.ToList();
+
+            List<ConferenceModel> conferenceModels = conferences.Where(a => a.ConferenceId == conferenceId).Select(a => new ConferenceModel()
+            {
+                LocationId = (int)a.LocationId
+
+            }).ToList();
+
+            List<Location> locations = _dbContext.Location.ToList();
+
+            List<LocationModel> locationModels = locations.Where(a => a.LocationId == conferenceModels[0].LocationId).Select(a => new LocationModel()
+            {
+
+                CityId = a.CityId
+
+            }).ToList();
+
+            List<DictionaryCity> cities = _dbContext.DictionaryCity.ToList();
+
+            List<DictionaryCityModel> citiesModel = cities.Where(a => a.DictionaryCityId == locationModels[0].CityId).Select(a => new DictionaryCityModel()
+            {
+
+                DictionaryCityId = a.DictionaryCityId,
+                DictionaryCountyId = a.DictionaryCountyId,
+                Name = a.DictionaryCityName,
+                Code = a.DictionaryCityCode
+
+
+            }).ToList();
+
+            return citiesModel[0];
+        }
+
         public List<ConferenceModel> GetConference()
         {
             List<Conference> conferences = _dbContext.Conference.ToList();
@@ -149,12 +185,39 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceAudienceModel> GetConferenceAudience(string email)
         {
-            throw new NotImplementedException();
+
+
+            List<ConferenceAudience> conferences = _dbContext.ConferenceAudience.ToList();
+            List<ConferenceAudienceModel> audiences = conferences.Where(a => a.Participant == email).Select(a => new ConferenceAudienceModel()
+            {
+                ConferenceAudienceId=a.ConferenceAudienceId,
+                ConferenceId=(int)a.ConferenceId,
+                Participant=a.Participant,
+                ConferenceStatusId=(int)a.ConferenceStatusId,
+                UniqueParticipantCode=a.UniqueParticipantCode
+            }).ToList();
+            return audiences;
         }
 
         public List<ConferenceDetailModel> GetConferenceDetail()
         {
-            throw new NotImplementedException();
+            List<Conference> conferences = _dbContext.Conference.Include(a => a.ConferenceType).Include(a => a.ConferenceCategory).Include(a => a.SpeakerxConference)
+                 .Include(a => a.Location).Include(a => a.Location.City).ToList();
+
+            List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
+            {
+                ConferenceId = a.ConferenceId,
+                DictionaryConferenceTypeName = a.ConferenceType.DictionaryConferenceTypeName,
+                LocationStreet = a.Location.Street,
+                DictionaryConferenceCategoryName = a.ConferenceCategory.DictionaryConferenceCategoryName,
+                HostEmail = a.HostEmail,
+                StartDate = a.StartDate,
+                EndDate = a.EndDate,
+                ConferenceName = a.ConferenceName,
+                DictionaryCityName = a.Location.City.DictionaryCityName,
+                IsRemote = a.ConferenceType.IsRemote
+            }).ToList();
+            return conferencesModel;
         }
 
         public List<ConferenceDetailModel> GetConferenceDetail(DateTime StartDate, DateTime EndDate)
@@ -198,6 +261,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
         public string GetUniqueParticipantCode()
         {
             throw new NotImplementedException();
+
         }
 
         public void RatingChange(int Nota, string Name)

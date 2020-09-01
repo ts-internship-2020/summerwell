@@ -18,6 +18,15 @@ namespace ConferencePlanner.Api.Controllers
             _logger = logger;
             _conferenceRepository = conferenceRepository;
         }
+
+        [HttpPost]
+        [Route("DictionaryCity")]
+        public IActionResult GetCity(int conferenceId)
+        {
+            DictionaryCityModel city = _conferenceRepository.GetCity(conferenceId);
+            return Ok(city);
+        }
+
         [HttpGet]
         [Route("Conference")]
         public IActionResult GetConferences()
@@ -31,6 +40,22 @@ namespace ConferencePlanner.Api.Controllers
         {
             List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetail(startEndDate.startDate, startEndDate.endDate);
             return Ok(conferencesDetails);
+        }
+
+        [HttpGet]
+        [Route("Conference/ConferenceDetail")]
+        public IActionResult GetConferenceDetail()
+        {
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetail();
+            return Ok(conferencesDetails);
+        }
+        [HttpPost]
+        [Route("Conference/GetConferenceAudience")]
+
+        public IActionResult GetConferenceAudience(string email)
+        {
+            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(email);
+            return Ok(conferencesAudience);
         }
     }
 }
