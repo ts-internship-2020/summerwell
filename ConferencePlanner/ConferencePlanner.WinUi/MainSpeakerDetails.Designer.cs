@@ -31,6 +31,7 @@ namespace ConferencePlanner.WinUi
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainSpeakerDetails));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -51,6 +52,7 @@ namespace ConferencePlanner.WinUi
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnRate = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -314,6 +316,11 @@ namespace ConferencePlanner.WinUi
             this.textBox9.Size = new System.Drawing.Size(60, 30);
             this.textBox9.TabIndex = 19;
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // MainSpeakerDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
@@ -373,5 +380,6 @@ namespace ConferencePlanner.WinUi
         private System.Windows.Forms.PictureBox pictureBox1;
         private Button btnRate;
         private TextBox textBox9;
+        private NotifyIcon notifyIcon1;
     }
 }

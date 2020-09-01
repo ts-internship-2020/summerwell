@@ -23,8 +23,6 @@ namespace ConferencePlanner.WinUi
 
     public partial class MainForm : Form
     {
-
-
         private readonly IConferenceRepository _ConferenceRepository;
         private readonly IConferenceTypeRepository _ConferenceTypeRepository;
         private readonly IGetSpeakerDetail _GetSpeakerDetail;
@@ -43,13 +41,14 @@ namespace ConferencePlanner.WinUi
         private List<ConferenceAudienceModel> conferencesCurrentUserAttends;
         protected string currentUser;
         protected MainForm f;
+        private int nr_row;
 
         public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, string var_email)
         {
 
             InitializeComponent();
+            nr_row = dataGridView1.Size.Height / 40;
             f = this;
-
             _ConferenceTypeRepository = conferenceTypeRepository;
             _ConferenceRepository = ConferenceRepository;
             _DictionaryCountryRepository = DictionaryCountryRepository;
@@ -81,25 +80,23 @@ namespace ConferencePlanner.WinUi
                 return;
             }
 
-            if (totalEntries < 5)
+            if (totalEntries < nr_row)
             {
                 populateConferenceGridViewByDate(0, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
                 changeColor();
             }
-            else { populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value); changeColor(); }
+            else { populateConferenceGridViewByDate(0, nr_row, dateTimePicker2.Value, dateTimePicker1.Value); changeColor(); }
 
             if (y == null || y.Count() == 0)
             {
                 return;
             }
-            if (HosttotalEntries < 6) { populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+            if (HosttotalEntries < nr_row) { populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
                 btnBackHost.Enabled = false;
                 btnNextHost.Enabled = false; }
 
-            else populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
-
-
-
+            else populateHostGridViewByDate(0, nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
+            
         }
 
         private void populateConferenceGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
@@ -115,7 +112,6 @@ namespace ConferencePlanner.WinUi
                                        null, null, null, x[i].ConferenceId);
                 }
             }
-
 
         }
         private void populateHostGridViewByDate(int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
@@ -133,6 +129,50 @@ namespace ConferencePlanner.WinUi
                 }
 
 
+        }
+        private void SetBalloonTip(string title,string text)
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = title;
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            notifyIcon1.Visible = false;
+        }
+
+        private void dataGridView1_SizeChanged(object sender, EventArgs e)
+        {
+            int rowHeight = dataGridView1.Size.Height  / 40;
+            if (rowHeight > 0)
+            {
+                nr_row = rowHeight;
+                dataGridView1.Rows.Clear();
+                if (totalEntries < nr_row)
+                {
+                    populateConferenceGridViewByDate(0, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
+                    changeColor();
+                }
+                else { populateConferenceGridViewByDate(0, nr_row, dateTimePicker2.Value, dateTimePicker1.Value); 
+                    changeColor(); 
+                }
+            }
+        }
+        private void dataGridView2_SizeChanged(object sender, EventArgs e)
+        {
+            int rowHeight = dataGridView2.Size.Height / 40;
+            if (rowHeight > 0)
+            {
+                nr_row = rowHeight;
+                dataGridView2.Rows.Clear();
+                if (HosttotalEntries < nr_row)
+                {
+                    populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
+                }
+
+                else
+                {
+                    populateHostGridViewByDate(0, nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
+                }
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -191,13 +231,17 @@ namespace ConferencePlanner.WinUi
                         }
                         else
                         {
-                            MessageBox.Show("You have to attend before you can join!");
+                            SetBalloonTip("You need to attend first", "You can't join the conference yet!");
+                            notifyIcon1.Visible = true;
+                            notifyIcon1.ShowBalloonTip(30);
                         }
 
                     }
                     else
                     {
-                        MessageBox.Show("You can't join the conference yet!");
+                        SetBalloonTip("You need to attend first","You can't join the conference yet!");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
                     }
                 }
                 if (senderGrid.CurrentCell.OwningColumn.Name.ToString().Equals("WithdrawButton") && inWithdraw == false)
@@ -208,7 +252,11 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceStatusId = 2;
                     int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
                     if (rows_affected <= 0)
-                        MessageBox.Show("You have to attend before you can withdraw!");
+                    {
+                        SetBalloonTip("Please attend first", "You have to attend before you can withdraw!");
+                        notifyIcon1.Visible = true;
+                        notifyIcon1.ShowBalloonTip(3000);
+                    }
                     inWithdraw = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex);
                     isAttend = true;
@@ -233,7 +281,11 @@ namespace ConferencePlanner.WinUi
                 bc.Style.BackColor = Color.DarkRed;
                 bc.Style.ForeColor = Color.DarkRed;
             }
-            catch { MessageBox.Show("Please press again!"); }
+            catch {
+                SetBalloonTip("Something is wrong", "Please press again!");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
+            }
         }
 
         private void makeButtonGreen(object datagrid, int row, int col)
@@ -245,7 +297,14 @@ namespace ConferencePlanner.WinUi
                 bc.FlatStyle = FlatStyle.Flat;
                 bc.Style.BackColor = Color.DarkGreen;
                 bc.Style.ForeColor = Color.DarkGreen;
-            } catch { MessageBox.Show("Please press again!"); }
+            }
+            catch
+            {
+                SetBalloonTip("Something is wrong", "Please press again!");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
+            }
+            
         }
 
         private System.Windows.Forms.Timer timer1;
@@ -318,7 +377,9 @@ namespace ConferencePlanner.WinUi
             }
             catch
             {
-                MessageBox.Show("Nothing to see here");
+                SetBalloonTip("Something is wrong", "Nothing to see");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
             }
         }
         private void changeColorForSingleButton(int row)
@@ -461,7 +522,11 @@ namespace ConferencePlanner.WinUi
                     }
                 }
             }
-            catch { MessageBox.Show("Press again!"); }
+            catch {
+                SetBalloonTip("Something is wrong", "Please press again!");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
         }
 
@@ -567,7 +632,9 @@ namespace ConferencePlanner.WinUi
                 }
                 catch (NullReferenceException)
                 {
-                    MessageBox.Show("You cannot process an empty cell");
+                    SetBalloonTip("Plese complete with something", "You cannot process an empty cell");
+                    notifyIcon1.Visible = true;
+                    notifyIcon1.ShowBalloonTip(3000);
                 }
         }
         public void AddEventNotEdit()
@@ -599,7 +666,11 @@ namespace ConferencePlanner.WinUi
                 HosttotalEntries = y.Count;
                 populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
             }
-            catch { MessageBox.Show("No conferences"); }
+            catch {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
         }
 
@@ -607,12 +678,12 @@ namespace ConferencePlanner.WinUi
         {
             try
             {
-
-                if (startingPoint >= 5)
+                nr_row = dataGridView1.Size.Height / 40;
+                if (startingPoint > nr_row)
                 {
-                    startingPoint -= 5;
+                    startingPoint -= nr_row;
                     dataGridView1.Rows.Clear();
-                    populateConferenceGridViewByDate(startingPoint, startingPoint + 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                    populateConferenceGridViewByDate(startingPoint, startingPoint + nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
                     changeColor();
 
                 }
@@ -621,7 +692,7 @@ namespace ConferencePlanner.WinUi
                 {
                     startingPoint = 0;
                     dataGridView1.Rows.Clear();
-                    populateConferenceGridViewByDate(startingPoint, startingPoint + 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                    populateConferenceGridViewByDate(startingPoint, startingPoint + nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
                     changeColor();
 
                 }
@@ -631,7 +702,12 @@ namespace ConferencePlanner.WinUi
                     return;
                 }
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
         }
 
 
@@ -640,14 +716,14 @@ namespace ConferencePlanner.WinUi
         {
             try
             {
-
-                if (startingPoint <= totalEntries - 5)
+                nr_row = dataGridView1.Size.Height / 40;
+                if (startingPoint < totalEntries - nr_row)
                 {
-                    startingPoint += 5;
+                    startingPoint += nr_row;
                     dataGridView1.Rows.Clear();
-                    if (startingPoint + 5 < totalEntries)
+                    if (startingPoint + nr_row < totalEntries)
                     {
-                        populateConferenceGridViewByDate(startingPoint, startingPoint + 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                        populateConferenceGridViewByDate(startingPoint, startingPoint + nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
                         changeColor();
                     }
 
@@ -667,7 +743,12 @@ namespace ConferencePlanner.WinUi
 
 
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
 
         }
@@ -675,13 +756,14 @@ namespace ConferencePlanner.WinUi
         {
             try
             {
-                if (HoststartingPoint <= HosttotalEntries - 5)
+                nr_row = dataGridView2.Size.Height / 40;
+                if (HoststartingPoint < HosttotalEntries - nr_row)
                 {
-                    HoststartingPoint += 5;
+                    HoststartingPoint += nr_row;
                     dataGridView2.Rows.Clear();
-                    if (HoststartingPoint + 5 < HosttotalEntries)
+                    if (HoststartingPoint + nr_row < HosttotalEntries)
                     {
-                        populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+                        populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
                     }
 
                     else
@@ -695,7 +777,12 @@ namespace ConferencePlanner.WinUi
                     return;
                 }
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
 
         }
 
@@ -703,11 +790,12 @@ namespace ConferencePlanner.WinUi
         {
             try
             {
-                if (HoststartingPoint >= 5)
+                nr_row = dataGridView2.Size.Height / 40;
+                if (HoststartingPoint >= nr_row)
                 {
-                    HoststartingPoint -= 5;
+                    HoststartingPoint -= nr_row;
                     dataGridView2.Rows.Clear();
-                    populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+                    populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
 
                 }
 
@@ -715,7 +803,7 @@ namespace ConferencePlanner.WinUi
                 {
                     HoststartingPoint = 0;
                     dataGridView2.Rows.Clear();
-                    populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + 5, dateTimePicker4.Value, dateTimePicker3.Value);
+                    populateHostGridViewByDate(HoststartingPoint, HoststartingPoint + nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
 
                 }
 
@@ -724,7 +812,11 @@ namespace ConferencePlanner.WinUi
                     return;
                 }
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000); ; }
         }
 
 
@@ -736,9 +828,9 @@ namespace ConferencePlanner.WinUi
                 x.Clear();
                 x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
                 totalEntries = x.Count;
-                if (totalEntries >= 5)
+                if (totalEntries >= nr_row)
                 {
-                    populateConferenceGridViewByDate(0, 5, dateTimePicker2.Value, dateTimePicker1.Value);
+                    populateConferenceGridViewByDate(0, nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
                 }
                 else
                 {
@@ -746,7 +838,12 @@ namespace ConferencePlanner.WinUi
                 }
                 changeColor();
             }
-            catch { MessageBox.Show("No conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -760,7 +857,7 @@ namespace ConferencePlanner.WinUi
                 y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
                 HosttotalEntries = y.Count;
 
-                if (HosttotalEntries < 6)
+                if (HosttotalEntries < nr_row)
                 {
 
                     populateHostGridViewByDate(0, HosttotalEntries, dateTimePicker4.Value, dateTimePicker3.Value);
@@ -768,9 +865,14 @@ namespace ConferencePlanner.WinUi
                     btnNextHost.Enabled = false;
                 }
 
-                else populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
+                else populateHostGridViewByDate(0, nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
             }
-            catch { MessageBox.Show("No more conferences"); }
+            catch
+            {
+                SetBalloonTip("There are no conferences", "Please insert another start / end date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
         }
 
         private void dateTimePicker4_ValueChanged(object sender, EventArgs e)

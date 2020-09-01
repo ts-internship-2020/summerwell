@@ -137,6 +137,14 @@ namespace ConferencePlanner.WinUi
             list.Items[itemIndex].Selected = true;
             MessageBox.Show(itemIndex.ToString());
         }
+        private void SetBalloonTip(string title, string text)
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = title;
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            notifyIcon1.Visible = false;
+        }
 
         private void populateCounty(List<DictionaryCountyModel> countys)
         {
@@ -153,6 +161,8 @@ namespace ConferencePlanner.WinUi
                 
                 }
             }
+            DeleteCounty.Enabled = false;
+            btnNext4.Enabled = false;
         }
         private void populateSpeakers(List<SpeakerDetailModel> speakers)
         {
@@ -167,6 +177,8 @@ namespace ConferencePlanner.WinUi
                 if(speaker.SpeakerId != 30)
                     listView3.Items.Add(new ListViewItem(new string[] { speaker.SpeakerName, speaker.Rating, speaker.Nationality, speaker.SpeakerId.ToString(),speaker.SpeakerEmail }));
             }
+            DeleteSpeaker.Enabled = false;
+            btnNext3.Enabled = false;
         }
         private void populateCountry(List<DictionaryCountryModel> countries)
         {
@@ -182,6 +194,8 @@ namespace ConferencePlanner.WinUi
 
             }
             listView2.GridLines = true;
+            DeleteCountry.Enabled = false;
+            btnNext2.Enabled = false;
         }
         private void populateCity(List<DictionaryCityModel> cities)
         {
@@ -196,6 +210,8 @@ namespace ConferencePlanner.WinUi
                     listView5.Items.Add(new ListViewItem(new string[] { city.Code, city.Name , city.DictionaryCountyId.ToString(), city.DictionaryCityId.ToString() }));
 
             }
+            DeleteCity.Enabled = false;
+            btnNext5.Enabled = false;
         }
         private void populateCategory(List<DictionaryConferenceCategoryModel> categories)
         {
@@ -210,6 +226,9 @@ namespace ConferencePlanner.WinUi
                     listView6.Items.Add(new ListViewItem(new string[] { category.DictionaryConferenceCategoryId.ToString(), category.DictionaryConferenceCategoryName }));
 
             }
+            DeleteCategory.Enabled = false;
+            btnSave.Enabled = false;
+            btnSave.Visible = false;
         }
 
 
@@ -280,9 +299,18 @@ namespace ConferencePlanner.WinUi
 
         }
         private void btnSave_Click(object sender, EventArgs e)
-        { if (AddStartDate.Value < System.DateTime.Now) MessageBox.Show("Please select a Start Date after current date");
-          else  if (AddEndDate.Value < AddStartDate.Value) MessageBox.Show("Please select a End Date after Start Date");
-            else if (AddConferenceName.Text == "" || AddConferenceName.Text == null) MessageBox.Show("Please don't leave the Name empty");
+        { if (AddStartDate.Value < System.DateTime.Now) { SetBalloonTip("Invalid Start Date", "Please select a Start Date after current date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
+            else if (AddEndDate.Value < AddStartDate.Value) { SetBalloonTip("Invalid End Date", "Please select a End Date after Start Date");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
+            else if (AddConferenceName.Text == "" || AddConferenceName.Text == null) { SetBalloonTip("Please don't leave the Name empty", "Please enter a name for the conference");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
             else
             {
                 try
@@ -315,7 +343,12 @@ namespace ConferencePlanner.WinUi
                     }
                     this.Close();
                 }
-                catch { MessageBox.Show("Camp invalid"); }
+                catch
+                {
+                    SetBalloonTip("Invalid entry", "Please enter a valid entry");
+                    notifyIcon1.Visible = true;
+                    notifyIcon1.ShowBalloonTip(3000);
+                }
             }
             }
         private void btnSaveNew_Click(object sender, EventArgs e)
@@ -331,7 +364,9 @@ namespace ConferencePlanner.WinUi
                 eventDetails.ConferenceTypeId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.ConferenceTypeName = selectedItem.SubItems[1].Text;
                 eventDetails.isRemote = bool.Parse(selectedItem.SubItems[2].Text);
+                DeleteType.Enabled = true;
                 btnNext.Enabled = true;
+                DeleteType.Enabled = true;
             }
         }
 
@@ -350,6 +385,7 @@ namespace ConferencePlanner.WinUi
             }
             listView1.GridLines = true;
             btnNext.Enabled = false;
+            DeleteType.Enabled = false;
             
         }
 
@@ -362,7 +398,9 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCountryCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountryName = selectedItem.SubItems[1].Text;
                 eventDetails.DictionaryCountryId = Int32.Parse(selectedItem.SubItems[2].Text);
+                DeleteCountry.Enabled = true;
                 btnNext2.Enabled = true;
+                DeleteCountry.Enabled = true;
             }
 
         }
@@ -378,7 +416,9 @@ namespace ConferencePlanner.WinUi
                 eventDetails.SpeakerNationality = selectedItem.SubItems[2].Text;
                 eventDetails.SpeakerId = Int32.Parse(selectedItem.SubItems[3].Text);
                 eventDetails.SpeakerEmail = selectedItem.SubItems[4].Text;
+                DeleteSpeaker.Enabled = true;
                 btnNext3.Enabled = true;
+                DeleteSpeaker.Enabled = true;
             }
 
         }
@@ -391,7 +431,9 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCountyCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCountyName = selectedItem.SubItems[1].Text;
                 eventDetails.DictionaryCountyId = Int32.Parse(selectedItem.SubItems[2].Text);
+                DeleteCounty.Enabled = true;
                 btnNext4.Enabled = true;
+                DeleteCounty.Enabled = true;
             }
 
         }
@@ -411,7 +453,9 @@ namespace ConferencePlanner.WinUi
                 eventDetails.DictionaryCityCode = selectedItem.SubItems[0].Text;
                 eventDetails.DictionaryCityName = selectedItem.SubItems[1].Text;
                 eventDetails.DictionaryCityId = Int32.Parse(selectedItem.SubItems[3].Text);
+                DeleteCity.Enabled = true;
                 btnNext5.Enabled = true;
+                DeleteCity.Enabled = true;
             }
 
         }
@@ -431,6 +475,7 @@ namespace ConferencePlanner.WinUi
             }
             listView5.GridLines = true;
             btnNext5.Enabled = false;
+            DeleteCountry.Enabled = false;
         }
         private void listView6_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -439,9 +484,13 @@ namespace ConferencePlanner.WinUi
                 ListViewItem selectedItem = listView6.SelectedItems[0];
                 eventDetails.DictionaryConferenceCategoryId = Int32.Parse(selectedItem.SubItems[0].Text);
                 eventDetails.DictionaryConferenceCategoryName = selectedItem.SubItems[1].Text;
+                DeleteCategory.Enabled = true;
                 btnSave.Visible = true;
 
             }
+            DeleteCategory.Enabled = true;
+            btnSave.Enabled = true;
+            btnSave.Visible = true;
 
         }
 
@@ -532,38 +581,63 @@ namespace ConferencePlanner.WinUi
         }
         private void DeleteType_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
+            
+            bool hey =_ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
+            if (!hey)
+            {
+                SetBalloonTip("You can't delete this","There is a conference with this type");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
             RefreshLists("DictionaryType");
+            DeleteType.Enabled = false;
+            btnNext.Enabled = false;
         }
 
         private void DeleteSpeaker_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteSpeaker(eventDetails.SpeakerId);
             RefreshLists("Speaker");
+            DeleteSpeaker.Enabled = false;
+            btnNext3.Enabled = false;
         }
 
         private void DeleteCounty_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteCounty(eventDetails.DictionaryCountyId, eventDetails.isRemote);
             RefreshLists("DictionaryCounty");
+            DeleteCounty.Enabled = false;
+            btnNext4.Enabled = false;
         }
 
         private void DeleteCity_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteCity(eventDetails.DictionaryCityId, eventDetails.isRemote);
             RefreshLists("DictionaryCity");
+            DeleteCity.Enabled = false;
+            btnNext5.Enabled = false;
         }
 
         private void DeleteCategory_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
+            bool hey =_ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
+            if (!hey)
+            {
+                SetBalloonTip("You can't delete this", "There are conferences in this category");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+            }
             RefreshLists("DictionaryCategory");
+            DeleteCategory.Enabled = false;
+            btnSave.Visible = false;
         }
 
         private void DeleteCountry_Click(object sender, EventArgs e)
         {
             _ConferenceRepository.DeleteCountry(eventDetails.DictionaryCountryId, eventDetails.isRemote);
             RefreshLists("DictionaryCountry");
+            DeleteCountry.Enabled = false;
+            btnNext2.Enabled = false;
         }
     }
 }

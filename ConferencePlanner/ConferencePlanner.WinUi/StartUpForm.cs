@@ -53,16 +53,31 @@ namespace ConferencePlanner.WinUi
                 //buton ok
                 var_email = EmailBoss.Text;
                 //MessageBox.Show(var_email);
-
                 MainForm form2 = new MainForm(_GetSpeakerDetail, _ConferenceTypeRepository, _ConferenceRepository, _DictionaryCountryRepository, _DictionaryCountyRepository, _DictionaryCityRepository, _DictionaryConferenceCategoryRepository,var_email);
                 form2.Tag = this;
                 form2.Show(this);
+
                 this.Hide();
             }
-            
+
+
 
 
         }
+       /* private void SetBalloonTip()
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = "Balloon Tip Title";
+            notifyIcon1.BalloonTipText = "Balloon Tip Text.";
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            this.Click += new EventHandler(Form1_Click);
+        }
+
+        void Form1_Click(object sender, EventArgs e)
+        {
+            notifyIcon1.Visible = true;
+            notifyIcon1.ShowBalloonTip(30000);
+        } */
 
         public bool IsValid(string emailBoss)
         {
@@ -73,9 +88,27 @@ namespace ConferencePlanner.WinUi
                 return true;
             else
             {
+                SetBalloonTip();
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
+
                 EmailLabel.Show();
                 return false;
             }
+        }
+        private void SetBalloonTip()
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = "Invalid Email";
+            notifyIcon1.BalloonTipText = "Please insert a valid Email";
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            this.Click += new EventHandler(Form1_Click);
+        }
+
+        void Form1_Click(object sender, EventArgs e)
+        {
+            notifyIcon1.Visible = true;
+            notifyIcon1.ShowBalloonTip(30000);
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
