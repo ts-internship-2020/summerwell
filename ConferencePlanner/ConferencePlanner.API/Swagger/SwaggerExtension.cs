@@ -31,7 +31,7 @@ namespace ConferencePlanner.Api.Swagger
                 var documentedAssemblies = new[]
                 {
                     typeof(ConferenceController).Assembly,
-                    //typeof(HomeController).Assembly,
+                    typeof(HomeController).Assembly,
                     
                 };
                  

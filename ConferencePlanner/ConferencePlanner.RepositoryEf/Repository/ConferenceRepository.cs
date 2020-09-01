@@ -1,9 +1,11 @@
 ﻿using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
+using System.Net.Http;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 
 namespace ConferencePlanner.Repository.Ef.Repository
@@ -129,7 +131,19 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceModel> GetConference()
         {
-            
+            List<Conference> conferences = _dbContext.Conference.ToList();
+            List<ConferenceModel> conferencesModel = conferences.Select(a => new ConferenceModel()
+            {
+                ConferenceId = a.ConferenceId,
+                ConferenceTypeId = (int)a.ConferenceTypeId,
+                LocationId = (int)a.LocationId,
+                ConferenceCategoryId = (int)a.ConferenceCategoryId,
+                HostEmail = a.HostEmail,
+                StartDate = a.StartDate,
+                EndDate = a.EndDate,
+                ConferenceName = a.ConferenceName
+            }).ToList();
+            return conferencesModel;
         }
 
         public List<ConferenceAudienceModel> GetConferenceAudience(string email)
