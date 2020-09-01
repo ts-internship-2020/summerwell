@@ -30,6 +30,7 @@ namespace ConferencePlanner.WinUi
         private readonly IDictionaryCountyRepository _DictionaryCountyRepository;
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
         private readonly IDictionaryConferenceCategoryRepository _DictionaryConferenceCategoryRepository;
+        private readonly ILocationRepository _Locationrepository;
         private AddConferenceDetailModel addConferenceDetailModel;
         private System.Windows.Forms.Timer reloadData;
         private int totalEntries;
@@ -43,7 +44,7 @@ namespace ConferencePlanner.WinUi
         protected MainForm f;
         private int nr_row;
 
-        public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, string var_email)
+        public MainForm(IGetSpeakerDetail GetSpeakerDetail, IConferenceTypeRepository conferenceTypeRepository, IConferenceRepository ConferenceRepository, IDictionaryCountryRepository DictionaryCountryRepository, IDictionaryCountyRepository DictionaryCountyRepository, IDictionaryCityRepository dictionaryCityRepository, IDictionaryConferenceCategoryRepository DictionaryConferenceCategoryRepository, ILocationRepository locationRepository, string var_email)
         {
 
             InitializeComponent();
@@ -56,6 +57,7 @@ namespace ConferencePlanner.WinUi
             _GetSpeakerDetail = GetSpeakerDetail;
             _DictionaryCountyRepository = DictionaryCountyRepository;
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
+            _Locationrepository = locationRepository;
             currentUser = var_email;
             conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
             reloadData = new System.Windows.Forms.Timer();
@@ -515,7 +517,7 @@ namespace ConferencePlanner.WinUi
                         AddEvent form3 = new AddEvent(0, f, addConferenceDetailModel, _GetSpeakerDetail,
                             _ConferenceTypeRepository, _ConferenceRepository,
                             _DictionaryCityRepository, _DictionaryCountryRepository,
-                            _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
+                            _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository, _Locationrepository);
                         this.Enabled = false;
                         form3.Tag = this;
                         form3.Show(this);
@@ -529,7 +531,6 @@ namespace ConferencePlanner.WinUi
             }
 
         }
-
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -579,9 +580,7 @@ namespace ConferencePlanner.WinUi
                 }
                */
             }
-
-
-        }
+    }
 
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -641,7 +640,7 @@ namespace ConferencePlanner.WinUi
         {
             AddEvent form3 = new AddEvent(1, f, addConferenceDetailModel, _GetSpeakerDetail, _ConferenceTypeRepository,
                         _ConferenceRepository, _DictionaryCityRepository, _DictionaryCountryRepository,
-                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository);
+                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository,_Locationrepository);
             this.Enabled = false;
             form3.Tag = this;
             form3.Show(this);
