@@ -530,7 +530,6 @@ namespace ConferencePlanner.WinUi
 
         }
 
-
         private void MainForm_Load(object sender, EventArgs e)
         {
 
@@ -579,9 +578,7 @@ namespace ConferencePlanner.WinUi
                 }
                */
             }
-
-
-        }
+    }
 
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
