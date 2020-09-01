@@ -27,9 +27,9 @@ namespace ConferencePlanner.Api.Controllers
         }
         [HttpPost]
         [Route("Conference/DataGridView")]
-        public IActionResult GetConferenceDetail([FromBody] DateTime StartDate, [FromBody] DateTime EndDate)
+        public IActionResult GetConferenceDetail([FromBody] StartEndDate startEndDate)
         {
-            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetail(StartDate, EndDate);
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetail(startEndDate.startDate, startEndDate.endDate);
             return Ok(conferencesDetails);
         }
     }
