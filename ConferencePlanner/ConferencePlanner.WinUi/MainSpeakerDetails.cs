@@ -47,11 +47,32 @@ namespace ConferencePlanner.WinUi
                 {
                     _ConferenceRepository.RatingChange(Nota, speakerName);
                 }
-                else MessageBox.Show("Please enter a rating 1 to 5");
+                else
+                {
+                    SetBalloonTip("Wrong input", "Please insert a number raging from 1 to 5");
+                    notifyIcon1.Visible = true;
+                    notifyIcon1.ShowBalloonTip(30);
+                }
             }
-            catch { MessageBox.Show("Please enter a rating 1 to 5"); }
+            catch
+            {
+                SetBalloonTip("Wrong input", "Please insert a number raging from 1 to 5");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(30);
+            }
+            btnRate.Enabled = false;
+            textBox7.Text = _GetSpeakerDetail.GetSpeakerRating(speakerName);
+            textBox9.Enabled = false;
         }
-        
+        private void SetBalloonTip(string title, string text)
+        {
+            notifyIcon1.Icon = SystemIcons.Exclamation;
+            notifyIcon1.BalloonTipTitle = title;
+            notifyIcon1.BalloonTipText = text;
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
+            notifyIcon1.Visible = false;
+        }
+
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -83,6 +104,11 @@ namespace ConferencePlanner.WinUi
         }
 
         private void MainSpeakerDetails_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
         {
 
         }

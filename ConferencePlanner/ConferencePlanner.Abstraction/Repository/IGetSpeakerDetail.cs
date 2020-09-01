@@ -9,5 +9,6 @@ namespace ConferencePlanner.Abstraction.Repository
     {
         List<SpeakerDetailModel> GetSpeakers();
         string GetSpeakerImage(string speakerImage);
+        string GetSpeakerRating(string SpeakerName);
     }
 }
