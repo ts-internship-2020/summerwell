@@ -8,5 +8,6 @@ namespace ConferencePlanner.Abstraction.Repository
     public interface IDictionaryCountryRepository
     {
         List<DictionaryCountryModel> GetDictionaryCountry();
+        DictionaryCountryModel GetCountry(int countryId);
     }
 }

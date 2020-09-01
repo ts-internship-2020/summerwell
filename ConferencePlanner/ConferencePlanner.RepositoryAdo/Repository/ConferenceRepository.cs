@@ -1103,12 +1103,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public DictionaryCityModel GetCity(int conferenceId)
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
-            sqlCommand.CommandText = "select dc.DictionaryCityName as Name, dc.DictionaryCityCode as Code, dc.DictionaryCityId as Id "+
+            sqlCommand.CommandText = "select dc.DictionaryCityName as Name, dc.DictionaryCityCode as Code, dc.DictionaryCityId as Id, dc.DictionaryCountyId as CountyId "+
                                       "from DictionaryCity dc "+
                                       "join Location l on l.CityId = dc.DictionaryCityId "+
                                       "join Conference c on c.LocationId = l.LocationId "+
                                       "where c.ConferenceId = @conferenceId";
-            sqlCommand.Parameters.Add("@conferenceId", SqlDbType.VarChar).Value = conferenceId;
+            sqlCommand.Parameters.Add("@conferenceId", SqlDbType.Int).Value = conferenceId;
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             DictionaryCityModel cityModel = new DictionaryCityModel();
             if (sqlDataReader.HasRows)
@@ -1117,6 +1117,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 cityModel.Name = sqlDataReader.GetString("Name");
                 cityModel.Code = sqlDataReader.GetString("Code");
                 cityModel.DictionaryCityId= sqlDataReader.GetInt32("Id");
+                cityModel.DictionaryCountyId = sqlDataReader.GetInt32("CountyId");
             }
             return cityModel;
         }

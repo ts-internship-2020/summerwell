@@ -118,51 +118,34 @@ namespace ConferencePlanner.WinUi
             if (editnew == 0)
             {
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
+                eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
                 DictionaryCityModel city = _ConferenceRepository.GetCity(eventDetails.ConferenceId);
                 eventDetails.DictionaryCityId = city.DictionaryCityId;
                 eventDetails.DictionaryCityName = city.Name;
                 eventDetails.DictionaryCityCode = city.Code;
-                /*
-                foreach(var c in cityList)
-                {
-                    if (eventDetails.DictionaryCityId == c.DictionaryCityId)
-                    {
-                        eventDetails.DictionaryCityName = c.Name;
-                        eventDetails.DictionaryCityCode = c.Code;
-                        eventDetails.DictionaryCountyId = c.DictionaryCountyId;
-                    }
-                }
-                foreach(var c in countys)
-                {
-                    if(eventDetails.DictionaryCountyId == c.DictionaryCountyId)
-                    {
-                        eventDetails.DictionaryCountyName = c.DictionaryCountyName;
-                        eventDetails.DictionaryCountyCode = c.Code;
-                        eventDetails.DictionaryCountryId = c.DictionaryCountryId;
-                    }
-                }
-                foreach(var c in countries)
-                {
-                    if(eventDetails.DictionaryCountryId == c.DictionaryCountryId)
-                    {
-                        eventDetails.DictionaryCountryCode = c.Code;
-                        eventDetails.DictionaryCountryName = c.DictionaryCountryName;
-                    }
-                }*/
+                eventDetails.DictionaryCountyId = city.DictionaryCountyId;
+                DictionaryCountyModel county = _DictionaryCountyRepository.GetCounty(eventDetails.DictionaryCountyId);
+                eventDetails.DictionaryCountyName = county.DictionaryCountyName;
+                eventDetails.DictionaryCountyCode = county.Code;
+                eventDetails.DictionaryCountryId = county.DictionaryCountryId;
+                DictionaryCountryModel country = _DictionaryCountryRepository.GetCountry(eventDetails.DictionaryCountryId);
+                eventDetails.DictionaryCountryName = country.DictionaryCountryName;
+                eventDetails.DictionaryCountryCode = country.Code;
                 eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
                 eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
                 eventDetails.EndDate = addConferenceDetailModel.EndDate;
                 eventDetails.StartDate = addConferenceDetailModel.StartDate;
                 eventDetails.SpeakerName = addConferenceDetailModel.Speaker;
                 eventDetails.DictionaryConferenceCategoryName = addConferenceDetailModel.ConferenceCategoryName;
-                eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
+                DictionaryConferenceCategoryModel category = _DictionaryConferenceCategoryRepository.GetDictionaryCategory(eventDetails.ConferenceId);
+                eventDetails.DictionaryConferenceCategoryId = category.DictionaryConferenceCategoryId;
                 eventDetails.LocationName = addConferenceDetailModel.Location;
 
                 AddConferenceName.Text = eventDetails.ConferenceName;
                 AddAddress.Text = eventDetails.LocationName;
                 AddStartDate.Value = eventDetails.StartDate;
                 AddEndDate.Value = eventDetails.EndDate;
-                //ToSelectItem();
+                ToSelectItem();
             }
         }
 
@@ -176,7 +159,7 @@ namespace ConferencePlanner.WinUi
                     break;
                 }
 
-            /*foreach (ListViewItem item in listView2.Items)
+            foreach (ListViewItem item in listView2.Items)
                 if (item.SubItems[1].Text == eventDetails.DictionaryCountryName)
                 {
                     listView2.Items[item.Index].Selected = true;
@@ -185,12 +168,20 @@ namespace ConferencePlanner.WinUi
                 }
 
             foreach (ListViewItem item in listView3.Items)
-                if (item.SubItems[1].Text == eventDetails.SpeakerName)
+                if (item.SubItems[0].Text == eventDetails.SpeakerName)
                 {
                     listView3.Items[item.Index].Selected = true;
                     listView3.Select();
                     break;
-                }*/
+                }
+
+            foreach (ListViewItem item in listView6.Items)
+                if (item.SubItems[0].Text == eventDetails.DictionaryConferenceCategoryId.ToString())
+                {
+                    listView6.Items[item.Index].Selected = true;
+                    listView6.Select();
+                    break;
+                }
         }
         private void SetBalloonTip(string title, string text)
         {
@@ -215,6 +206,16 @@ namespace ConferencePlanner.WinUi
                     listView4.Items.Add(new ListViewItem(new string[] { county.Code.ToString(), county.DictionaryCountyName, county.DictionaryCountyId.ToString() }));
                 
                 }
+            }
+            if (EditNew == 0)
+            {
+                foreach (ListViewItem item in listView4.Items)
+                    if (item.SubItems[1].Text == eventDetails.DictionaryCountyName)
+                    {
+                        listView4.Items[item.Index].Selected = true;
+                        listView4.Select();
+                        break;
+                    }
             }
             DeleteCounty.Enabled = false;
             btnNext4.Enabled = false;
@@ -263,7 +264,16 @@ namespace ConferencePlanner.WinUi
             {
                 if (city.DictionaryCountyId == eventDetails.DictionaryCountyId)
                     listView5.Items.Add(new ListViewItem(new string[] { city.Code, city.Name , city.DictionaryCountyId.ToString(), city.DictionaryCityId.ToString() }));
-
+            }
+            if(EditNew == 0)
+            {
+                foreach (ListViewItem item in listView5.Items)
+                    if (item.SubItems[1].Text == eventDetails.DictionaryCityName)
+                    {
+                        listView5.Items[item.Index].Selected = true;
+                        listView5.Select();
+                        break;
+                    }
             }
             DeleteCity.Enabled = false;
             btnNext5.Enabled = false;
@@ -284,12 +294,6 @@ namespace ConferencePlanner.WinUi
             DeleteCategory.Enabled = false;
             btnSave.Enabled = false;
             btnSave.Visible = false;
-        }
-
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -406,10 +410,6 @@ namespace ConferencePlanner.WinUi
                 }
             }
             }
-        private void btnSaveNew_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
