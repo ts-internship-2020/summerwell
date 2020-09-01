@@ -36,18 +36,16 @@
             // 
             this.webView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView1.Location = new System.Drawing.Point(0, 0);
-            this.webView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.webView1.Name = "webView1";
-            this.webView1.Size = new System.Drawing.Size(1426, 1050);
+            this.webView1.Size = new System.Drawing.Size(998, 630);
             this.webView1.TabIndex = 0;
             // 
             // JoinConference
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1426, 1050);
+            this.ClientSize = new System.Drawing.Size(998, 630);
             this.Controls.Add(this.webView1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "JoinConference";
             this.Text = "JoinConference";
             ((System.ComponentModel.ISupportInitialize)(this.webView1)).EndInit();

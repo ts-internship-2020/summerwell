@@ -53,6 +53,7 @@ namespace ConferencePlanner.WinUi
             this.btnRate = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.notifyIcon2 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,7 +68,7 @@ namespace ConferencePlanner.WinUi
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(48, 120);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(208, 28);
+            this.label1.Size = new System.Drawing.Size(141, 21);
             this.label1.TabIndex = 0;
             this.label1.Text = "Conference Name";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -81,7 +82,7 @@ namespace ConferencePlanner.WinUi
             this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(285, 118);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(302, 30);
+            this.textBox1.Size = new System.Drawing.Size(302, 23);
             this.textBox1.TabIndex = 1;
             // 
             // label2
@@ -95,7 +96,7 @@ namespace ConferencePlanner.WinUi
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(140, 155);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 28);
+            this.label2.Size = new System.Drawing.Size(82, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "Start Date";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -111,7 +112,7 @@ namespace ConferencePlanner.WinUi
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(58, 187);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(199, 28);
+            this.label3.Size = new System.Drawing.Size(136, 21);
             this.label3.TabIndex = 3;
             this.label3.Text = "Conference Type";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -127,7 +128,7 @@ namespace ConferencePlanner.WinUi
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(10, 223);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(240, 28);
+            this.label4.Size = new System.Drawing.Size(164, 21);
             this.label4.TabIndex = 4;
             this.label4.Text = "Conference Category";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -143,7 +144,7 @@ namespace ConferencePlanner.WinUi
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(155, 256);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 28);
+            this.label5.Size = new System.Drawing.Size(73, 21);
             this.label5.TabIndex = 5;
             this.label5.Text = "Location";
             // 
@@ -158,7 +159,7 @@ namespace ConferencePlanner.WinUi
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(15, 292);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(238, 28);
+            this.label6.Size = new System.Drawing.Size(160, 21);
             this.label6.TabIndex = 6;
             this.label6.Text = "Main Speaker Name";
             this.label6.Click += new System.EventHandler(this.label6_Click);
@@ -172,7 +173,7 @@ namespace ConferencePlanner.WinUi
             this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(285, 154);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(302, 30);
+            this.textBox2.Size = new System.Drawing.Size(302, 23);
             this.textBox2.TabIndex = 8;
             // 
             // textBox3
@@ -184,7 +185,7 @@ namespace ConferencePlanner.WinUi
             this.textBox3.Enabled = false;
             this.textBox3.Location = new System.Drawing.Point(285, 187);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(302, 30);
+            this.textBox3.Size = new System.Drawing.Size(302, 23);
             this.textBox3.TabIndex = 9;
             // 
             // textBox4
@@ -196,7 +197,7 @@ namespace ConferencePlanner.WinUi
             this.textBox4.Enabled = false;
             this.textBox4.Location = new System.Drawing.Point(285, 223);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(302, 30);
+            this.textBox4.Size = new System.Drawing.Size(302, 23);
             this.textBox4.TabIndex = 10;
             // 
             // textBox5
@@ -208,7 +209,7 @@ namespace ConferencePlanner.WinUi
             this.textBox5.Enabled = false;
             this.textBox5.Location = new System.Drawing.Point(285, 256);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(302, 30);
+            this.textBox5.Size = new System.Drawing.Size(302, 23);
             this.textBox5.TabIndex = 11;
             // 
             // textBox6
@@ -220,7 +221,7 @@ namespace ConferencePlanner.WinUi
             this.textBox6.Enabled = false;
             this.textBox6.Location = new System.Drawing.Point(285, 290);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(302, 30);
+            this.textBox6.Size = new System.Drawing.Size(302, 23);
             this.textBox6.TabIndex = 12;
             // 
             // textBox7
@@ -233,7 +234,7 @@ namespace ConferencePlanner.WinUi
             this.textBox7.Font = new System.Drawing.Font("Arial Narrow", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox7.Location = new System.Drawing.Point(285, 326);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(166, 30);
+            this.textBox7.Size = new System.Drawing.Size(166, 23);
             this.textBox7.TabIndex = 13;
             this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
@@ -248,7 +249,7 @@ namespace ConferencePlanner.WinUi
             this.textBox8.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox8.Location = new System.Drawing.Point(285, 362);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(165, 23);
+            this.textBox8.Size = new System.Drawing.Size(165, 16);
             this.textBox8.TabIndex = 14;
             this.textBox8.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
@@ -263,7 +264,7 @@ namespace ConferencePlanner.WinUi
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(172, 329);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 28);
+            this.label7.Size = new System.Drawing.Size(59, 21);
             this.label7.TabIndex = 15;
             this.label7.Text = "Rating";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -279,7 +280,7 @@ namespace ConferencePlanner.WinUi
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(125, 362);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(137, 28);
+            this.label8.Size = new System.Drawing.Size(92, 21);
             this.label8.TabIndex = 16;
             this.label8.Text = "Nationality";
             // 
@@ -313,7 +314,7 @@ namespace ConferencePlanner.WinUi
             this.textBox9.Location = new System.Drawing.Point(776, 382);
             this.textBox9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(60, 30);
+            this.textBox9.Size = new System.Drawing.Size(60, 23);
             this.textBox9.TabIndex = 19;
             // 
             // notifyIcon1
@@ -321,9 +322,14 @@ namespace ConferencePlanner.WinUi
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
+            // notifyIcon2
+            // 
+            this.notifyIcon2.Text = "notifyIcon2";
+            this.notifyIcon2.Visible = true;
+            // 
             // MainSpeakerDetails
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
@@ -381,5 +387,6 @@ namespace ConferencePlanner.WinUi
         private Button btnRate;
         private TextBox textBox9;
         private NotifyIcon notifyIcon1;
+        private NotifyIcon notifyIcon2;
     }
 }
