@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConferencePlanner.Repository.Ef.Repository
 {
@@ -158,7 +159,25 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceDetailModel> GetConferenceDetail(DateTime StartDate, DateTime EndDate)
         {
-            throw new NotImplementedException();
+            List<Conference> conferences = _dbContext.Conference.Include(a=>a.ConferenceType).Include(a => a.ConferenceCategory).Include(a=>a.SpeakerxConference)
+                .Include(a => a.Location).Include(a => a.Location.City)
+                .Where(a=>a.StartDate > StartDate).ToList();
+
+            List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
+            {
+                ConferenceId = a.ConferenceId,
+                DictionaryConferenceTypeName = a.ConferenceType.DictionaryConferenceTypeName,
+                LocationStreet = a.Location.Street,
+                DictionaryConferenceCategoryName = a.ConferenceCategory.DictionaryConferenceCategoryName,
+                HostEmail = a.HostEmail,
+                StartDate = a.StartDate,
+                EndDate = a.EndDate,
+                ConferenceName = a.ConferenceName,
+                DictionaryCityName = a.Location.City.DictionaryCityName,
+                IsRemote = a.ConferenceType.IsRemote
+            }).ToList();
+            return conferencesModel;
+
         }
 
         public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName)
