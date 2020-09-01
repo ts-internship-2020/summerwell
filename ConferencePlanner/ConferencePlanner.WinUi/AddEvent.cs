@@ -647,19 +647,27 @@ namespace ConferencePlanner.WinUi
         }
         private void btnBack3_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabCountry);
+            tabCountry.Enabled = true;
+            tabType.Enabled = false;
         }
         private void btnBack4_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabSpeaker);
+            tabSpeaker.Enabled = true;
+            tabCountry.Enabled = false;
         }
         private void btnBack5_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabCounty);
+            tabCounty.Enabled = true;
+            tabSpeaker.Enabled = false;
         }
         private void btnBack6_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectTab(tabCity);
+            tabCity.Enabled = true;
+            tabCounty.Enabled = false;
         }
     }
 }
