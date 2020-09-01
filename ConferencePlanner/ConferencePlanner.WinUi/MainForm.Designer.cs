@@ -190,7 +190,9 @@ namespace ConferencePlanner.WinUi
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.ColumnHeadersHeight = 64;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConferenceName,
@@ -214,6 +216,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.Size = new System.Drawing.Size(909, 287);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Text = "dataGridView1";
+            this.dataGridView1.SizeChanged += dataGridView1_SizeChanged;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
             // 
@@ -463,6 +466,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView2.Size = new System.Drawing.Size(896, 287);
             this.dataGridView2.TabIndex = 5;
             this.dataGridView2.Text = "dataGridView2";
+            this.dataGridView2.SizeChanged += dataGridView2_SizeChanged;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             // 
