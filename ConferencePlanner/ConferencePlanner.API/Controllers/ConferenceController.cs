@@ -59,5 +59,19 @@ namespace ConferencePlanner.Api.Controllers
             List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(email);
             return Ok(conferencesDetails);
         }
+        [HttpPut]
+        [Route("Conference/EditCountry")]
+        public IActionResult EditCountry(int Id, string Code,string Name)
+        {
+            _conferenceRepository.EditCountry(Id, Code, Name);
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("Conference/DeleteType")]
+        public IActionResult DeleteType(int TypeId, bool IsRemote)
+        {
+            _conferenceRepository.DeleteType(TypeId, IsRemote);
+            return Ok();
+        }
     }
 }

@@ -62,7 +62,14 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public bool DeleteCategory(int CategoryId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Remove(_dbContext.DictionaryConferenceCategory.First(a => a.DictionaryConferenceCategoryId == CategoryId));
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch { return false; }
+
         }
 
         public void DeleteCity(int CityId, bool IsRemote)
@@ -87,7 +94,13 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public bool DeleteType(int TypeId, bool IsRemote)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Remove(_dbContext.DictionaryConferenceType.First(a => a.DictionaryConferenceTypeId == TypeId));
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch { return false; }
         }
 
         public void EditCategory(int Id, string Name)
@@ -107,7 +120,13 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void EditCountry(int Id, string Code, string Name)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.DictionaryCountry.SingleOrDefault(b => b.DictionaryCountryId == Id);
+            if (result != null)
+            {
+                result.DictionaryCountryName = Name;
+                result.DictionaryCountryCode = Code;
+                _dbContext.SaveChanges();
+            }
         }
 
         public void EditCounty(string Code, string Name, int CountyId)
