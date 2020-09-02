@@ -1094,7 +1094,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
                                 "SET SpeakerId = @SpeakerId, isMainSpeaker = 1 " +
                                 "WHERE ConferenceId = @ConferenceId";
             command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = eventDetail.SpeakerId;
-            command.Parameters.Add("ConferenceId", SqlDbType.Int).Value = eventDetail.ConferenceId;
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = eventDetail.ConferenceId;
             try { command.ExecuteNonQuery(); }
             catch { };
 
