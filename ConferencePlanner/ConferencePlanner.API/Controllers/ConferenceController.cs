@@ -34,6 +34,7 @@ namespace ConferencePlanner.Api.Controllers
             List<ConferenceModel> conferences = _conferenceRepository.GetConference();
             return Ok(conferences);
         }
+
         [HttpPost]
         [Route("Conference/DataGridView")]
         public IActionResult GetConferenceDetail([FromBody] StartEndDate startEndDate)
