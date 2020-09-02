@@ -66,6 +66,21 @@ namespace ConferencePlanner.Abstraction.Repository
             }
             return countryModel;
         }
+
+        public void AddCountry(string Code, string Name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCountry(int Id, string Code, string Name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteCountry(int CountryId, bool IsRemote)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

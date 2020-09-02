@@ -122,6 +122,26 @@ namespace ConferencePlanner.Repository.Ado.Repository
             }
             else return "";
         }
+
+        public void AddSpeaker(string Code, string Name, string Nationality)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RatingChange(int Nota, string Name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteSpeaker(int SpeakerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
