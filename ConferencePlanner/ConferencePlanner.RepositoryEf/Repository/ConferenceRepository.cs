@@ -154,7 +154,26 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string newConferenceName)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.Conference.SingleOrDefault(b => b.ConferenceId == eventDetail.ConferenceId);
+            if (result != null)
+            {
+                result.ConferenceTypeId = eventDetail.ConferenceTypeId;
+                result.ConferenceCategoryId = eventDetail.DictionaryConferenceCategoryId;
+                result.HostEmail = eventDetail.HostEmail;
+                result.StartDate=eventDetail.StartDate;
+                result.EndDate=eventDetail.EndDate;
+                result.ConferenceName = eventDetail.ConferenceName;
+                if (eventDetail.isRemote) result.LocationId = 131;
+                else result.LocationId = _locationRepository.AddLocation(eventDetail.DictionaryCityId,newAddress);
+                _dbContext.SaveChanges();
+            }
+            var sxc = _dbContext.SpeakerxConference.SingleOrDefault(b => b.ConferenceId == eventDetail.ConferenceId);
+            if(sxc != null)
+            {
+                sxc.SpeakerId = eventDetail.SpeakerId;
+                sxc.IsMainSpeaker = true;
+                _dbContext.SaveChanges();
+            }
         }
 
         public void EditCountry(int Id, string Code, string Name)
@@ -319,7 +338,23 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate)
         {
-            throw new NotImplementedException();
+            List<Conference> conferences = _dbContext.Conference.Include(a => a.ConferenceType).Include(a => a.ConferenceCategory).Include(a => a.SpeakerxConference)
+    .Include(a => a.Location).Include(a => a.Location.City).Where(a => a.HostEmail == hostName).Where(a => a.StartDate > StartDate).Where(a => a.EndDate < EndDate).ToList();
+
+            List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
+            {
+                ConferenceId = a.ConferenceId,
+                DictionaryConferenceTypeName = a.ConferenceType.DictionaryConferenceTypeName,
+                LocationStreet = a.Location.Street,
+                DictionaryConferenceCategoryName = a.ConferenceCategory.DictionaryConferenceCategoryName,
+                HostEmail = a.HostEmail,
+                StartDate = a.StartDate,
+                EndDate = a.EndDate,
+                ConferenceName = a.ConferenceName,
+                DictionaryCityName = a.Location.City.DictionaryCityName,
+                IsRemote = a.ConferenceType.IsRemote
+            }).ToList();
+            return conferencesModel;
         }
 
         public Bitmap GetQRCodeUniqueParticipantCode(ConferenceAudienceModel _conferenceAudienceModel)
