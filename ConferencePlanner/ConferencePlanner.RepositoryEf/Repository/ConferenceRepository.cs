@@ -224,7 +224,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
         {
             List<Conference> conferences = _dbContext.Conference.Include(a=>a.ConferenceType).Include(a => a.ConferenceCategory).Include(a=>a.SpeakerxConference)
                 .Include(a => a.Location).Include(a => a.Location.City)
-                .Where(a=>a.StartDate > StartDate).ToList();
+                .Where(a=>a.StartDate > StartDate).Where(a => a.EndDate < EndDate).ToList();
 
             List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
             {
@@ -245,7 +245,23 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName)
         {
-            throw new NotImplementedException();
+            List<Conference> conferences = _dbContext.Conference.Include(a => a.ConferenceType).Include(a => a.ConferenceCategory).Include(a => a.SpeakerxConference)
+                .Include(a => a.Location).Include(a => a.Location.City).Where(a => a.HostEmail == hostName).ToList();
+
+            List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
+            {
+                ConferenceId = a.ConferenceId,
+                DictionaryConferenceTypeName = a.ConferenceType.DictionaryConferenceTypeName,
+                LocationStreet = a.Location.Street,
+                DictionaryConferenceCategoryName = a.ConferenceCategory.DictionaryConferenceCategoryName,
+                HostEmail = a.HostEmail,
+                StartDate = a.StartDate,
+                EndDate = a.EndDate,
+                ConferenceName = a.ConferenceName,
+                DictionaryCityName = a.Location.City.DictionaryCityName,
+                IsRemote = a.ConferenceType.IsRemote
+            }).ToList();
+            return conferencesModel;
         }
 
         public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate)
