@@ -40,13 +40,14 @@ namespace ConferencePlanner.Api
                     options.UseSqlServer(connectionString, a => a.EnableRetryOnFailure())
                     .UseInternalServiceProvider(serviceProvider);
                 });
-            //comentariu degeaba
             services.AddScoped<IGetDemoRepository, GetDemoRepository>();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IConferenceTypeRepository, DictionaryConferenceTypeRepository>();
             services.AddScoped<IDictionaryCityRepository, DictionaryCityRepository>();
             services.AddScoped<IDictionaryCountryRepository, DictionaryCountryRepository>();
             services.AddScoped<IParticipantRepository, ParticipantRepository>();
+            services.AddScoped<IDictionaryCountyRepository, DictionaryCountyRepository>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddSwagger();
         }
 
