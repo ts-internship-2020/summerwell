@@ -18,15 +18,16 @@ namespace ConferencePlanner.Api.Controllers
             _logger = logger;
             _countryRepository = countryRepository;
         }
-
+        
         [HttpPost]
-        [Route("DictionaryCountry/AddCountry")]
+        [Route("AddCountry")]
         public IActionResult AddCountry(string Code, string Name)
         {
             _countryRepository.AddCountry(Code, Name);
             return Ok();
         }
-
+        
+        
         [HttpGet]
         [Route("GetDictionaryCountry")]
         public IActionResult GetDictionaryCountry()
@@ -34,7 +35,7 @@ namespace ConferencePlanner.Api.Controllers
             List<DictionaryCountryModel> countries = _countryRepository.GetDictionaryCountry();
             return Ok(countries);
         }
-
+        
 
     }
 }
