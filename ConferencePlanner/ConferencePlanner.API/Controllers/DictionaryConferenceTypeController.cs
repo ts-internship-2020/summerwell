@@ -26,5 +26,13 @@ namespace ConferencePlanner.Api.Controllers
             List<ConferenceTypeModel> conferencesTypes = _conferenceTypeRepository.GetConferenceType();
             return Ok(conferencesTypes);
         }
+
+        [HttpPost]
+        [Route("DictionaryConferenceType/AddType")]
+        public IActionResult AddType(string Name, bool isRemote)
+        {
+            _conferenceTypeRepository.AddType(Name, isRemote);
+            return Ok();
+        }
     }
 }

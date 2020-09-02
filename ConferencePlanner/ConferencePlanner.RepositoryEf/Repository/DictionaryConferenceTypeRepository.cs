@@ -19,7 +19,11 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddType(string Name, bool isRemote)
         {
-            throw new NotImplementedException();
+            DictionaryConferenceType current = new DictionaryConferenceType();
+            current.DictionaryConferenceTypeName = Name;
+            current.IsRemote = isRemote;
+            this._dbContext.DictionaryConferenceType.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public bool DeleteType(int TypeId, bool IsRemote)

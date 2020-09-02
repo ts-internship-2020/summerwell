@@ -68,5 +68,20 @@ namespace ConferencePlanner.Abstraction.Repository
             }
             return countyModel;
         }
+
+        public void AddCounty(string Code, string Name, string country)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCounty(string Code, string Name, int CountyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteCounty(int CountyId, bool IsRemote)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
