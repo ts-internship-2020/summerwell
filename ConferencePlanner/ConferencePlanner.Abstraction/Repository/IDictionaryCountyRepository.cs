@@ -8,6 +8,8 @@ namespace ConferencePlanner.Abstraction.Repository
     public interface IDictionaryCountyRepository
     {
         List<DictionaryCountyModel> GetDictionaryCounty();
-        DictionaryCountyModel GetCounty(int countyId);
+        void AddCounty(string Code, string Name, string country);
+        void EditCounty(string Code, string Name, int CountyId);
+        void DeleteCounty(int CountyId, bool IsRemote);
     }
 }
