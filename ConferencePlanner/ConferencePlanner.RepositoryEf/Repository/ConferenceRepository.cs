@@ -37,7 +37,12 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCountry(string Code, string Name)
         {
-            throw new NotImplementedException();
+            DictionaryCountry current = new DictionaryCountry();
+            current.DictionaryCountryCode = Code;
+            current.DictionaryCountryName = Name;
+            
+            this._dbContext.DictionaryCountry.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public void AddCounty(string Code, string Name, string country)
