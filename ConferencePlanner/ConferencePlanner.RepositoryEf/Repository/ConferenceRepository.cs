@@ -258,10 +258,12 @@ namespace ConferencePlanner.Repository.Ef.Repository
             throw new NotImplementedException();
         }
 
+
+
+    
         public string GetUniqueParticipantCode()
         {
             throw new NotImplementedException();
-
         }
 
         public void RatingChange(int Nota, string Name)
