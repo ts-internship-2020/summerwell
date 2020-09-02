@@ -29,7 +29,7 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPost]
         [Route("DictionaryConferenceType/AddType")]
-        public IActionResult AddType(string Name, bool isRemote)
+        public IActionResult AddType([FromBody] string Name, [FromBody] bool isRemote)
         {
             _conferenceTypeRepository.AddType(Name, isRemote);
             return Ok();

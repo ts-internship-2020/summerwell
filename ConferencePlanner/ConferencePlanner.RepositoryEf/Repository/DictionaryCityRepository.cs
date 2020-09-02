@@ -1,6 +1,7 @@
 ﻿using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,8 +34,26 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void DeleteCity(int CityId, bool IsRemote)
         {
-            throw new NotImplementedException();
-        }
+            var city = _dbContext.DictionaryCity.Include(x => x.Location).Where(x => x.DictionaryCityId == CityId).First();
+            var location = city.Location.ToList();
+            foreach (var loc in location)
+            {
+                var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId);
+                if (result != null)
+                {
+                    foreach (var conf in result)
+                    {
+                        if (IsRemote)
+                            conf.LocationId = 161;
+                        else conf.LocationId = 162;
+                    }
+                }
+                _dbContext.Remove(loc);
+            }
+            
+            _dbContext.Remove(city);
+            _dbContext.SaveChanges();
+          }
 
         public void EditCity(string Code, string Name, int CityId)
         {

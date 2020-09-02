@@ -77,7 +77,7 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPost]
         [Route("DictionaryCountry/AddCountry")]
-        public IActionResult AddCountry(string Code, string Name)
+        public IActionResult AddCountry([FromBody] string Code, [FromBody] string Name)
         {
             _conferenceRepository.AddCountry(Code, Name);
             return Ok();
