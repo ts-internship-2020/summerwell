@@ -19,7 +19,12 @@ namespace ConferencePlanner.Repository.Ef.Repository
         }
         public void AddCountry(string Code, string Name)
         {
-            throw new NotImplementedException();
+            DictionaryCountry current = new DictionaryCountry();
+            current.DictionaryCountryCode = Code;
+            current.DictionaryCountryName = Name;
+
+            this._dbContext.DictionaryCountry.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public void DeleteCountry(int CountryId, bool IsRemote)
@@ -48,7 +53,15 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<DictionaryCountryModel> GetDictionaryCountry()
         {
-            throw new NotImplementedException();
+            List<DictionaryCountry> countries = _dbContext.DictionaryCountry.ToList();
+            List<DictionaryCountryModel> countriesModel = countries.Select(a => new DictionaryCountryModel()
+            {
+                
+                DictionaryCountryName = a.DictionaryCountryName,
+                DictionaryCountryId=a.DictionaryCountryId
+
+            }).ToList();
+            return countriesModel;
         }
     }
 }

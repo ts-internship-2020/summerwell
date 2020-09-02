@@ -26,12 +26,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCategory(string Name)
         {
-            int id = _dbContext.DictionaryConferenceCategory.Max(a => a.DictionaryConferenceCategoryId);
-            id += 1;
-
-            object Category = new DictionaryConferenceCategory { DictionaryConferenceCategoryId = id ,DictionaryConferenceCategoryName = Name };
-            _dbContext.Add(Category);
-            _dbContext.SaveChanges();
+            throw new NotImplementedException();
         }
 
         public void AddCity(string Code, string Name, string county)

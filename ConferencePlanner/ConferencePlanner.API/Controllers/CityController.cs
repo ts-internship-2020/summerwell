@@ -37,7 +37,7 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPost]
         [Route("DictionaryCity/AddCity")]
-        public IActionResult AddCity(string Code, string Name, string county)
+        public IActionResult AddCity([FromBody] string Code, [FromBody] string Name, [FromBody] string county)
         {
             _cityRepository.AddCity(Code,Name,county);
             return Ok();

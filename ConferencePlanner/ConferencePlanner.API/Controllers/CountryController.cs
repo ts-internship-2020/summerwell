@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,24 @@ namespace ConferencePlanner.Api.Controllers
             _logger = logger;
             _countryRepository = countryRepository;
         }
+        
+        [HttpPost]
+        [Route("AddCountry")]
+        public IActionResult AddCountry([FromBody] string Code, [FromBody] string Name)
+        {
+            _countryRepository.AddCountry(Code, Name);
+            return Ok();
+        }
+        
+        
+        [HttpGet]
+        [Route("GetDictionaryCountry")]
+        public IActionResult GetDictionaryCountry()
+        {
+            List<DictionaryCountryModel> countries = _countryRepository.GetDictionaryCountry();
+            return Ok(countries);
+        }
+        
 
     }
 }

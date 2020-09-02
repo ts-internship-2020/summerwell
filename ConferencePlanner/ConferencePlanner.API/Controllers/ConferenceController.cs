@@ -77,7 +77,7 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPost]
         [Route("DictionaryCountry/AddCountry")]
-        public IActionResult AddCountry(string Code, string Name)
+        public IActionResult AddCountry([FromBody] string Code, [FromBody] string Name)
         {
             _conferenceRepository.AddCountry(Code, Name);
             return Ok();
@@ -104,6 +104,13 @@ namespace ConferencePlanner.Api.Controllers
         public IActionResult EditConference([FromBody]AddEventDetailModel eventDetail, [FromBody] string newAddress, [FromBody] string newConferenceName)
         {
             _conferenceRepository.EditConference(eventDetail,newAddress,newConferenceName);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("Conference/AddConference")]
+        public IActionResult AddConference([FromBody] AddEventDetailModel addEvent)
+        {
+            _conferenceRepository.AddConference(addEvent);
             return Ok();
         }
     }
