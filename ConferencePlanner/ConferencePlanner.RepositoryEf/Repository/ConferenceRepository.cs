@@ -162,9 +162,9 @@ namespace ConferencePlanner.Repository.Ef.Repository
                 result.HostEmail = eventDetail.HostEmail;
                 result.StartDate=eventDetail.StartDate;
                 result.EndDate=eventDetail.EndDate;
-                result.ConferenceName = newConferenceName;
+                result.ConferenceName = eventDetail.ConferenceName;
                 if (eventDetail.isRemote) result.LocationId = 131;
-                else result.LocationId = AddLocation(eventDetail.DictionaryCityId,newAddress);
+                else result.LocationId = _locationRepository.AddLocation(eventDetail.DictionaryCityId,newAddress);
                 _dbContext.SaveChanges();
             }
             var sxc = _dbContext.SpeakerxConference.SingleOrDefault(b => b.ConferenceId == eventDetail.ConferenceId);
