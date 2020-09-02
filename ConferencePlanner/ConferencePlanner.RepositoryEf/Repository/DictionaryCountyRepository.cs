@@ -55,12 +55,35 @@ namespace ConferencePlanner.Repository.Ef.Repository
         {
             try
             {
-                var county = _dbContext.DictionaryCounty.Include(x => x.DictionaryCity).ThenInclude(x => x.Location).Where(x => x.DictionaryCountyId == CountyId).First();
-                var city = county.DictionaryCity.ToList();
-                //var location = city.Loc\a
-                    return true;
+                var county = _dbContext.DictionaryCounty.Where(x => x.DictionaryCountyId == CountyId).FirstOrDefault();
+                var city = _dbContext.DictionaryCity.Where(x => x.DictionaryCountyId == CountyId).ToList();
+                foreach(var c in city)
+                {
+                    var location = _dbContext.Location.Where(x => x.CityId == c.DictionaryCityId);
+                    foreach(var loc in location)
+                    {
+                        var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId);
+                        if (result != null)
+                        {
+                            foreach (var conf in result)
+                            {
+                                conf.LocationId = 162;
+                            }
+                        }
+                        _dbContext.Remove(loc);
+                    }
+                    _dbContext.Remove(c);
+                }
+                _dbContext.Remove(county);
+                _dbContext.SaveChanges();
+                return true;
             }
             catch { return false; }
+        }
+
+        public DictionaryCountyModel GetCounty(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

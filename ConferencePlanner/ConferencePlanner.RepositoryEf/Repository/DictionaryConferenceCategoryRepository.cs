@@ -49,5 +49,10 @@ namespace ConferencePlanner.Repository.Ef.Repository
             }).ToList();
             return conferencesCategoryModel;
         }
+
+        public DictionaryConferenceCategoryModel GetDictionaryCategory(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
