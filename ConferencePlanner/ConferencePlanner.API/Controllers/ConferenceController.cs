@@ -52,14 +52,14 @@ namespace ConferencePlanner.Api.Controllers
         [HttpPost]
         [Route("Conference/GetConferenceAudience")]
 
-        public IActionResult GetConferenceAudience(string email)
+        public IActionResult GetConferenceAudience([FromBody] string email)
         {
             List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(email);
             return Ok(conferencesAudience);
         }
         [HttpPost]
         [Route("Conference/ConferenceDetailForHost")]
-        public IActionResult GetConferenceDetailForHost(string email)
+        public IActionResult GetConferenceDetailForHost([FromBody] string email)
         {
             List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(email);
             return Ok(conferencesDetails);
