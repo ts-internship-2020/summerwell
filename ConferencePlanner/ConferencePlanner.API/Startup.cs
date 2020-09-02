@@ -45,7 +45,8 @@ namespace ConferencePlanner.Api
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IConferenceTypeRepository, DictionaryConferenceTypeRepository>();
             services.AddScoped<IDictionaryCityRepository, DictionaryCityRepository>();
-            services.AddScoped<IDictionaryCountryRepository, IDictionaryCountryRepository>();
+            services.AddScoped<IDictionaryCountryRepository, DictionaryCountryRepository>();
+            services.AddScoped<IParticipantRepository, ParticipantRepository>();
             services.AddSwagger();
         }
 
