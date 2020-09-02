@@ -19,13 +19,7 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository = conferenceRepository;
         }
 
-        [HttpPost]
-        [Route("DictionaryCity")]
-        public IActionResult GetCity(int conferenceId)
-        {
-            DictionaryCityModel city = _conferenceRepository.GetCity(conferenceId);
-            return Ok(city);
-        }
+     
 
         [HttpGet]
         [Route("Conference")]
