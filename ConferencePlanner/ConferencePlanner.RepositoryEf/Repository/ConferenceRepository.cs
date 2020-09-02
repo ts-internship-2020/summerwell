@@ -16,10 +16,12 @@ namespace ConferencePlanner.Repository.Ef.Repository
     public class ConferenceRepository : IConferenceRepository
     {
         private readonly summerwellContext _dbContext;
+        private readonly ILocationRepository _locationRepository;
 
-        public ConferenceRepository(summerwellContext dbContext)
+        public ConferenceRepository(summerwellContext dbContext, ILocationRepository locationRepository)
         {
             _dbContext = dbContext;
+            _locationRepository = locationRepository;
         }
 
         public void AddCategory(string Name)
@@ -39,7 +41,32 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddConference(AddEventDetailModel addEvent)
         {
-            throw new NotImplementedException();
+            Conference current = new Conference();
+            if (addEvent.isRemote == false)
+                current.LocationId = _locationRepository.AddLocation(addEvent.DictionaryCityId, addEvent.LocationName);
+            else
+                current.LocationId = 131;
+            current.ConferenceTypeId = addEvent.ConferenceTypeId;
+            current.ConferenceCategoryId = addEvent.DictionaryConferenceCategoryId;
+            current.HostEmail = addEvent.HostEmail;
+            current.StartDate = addEvent.StartDate;
+            current.EndDate = addEvent.EndDate;
+            current.ConferenceName = addEvent.ConferenceName;
+            this._dbContext.Conference.Add(current);
+            this._dbContext.SaveChanges();
+            int conferenceId = current.ConferenceId;
+            AddSpeakerXConference(conferenceId, addEvent.SpeakerId);
+
+        }
+
+        public void AddSpeakerXConference(int ConferenceId, int SpeakerId)
+        {
+            SpeakerxConference current = new SpeakerxConference();
+            current.ConferenceId = ConferenceId;
+            current.SpeakerId = SpeakerId;
+            current.IsMainSpeaker = true;
+            this._dbContext.SpeakerxConference.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public void AddCountry(string Code, string Name)
