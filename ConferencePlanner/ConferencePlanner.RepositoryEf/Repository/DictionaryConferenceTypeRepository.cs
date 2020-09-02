@@ -33,7 +33,13 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void EditType(int Id, string Name, bool isRemote)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.DictionaryConferenceType.SingleOrDefault(b => b.DictionaryConferenceTypeId == Id);
+            if (result != null)
+            {
+                result.DictionaryConferenceTypeName = Name;
+                result.IsRemote = isRemote;
+                _dbContext.SaveChanges();
+            }
         }
 
         public List<ConferenceTypeModel> GetConferenceType()
