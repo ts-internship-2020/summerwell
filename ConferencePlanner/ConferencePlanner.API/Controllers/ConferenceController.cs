@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +89,15 @@ namespace ConferencePlanner.Api.Controllers
         {
             _conferenceRepository.AddCategory(Name);
             return Ok();
+        }
+        [HttpPost]
+        [Route("Conference/GetAttendedConferencesFirst")]
+        public IActionResult GetAttendedConferencesFirst([FromBody] GetAttendedConferencesFirstModel model)
+        {
+            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(model.Email);
+            List<ConferenceDetailAttendFirstModel> attendedConferencesFirst = _conferenceRepository.GetAttendedConferencesFirst(conferencesAudience, model.StartDate, model.EndDate);
+            return Ok(attendedConferencesFirst);
+
         }
     }
 }

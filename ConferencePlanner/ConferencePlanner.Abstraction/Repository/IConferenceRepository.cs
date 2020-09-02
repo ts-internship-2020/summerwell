@@ -35,6 +35,7 @@ namespace ConferencePlanner.Abstraction.Repository
         void DeleteCity(int CityId, bool IsRemote); //IDictionaryCityRepository
         bool DeleteCategory(int CategoryId); //IDictionaryConferenceCategoryRepository
         void AddConference(AddEventDetailModel addEvent);
+        public void AddSpeakerXConference(int ConferenceId, int SpeakerId);
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string newConferenceName);
         int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel); //PartipantRepository
         int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel); //PartipantRepository

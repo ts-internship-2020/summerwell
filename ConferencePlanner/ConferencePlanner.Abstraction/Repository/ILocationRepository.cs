@@ -8,5 +8,6 @@ namespace ConferencePlanner.Abstraction.Repository
     public interface ILocationRepository
     {
         List<LocationModel> GetLocation();
+        public int AddLocation(int CityId, string Street);
     }
 }
