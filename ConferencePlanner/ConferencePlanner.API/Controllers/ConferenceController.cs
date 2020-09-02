@@ -106,5 +106,12 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository.EditConference(eventDetail,newAddress,newConferenceName);
             return Ok();
         }
+        [HttpPost]
+        [Route("Conference/AddConference")]
+        public IActionResult AddConference([FromBody] AddEventDetailModel addEvent)
+        {
+            _conferenceRepository.AddConference(addEvent);
+            return Ok();
+        }
     }
 }
