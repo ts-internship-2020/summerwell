@@ -115,6 +115,7 @@ namespace ConferencePlanner.WinUi
             this.tabPage1.Size = new System.Drawing.Size(905, 463);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conferences";
+
             // 
             // dateTimePicker2
             // 
@@ -217,6 +218,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.Text = "dataGridView1";
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
+            this.dataGridView1.SizeChanged += dataGridView1_SizeChanged;
             // 
             // ConferenceName
             // 
@@ -465,6 +467,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView2.Text = "dataGridView2";
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
+            this.dataGridView2.SizeChanged += dataGridView2_SizeChanged;
             // 
             // HostConferenceName
             // 
