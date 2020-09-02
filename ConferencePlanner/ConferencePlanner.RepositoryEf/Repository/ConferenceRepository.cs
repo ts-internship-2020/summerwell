@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ConferencePlanner.Repository.Ef.Repository
 {
@@ -127,7 +128,35 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst(List<ConferenceAudienceModel> _attendedConferences, DateTime StartDate, DateTime EndDate)
         {
-            throw new NotImplementedException();
+            List<Conference> conferences = _dbContext.Conference
+                                                                .Include(x => x.ConferenceType)
+                                                                .Include(l => l.Location)
+                                                                .ThenInclude(l => l.City)
+                                                                .Include(d => d.ConferenceCategory)
+                                                                .Include(sxc => sxc.SpeakerxConference)
+                                                                .ThenInclude(sxc => sxc.Speaker)
+                                                                .Where(x => x.StartDate >= DateTime.Now)
+                                                                .ToList();
+          
+            List<ConferenceDetailAttendFirstModel> attendedConferencesFirst = new List<ConferenceDetailAttendFirstModel>();
+            attendedConferencesFirst.AddRange(conferences.Select(x => new ConferenceDetailAttendFirstModel()
+            {
+                ConferenceName = x.ConferenceName,
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+                DictionaryConferenceTypeName = x.ConferenceType.DictionaryConferenceTypeName,
+                DictionaryCityName = x.Location.City.DictionaryCityName,
+                LocationStreet = x.Location.Street,
+                DictionaryConferenceCategoryName = x.ConferenceCategory.DictionaryConferenceCategoryName,
+                SpeakerName = x.SpeakerxConference.FirstOrDefault(x => x.IsMainSpeaker).Speaker.SpeakerName,
+                HostEmail = x.HostEmail,
+                ConferenceId = x.ConferenceId,
+                ConferenceStatusId = _attendedConferences.Exists(currentConference =>
+                                           currentConference.ConferenceId == x.ConferenceId && currentConference.ConferenceStatusId == 3) ? 3 : 0,
+                IsRemote = x.ConferenceType.IsRemote
+            }).ToList());    
+            List<ConferenceDetailAttendFirstModel> sortedConferences = attendedConferencesFirst.OrderByDescending(conf => conf.ConferenceStatusId).ToList();
+            return sortedConferences;
         }
 
         public DictionaryCityModel GetCity(int conferenceId)
