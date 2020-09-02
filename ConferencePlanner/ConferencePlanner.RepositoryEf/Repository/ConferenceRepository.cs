@@ -132,38 +132,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public DictionaryCityModel GetCity(int conferenceId)
         {
-
-            List<Conference> conferences = _dbContext.Conference.ToList();
-
-            List<ConferenceModel> conferenceModels = conferences.Where(a => a.ConferenceId == conferenceId).Select(a => new ConferenceModel()
-            {
-                LocationId = (int)a.LocationId
-
-            }).ToList();
-
-            List<Location> locations = _dbContext.Location.ToList();
-
-            List<LocationModel> locationModels = locations.Where(a => a.LocationId == conferenceModels[0].LocationId).Select(a => new LocationModel()
-            {
-
-                CityId = a.CityId
-
-            }).ToList();
-
-            List<DictionaryCity> cities = _dbContext.DictionaryCity.ToList();
-
-            List<DictionaryCityModel> citiesModel = cities.Where(a => a.DictionaryCityId == locationModels[0].CityId).Select(a => new DictionaryCityModel()
-            {
-
-                DictionaryCityId = a.DictionaryCityId,
-                DictionaryCountyId = a.DictionaryCountyId,
-                Name = a.DictionaryCityName,
-                Code = a.DictionaryCityCode
-
-
-            }).ToList();
-
-            return citiesModel[0];
+            throw new NotImplementedException();
         }
 
         public List<ConferenceModel> GetConference()
