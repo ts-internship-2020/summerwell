@@ -11,5 +11,6 @@ namespace ConferencePlanner.Abstraction.Repository
         void AddCounty(string Code, string Name, string country);
         void EditCounty(string Code, string Name, int CountyId);
         bool DeleteCounty(int CountyId);
+        DictionaryCountyModel GetCounty(int id);
     }
 }

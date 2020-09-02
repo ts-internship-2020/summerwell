@@ -16,6 +16,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             _sqlConnection = sqlConnection;
         }
+
+        public int AddLocation(int CityId, string Street)
+        {
+            throw new NotImplementedException();
+        }
+
         List<LocationModel> ILocationRepository.GetLocation()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();

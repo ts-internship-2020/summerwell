@@ -18,6 +18,21 @@ namespace ConferencePlanner.Repository.Ado.Repository
             _sqlConnection = sqlConnection;
         }
 
+        public void AddCategory(string Name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteCategory(int CategoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCategory(int Id, string Name)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<DictionaryConferenceCategoryModel> GetDictionaryCategory()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
