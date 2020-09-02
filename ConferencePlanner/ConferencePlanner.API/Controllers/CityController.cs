@@ -34,5 +34,13 @@ namespace ConferencePlanner.Api.Controllers
             List<DictionaryCityModel> cities = _cityRepository.GetCity();
             return Ok(cities);
         }
+
+        [HttpPost]
+        [Route("DictionaryCity/AddCity")]
+        public IActionResult AddCity(string Code, string Name, string county)
+        {
+            _cityRepository.AddCity(Code,Name,county);
+            return Ok();
+        }
     }
 }

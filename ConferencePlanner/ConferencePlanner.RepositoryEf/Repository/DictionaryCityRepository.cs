@@ -20,8 +20,15 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCity(string Code, string Name, string county)
         {
-          
             
+                DictionaryCity current = new DictionaryCity();
+                current.DictionaryCityCode = Code;
+                current.DictionaryCityName = Name;
+                current.DictionaryCountyId = Int32.Parse(county);
+                this._dbContext.DictionaryCity.Add(current);
+                this._dbContext.SaveChanges();
+          
+
         }
 
         public void DeleteCity(int CityId, bool IsRemote)
