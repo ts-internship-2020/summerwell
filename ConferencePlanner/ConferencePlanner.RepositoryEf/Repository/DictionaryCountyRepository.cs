@@ -1,6 +1,7 @@
 ﻿using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,9 +55,10 @@ namespace ConferencePlanner.Repository.Ef.Repository
         {
             try
             {
-                _dbContext.DictionaryCounty.RemoveRange(_dbContext.DictionaryCounty.First(a => a.DictionaryCountyId == CountyId));
-                _dbContext.SaveChanges();
-                return true;
+                var county = _dbContext.DictionaryCounty.Include(x => x.DictionaryCity).ThenInclude(x => x.Location).Where(x => x.DictionaryCountyId == CountyId).First();
+                var city = county.DictionaryCity.ToList();
+                //var location = city.Loc\a
+                    return true;
             }
             catch { return false; }
         }
