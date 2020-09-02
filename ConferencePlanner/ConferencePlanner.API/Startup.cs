@@ -40,7 +40,6 @@ namespace ConferencePlanner.Api
                     options.UseSqlServer(connectionString, a => a.EnableRetryOnFailure())
                     .UseInternalServiceProvider(serviceProvider);
                 });
-            //comentariu degeaba
             services.AddScoped<IGetDemoRepository, GetDemoRepository>();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IConferenceTypeRepository, DictionaryConferenceTypeRepository>();

@@ -4,7 +4,6 @@ using ConferencePlanner.Repository.Ef.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ConferencePlanner.Repository.Ef.Repository
 {
@@ -55,7 +54,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
         {
             try
             {
-                _dbContext.Remove(_dbContext.DictionaryCounty.First(a => a.DictionaryCountyId == CountyId));
+                _dbContext.DictionaryCounty.RemoveRange(_dbContext.DictionaryCounty.First(a => a.DictionaryCountyId == CountyId));
                 _dbContext.SaveChanges();
                 return true;
             }
