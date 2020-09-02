@@ -19,13 +19,7 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository = conferenceRepository;
         }
 
-        [HttpPost]
-        [Route("DictionaryCity")]
-        public IActionResult GetCity(int conferenceId)
-        {
-            DictionaryCityModel city = _conferenceRepository.GetCity(conferenceId);
-            return Ok(city);
-        }
+     
 
         [HttpGet]
         [Route("Conference")]
@@ -34,6 +28,7 @@ namespace ConferencePlanner.Api.Controllers
             List<ConferenceModel> conferences = _conferenceRepository.GetConference();
             return Ok(conferences);
         }
+
         [HttpPost]
         [Route("Conference/DataGridView")]
         public IActionResult GetConferenceDetail([FromBody] StartEndDate startEndDate)

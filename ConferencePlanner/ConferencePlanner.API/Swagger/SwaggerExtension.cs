@@ -32,6 +32,8 @@ namespace ConferencePlanner.Api.Swagger
                 {
                     typeof(ConferenceController).Assembly,
                     typeof(HomeController).Assembly,
+                    typeof(CityController).Assembly,
+                    typeof(DictionaryConferenceTypeController).Assembly,
                     
                 };
                  

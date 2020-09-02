@@ -27,9 +27,6 @@ namespace ConferencePlanner.Repository.Ef.Repository
             HttpClient client = new HttpClient();
             var response = client.GetAsync("http://localhost:2794/api/Home/{DemoName}");
            // string content = response.Content.ReadAsStringAsync();
-
-
-
             return demoModels;
         }
     }
