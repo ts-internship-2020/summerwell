@@ -36,14 +36,8 @@ namespace ConferencePlanner.Abstraction.Repository
                         DictionaryCountryName = sqlDataReader.GetString("DictionaryCountryName"),
                         Code = sqlDataReader.GetString("DictionaryCountryCode")
                     });
-
-
-                }
-               
-
+                }           
                 sqlDataReader.Close();
-
-
             }
             return countries;
         }

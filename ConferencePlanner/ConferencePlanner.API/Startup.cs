@@ -43,6 +43,10 @@ namespace ConferencePlanner.Api
             //comentariu degeaba
             services.AddScoped<IGetDemoRepository, GetDemoRepository>();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
+            services.AddScoped<IConferenceTypeRepository, DictionaryConferenceTypeRepository>();
+            services.AddScoped<IDictionaryCityRepository, DictionaryCityRepository>();
+            services.AddScoped<IDictionaryCountryRepository, DictionaryCountryRepository>();
+            services.AddScoped<IParticipantRepository, ParticipantRepository>();
             services.AddSwagger();
         }
 

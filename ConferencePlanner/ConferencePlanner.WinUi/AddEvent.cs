@@ -73,10 +73,7 @@ namespace ConferencePlanner.WinUi
             _ConferenceTypeRepository = ConferenceTypeRepository;
             x = _ConferenceTypeRepository.GetConferenceType();
             conferences = _ConferenceRepository.GetConference();
-            
-            //location = _LocationRepository.GetLocation();
-
-
+ 
             if (countries == null) { return; }
             else
             {

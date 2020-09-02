@@ -20,13 +20,7 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository = conferenceRepository;
         }
 
-        [HttpPost]
-        [Route("DictionaryCity")]
-        public IActionResult GetCity(int conferenceId)
-        {
-            DictionaryCityModel city = _conferenceRepository.GetCity(conferenceId);
-            return Ok(city);
-        }
+     
 
         [HttpGet]
         [Route("Conference")]
@@ -35,6 +29,7 @@ namespace ConferencePlanner.Api.Controllers
             List<ConferenceModel> conferences = _conferenceRepository.GetConference();
             return Ok(conferences);
         }
+
         [HttpPost]
         [Route("Conference/DataGridView")]
         public IActionResult GetConferenceDetail([FromBody] StartEndDate startEndDate)
@@ -52,10 +47,48 @@ namespace ConferencePlanner.Api.Controllers
         }
         [HttpPost]
         [Route("Conference/GetConferenceAudience")]
+
         public IActionResult GetConferenceAudience([FromBody] string email)
         {
             List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(email);
             return Ok(conferencesAudience);
+        }
+        [HttpPost]
+        [Route("Conference/ConferenceDetailForHost")]
+        public IActionResult GetConferenceDetailForHost([FromBody] string email)
+        {
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(email);
+            return Ok(conferencesDetails);
+        }
+        [HttpPut]
+        [Route("Conference/EditCountry")]
+        public IActionResult EditCountry(int Id, string Code,string Name)
+        {
+            _conferenceRepository.EditCountry(Id, Code, Name);
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("Conference/DeleteType")]
+        public IActionResult DeleteType(int TypeId, bool IsRemote)
+        {
+            _conferenceRepository.DeleteType(TypeId, IsRemote);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("DictionaryCountry/AddCountry")]
+        public IActionResult AddCountry(string Code, string Name)
+        {
+            _conferenceRepository.AddCountry(Code, Name);
+            return Ok();
+        }
+       
+        [HttpPut]
+        [Route("Conference/AddCategory")]
+        public IActionResult AddCategory(string Name)
+        {
+            _conferenceRepository.AddCategory(Name);
+            return Ok();
         }
         [HttpPost]
         [Route("Conference/GetAttendedConferencesFirst")]
