@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConferencePlanner.Repository.Ef.Repository
 {
@@ -22,7 +23,12 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCategory(string Name)
         {
-            throw new NotImplementedException();
+            int id = _dbContext.DictionaryConferenceCategory.Max(a => a.DictionaryConferenceCategoryId);
+            id += 1;
+
+            object Category = new DictionaryConferenceCategory { DictionaryConferenceCategoryId = id ,DictionaryConferenceCategoryName = Name };
+            _dbContext.Add(Category);
+            _dbContext.SaveChanges();
         }
 
         public void AddCity(string Code, string Name, string county)
@@ -37,7 +43,12 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCountry(string Code, string Name)
         {
-            throw new NotImplementedException();
+            DictionaryCountry current = new DictionaryCountry();
+            current.DictionaryCountryCode = Code;
+            current.DictionaryCountryName = Name;
+            
+            this._dbContext.DictionaryCountry.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public void AddCounty(string Code, string Name, string country)
