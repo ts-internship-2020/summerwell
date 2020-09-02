@@ -16,6 +16,22 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             _sqlConnection = sqlConnection;
         }
+
+        public void AddType(string Name, bool isRemote)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteType(int TypeId, bool IsRemote)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditType(int Id, string Name, bool isRemote)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ConferenceTypeModel> GetConferenceType()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
