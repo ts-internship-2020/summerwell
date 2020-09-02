@@ -37,6 +37,7 @@ namespace ConferencePlanner.Api.Swagger
                     typeof(CountryController).Assembly,
                     typeof(ParticipantController).Assembly,
                     typeof(DictionaryCountyController).Assembly,
+                    typeof(DictionaryCategoryController).Assembly,
                 };
                  
             });
