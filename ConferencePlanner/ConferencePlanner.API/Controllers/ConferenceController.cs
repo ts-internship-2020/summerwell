@@ -73,5 +73,12 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository.DeleteType(TypeId, IsRemote);
             return Ok();
         }
+        [HttpPut]
+        [Route("Conference/AddCategory")]
+        public IActionResult AddCategory(string Name)
+        {
+            _conferenceRepository.AddCategory(Name);
+            return Ok();
+        }
     }
 }
