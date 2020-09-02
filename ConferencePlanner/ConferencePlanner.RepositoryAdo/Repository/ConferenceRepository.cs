@@ -534,7 +534,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@ConferenceStatusId ", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
             command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
             command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
-
+        
             return (command.ExecuteNonQuery());
         }
 
@@ -1120,6 +1120,11 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 cityModel.DictionaryCountyId = sqlDataReader.GetInt32("CountyId");
             }
             return cityModel;
+        }
+
+        public void AddSpeakerXConference(int ConferenceId, int SpeakerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

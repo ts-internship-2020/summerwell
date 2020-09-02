@@ -99,5 +99,12 @@ namespace ConferencePlanner.Api.Controllers
             return Ok(attendedConferencesFirst);
 
         }
+        [HttpPost]
+        [Route("Conference/AddConference")]
+        public IActionResult AddConference([FromBody] AddEventDetailModel addEvent)
+        {
+            _conferenceRepository.AddConference(addEvent);
+            return Ok();
+        }
     }
 }
