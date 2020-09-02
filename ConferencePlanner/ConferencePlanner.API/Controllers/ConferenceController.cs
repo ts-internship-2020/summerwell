@@ -57,5 +57,12 @@ namespace ConferencePlanner.Api.Controllers
             List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(email);
             return Ok(conferencesAudience);
         }
+        [HttpPost]
+        [Route("Conference/ConferenceDetailForHost")]
+        public IActionResult GetConferenceDetailForHost(string email)
+        {
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(email);
+            return Ok(conferencesDetails);
+        }
     }
 }
