@@ -173,8 +173,6 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceAudienceModel> GetConferenceAudience(string email)
         {
-
-
             List<ConferenceAudience> conferences = _dbContext.ConferenceAudience.ToList();
             List<ConferenceAudienceModel> audiences = conferences.Where(a => a.Participant == email).Select(a => new ConferenceAudienceModel()
             {
@@ -262,9 +260,6 @@ namespace ConferencePlanner.Repository.Ef.Repository
             throw new NotImplementedException();
         }
 
-
-
-    
         public string GetUniqueParticipantCode()
         {
             throw new NotImplementedException();

@@ -10,6 +10,6 @@ namespace ConferencePlanner.Abstraction.Repository
         List<DictionaryCountyModel> GetDictionaryCounty();
         void AddCounty(string Code, string Name, string country);
         void EditCounty(string Code, string Name, int CountyId);
-        void DeleteCounty(int CountyId, bool IsRemote);
+        bool DeleteCounty(int CountyId);
     }
 }

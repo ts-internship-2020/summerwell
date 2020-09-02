@@ -79,7 +79,7 @@ namespace ConferencePlanner.Abstraction.Repository
             throw new NotImplementedException();
         }
 
-        public void DeleteCounty(int CountyId, bool IsRemote)
+        public bool DeleteCounty(int CountyId)
         {
             throw new NotImplementedException();
         }
