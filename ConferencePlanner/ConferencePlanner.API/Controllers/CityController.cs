@@ -20,7 +20,7 @@ namespace ConferencePlanner.Api.Controllers
         }
 
         [HttpPost]
-        [Route("DictionaryCity")]
+        [Route("DictionaryCity/ConferenceId")]
         public IActionResult GetCity([FromBody]int conferenceId)
         {
             DictionaryCityModel city = _cityRepository.GetCity(conferenceId);
@@ -28,7 +28,7 @@ namespace ConferencePlanner.Api.Controllers
         }
 
         [HttpPost]
-        [Route("DictionaryCityNop")]
+        [Route("DictionaryCity")]
         public IActionResult GetCity()
         {
             List<DictionaryCityModel> cities = _cityRepository.GetCity();

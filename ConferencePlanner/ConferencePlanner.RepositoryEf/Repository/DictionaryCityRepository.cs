@@ -20,7 +20,8 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCity(string Code, string Name, string county)
         {
-            throw new NotImplementedException();
+          
+            
         }
 
         public void DeleteCity(int CityId, bool IsRemote)
