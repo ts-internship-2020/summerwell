@@ -42,6 +42,7 @@ namespace ConferencePlanner.Api.Controllers
             _cityRepository.AddCity(Code,Name,county);
             return Ok();
         }
+
         [HttpDelete]
         [Route("DictionaryCity/CityDelete")]
         public IActionResult DeleteCity(int CityId, bool IsRemote)

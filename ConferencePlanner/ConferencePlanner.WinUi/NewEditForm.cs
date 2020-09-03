@@ -1,14 +1,18 @@
 ﻿using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ado.Repository;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel.Activation;
 using Windows.Security.EnterpriseData;
@@ -61,7 +65,12 @@ namespace ConferencePlanner.WinUi
             {
                 if (dictionar == "DictionaryCountry")
                 {
-                    try { _ConferenceRepository.AddCountry(textBox1.Text, textBox2.Text); }
+                    try {
+                        AddCountry obj = new AddCountry
+                        {
+                            Name = textBox1.Text,
+                            Code = textBox2.Text
+                        }; AddCountry(obj); /*_ConferenceRepository.AddCountry(textBox1.Text, textBox2.Text);*/ }
                     catch
                     {
                         SetBalloonTip("Already Exists", "There is a Country with this name");
@@ -112,7 +121,7 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCategory")
                 {
-                    try { _ConferenceRepository.AddCategory(textBox2.Text); }
+                    try { AddCategory(textBox2.Text);}
                     catch {
                         SetBalloonTip("Already Exists", "There is a Category with this name");
                         notifyIcon1.Visible = true;
@@ -217,5 +226,20 @@ namespace ConferencePlanner.WinUi
         {
             form4.Enabled = true;
         }
+        static async Task AddCategory(string text1)
+        {   
+            var json = JsonConvert.SerializeObject(text1);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCategory", httpContent);
+        }
+        static async Task AddCountry(AddCountry obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCountry", httpContent);
+        }
     }
+
 }
