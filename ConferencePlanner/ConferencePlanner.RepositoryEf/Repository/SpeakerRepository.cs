@@ -52,12 +52,16 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public string GetSpeakerImage(string speakerImage)
         {
-            throw new NotImplementedException();
+            Speaker speakers = _dbContext.Speaker.Where(x => x.SpeakerImage == speakerImage).FirstOrDefault();
+            string Image = speakers.SpeakerImage;
+            return Image;
         }
 
         public string GetSpeakerRating(string SpeakerName)
         {
-            throw new NotImplementedException();
+            Speaker speakers = _dbContext.Speaker.Where(x=>x.SpeakerName == SpeakerName).FirstOrDefault();
+            string rating = speakers.Rating;
+            return rating;
         }
 
         public List<SpeakerDetailModel> GetSpeakers()

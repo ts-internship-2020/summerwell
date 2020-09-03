@@ -107,12 +107,17 @@ namespace ConferencePlanner.Repository.Ef.Repository
             this._dbContext.SaveChanges();
         }
 
-        public void AddSpeaker(string Code, string Name, string Nationality)
+        public void AddSpeaker(string Email, string Name, string Nationality)
         {
-            throw new NotImplementedException();
-        }
+            Speaker newSpeaker = new Speaker();
+            newSpeaker.SpeakerEmail = Email;
+            newSpeaker.SpeakerName = Name;
+            newSpeaker.Nationality = Nationality;
+            _dbContext.Speaker.Add(newSpeaker);
+            _dbContext.SaveChanges();
 
-        public void AddType(string Name, bool isRemote)
+        }
+            public void AddType(string Name, bool isRemote)
         {
             DictionaryConferenceType current = new DictionaryConferenceType();
             current.DictionaryConferenceTypeName = Name;
@@ -158,7 +163,37 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void DeleteCountry(int CountryId, bool IsRemote)
         {
-            throw new NotImplementedException();
+
+            var country = _dbContext.DictionaryCountry.Where(x => x.DictionaryCountryId == CountryId).FirstOrDefault();
+            var countys = _dbContext.DictionaryCounty.Where(x => x.DictionaryCountryId == CountryId).ToList();
+            foreach (var county in countys)
+            {
+                var cities = _dbContext.DictionaryCity.Where(x => x.DictionaryCountyId == county.DictionaryCountyId).ToList();
+                foreach (var city in cities)
+                {
+                    var location = _dbContext.Location.Where(x => x.CityId == city.DictionaryCityId).ToList();
+                    foreach (var loc in location)
+                    {
+                        var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId).Include(x => x.ConferenceType).ToList();
+                        if (result != null)
+                        {
+                            foreach (var conf in result)
+                            {
+                                if (conf.ConferenceType.IsRemote)
+                                    conf.LocationId = 161;
+                                else
+                                    conf.LocationId = 162;
+                            }
+                        }
+                        _dbContext.Remove(loc);
+                    }
+                    _dbContext.Remove(city);
+                }
+                _dbContext.Remove(county);
+            }
+            _dbContext.Remove(country);
+            _dbContext.SaveChanges();
+
         }
 
         public void DeleteCounty(int CountyId, bool IsRemote)
@@ -192,7 +227,14 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void DeleteSpeaker(int SpeakerId)
         {
-            throw new NotImplementedException();
+            List<SpeakerxConference> conferencesWithDeletedSpeaker = _dbContext.SpeakerxConference.Where(x => x.SpeakerId == SpeakerId).ToList();
+            foreach (var conf in conferencesWithDeletedSpeaker)
+            {
+                conf.SpeakerId = 30;
+            }
+            Speaker current = _dbContext.Speaker.Where(x => x.SpeakerId == SpeakerId).FirstOrDefault();
+            _dbContext.Remove(current);
+            _dbContext.SaveChanges();
         }
 
         public bool DeleteType(int TypeId, bool IsRemote)
@@ -274,7 +316,14 @@ namespace ConferencePlanner.Repository.Ef.Repository
         }
             public void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality)
         {
-            throw new NotImplementedException();
+            Speaker current = _dbContext.Speaker.Where(x => x.SpeakerId == SpeakerId).FirstOrDefault();
+            if (current != null)
+            {
+                current.SpeakerEmail = Email;
+                current.SpeakerName = Name;
+                current.Nationality = Nationality;
+                _dbContext.SaveChanges();
+            }
         }
 
         public void EditType(int Id, string Name, bool isRemote)
@@ -521,7 +570,19 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void RatingChange(int Nota, string Name)
         {
-            throw new NotImplementedException();
+            Speaker speakers = _dbContext.Speaker.Where(x => x.SpeakerName == Name).FirstOrDefault();
+            int rating = int.Parse(speakers.Rating);
+            int norating = (int)speakers.NumberOfRatings;
+            norating++;
+
+            int FinalRating = ((rating * norating) + Nota) / (norating + 1);
+
+            if (speakers != null)
+            {
+                speakers.Rating = FinalRating.ToString();
+                speakers.NumberOfRatings = norating;
+                _dbContext.SaveChanges();
+            }
         }
 
         public int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
