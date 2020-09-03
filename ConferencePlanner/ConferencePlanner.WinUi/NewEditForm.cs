@@ -112,7 +112,7 @@ namespace ConferencePlanner.WinUi
                         {
                             Code = textBox1.Text,
                             Name = textBox2.Text,
-                            country = textBox3.Text
+                            country = DetailEvent.DictionaryCountryId.ToString()
                         }; await AddCounty(obj);
                     } 
                     catch {
@@ -182,10 +182,13 @@ namespace ConferencePlanner.WinUi
                 if (dictionar == "DictionaryCountry")
                 {
                     try {
+                        MessageBox.Show(DetailEvent.DictionaryCountryId.ToString());
                         EditCountry obj = new EditCountry { 
                             Id = DetailEvent.DictionaryCountryId,
-                            Code = textBox1.Text, Name = textBox2.Text 
-                        }; await EditCountry(obj);}
+                            Code = textBox1.Text,
+                            Name = textBox2.Text 
+                        }; await EditCountry(obj);
+                    }
                     catch {
                         SetBalloonTip("Already Exists", "There is a Country with this name");
                         notifyIcon1.Visible = true;
@@ -215,10 +218,16 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCounty")
                 {
-                    try { EditCounty obj = new EditCounty { Name = textBox2.Text, 
-                        Code = textBox1.Text,
-                        Id = DetailEvent.DictionaryCountyId }; await EditCounty(obj); 
+                    try
+                    {
+                        EditCounty obj = new EditCounty
+                        {
+                            Id = DetailEvent.DictionaryCountyId,
+                            Name = textBox2.Text,
+                            Code = textBox1.Text
+                        }; await EditCounty(obj);
                     }
+                    
                     catch {
                         SetBalloonTip("Error", "There was a problem");
                         notifyIcon1.Visible = true;
