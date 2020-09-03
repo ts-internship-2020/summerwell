@@ -48,16 +48,16 @@ namespace ConferencePlanner.Api.Controllers
         [HttpPost]
         [Route("Conference/GetConferenceAudience")]
 
-        public IActionResult GetConferenceAudience([FromBody] string email)
+        public IActionResult GetConferenceAudience([FromBody] EmailOnly obj)
         {
-            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(email);
+            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(obj.Email);
             return Ok(conferencesAudience);
         }
         [HttpPost]
         [Route("Conference/ConferenceDetailForHost")]
-        public IActionResult GetConferenceDetailForHost([FromBody] string email)
+        public IActionResult GetConferenceDetailForHost([FromBody] ConferenceDetailForHostModel obj)
         {
-            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(email);
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(obj.Email, obj.StartDate, obj.EndDate);
             return Ok(conferencesDetails);
         }
         [HttpPut]
