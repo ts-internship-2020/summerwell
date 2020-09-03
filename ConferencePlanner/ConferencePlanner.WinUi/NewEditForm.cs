@@ -163,7 +163,7 @@ namespace ConferencePlanner.WinUi
                     {
                         AddType obj = new AddType
                         {
-                            Name = textBox1.Text,
+                            Name = textBox2.Text,
                             isRemote = checkBox1.Checked
                         }; await AddType(obj);
                     }
@@ -274,7 +274,8 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryType")
                 {
-                    try { EditType obj = new EditType { Name = textBox2.Text,
+                    try { EditType obj = new EditType { 
+                        Name = textBox2.Text,
                         id = DetailEvent.ConferenceTypeId, 
                         isRemote = checkBox1.Checked }; await EditType(obj);
                         }
@@ -343,6 +344,7 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCountry", httpContent);
+            MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task EditSpeaker(EditSpeaker obj)
         {
@@ -350,6 +352,7 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Speaker/EditSpeaker", httpContent);
+            MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task EditCounty(EditCounty obj)
         {
@@ -357,6 +360,7 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCounty/EditCounty", httpContent);
+            MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task EditCity(EditCity obj)
         {

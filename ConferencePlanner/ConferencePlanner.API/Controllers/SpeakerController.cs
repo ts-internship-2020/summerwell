@@ -25,6 +25,8 @@ namespace ConferencePlanner.Api.Controllers
             _speakerrepository.AddSpeaker(obj.Email,obj.Name,obj.Nationality);
             return Ok();
         }
+        [HttpPost]
+        [Route("Speaker/EditSpeaker")]
         public IActionResult EditSpeaker([FromBody] EditSpeaker obj)
         {
             _speakerrepository.EditSpeaker(obj.Email,obj.Name,obj.Id,obj.Nationality);

@@ -37,7 +37,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("DictionaryCounty/EditCounty")]
         public IActionResult EditCounty([FromBody] EditCounty obj)
         {
