@@ -182,7 +182,6 @@ namespace ConferencePlanner.WinUi
                 if (dictionar == "DictionaryCountry")
                 {
                     try {
-                        MessageBox.Show(DetailEvent.DictionaryCountryId.ToString());
                         EditCountry obj = new EditCountry { 
                             Id = DetailEvent.DictionaryCountryId,
                             Code = textBox1.Text,
@@ -329,7 +328,8 @@ namespace ConferencePlanner.WinUi
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCity", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCity/AddCity", httpContent);
+            MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task AddType(AddType obj)
         {
@@ -344,7 +344,7 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCountry", httpContent);
-            MessageBox.Show(httpResponseMessage.ToString());
+
         }
         static async Task EditSpeaker(EditSpeaker obj)
         {
@@ -352,7 +352,6 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Speaker/EditSpeaker", httpContent);
-            MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task EditCounty(EditCounty obj)
         {
@@ -360,14 +359,14 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCounty/EditCounty", httpContent);
-            MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task EditCity(EditCity obj)
         {
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCity", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCity/EditCity", httpContent);
+            MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task EditCategory(EditCategory obj)
         {
