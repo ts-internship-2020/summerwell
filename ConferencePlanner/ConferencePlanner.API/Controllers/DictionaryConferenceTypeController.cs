@@ -36,7 +36,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("DictionaryConferenceType/EditType")]
         public IActionResult EditType(EditType obj)
         {

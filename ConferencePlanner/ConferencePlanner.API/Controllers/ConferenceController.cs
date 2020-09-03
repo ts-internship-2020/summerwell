@@ -60,7 +60,7 @@ namespace ConferencePlanner.Api.Controllers
             List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(obj.Email, obj.StartDate, obj.EndDate);
             return Ok(conferencesDetails);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("Conference/EditCountry")]
         public IActionResult EditCountry(int Id, string Code,string Name)
         {
@@ -82,8 +82,8 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository.AddCountry(Code, Name);
             return Ok();
         }
-       
-        [HttpPut]
+
+        [HttpPost]
         [Route("Conference/AddCategory")]
         public IActionResult AddCategory(string Name)
         {
@@ -99,7 +99,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok(attendedConferencesFirst);
 
         }
-        [HttpPut]
+        [HttpPost]
         [Route("Conference/EditConference")]
         public IActionResult EditConference([FromBody]AddEventDetailModel eventDetail, [FromBody] string newAddress, [FromBody] string newConferenceName)
         {
