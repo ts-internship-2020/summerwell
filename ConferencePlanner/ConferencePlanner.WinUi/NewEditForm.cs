@@ -197,7 +197,13 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "Speaker")
                 {
-                    try { _ConferenceRepository.EditSpeaker(textBox1.Text, textBox2.Text, DetailEvent.SpeakerId, textBox3.Text); }
+                    try {
+                        EditSpeaker obj = new EditSpeaker { Name = textBox2.Text, 
+                            Email = textBox1.Text, 
+                            Id = DetailEvent.SpeakerId ,
+                            Nationality = textBox3.Text};
+                        await EditSpeaker(obj); 
+                    }
                     catch {
                         SetBalloonTip("Please insert a valid mail", "Invalid Email");
                         notifyIcon1.Visible = true;
@@ -209,7 +215,10 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCounty")
                 {
-                    try { _ConferenceRepository.EditCounty(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountyId); }
+                    try { EditCounty obj = new EditCounty { Name = textBox2.Text, 
+                        Code = textBox1.Text,
+                        Id = DetailEvent.DictionaryCountyId }; await EditCounty(obj); 
+                    }
                     catch {
                         SetBalloonTip("Error", "There was a problem");
                         notifyIcon1.Visible = true;
@@ -221,7 +230,15 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCity")
                 {
-                    try { _ConferenceRepository.EditCity(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCityId); }
+                    try
+                    {
+                        EditCity obj = new EditCity
+                        {
+                            Name = textBox2.Text,
+                            Code = textBox1.Text,
+                            Id = DetailEvent.DictionaryCityId};
+                        await EditCity(obj);
+                    }
                     catch {
                         SetBalloonTip("Error", "There was a problem");
                         notifyIcon1.Visible = true;
@@ -233,7 +250,10 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCategory")
                 {
-                    try { _ConferenceRepository.EditCategory(DetailEvent.DictionaryConferenceCategoryId, textBox2.Text); }
+                    try { EditCategory obj = new EditCategory { id = DetailEvent.DictionaryConferenceCategoryId, 
+                        Name = textBox2.Text };
+                        await EditCategory(obj); 
+                    }
                     catch {
                         SetBalloonTip("Error", "There was a problem");
                         notifyIcon1.Visible = true;
@@ -245,7 +265,10 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryType")
                 {
-                    try { _ConferenceRepository.EditType(DetailEvent.ConferenceTypeId, textBox2.Text, checkBox1.Checked); }
+                    try { EditType obj = new EditType { Name = textBox2.Text,
+                        id = DetailEvent.ConferenceTypeId, 
+                        isRemote = checkBox1.Checked }; await EditType(obj);
+                        }
                     catch {
                         SetBalloonTip("Error", "There was a problem");
                         notifyIcon1.Visible = true;
@@ -311,6 +334,41 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCountry", httpContent);
+        }
+        static async Task EditSpeaker(EditSpeaker obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Speaker/EditSpeaker", httpContent);
+        }
+        static async Task EditCounty(EditCounty obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCounty", httpContent);
+        }
+        static async Task EditCity(EditCity obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCity", httpContent);
+        }
+        static async Task EditCategory(EditCategory obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCategory", httpContent);
+        }
+        static async Task EditType(EditType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryConferenceType/EditType", httpContent);
         }
     }
 

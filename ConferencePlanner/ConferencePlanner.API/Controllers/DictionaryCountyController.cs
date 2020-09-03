@@ -39,9 +39,9 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPut]
         [Route("DictionaryCounty/EditCounty")]
-        public IActionResult EditCounty(string Code, string Name, int CountyId)
+        public IActionResult EditCounty(EditCounty obj)
         {
-            _countyRepository.EditCounty(Code, Name, CountyId);
+            _countyRepository.EditCounty(obj.Code, obj.Name, obj.Id);
             return Ok();
         }
 

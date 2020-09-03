@@ -38,10 +38,11 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPut]
         [Route("DictionaryConferenceType/EditType")]
-        public IActionResult EditType(int id, string Name, bool isRemote)
+        public IActionResult EditType(EditType obj)
         {
-            _conferenceTypeRepository.EditType(id, Name, isRemote);
+            _conferenceTypeRepository.EditType(obj.id, obj.Name, obj.isRemote);
             return Ok();
         }
+
     }
 }

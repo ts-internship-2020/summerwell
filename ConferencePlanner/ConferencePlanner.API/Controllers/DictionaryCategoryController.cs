@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -44,5 +45,13 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceCategoryRepository.AddCategory(Name);
             return Ok();
         }
+        [HttpPost]
+        [Route("EditCategory")]
+        public IActionResult EditCategory([FromBody] EditCategory obj)
+        {
+            _conferenceCategoryRepository.EditCategory(obj.id,obj.Name);
+            return Ok();
+        }
+
     }
 }

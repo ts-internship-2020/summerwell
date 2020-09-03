@@ -51,5 +51,12 @@ namespace ConferencePlanner.Api.Controllers
             _cityRepository.DeleteCity(CityId, IsRemote);
             return Ok();
         }
+        [HttpPost]
+        [Route("DictionaryCity/EditCity")]
+        public IActionResult Edit([FromBody] EditCity obj)
+        {
+            _cityRepository.EditCity(obj.Code, obj.Name, obj.Id);
+            return Ok();
+        }
     }
 }
