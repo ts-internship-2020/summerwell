@@ -54,7 +54,7 @@ namespace ConferencePlanner.WinUi
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             _Locationrepository = locationRepository;
             currentUser = var_email;
-            conferencesCurrentUserAttends = GetConferenceAudience();
+            conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
             reloadData = new System.Windows.Forms.Timer();
             reloadData.Tick += new EventHandler(timerReloadData_Tick);
             reloadData.Interval = 10000;
@@ -194,29 +194,35 @@ namespace ConferencePlanner.WinUi
                     try
                     {
 
-                        _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
-                        conferencesCurrentUserAttends.Clear();
-                        conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                        x.Clear();
-                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
-                        totalEntries = x.Count();
+                        bool a = AddParticipant(_conferenceAudienceModel).Result;
+                        if(a == true)
+                        {
+                            conferencesCurrentUserAttends.Clear();
+                            conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
+                            x.Clear();
+                            x = GetAttendedConferencesFirst();
+                            totalEntries = x.Count();
 
-                        Thread thread = new Thread(() => _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel));
-                        thread.Start();
+                            Thread thread = new Thread(() => _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel));
+                            thread.Start();
+                        }
+                        else
+                        {
+                            _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                            conferencesCurrentUserAttends.Clear();
+                            conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
+                            x.Clear();
+                            x = GetAttendedConferencesFirst();
+                            totalEntries = x.Count();
+                        }
+                        
                     }
                     catch (SqlException ex)
                     {
-                        _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
-                        conferencesCurrentUserAttends.Clear();
-                        conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                        x.Clear();
-                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
-                        totalEntries = x.Count();
+                        
 
                     }
-                    startingPoint = 0;
-                    dataGridView1.Rows.Clear();
-                    populateConferenceGridViewByDate(startingPoint, startingPoint + nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
+                    
                     changeColor();
                     changeColorForJoinButtons();
                     //InitTimer(sender, e.RowIndex, e.ColumnIndex);
@@ -262,7 +268,7 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceStatusId = 2;
                     int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
                     if (rows_affected <= 0)
-                    {
+                    { 
                         SetBalloonTip("Please attend first", "You have to attend before you can withdraw!");
                         notifyIcon1.Visible = true;
                         notifyIcon1.ShowBalloonTip(3000);
@@ -901,7 +907,15 @@ namespace ConferencePlanner.WinUi
             }
             return null;
         }
-        private List<ConferenceAudienceModel> GetConferenceAudience()
+        static async Task<bool> AddParticipant(ConferenceAudienceModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Participant/AddParticipant", httpContent).Result;
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+        private List<ConferenceAudienceModel> GetConferenceAudience(string currentUser)
         {
             EmailOnly email = new EmailOnly();
             email.Email = currentUser;
