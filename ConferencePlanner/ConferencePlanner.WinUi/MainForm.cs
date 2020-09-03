@@ -1,22 +1,16 @@
 ﻿using ConferencePlanner.Abstraction.Repository;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using ConferencePlanner.Abstraction.Model;
 using System.Data.SqlClient;
-using Accessibility;
-using ConferencePlanner.Repository.Ado.Repository;
-using System.Drawing.Text;
-using Windows.UI.Xaml.Documents;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace ConferencePlanner.WinUi
 {
@@ -867,6 +861,21 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+        static async Task GetConferenceAudience(string text1)
+        {
+            var json = JsonConvert.SerializeObject(text1);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Conference/GetConferenceAudience", httpContent);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var json2 = JsonConvert.DeserializeObject(httpResponseMessage.Content.ReadAsStringAsync().Result);
+                
+            }
+        }
     }
+    
 }
+
+
 
