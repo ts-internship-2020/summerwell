@@ -39,14 +39,14 @@ namespace ConferencePlanner.Api.Controllers
         }
 
         [HttpPost]
-        [Route("AddCategory")]
+        [Route("DictionaryCategory/AddCategory")]
         public IActionResult AddCategory([FromBody] string Name)
         {
             _conferenceCategoryRepository.AddCategory(Name);
             return Ok();
         }
         [HttpPost]
-        [Route("EditCategory")]
+        [Route("DictionaryCategory/EditCategory")]
         public IActionResult EditCategory([FromBody] EditCategory obj)
         {
             _conferenceCategoryRepository.EditCategory(obj.id,obj.Name);

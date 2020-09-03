@@ -46,7 +46,7 @@ namespace ConferencePlanner.Api.Controllers
         }
         [HttpPut]
         [Route("EditCountry")]
-        public IActionResult EditCountry(EditCountry obj)
+        public IActionResult EditCountry([FromBody] EditCountry obj)
         {
             _countryRepository.EditCountry(obj.Id, obj.Code, obj.Name);
             return Ok();
