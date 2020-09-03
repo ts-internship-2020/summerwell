@@ -587,8 +587,15 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
-            var result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
-                                                         x.Participant == _conferenceAudienceModel.Participant);
+            ConferenceAudience result;
+            if (_conferenceAudienceModel.ConferenceStatusId == 2)
+                result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
+                                                                            x.Participant == _conferenceAudienceModel.Participant && x.ConferenceStatusId == 3);
+            else if (_conferenceAudienceModel.ConferenceStatusId == 3)
+                result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
+                                                                            x.Participant == _conferenceAudienceModel.Participant);
+            else
+                result = null;
             if (result != null)
             {
                 result.ConferenceStatusId = _conferenceAudienceModel.ConferenceStatusId;

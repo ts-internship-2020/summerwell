@@ -25,5 +25,25 @@ namespace ConferencePlanner.Api.Controllers
             _participantRepository.AddParticipant(obj);
             return Ok();
         }
+        [HttpPost]
+        [Route("Participant/UpdateParticipant")]
+        public IActionResult UpdateParticipant([FromBody] ConferenceAudienceModel obj)
+        {
+            int status = _participantRepository.UpdateParticipant(obj);
+            if (status != 0)
+                return Ok();
+            else
+                return NotFound();
+        }
+        [HttpPost]
+        [Route("Participant/UpdateParticipantToJoin")]
+        public IActionResult UpdateParticipantToJoin([FromBody] ConferenceAudienceModel obj)
+        {
+            int status = _participantRepository.UpdateParticipantToJoin(obj);
+            if (status != 0)
+                return Ok();
+            else
+                return NotFound();
+        }
     }
 }

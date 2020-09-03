@@ -194,8 +194,8 @@ namespace ConferencePlanner.WinUi
                     try
                     {
 
-                        bool a = AddParticipant(_conferenceAudienceModel).Result;
-                        if(a == true)
+                        bool success = AddParticipant(_conferenceAudienceModel).Result;
+                        if(success == true)
                         {
                             conferencesCurrentUserAttends.Clear();
                             conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
@@ -208,7 +208,7 @@ namespace ConferencePlanner.WinUi
                         }
                         else
                         {
-                            _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
+                            bool temp = UpdateParticipant(_conferenceAudienceModel).Result;
                             conferencesCurrentUserAttends.Clear();
                             conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
                             x.Clear();
@@ -239,8 +239,8 @@ namespace ConferencePlanner.WinUi
                         _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                         _conferenceAudienceModel.Participant = currentUser;
                         _conferenceAudienceModel.ConferenceStatusId = 1;
-                        int rows_affected = _ConferenceRepository.UpdateParticipantToJoin(_conferenceAudienceModel);
-                        if (rows_affected > 0)
+                        bool success = UpdateParticipantToJoin(_conferenceAudienceModel).Result;
+                        if (success)
                         {
                             JoinConference jc = new JoinConference();
                             jc.Show(this);
@@ -266,8 +266,8 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 2;
-                    int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
-                    if (rows_affected <= 0)
+                    bool success = UpdateParticipant(_conferenceAudienceModel).Result;
+                    if (!success)
                     { 
                         SetBalloonTip("Please attend first", "You have to attend before you can withdraw!");
                         notifyIcon1.Visible = true;
@@ -278,7 +278,7 @@ namespace ConferencePlanner.WinUi
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex - 2);
                     conferencesCurrentUserAttends.Clear();
-                    conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+                    conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
                     changeColorForSingleButton(e.RowIndex);
                     changeColorForJoinButtons();
 
@@ -334,7 +334,7 @@ namespace ConferencePlanner.WinUi
         private void timerReloadData_Tick(object sender, EventArgs e)
         {
             x.Clear();
-            x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+            x = GetAttendedConferencesFirst();
             totalEntries = x.Count();
             changeColorForJoinButtons();
         }
@@ -815,7 +815,7 @@ namespace ConferencePlanner.WinUi
             {
                 dataGridView1.Rows.Clear();
                 x.Clear();
-                x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+                x = GetAttendedConferencesFirst();
                 totalEntries = x.Count;
                 if (totalEntries >= nr_row)
                 {
@@ -843,7 +843,7 @@ namespace ConferencePlanner.WinUi
         {
             try {
                 dataGridView2.Rows.Clear();
-                y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+                y = GetConferenceDetailForHost();
                 HosttotalEntries = y.Count;
 
                 if (HosttotalEntries < nr_row)
@@ -913,6 +913,22 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Participant/AddParticipant", httpContent).Result;
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+        static async Task<bool> UpdateParticipant(ConferenceAudienceModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Participant/UpdateParticipant", httpContent).Result;
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+        static async Task<bool> UpdateParticipantToJoin(ConferenceAudienceModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Participant/UpdateParticipantToJoin", httpContent).Result;
             return httpResponseMessage.IsSuccessStatusCode;
         }
         private List<ConferenceAudienceModel> GetConferenceAudience(string currentUser)
