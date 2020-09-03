@@ -60,12 +60,6 @@ namespace ConferencePlanner.Api.Controllers
         }
 
 
-        [HttpPut]
-        [Route("DictionaryCity/EditCity")]
-        public IActionResult EditCity(string Code, string Name, int CityId)
-        {
-            _cityRepository.EditCity(Code, Name, CityId);
-            return Ok();
-        }
+       
     }
 }
