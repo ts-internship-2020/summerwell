@@ -291,7 +291,7 @@ namespace ConferencePlanner.WinUi
             var json = JsonConvert.SerializeObject(text1);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCategory", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCategory/AddCategory", httpContent);
         }
         static async Task AddCountry(AddCountry obj)
         {
@@ -312,7 +312,7 @@ namespace ConferencePlanner.WinUi
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCounty", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCounty/AddCounty", httpContent);
         }
         static async Task AddCity(AddCity obj)
         {
@@ -347,7 +347,7 @@ namespace ConferencePlanner.WinUi
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCounty", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCounty/EditCounty", httpContent);
         }
         static async Task EditCity(EditCity obj)
         {
@@ -361,7 +361,7 @@ namespace ConferencePlanner.WinUi
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCategory", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCategory/EditCategory", httpContent);
         }
         static async Task EditType(EditType obj)
         {
