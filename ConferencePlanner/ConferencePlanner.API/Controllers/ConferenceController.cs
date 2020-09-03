@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,99 @@ namespace ConferencePlanner.Api.Controllers
             _logger = logger;
             _conferenceRepository = conferenceRepository;
         }
+
+     
+
         [HttpGet]
         [Route("Conference")]
         public IActionResult GetConferences()
         {
             List<ConferenceModel> conferences = _conferenceRepository.GetConference();
             return Ok(conferences);
+        }
+
+        [HttpPost]
+        [Route("Conference/DataGridView")]
+        public IActionResult GetConferenceDetail([FromBody] StartEndDate startEndDate)
+        {
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetail(startEndDate.startDate, startEndDate.endDate);
+            return Ok(conferencesDetails);
+        }
+
+        [HttpGet]
+        [Route("Conference/ConferenceDetail")]
+        public IActionResult GetConferenceDetail()
+        {
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetail();
+            return Ok(conferencesDetails);
+        }
+        [HttpPost]
+        [Route("Conference/GetConferenceAudience")]
+
+        public IActionResult GetConferenceAudience([FromBody] string email)
+        {
+            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(email);
+            return Ok(conferencesAudience);
+        }
+        [HttpPost]
+        [Route("Conference/ConferenceDetailForHost")]
+        public IActionResult GetConferenceDetailForHost([FromBody] string email)
+        {
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(email);
+            return Ok(conferencesDetails);
+        }
+        [HttpPut]
+        [Route("Conference/EditCountry")]
+        public IActionResult EditCountry(int Id, string Code,string Name)
+        {
+            _conferenceRepository.EditCountry(Id, Code, Name);
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("Conference/DeleteType")]
+        public IActionResult DeleteType(int TypeId, bool IsRemote)
+        {
+            _conferenceRepository.DeleteType(TypeId, IsRemote);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("DictionaryCountry/AddCountry")]
+        public IActionResult AddCountry([FromBody] string Code, [FromBody] string Name)
+        {
+            _conferenceRepository.AddCountry(Code, Name);
+            return Ok();
+        }
+       
+        [HttpPut]
+        [Route("Conference/AddCategory")]
+        public IActionResult AddCategory(string Name)
+        {
+            _conferenceRepository.AddCategory(Name);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("Conference/GetAttendedConferencesFirst")]
+        public IActionResult GetAttendedConferencesFirst([FromBody] GetAttendedConferencesFirstModel model)
+        {
+            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(model.Email);
+            List<ConferenceDetailAttendFirstModel> attendedConferencesFirst = _conferenceRepository.GetAttendedConferencesFirst(conferencesAudience, model.StartDate, model.EndDate);
+            return Ok(attendedConferencesFirst);
+
+        }
+        [HttpPut]
+        [Route("Conference/EditConference")]
+        public IActionResult EditConference([FromBody]AddEventDetailModel eventDetail, [FromBody] string newAddress, [FromBody] string newConferenceName)
+        {
+            _conferenceRepository.EditConference(eventDetail,newAddress,newConferenceName);
+            return Ok();
+        }
+        [HttpPost]
+        [Route("Conference/AddConference")]
+        public IActionResult AddConference([FromBody] AddEventDetailModel addEvent)
+        {
+            _conferenceRepository.AddConference(addEvent);
+            return Ok();
         }
     }
 }

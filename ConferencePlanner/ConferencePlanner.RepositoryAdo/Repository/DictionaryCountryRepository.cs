@@ -36,17 +36,44 @@ namespace ConferencePlanner.Abstraction.Repository
                         DictionaryCountryName = sqlDataReader.GetString("DictionaryCountryName"),
                         Code = sqlDataReader.GetString("DictionaryCountryCode")
                     });
-
-
-                }
-               
-
+                }           
                 sqlDataReader.Close();
-
-
             }
             return countries;
+        }
 
+        public DictionaryCountryModel GetCountry(int countryId)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select dc.DictionaryCountryName as Name, dc.DictionaryCountryCode as Code " +
+                                       "from DictionaryCountry dc " +
+                                       "where dc.DictionaryCountryId = @countryId";
+            sqlCommand.Parameters.Add("@countryId", SqlDbType.Int).Value = countryId;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DictionaryCountryModel countryModel = new DictionaryCountryModel();
+            if (sqlDataReader.HasRows)
+            {
+                sqlDataReader.Read();
+                countryModel.DictionaryCountryId = countryId;
+                countryModel.DictionaryCountryName = sqlDataReader.GetString("Name");
+                countryModel.Code = sqlDataReader.GetString("Code");
+            }
+            return countryModel;
+        }
+
+        public void AddCountry(string Code, string Name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCountry(int Id, string Code, string Name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteCountry(int CountryId, bool IsRemote)
+        {
+            throw new NotImplementedException();
         }
     }
 }

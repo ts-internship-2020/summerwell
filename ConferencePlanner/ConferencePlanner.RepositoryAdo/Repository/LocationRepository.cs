@@ -16,6 +16,12 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             _sqlConnection = sqlConnection;
         }
+
+        public int AddLocation(int CityId, string Street)
+        {
+            throw new NotImplementedException();
+        }
+
         List<LocationModel> ILocationRepository.GetLocation()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
@@ -29,10 +35,10 @@ namespace ConferencePlanner.Repository.Ado.Repository
                     location.Add(new LocationModel()
                     {
                         LocationId = sqlDataReader.GetInt32("LocationId"),
-                        Longitude = sqlDataReader.GetString("DictionaryCityName"),
-                        Latitude = sqlDataReader.GetString("DictionaryCountyId"),
-                        CityId = sqlDataReader.GetInt32("DictionaryCityCode"),
-                        Street = sqlDataReader.GetString("Streed")
+                        Longitude = sqlDataReader.GetString("Longitude"),
+                        Latitude = sqlDataReader.GetString("Latitude"),
+                        CityId = sqlDataReader.GetInt32("CityId"),
+                        Street = sqlDataReader.GetString("Street")
                     });
                 }
             }

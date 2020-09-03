@@ -16,6 +16,22 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             _sqlConnection = sqlConnection;
         }
+
+        public void AddCity(string Code, string Name, string county)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteCity(int CityId, bool IsRemote)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditCity(string Code, string Name, int CityId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<DictionaryCityModel> GetCity()
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
@@ -36,6 +52,11 @@ namespace ConferencePlanner.Repository.Ado.Repository
                 }
             }
             return city;
+        }
+
+        public DictionaryCityModel GetCity(int conferenceId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

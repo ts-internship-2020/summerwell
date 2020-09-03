@@ -534,7 +534,7 @@ namespace ConferencePlanner.Repository.Ado.Repository
             command.Parameters.Add("@ConferenceStatusId ", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
             command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
             command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;
-
+        
             return (command.ExecuteNonQuery());
         }
 
@@ -1094,14 +1094,37 @@ namespace ConferencePlanner.Repository.Ado.Repository
                                 "SET SpeakerId = @SpeakerId, isMainSpeaker = 1 " +
                                 "WHERE ConferenceId = @ConferenceId";
             command.Parameters.Add("@SpeakerId", SqlDbType.Int).Value = eventDetail.SpeakerId;
-            command.Parameters.Add("ConferenceId", SqlDbType.Int).Value = eventDetail.ConferenceId;
+            command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = eventDetail.ConferenceId;
             try { command.ExecuteNonQuery(); }
             catch { };
 
         }
 
+        public DictionaryCityModel GetCity(int conferenceId)
+        {
+            SqlCommand sqlCommand = _sqlConnection.CreateCommand();
+            sqlCommand.CommandText = "select dc.DictionaryCityName as Name, dc.DictionaryCityCode as Code, dc.DictionaryCityId as Id, dc.DictionaryCountyId as CountyId "+
+                                      "from DictionaryCity dc "+
+                                      "join Location l on l.CityId = dc.DictionaryCityId "+
+                                      "join Conference c on c.LocationId = l.LocationId "+
+                                      "where c.ConferenceId = @conferenceId";
+            sqlCommand.Parameters.Add("@conferenceId", SqlDbType.Int).Value = conferenceId;
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            DictionaryCityModel cityModel = new DictionaryCityModel();
+            if (sqlDataReader.HasRows)
+            {
+                sqlDataReader.Read();
+                cityModel.Name = sqlDataReader.GetString("Name");
+                cityModel.Code = sqlDataReader.GetString("Code");
+                cityModel.DictionaryCityId= sqlDataReader.GetInt32("Id");
+                cityModel.DictionaryCountyId = sqlDataReader.GetInt32("CountyId");
+            }
+            return cityModel;
+        }
 
-
-        
+        public void AddSpeakerXConference(int ConferenceId, int SpeakerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

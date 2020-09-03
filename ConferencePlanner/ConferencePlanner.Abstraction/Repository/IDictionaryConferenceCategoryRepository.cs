@@ -8,5 +8,9 @@ namespace ConferencePlanner.Abstraction.Repository
     public interface IDictionaryConferenceCategoryRepository
     {
         List<DictionaryConferenceCategoryModel> GetDictionaryCategory();
+        DictionaryConferenceCategoryModel GetDictionaryCategory(int id);
+        void AddCategory(string Name);
+        void EditCategory(int Id, string Name);
+        bool DeleteCategory(int CategoryId);
     }
 }

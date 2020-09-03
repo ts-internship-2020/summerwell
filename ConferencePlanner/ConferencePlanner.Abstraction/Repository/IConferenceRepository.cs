@@ -14,34 +14,36 @@ namespace ConferencePlanner.Abstraction.Repository
         List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate);
         List<ConferenceAudienceModel> GetConferenceAudience(string email);
         List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst(List<ConferenceAudienceModel> _attendedConferences, DateTime StartDate, DateTime EndDate);
-        void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel);
-        void AddCountry(string Code, string Name);
-        void AddCounty(string Code, string Name, string country);
-        void AddCity(string Code, string Name,string county);
-        void AddSpeaker(string Code, string Name,string Nationality);
-        void AddType(string Name, bool isRemote);
-        void AddCategory(string Name);
-        void EditCountry(int Id, string Code, string Name);
-        void EditType(int Id, string Name, bool isRemote);
-        void EditCategory(int Id ,string Name);
-        void EditCounty(string Code, string Name, int CountyId);
-        void EditCity(string Code, string Name, int CityId);
-        void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality);
-        bool DeleteType(int TypeId, bool IsRemote);
-        void DeleteCountry(int CountryId, bool IsRemote);
-        void DeleteSpeaker(int SpeakerId);
-        void DeleteCounty(int CountyId, bool IsRemote);
-        void DeleteCity(int CityId, bool IsRemote);
-        bool DeleteCategory(int CategoryId);
+        DictionaryCityModel GetCity(int conferenceId); //IDictionaryCityRepository
+        void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel); //PartipantRepository
+        void AddCountry(string Code, string Name); //IDictionaryCountryRepository
+        void AddCounty(string Code, string Name, string country); //IDictionaryCountyRepository
+        void AddCity(string Code, string Name,string county); //IDictionaryCityRepository
+        void AddSpeaker(string Code, string Name,string Nationality); //IGetSpeakerDetail
+        void AddType(string Name, bool isRemote); //IDictionaryTypeRepository
+        void AddCategory(string Name); //IDictionaryConferenceCategoryRepository
+        void EditCountry(int Id, string Code, string Name); //IDictionaryCountryRepository
+        void EditType(int Id, string Name, bool isRemote); //IDictionaryTypeRepository
+        void EditCategory(int Id ,string Name); //IDictionaryConferenceCategoryRepository
+        void EditCounty(string Code, string Name, int CountyId); //IDictionaryCountyRepository
+        void EditCity(string Code, string Name, int CityId); //IDictionaryCityRepository
+        void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality); //IGetSpeakerDetail
+        bool DeleteType(int TypeId, bool IsRemote); //IDictionaryTypeRepository
+        void DeleteCountry(int CountryId, bool IsRemote); //IDictionaryCountryRepository
+        void DeleteSpeaker(int SpeakerId); //IGetSpeakerDetail
+        void DeleteCounty(int CountyId, bool IsRemote); //IDictionaryCountyRepository
+        void DeleteCity(int CityId, bool IsRemote); //IDictionaryCityRepository
+        bool DeleteCategory(int CategoryId); //IDictionaryConferenceCategoryRepository
         void AddConference(AddEventDetailModel addEvent);
+        public void AddSpeakerXConference(int ConferenceId, int SpeakerId);
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string newConferenceName);
-        int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel);
-        int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel);
+        int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel); //PartipantRepository
+        int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel); //PartipantRepository
 
-        void RatingChange(int Nota, string Name);
+        void RatingChange(int Nota, string Name); //IGetSpeakerDetail
 
-        string GetUniqueParticipantCode();
-        Bitmap GetQRCodeUniqueParticipantCode(ConferenceAudienceModel _conferenceAudienceModel);
-        
+        string GetUniqueParticipantCode(); //PartipantRepository
+        Bitmap GetQRCodeUniqueParticipantCode(ConferenceAudienceModel _conferenceAudienceModel); //PartipantRepository
+
     }
 }

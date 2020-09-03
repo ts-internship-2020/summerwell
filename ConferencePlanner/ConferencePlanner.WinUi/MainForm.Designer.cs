@@ -96,7 +96,6 @@ namespace ConferencePlanner.WinUi
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(913, 499);
             this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -116,6 +115,7 @@ namespace ConferencePlanner.WinUi
             this.tabPage1.Size = new System.Drawing.Size(905, 463);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Conferences";
+
             // 
             // dateTimePicker2
             // 
@@ -191,7 +191,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
+            //this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.ColumnHeadersHeight = 64;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -207,7 +207,7 @@ namespace ConferencePlanner.WinUi
             this.WithdrawButton,
             this.ConferenceId});
             this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dataGridView1.GridColor = System.Drawing.SystemColors.Desktop;
+            //this.dataGridView1.GridColor = System.Drawing.SystemColors.Desktop;
             this.dataGridView1.Location = new System.Drawing.Point(-4, 81);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -218,6 +218,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView1.Text = "dataGridView1";
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
+            this.dataGridView1.SizeChanged += dataGridView1_SizeChanged;
             // 
             // ConferenceName
             // 
@@ -364,7 +365,6 @@ namespace ConferencePlanner.WinUi
             this.tabPage2.Size = new System.Drawing.Size(905, 463);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Host";
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // btnHostSearch
             // 
@@ -467,6 +467,7 @@ namespace ConferencePlanner.WinUi
             this.dataGridView2.Text = "dataGridView2";
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
+            this.dataGridView2.SizeChanged += dataGridView2_SizeChanged;
             // 
             // HostConferenceName
             // 
@@ -617,7 +618,6 @@ namespace ConferencePlanner.WinUi
             this.MinimumSize = new System.Drawing.Size(770, 370);
             this.Name = "MainForm";
             this.Text = "Home";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
