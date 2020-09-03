@@ -4,31 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace ConferencePlanner.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ConferenceController : ControllerBase
+    public class ConferenceController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IConferenceRepository _getConferenceRepository;
-
-        public ConferenceController(ILogger<HomeController> logger, IConferenceRepository getConferenceRepository)
+        private readonly ILogger<ConferenceController> _logger;
+        private readonly IConferenceRepository _conferenceRepository;
+        public ConferenceController(ILogger<ConferenceController> logger, IConferenceRepository conferenceRepository)
         {
             _logger = logger;
-            _getConferenceRepository = getConferenceRepository;
+            _conferenceRepository = conferenceRepository;
         }
-
         [HttpGet]
-       //[Route("{DemoName}")]
-        public IActionResult GetConference([FromRoute] string conferenceName)
+        [Route("Conference")]
+        public IActionResult GetConferences()
         {
-            List<ConferenceModel> conferenceModels = _getConferenceRepository.GetConference();
-            return Ok(conferenceModels);
+            List<ConferenceModel> conferences = _conferenceRepository.GetConference();
+            return Ok(conferences);
         }
     }
 }
