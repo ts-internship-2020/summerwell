@@ -30,9 +30,36 @@ namespace ConferencePlanner.Repository.Ef.Repository
         public void DeleteCountry(int CountryId, bool IsRemote)
         {
 
-            // var country = _dbContext.DictionaryCountry.Include(a => a.DictionaryCounty).ThenInclude(a => a.DictionaryCity).ThenInclude(a => a.Location).Where(a => a.DictionaryCountryId == CountryId).First();
-            //var county = country.Di
-            throw new NotImplementedException();
+            var country = _dbContext.DictionaryCountry.Where(x => x.DictionaryCountryId == CountryId).FirstOrDefault();
+            var countys = _dbContext.DictionaryCounty.Where(x => x.DictionaryCountryId == CountryId).ToList();
+            foreach(var county in countys)
+            {
+                var cities = _dbContext.DictionaryCity.Where(x => x.DictionaryCountyId == county.DictionaryCountyId).ToList();
+                foreach (var city in cities)
+                {
+                    var location = _dbContext.Location.Where(x => x.CityId == city.DictionaryCityId).ToList();
+                    foreach (var loc in location)
+                    {
+                        var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId).Include(x => x.ConferenceType).ToList();
+                        if (result != null)
+                        {
+                            foreach (var conf in result)
+                            {
+                                if (conf.ConferenceType.IsRemote)
+                                    conf.LocationId = 161;
+                                else
+                                    conf.LocationId = 162;
+                            }
+                        }
+                        _dbContext.Remove(loc);
+                    }
+                    _dbContext.Remove(city);
+                }
+                _dbContext.Remove(county);
+            }
+            _dbContext.Remove(country);
+            _dbContext.SaveChanges();
+                
         }
 
         public void EditCountry(int Id, string Code, string Name)

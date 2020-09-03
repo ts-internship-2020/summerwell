@@ -10,6 +10,8 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
+using System.IO;
+using System.Net.Mail;
 
 namespace ConferencePlanner.Repository.Ef.Repository
 {
@@ -26,12 +28,22 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCategory(string Name)
         {
-            throw new NotImplementedException();
+            int id = _dbContext.DictionaryConferenceCategory.Max(a => a.DictionaryConferenceCategoryId);
+            id += 1;
+
+            object Category = new DictionaryConferenceCategory { DictionaryConferenceCategoryId = id, DictionaryConferenceCategoryName = Name };
+            _dbContext.Add(Category);
+            _dbContext.SaveChanges();
         }
 
         public void AddCity(string Code, string Name, string county)
         {
-            throw new NotImplementedException();
+            DictionaryCity current = new DictionaryCity();
+            current.DictionaryCityCode = Code;
+            current.DictionaryCityName = Name;
+            current.DictionaryCountyId = Int32.Parse(county);
+            this._dbContext.DictionaryCity.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public void AddConference(AddEventDetailModel addEvent)
@@ -76,22 +88,42 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void AddCounty(string Code, string Name, string country)
         {
-            throw new NotImplementedException();
+            DictionaryCounty current = new DictionaryCounty();
+            current.DictionaryCountyName = Name;
+            current.DictionaryCountyCode = Code;
+            current.DictionaryCountryId = Int32.Parse(country);
+            this._dbContext.DictionaryCounty.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public void AddParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
-            throw new NotImplementedException();
+            ConferenceAudience current = new ConferenceAudience();
+            current.ConferenceId = _conferenceAudienceModel.ConferenceId;
+            current.Participant = _conferenceAudienceModel.Participant;
+            current.ConferenceStatusId = _conferenceAudienceModel.ConferenceStatusId;
+            current.UniqueParticipantCode = _conferenceAudienceModel.UniqueParticipantCode;
+            this._dbContext.ConferenceAudience.Add(current);
+            this._dbContext.SaveChanges();
         }
 
-        public void AddSpeaker(string Code, string Name, string Nationality)
+        public void AddSpeaker(string Email, string Name, string Nationality)
         {
-            throw new NotImplementedException();
-        }
+            Speaker newSpeaker = new Speaker();
+            newSpeaker.SpeakerEmail = Email;
+            newSpeaker.SpeakerName = Name;
+            newSpeaker.Nationality = Nationality;
+            _dbContext.Speaker.Add(newSpeaker);
+            _dbContext.SaveChanges();
 
-        public void AddType(string Name, bool isRemote)
+        }
+            public void AddType(string Name, bool isRemote)
         {
-            throw new NotImplementedException();
+            DictionaryConferenceType current = new DictionaryConferenceType();
+            current.DictionaryConferenceTypeName = Name;
+            current.IsRemote = isRemote;
+            this._dbContext.DictionaryConferenceType.Add(current);
+            this._dbContext.SaveChanges();
         }
 
         public bool DeleteCategory(int CategoryId)
@@ -108,22 +140,101 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void DeleteCity(int CityId, bool IsRemote)
         {
-            throw new NotImplementedException();
+            var city = _dbContext.DictionaryCity.Include(x => x.Location).Where(x => x.DictionaryCityId == CityId).First();
+            var location = city.Location.ToList();
+            foreach (var loc in location)
+            {
+                var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId);
+                if (result != null)
+                {
+                    foreach (var conf in result)
+                    {
+                        if (IsRemote)
+                            conf.LocationId = 161;
+                        else conf.LocationId = 162;
+                    }
+                }
+                _dbContext.Remove(loc);
+            }
+
+            _dbContext.Remove(city);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteCountry(int CountryId, bool IsRemote)
         {
-            throw new NotImplementedException();
+
+            var country = _dbContext.DictionaryCountry.Where(x => x.DictionaryCountryId == CountryId).FirstOrDefault();
+            var countys = _dbContext.DictionaryCounty.Where(x => x.DictionaryCountryId == CountryId).ToList();
+            foreach (var county in countys)
+            {
+                var cities = _dbContext.DictionaryCity.Where(x => x.DictionaryCountyId == county.DictionaryCountyId).ToList();
+                foreach (var city in cities)
+                {
+                    var location = _dbContext.Location.Where(x => x.CityId == city.DictionaryCityId).ToList();
+                    foreach (var loc in location)
+                    {
+                        var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId).Include(x => x.ConferenceType).ToList();
+                        if (result != null)
+                        {
+                            foreach (var conf in result)
+                            {
+                                if (conf.ConferenceType.IsRemote)
+                                    conf.LocationId = 161;
+                                else
+                                    conf.LocationId = 162;
+                            }
+                        }
+                        _dbContext.Remove(loc);
+                    }
+                    _dbContext.Remove(city);
+                }
+                _dbContext.Remove(county);
+            }
+            _dbContext.Remove(country);
+            _dbContext.SaveChanges();
+
         }
 
         public void DeleteCounty(int CountyId, bool IsRemote)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var county = _dbContext.DictionaryCounty.Where(x => x.DictionaryCountyId == CountyId).FirstOrDefault();
+                var city = _dbContext.DictionaryCity.Where(x => x.DictionaryCountyId == CountyId).ToList();
+                foreach (var c in city)
+                {
+                    var location = _dbContext.Location.Where(x => x.CityId == c.DictionaryCityId);
+                    foreach (var loc in location)
+                    {
+                        var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId);
+                        if (result != null)
+                        {
+                            foreach (var conf in result)
+                            {
+                                conf.LocationId = 162;
+                            }
+                        }
+                        _dbContext.Remove(loc);
+                    }
+                    _dbContext.Remove(c);
+                }
+                _dbContext.Remove(county);
+                _dbContext.SaveChanges();
+            }
+            catch { }
         }
 
         public void DeleteSpeaker(int SpeakerId)
         {
-            throw new NotImplementedException();
+            List<SpeakerxConference> conferencesWithDeletedSpeaker = _dbContext.SpeakerxConference.Where(x => x.SpeakerId == SpeakerId).ToList();
+            foreach (var conf in conferencesWithDeletedSpeaker)
+            {
+                conf.SpeakerId = 30;
+            }
+            Speaker current = _dbContext.Speaker.Where(x => x.SpeakerId == SpeakerId).FirstOrDefault();
+            _dbContext.Remove(current);
+            _dbContext.SaveChanges();
         }
 
         public bool DeleteType(int TypeId, bool IsRemote)
@@ -139,12 +250,23 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void EditCategory(int Id, string Name)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.DictionaryConferenceCategory.SingleOrDefault(b => b.DictionaryConferenceCategoryId == Id);
+            if (result != null)
+            {
+                result.DictionaryConferenceCategoryName = Name;
+                _dbContext.SaveChanges();
+            }
         }
 
         public void EditCity(string Code, string Name, int CityId)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.DictionaryCity.SingleOrDefault(b => b.DictionaryCityId == CityId);
+            if (result != null)
+            {
+                result.DictionaryCityName = Name;
+                result.DictionaryCityCode = Code;
+                _dbContext.SaveChanges();
+            }
         }
 
         public void EditConference(AddEventDetailModel eventDetail, string newAddress, string newConferenceName)
@@ -184,17 +306,35 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void EditCounty(string Code, string Name, int CountyId)
         {
-            throw new NotImplementedException();
-        }
+            var result = _dbContext.DictionaryCounty.SingleOrDefault(b => b.DictionaryCountyId == CountyId);
+            if (result != null)
+            {
+                result.DictionaryCountyName = Name;
+                result.DictionaryCountyCode = Code;
 
-        public void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality)
+            }
+        }
+            public void EditSpeaker(string Email, string Name, int SpeakerId, string Nationality)
         {
-            throw new NotImplementedException();
+            Speaker current = _dbContext.Speaker.Where(x => x.SpeakerId == SpeakerId).FirstOrDefault();
+            if (current != null)
+            {
+                current.SpeakerEmail = Email;
+                current.SpeakerName = Name;
+                current.Nationality = Nationality;
+                _dbContext.SaveChanges();
+            }
         }
 
         public void EditType(int Id, string Name, bool isRemote)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.DictionaryConferenceType.SingleOrDefault(b => b.DictionaryConferenceTypeId == Id);
+            if (result != null)
+            {
+                result.DictionaryConferenceTypeName = Name;
+                result.IsRemote = isRemote;
+                _dbContext.SaveChanges();
+            }
         }
 
         public List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst(List<ConferenceAudienceModel> _attendedConferences, DateTime StartDate, DateTime EndDate)
@@ -231,9 +371,42 @@ namespace ConferencePlanner.Repository.Ef.Repository
         }
 
         public DictionaryCityModel GetCity(int conferenceId)
-        {
-            throw new NotImplementedException();
-        }
+        
+            {
+
+                List<Conference> conferences = _dbContext.Conference.ToList();
+
+                List<ConferenceModel> conferenceModels = conferences.Where(a => a.ConferenceId == conferenceId).Select(a => new ConferenceModel()
+                {
+                    LocationId = (int)a.LocationId
+
+                }).ToList();
+
+                List<Location> locations = _dbContext.Location.ToList();
+
+                List<LocationModel> locationModels = locations.Where(a => a.LocationId == conferenceModels[0].LocationId).Select(a => new LocationModel()
+                {
+
+                    CityId = a.CityId
+
+                }).ToList();
+
+                List<DictionaryCity> cities = _dbContext.DictionaryCity.ToList();
+
+                List<DictionaryCityModel> citiesModel = cities.Where(a => a.DictionaryCityId == locationModels[0].CityId).Select(a => new DictionaryCityModel()
+                {
+
+                    DictionaryCityId = a.DictionaryCityId,
+                    DictionaryCountyId = a.DictionaryCountyId,
+                    Name = a.DictionaryCityName,
+                    Code = a.DictionaryCityCode
+
+
+                }).ToList();
+
+                return citiesModel[0];
+            }
+        
 
         public List<ConferenceModel> GetConference()
         {
@@ -354,27 +527,90 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public Bitmap GetQRCodeUniqueParticipantCode(ConferenceAudienceModel _conferenceAudienceModel)
         {
-            throw new NotImplementedException();
+            QRCoder.QRCodeGenerator QG = new QRCoder.QRCodeGenerator();
+            var data = QG.CreateQrCode(_conferenceAudienceModel.UniqueParticipantCode, QRCoder.QRCodeGenerator.ECCLevel.Q);
+            var QRCode = new QRCoder.QRCode(data);
+            MemoryStream memstream = new MemoryStream();
+            Bitmap QRCodeImage = QRCode.GetGraphic(20);
+            QRCodeImage.Save(memstream, System.Drawing.Imaging.ImageFormat.Png);
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+            mail.From = new MailAddress("aremere333@gmail.com");
+            mail.To.Add(_conferenceAudienceModel.Participant);
+            mail.Subject = "QR Code To Join";
+            mail.Body = String.Format("This is an automatic message so you can join to the conference named {0} via QR Code", _conferenceAudienceModel.ConferenceName);
+            memstream.Position = 0;
+            var attachment = new System.Net.Mail.Attachment(memstream, "image.png");
+            mail.Attachments.Add(attachment);
+            SmtpServer.Host = "smtp.gmail.com";
+            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+            SmtpServer.UseDefaultCredentials = true;
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("aremere333@gmail.com", "Parola12345*");
+            SmtpServer.EnableSsl = true;
+            try
+            {
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return QRCodeImage;
         }
 
         public string GetUniqueParticipantCode()
         {
-            throw new NotImplementedException();
+            Guid g = Guid.NewGuid();
+            string GuidString = Convert.ToBase64String(g.ToByteArray());
+            GuidString = GuidString.Replace("=", "");
+            GuidString = GuidString.Replace("+", "");
+            return GuidString;
         }
 
         public void RatingChange(int Nota, string Name)
         {
-            throw new NotImplementedException();
+            Speaker speakers = _dbContext.Speaker.Where(x => x.SpeakerName == Name).FirstOrDefault();
+            int rating = int.Parse(speakers.Rating);
+            int norating = (int)speakers.NumberOfRatings;
+            norating++;
+
+            int FinalRating = ((rating * norating) + Nota) / (norating + 1);
+
+            if (speakers != null)
+            {
+                speakers.Rating = FinalRating.ToString();
+                speakers.NumberOfRatings = norating;
+                _dbContext.SaveChanges();
+            }
         }
 
         public int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
+                                                         x.Participant == _conferenceAudienceModel.Participant);
+            if (result != null)
+            {
+                result.ConferenceStatusId = _conferenceAudienceModel.ConferenceStatusId;
+                _dbContext.SaveChanges();
+                return 1;
+            }
+            return 0;
         }
 
         public int UpdateParticipantToJoin(ConferenceAudienceModel _conferenceAudienceModel)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
+                                                                       x.Participant == _conferenceAudienceModel.Participant && (x.ConferenceStatusId == 3 || x.ConferenceStatusId == 1));
+            if (result != null)
+            {
+                result.ConferenceId = _conferenceAudienceModel.ConferenceId;
+                result.Participant = _conferenceAudienceModel.Participant;
+                result.ConferenceStatusId = _conferenceAudienceModel.ConferenceStatusId;
+                _dbContext.SaveChanges();
+                return 1;
+            }
+            return 0;
         }
     }
 }
