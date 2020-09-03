@@ -29,7 +29,6 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void DeleteCountry(int CountryId, bool IsRemote)
         {
-
             // var country = _dbContext.DictionaryCountry.Include(a => a.DictionaryCounty).ThenInclude(a => a.DictionaryCity).ThenInclude(a => a.Location).Where(a => a.DictionaryCountryId == CountryId).First();
             //var county = country.Di
             throw new NotImplementedException();
