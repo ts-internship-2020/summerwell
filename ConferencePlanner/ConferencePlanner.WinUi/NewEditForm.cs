@@ -106,7 +106,15 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCounty")
                 {
-                    try { _ConferenceRepository.AddCounty(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountryId.ToString()); }
+                    try
+                    {
+                        AddCounty obj = new AddCounty
+                        {
+                            Code = textBox1.Text,
+                            Name = textBox2.Text,
+                            country = textBox3.Text
+                        }; await AddCounty(obj);
+                    } 
                     catch {
                         SetBalloonTip("Already Exists", "There is a County with this name");
                         notifyIcon1.Visible = true;
@@ -118,8 +126,17 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCity")
                 {
-                    try { _ConferenceRepository.AddCity(textBox1.Text, textBox2.Text, DetailEvent.DictionaryCountyId.ToString()); }
-                    catch {
+                    try
+                    {
+                        AddCity obj = new AddCity
+                        {
+                            Code = textBox1.Text,
+                            Name = textBox2.Text,
+                            county = DetailEvent.DictionaryCountyId.ToString()
+                        }; await AddCity(obj);
+                    }
+                    catch
+                    {
                         SetBalloonTip("Already Exists", "There is a City with this name");
                         notifyIcon1.Visible = true;
                         notifyIcon1.ShowBalloonTip(3000);
@@ -142,7 +159,14 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryType")
                 {
-                    try { _ConferenceRepository.AddType(textBox2.Text, checkBox1.Checked); }
+                    try
+                    {
+                        AddType obj = new AddType
+                        {
+                            Name = textBox1.Text,
+                            isRemote = checkBox1.Checked
+                        }; await AddType(obj);
+                    }
                     catch {
                         SetBalloonTip("Already Exists", "There is a Type with this name");
                         notifyIcon1.Visible = true;
@@ -157,7 +181,11 @@ namespace ConferencePlanner.WinUi
             {
                 if (dictionar == "DictionaryCountry")
                 {
-                    try { _ConferenceRepository.EditCountry(DetailEvent.DictionaryCountryId, textBox1.Text, textBox2.Text);  }
+                    try {
+                        EditCountry obj = new EditCountry { 
+                            Id = DetailEvent.DictionaryCountryId,
+                            Code = textBox1.Text, Name = textBox2.Text 
+                        }; await EditCountry(obj);}
                     catch {
                         SetBalloonTip("Already Exists", "There is a Country with this name");
                         notifyIcon1.Visible = true;
@@ -255,6 +283,34 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Speaker/AddSpeaker", httpContent);
+        }
+        static async Task AddCounty(AddCounty obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCounty", httpContent);
+        }
+        static async Task AddCity(AddCity obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCity", httpContent);
+        }
+        static async Task AddType(AddType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryConferenceType/AddType", httpContent);
+        }
+        static async Task EditCountry(EditCountry obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/EditCountry", httpContent);
         }
     }
 

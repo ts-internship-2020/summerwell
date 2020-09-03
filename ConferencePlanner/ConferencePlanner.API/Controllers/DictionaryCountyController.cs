@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -30,9 +31,9 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPost]
         [Route("DictionaryCounty/AddCounty")]
-        public IActionResult AddCounty([FromBody] string Code, [FromBody] string Name, [FromBody] string country)
+        public IActionResult AddCounty([FromBody] AddCounty obj)
         {
-            _countyRepository.AddCounty(Code, Name, country);
+            _countyRepository.AddCounty(obj.Code, obj.Name, obj.country);
             return Ok();
         }
 
