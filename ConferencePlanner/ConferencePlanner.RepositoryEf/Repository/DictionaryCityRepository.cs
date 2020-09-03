@@ -57,7 +57,13 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public void EditCity(string Code, string Name, int CityId)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.DictionaryCity.SingleOrDefault(b => b.DictionaryCityId == CityId);
+            if (result != null)
+            {
+                result.DictionaryCityName = Name;
+                result.DictionaryCityCode = Code;
+                _dbContext.SaveChanges();
+            }
         }
 
         public List<DictionaryCityModel> GetCity()

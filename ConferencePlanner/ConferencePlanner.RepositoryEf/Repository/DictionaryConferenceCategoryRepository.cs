@@ -1,6 +1,7 @@
 ﻿using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,23 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public bool DeleteCategory(int CategoryId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Remove(_dbContext.DictionaryConferenceCategory.First(a => a.DictionaryConferenceCategoryId == CategoryId));
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch { return false; }
         }
 
         public void EditCategory(int Id, string Name)
         {
-            throw new NotImplementedException();
+            var result = _dbContext.DictionaryConferenceCategory.SingleOrDefault(b => b.DictionaryConferenceCategoryId == Id);
+            if (result != null)
+            {
+                result.DictionaryConferenceCategoryName = Name;
+                _dbContext.SaveChanges();
+            }
         }
 
         public List<DictionaryConferenceCategoryModel> GetDictionaryCategory()
