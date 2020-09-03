@@ -75,7 +75,14 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public DictionaryCountryModel GetCountry(int countryId)
         {
-            throw new NotImplementedException();
+            {
+                DictionaryCountry country = _dbContext.DictionaryCountry.Where(a => a.DictionaryCountryId == countryId).FirstOrDefault();
+                DictionaryCountryModel countryModels = new DictionaryCountryModel();
+                countryModels.DictionaryCountryId = country.DictionaryCountryId;
+                countryModels.DictionaryCountryName = country.DictionaryCountryName;
+                countryModels.Code = country.DictionaryCountryCode;
+                return countryModels;
+            }
         }
 
         public List<DictionaryCountryModel> GetDictionaryCountry()
