@@ -62,12 +62,15 @@ namespace ConferencePlanner.Repository.Ef.Repository
                     var location = _dbContext.Location.Where(x => x.CityId == c.DictionaryCityId);
                     foreach(var loc in location)
                     {
-                        var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId);
+                        var result = _dbContext.Conference.Where(b => b.LocationId == loc.LocationId).Include(x => x.ConferenceType);
                         if (result != null)
                         {
                             foreach (var conf in result)
                             {
-                                conf.LocationId = 162;
+                                if (conf.ConferenceType.IsRemote)
+                                    conf.LocationId = 161;
+                                else
+                                    conf.LocationId = 162;
                             }
                         }
                         _dbContext.Remove(loc);
