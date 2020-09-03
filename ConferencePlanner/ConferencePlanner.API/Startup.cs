@@ -50,6 +50,7 @@ namespace ConferencePlanner.Api
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<IDictionaryConferenceCategoryRepository, DictionaryConferenceCategoryRepository>();
             services.AddScoped<IGetSpeakerDetail, SpeakerRepository>();
+
             services.AddSwagger();
         }
 
