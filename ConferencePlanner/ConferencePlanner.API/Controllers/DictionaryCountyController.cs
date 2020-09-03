@@ -45,11 +45,11 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("DictionaryCounty/DeleteCounty")]
-        public IActionResult DeleteCounty(int CountyId)
+        public IActionResult DeleteCounty([FromBody] int obj)
         {
-            bool x = _countyRepository.DeleteCounty(CountyId);
+            bool x = _countyRepository.DeleteCounty(obj);
             if (x == true)
                 return Ok();
             else return NoContent();

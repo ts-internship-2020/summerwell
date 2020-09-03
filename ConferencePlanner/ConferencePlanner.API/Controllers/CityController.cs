@@ -44,11 +44,11 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("DictionaryCity/CityDelete")]
-        public IActionResult DeleteCity(int CityId, bool IsRemote)
+        public IActionResult DeleteCity([FromBody]DeleteType obj)
         {
-            _cityRepository.DeleteCity(CityId, IsRemote);
+            _cityRepository.DeleteCity(obj.Id, obj.isRemote);
             return Ok();
         }
         [HttpPost]

@@ -1,4 +1,5 @@
 ﻿using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
 using System;
@@ -39,12 +40,29 @@ namespace ConferencePlanner.Repository.Ef.Repository
         public void DeleteSpeaker(int SpeakerId)
         {
             List<SpeakerxConference> conferencesWithDeletedSpeaker = _dbContext.SpeakerxConference.Where(x => x.SpeakerId == SpeakerId).ToList();
+            List<SpeakerxConferenceModel> newConferencexSpeaker = new List<SpeakerxConferenceModel>();
+            newConferencexSpeaker.AddRange(conferencesWithDeletedSpeaker.Select(x => new SpeakerxConferenceModel()
+            {
+                ConferenceId = x.ConferenceId,
+                SpeakerId = x.SpeakerId,
+                isMainSpeaker = true
+            }));
             foreach(var conf in conferencesWithDeletedSpeaker)
             {
-                conf.SpeakerId = 30;
+                _dbContext.Remove(conf);
             }
+            _dbContext.SaveChanges();
+            List<SpeakerxConference> addConferencexSpeaker = new List<SpeakerxConference>();
+            addConferencexSpeaker.AddRange(newConferencexSpeaker.Select(x => new SpeakerxConference()
+            {
+                SpeakerId = x.SpeakerId,
+                ConferenceId = x.ConferenceId,
+                IsMainSpeaker = true
+            }));
+            
             Speaker current = _dbContext.Speaker.Where(x => x.SpeakerId == SpeakerId).FirstOrDefault();
             _dbContext.Remove(current);
+            _dbContext.SpeakerxConference.AddRange(addConferencexSpeaker);
             _dbContext.SaveChanges();
         }
 
