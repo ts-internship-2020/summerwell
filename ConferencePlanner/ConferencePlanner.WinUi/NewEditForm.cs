@@ -59,7 +59,7 @@ namespace ConferencePlanner.WinUi
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
             notifyIcon1.Visible = false;
         }
-        private void BtnSave_Click(object sender, EventArgs e)
+        private async void BtnSave_ClickAsync(object sender, EventArgs e)
         {
             if (EditOrSave == false)
             {
@@ -68,9 +68,9 @@ namespace ConferencePlanner.WinUi
                     try {
                         AddCountry obj = new AddCountry
                         {
-                            Name = textBox1.Text,
-                            Code = textBox2.Text
-                        }; AddCountry(obj); /*_ConferenceRepository.AddCountry(textBox1.Text, textBox2.Text);*/ }
+                            Code = textBox1.Text,
+                            Name = textBox2.Text
+                        }; await AddCountry(obj); }
                     catch
                     {
                         SetBalloonTip("Already Exists", "There is a Country with this name");
@@ -84,7 +84,16 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "Speaker")
                 {
-                    try { _ConferenceRepository.AddSpeaker(textBox1.Text, textBox2.Text, textBox3.Text); }
+                    try
+                    {
+                        AddSpeaker obj = new AddSpeaker
+                        {
+                            Email = textBox1.Text,
+                            Name = textBox2.Text,
+                            Nationality = textBox3.Text
+                        }; await AddSpeaker(obj);
+
+                    }
                     catch
                     {
                         SetBalloonTip("Already Exists", "There is a Speaker with this name");
@@ -121,7 +130,7 @@ namespace ConferencePlanner.WinUi
                 }
                 else if (dictionar == "DictionaryCategory")
                 {
-                    try { AddCategory(textBox2.Text);}
+                    try { await AddCategory(textBox2.Text);}
                     catch {
                         SetBalloonTip("Already Exists", "There is a Category with this name");
                         notifyIcon1.Visible = true;
@@ -239,6 +248,13 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/AddCountry", httpContent);
+        }
+        static async Task AddSpeaker(AddSpeaker obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Speaker/AddSpeaker", httpContent);
         }
     }
 
