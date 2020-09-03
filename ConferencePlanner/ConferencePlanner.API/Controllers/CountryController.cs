@@ -36,6 +36,12 @@ namespace ConferencePlanner.Api.Controllers
             return Ok(countries);
         }
         
-
+        [HttpDelete]
+        [Route("DeleteCountry")]
+        public IActionResult DeleteCountry([FromBody] int CountryId)
+        {
+            _countryRepository.DeleteCountry(CountryId, false);
+            return Ok();
+        }
     }
 }
