@@ -62,9 +62,25 @@ namespace ConferencePlanner.Repository.Ef.Repository
             return conferencesCategoryModel;
         }
 
-        public DictionaryConferenceCategoryModel GetDictionaryCategory(int id)
+        public DictionaryConferenceCategoryModel GetDictionaryCategory(int conferenceId)
         {
-            throw new NotImplementedException();
+            List<Conference> conferences = _dbContext.Conference.ToList();
+            List<ConferenceModel> conferenceModels = conferences.Where(a => a.ConferenceId == conferenceId).Select(a => new ConferenceModel()
+            {
+                ConferenceCategoryId = (int)a.ConferenceCategoryId
+
+            }).ToList();
+
+            List<DictionaryConferenceCategory> conferenceCategories = _dbContext.DictionaryConferenceCategory.ToList();
+            List<DictionaryConferenceCategoryModel> categoryModels = conferenceCategories
+                .Where(a => a.DictionaryConferenceCategoryId == conferenceModels[0].ConferenceCategoryId)
+                .Select(a => new DictionaryConferenceCategoryModel()
+            {
+                DictionaryConferenceCategoryId = a.DictionaryConferenceCategoryId,
+                DictionaryConferenceCategoryName = a.DictionaryConferenceCategoryName
+
+            }).ToList();
+            return categoryModels[0];
         }
     }
 }
