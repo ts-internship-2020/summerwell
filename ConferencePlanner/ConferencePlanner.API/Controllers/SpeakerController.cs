@@ -46,5 +46,19 @@ namespace ConferencePlanner.Api.Controllers
             var result = _speakerrepository.GetSpeakers();
             return Ok(result);
         }
+        [HttpGet]
+        [Route("Speaker/GetSpeakerRating")]
+        public IActionResult GetSpeakerRating(string name)
+        {
+            var result = _speakerrepository.GetSpeakerRating(name);
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("Speaker/GetSpeakerImage")]
+        public IActionResult GetSpeakerImage(string name)
+        {
+            var result = _speakerrepository.GetSpeakerImage(name);
+            return Ok(result);
+        }
     }
 }
