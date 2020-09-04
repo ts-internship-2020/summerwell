@@ -92,7 +92,8 @@ namespace ConferencePlanner.Repository.Ef.Repository
             {
                 
                 DictionaryCountryName = a.DictionaryCountryName,
-                DictionaryCountryId=a.DictionaryCountryId
+                DictionaryCountryId=a.DictionaryCountryId,
+                Code = a.DictionaryCountryCode
 
             }).ToList();
             return countriesModel;

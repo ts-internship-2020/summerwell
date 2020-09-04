@@ -70,10 +70,10 @@ namespace ConferencePlanner.WinUi
             _ConferenceRepository = ConferenceRepository;
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             _LocationRepository = locationRepository;
-            List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
-            List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
-            countys = _DictionaryCountyRepository.GetDictionaryCounty();
-            List<DictionaryConferenceCategoryModel> categories = _DictionaryConferenceCategoryRepository.GetDictionaryCategory();
+            List<SpeakerDetailModel> speakers = GetSpeakers().Result;
+            List<DictionaryCountryModel> countries = GetDictionaryCountry().Result;
+            countys = GetDictionaryCounty().Result;
+            List<DictionaryConferenceCategoryModel> categories = GetDictionaryCategory().Result;
             _ConferenceTypeRepository = ConferenceTypeRepository;
             x = _ConferenceTypeRepository.GetConferenceType();
             conferences = _ConferenceRepository.GetConference();
@@ -768,6 +768,50 @@ namespace ConferencePlanner.WinUi
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = await client.DeleteAsync("http://localhost:2794/DictionaryConferenceType/DeleteType");//, httpContent);
+        }
+        static async Task<List<SpeakerDetailModel>> GetSpeakers()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/Speaker/GetSpeakers").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<SpeakerDetailModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryCountryModel>> GetDictionaryCountry() 
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/GetDictionaryCountry").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryCountryModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryCountyModel>> GetDictionaryCounty()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryCounty").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryCountyModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryConferenceCategoryModel>> GetDictionaryCategory()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryConferenceCategory").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryConferenceCategoryModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
         }
     }
 
