@@ -43,14 +43,6 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        [Route("DictionaryCity/EditCity")]
-        public IActionResult EditCity(string Code, string Name, int CityId)
-        {
-            _cityRepository.EditCity(Code, Name, CityId);
-            return Ok();
-        }
-
         [HttpDelete]
         [Route("DictionaryCity/CityDelete")]
         public IActionResult DeleteCity(int CityId, bool IsRemote)
@@ -58,8 +50,5 @@ namespace ConferencePlanner.Api.Controllers
             _cityRepository.DeleteCity(CityId, IsRemote);
             return Ok();
         }
-
-
-       
     }
 }
