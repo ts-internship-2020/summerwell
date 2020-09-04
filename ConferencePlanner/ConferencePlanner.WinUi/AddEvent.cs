@@ -846,10 +846,8 @@ namespace ConferencePlanner.WinUi
             a+=obj.ToString();
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage  = client.GetAsync(a).Result;
-            MessageBox.Show(a);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                MessageBox.Show("Success");
                 var response = JsonConvert.DeserializeObject<DictionaryCityModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
                 return response;
             }
@@ -862,10 +860,8 @@ namespace ConferencePlanner.WinUi
             a += obj.ToString();
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
-            MessageBox.Show(a);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                MessageBox.Show("Success");
                 var response = JsonConvert.DeserializeObject<DictionaryCountyModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
                 return response;
             }
@@ -878,10 +874,8 @@ namespace ConferencePlanner.WinUi
             a += obj.ToString();
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
-            MessageBox.Show(a);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                MessageBox.Show("Success");
                 var response = JsonConvert.DeserializeObject<DictionaryCountryModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
                 return response;
             }
@@ -893,10 +887,8 @@ namespace ConferencePlanner.WinUi
             a += obj.ToString();
             HttpClient client = new HttpClient();
             HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
-            MessageBox.Show(a);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                MessageBox.Show("Success");
                 var response = JsonConvert.DeserializeObject<DictionaryConferenceCategoryModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
                 return response;
             }
