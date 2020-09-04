@@ -77,7 +77,9 @@ namespace ConferencePlanner.Repository.Ado.Repository
         {
             SqlCommand sqlCommand = _sqlConnection.CreateCommand();
             sqlCommand.CommandText = "select SpeakerImage, SpeakerName " +
-                "from Speaker";
+                "from Speaker " +
+                "WHERE SpeakerName = @SpeakerName";
+            sqlCommand.Parameters.Add("@SpeakerName", SqlDbType.VarChar, 100).Value = speakerName;
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             if (sqlDataReader.HasRows)
             {
