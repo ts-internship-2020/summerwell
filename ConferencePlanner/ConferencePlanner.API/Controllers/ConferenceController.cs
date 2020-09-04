@@ -67,7 +67,7 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository.EditCountry(Id, Code, Name);
             return Ok();
         }
-        [HttpPost]
+        [HttpDelete]
         [Route("Conference/DeleteType")]
         public IActionResult DeleteType([FromBody]DeleteType obj)
         {

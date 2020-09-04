@@ -44,7 +44,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DictionaryCity/CityDelete")]
         public IActionResult DeleteCity([FromBody]DeleteType obj)
         {

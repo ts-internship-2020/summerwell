@@ -45,7 +45,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DictionaryCounty/DeleteCounty")]
         public IActionResult DeleteCounty([FromBody] int obj)
         {
