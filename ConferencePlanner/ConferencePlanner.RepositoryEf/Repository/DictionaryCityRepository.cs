@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace ConferencePlanner.Repository.Ef.Repository
@@ -64,36 +65,15 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<DictionaryCityModel> GetCity()
         {
-            List<Conference> conferences = _dbContext.Conference.ToList();
-
-            List<ConferenceModel> conferenceModels = conferences.Select(a => new ConferenceModel()
-            {
-                LocationId = (int)a.LocationId
-
-            }).ToList();
-
-            List<Location> locations = _dbContext.Location.ToList();
-
-            List<LocationModel> locationModels = locations.Select(a => new LocationModel()
-            {
-
-                CityId = a.CityId
-
-            }).ToList();
-
             List<DictionaryCity> cities = _dbContext.DictionaryCity.ToList();
-
-            List<DictionaryCityModel> citiesModel = cities.Select(a => new DictionaryCityModel()
+            List<DictionaryCityModel> citiesModel = new List<DictionaryCityModel>();
+            citiesModel.AddRange(cities.Select(x => new DictionaryCityModel()
             {
-
-                DictionaryCityId = a.DictionaryCityId,
-                DictionaryCountyId = a.DictionaryCountyId,
-                Name = a.DictionaryCityName,
-                Code = a.DictionaryCityCode
-
-
-            }).ToList();
-
+                DictionaryCityId = x.DictionaryCityId,
+                DictionaryCountyId = x.DictionaryCountyId,
+                Code = x.DictionaryCityCode,
+                Name = x.DictionaryCityName
+            }));
             return citiesModel;
         }
 
