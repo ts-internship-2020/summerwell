@@ -30,9 +30,9 @@ namespace ConferencePlanner.Api.Controllers
             return Ok(conferencesCategories);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("DictionaryCategory/ConferenceId")]
-        public IActionResult GetCategory([FromBody] int conferenceId)
+        public IActionResult GetCategory( int conferenceId)
         {
             DictionaryConferenceCategoryModel category = _conferenceCategoryRepository.GetDictionaryCategory(conferenceId);
             return Ok(category);

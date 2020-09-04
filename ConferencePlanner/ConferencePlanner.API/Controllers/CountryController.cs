@@ -36,6 +36,13 @@ namespace ConferencePlanner.Api.Controllers
             List<DictionaryCountryModel> countries = _countryRepository.GetDictionaryCountry();
             return Ok(countries);
         }
+        [HttpGet]
+        [Route("GetDictionaryCountryConf")]
+        public IActionResult GetDictionaryCountry(int obj)
+        {
+            DictionaryCountryModel countries = _countryRepository.GetCountry(obj);
+            return Ok(countries);
+        }
 
         [HttpDelete]
         [Route("DeleteCountry")]

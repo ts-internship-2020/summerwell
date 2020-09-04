@@ -20,9 +20,9 @@ namespace ConferencePlanner.Api.Controllers
             _cityRepository = cityRepository;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("DictionaryCity/ConferenceId")]
-        public IActionResult GetCity([FromBody]int conferenceId)
+        public IActionResult GetCity(int conferenceId)
         {
             DictionaryCityModel city = _cityRepository.GetCity(conferenceId);
             return Ok(city);
@@ -58,5 +58,6 @@ namespace ConferencePlanner.Api.Controllers
             _cityRepository.EditCity(obj.Code, obj.Name, obj.Id);
             return Ok();
         }
+
     }
 }
