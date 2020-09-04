@@ -32,7 +32,7 @@ namespace ConferencePlanner.Api.Controllers
             _speakerrepository.EditSpeaker(obj.Email,obj.Name,obj.Id,obj.Nationality);
             return Ok();
         }
-        [HttpPost]
+        [HttpDelete]
         [Route("Speaker/DeleteSpeaker")]
         public IActionResult DeleteSpeaker([FromBody]int TypeId)
         {

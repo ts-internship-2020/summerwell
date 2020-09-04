@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Schema;
 
 namespace ConferencePlanner.Repository.Ef.Repository
 {
@@ -40,29 +41,14 @@ namespace ConferencePlanner.Repository.Ef.Repository
         public void DeleteSpeaker(int SpeakerId)
         {
             List<SpeakerxConference> conferencesWithDeletedSpeaker = _dbContext.SpeakerxConference.Where(x => x.SpeakerId == SpeakerId).ToList();
-            List<SpeakerxConferenceModel> newConferencexSpeaker = new List<SpeakerxConferenceModel>();
-            newConferencexSpeaker.AddRange(conferencesWithDeletedSpeaker.Select(x => new SpeakerxConferenceModel()
+            foreach(var sxc in conferencesWithDeletedSpeaker)
             {
-                ConferenceId = x.ConferenceId,
-                SpeakerId = x.SpeakerId,
-                isMainSpeaker = true
-            }));
-            foreach(var conf in conferencesWithDeletedSpeaker)
-            {
-                _dbContext.Remove(conf);
+                sxc.SpeakerId = 30;
             }
             _dbContext.SaveChanges();
-            List<SpeakerxConference> addConferencexSpeaker = new List<SpeakerxConference>();
-            addConferencexSpeaker.AddRange(newConferencexSpeaker.Select(x => new SpeakerxConference()
-            {
-                SpeakerId = x.SpeakerId,
-                ConferenceId = x.ConferenceId,
-                IsMainSpeaker = true
-            }));
-            
-            Speaker current = _dbContext.Speaker.Where(x => x.SpeakerId == SpeakerId).FirstOrDefault();
+            Speaker current = _dbContext.Speaker.FirstOrDefault(x => x.SpeakerId == SpeakerId);
             _dbContext.Remove(current);
-            _dbContext.SpeakerxConference.AddRange(addConferencexSpeaker);
+            
             _dbContext.SaveChanges();
         }
 
