@@ -350,24 +350,6 @@ namespace ConferencePlanner.Repository.Ef.Repository
                                                                 .ThenInclude(sxc => sxc.Speaker)
                                                                 .Where(x => x.StartDate >= DateTime.Now)
                                                                 .ToList();
-            
-            foreach(var conf in conferences)
-            {
-                var ConferenceName = conf.ConferenceName;
-                var startDate = conf.StartDate;
-                var endDate = conf.EndDate;
-                var DictionaryConferenceTypeName = conf.ConferenceType.DictionaryConferenceTypeName;
-                var DictionaryCityName = conf.Location.City.DictionaryCityName;
-                var LocationStreet = conf.Location.Street;
-                var DictionaryConferenceCategoryName = conf.ConferenceCategory.DictionaryConferenceCategoryName;
-                
-                var SpeakerName = conf.SpeakerxConference.FirstOrDefault(conf => conf.IsMainSpeaker).Speaker.SpeakerName;
-                var HostEmail = conf.HostEmail;
-                
-                var ConferenceStatusId = _attendedConferences.Exists(currentConference =>
-                                           currentConference.ConferenceId == conf.ConferenceId && currentConference.ConferenceStatusId == 3) ? 3 : 0;
-                var IsRemote = conf.ConferenceType.IsRemote;
-            }
 
             List<ConferenceDetailAttendFirstModel> attendedConferencesFirst = new List<ConferenceDetailAttendFirstModel>();
             attendedConferencesFirst.AddRange(conferences.Select(x => new ConferenceDetailAttendFirstModel()

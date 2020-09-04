@@ -39,5 +39,12 @@ namespace ConferencePlanner.Api.Controllers
             _speakerrepository.DeleteSpeaker(TypeId);
             return Ok();
         }
+        [HttpGet]
+        [Route("Speaker/GetSpeakers")]
+        public IActionResult GetSpeakers()
+        {
+            var result = _speakerrepository.GetSpeakers();
+            return Ok(result);
+        }
     }
 }
