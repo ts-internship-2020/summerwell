@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -19,15 +20,15 @@ namespace ConferencePlanner.Api.Controllers
             _cityRepository = cityRepository;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("DictionaryCity/ConferenceId")]
-        public IActionResult GetCity([FromBody]int conferenceId)
+        public IActionResult GetCity(int conferenceId)
         {
             DictionaryCityModel city = _cityRepository.GetCity(conferenceId);
             return Ok(city);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("DictionaryCity")]
         public IActionResult GetCity()
         {
@@ -37,18 +38,26 @@ namespace ConferencePlanner.Api.Controllers
 
         [HttpPost]
         [Route("DictionaryCity/AddCity")]
-        public IActionResult AddCity([FromBody] string Code, [FromBody] string Name, [FromBody] string county)
+        public IActionResult AddCity([FromBody] AddCity obj)
         {
-            _cityRepository.AddCity(Code,Name,county);
+            _cityRepository.AddCity(obj.Code, obj.Name, obj.county);
             return Ok();
         }
 
         [HttpDelete]
         [Route("DictionaryCity/CityDelete")]
-        public IActionResult DeleteCity(int CityId, bool IsRemote)
+        public IActionResult DeleteCity([FromBody]DeleteType obj)
         {
-            _cityRepository.DeleteCity(CityId, IsRemote);
+            _cityRepository.DeleteCity(obj.Id, obj.isRemote);
             return Ok();
         }
+        [HttpPost]
+        [Route("DictionaryCity/EditCity")]
+        public IActionResult Edit([FromBody] EditCity obj)
+        {
+            _cityRepository.EditCity(obj.Code, obj.Name, obj.Id);
+            return Ok();
+        }
+
     }
 }

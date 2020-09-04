@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -29,20 +30,35 @@ namespace ConferencePlanner.Api.Controllers
             return Ok(conferencesCategories);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("DictionaryCategory/ConferenceId")]
-        public IActionResult GetCategory([FromBody] int conferenceId)
+        public IActionResult GetCategory( int conferenceId)
         {
             DictionaryConferenceCategoryModel category = _conferenceCategoryRepository.GetDictionaryCategory(conferenceId);
             return Ok(category);
         }
 
         [HttpPost]
-        [Route("AddCategory")]
+        [Route("DictionaryCategory/AddCategory")]
         public IActionResult AddCategory([FromBody] string Name)
         {
             _conferenceCategoryRepository.AddCategory(Name);
             return Ok();
         }
+        [HttpPost]
+        [Route("DictionaryCategory/EditCategory")]
+        public IActionResult EditCategory([FromBody] EditCategory obj)
+        {
+            _conferenceCategoryRepository.EditCategory(obj.id,obj.Name);
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("DictionaryCategory/DeleteCategory")]
+        public IActionResult DeleteCategory([FromBody]int TypeId)
+        {
+            _conferenceCategoryRepository.DeleteCategory(TypeId);
+            return Ok();
+        }
+
     }
 }

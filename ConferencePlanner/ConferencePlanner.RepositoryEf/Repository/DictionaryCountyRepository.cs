@@ -86,7 +86,12 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public DictionaryCountyModel GetCounty(int id)
         {
-            throw new NotImplementedException();
+            DictionaryCounty county = _dbContext.DictionaryCounty.Where(a => a.DictionaryCountyId == id).FirstOrDefault();
+            DictionaryCountyModel countrModels = new DictionaryCountyModel();
+            countrModels.DictionaryCountyId = county.DictionaryCountyId;
+            countrModels.DictionaryCountyName = county.DictionaryCountyName;
+            countrModels.Code = county.DictionaryCountyCode;
+            return countrModels;
         }
     }
 }

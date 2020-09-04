@@ -1,11 +1,14 @@
 ﻿using ConferencePlanner.Abstraction.Repository;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Windows.ApplicationModel.Preview.Notes;
 
@@ -61,7 +64,7 @@ namespace ConferencePlanner.WinUi
                 notifyIcon1.ShowBalloonTip(30);
             }
             btnRate.Enabled = false;
-            textBox7.Text = _GetSpeakerDetail.GetSpeakerRating(speakerName);
+            textBox7.Text = GetSpeakerRating(speakerName).Result;
             textBox9.Enabled = false;
         }
         private void SetBalloonTip(string title, string text)
@@ -71,6 +74,33 @@ namespace ConferencePlanner.WinUi
             notifyIcon1.BalloonTipText = text;
             notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
             notifyIcon1.Visible = false;
+        }
+        static async Task<string> GetSpeakerRating(string obj)
+        {
+            string a = "http://localhost:2794/Speaker/GetSpeakerRating?name=";
+            a += obj;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<string>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        //_GetSpeakerDetail.GetSpeakerImage(SpeakerName)
+        static async Task<string> GetSpeakerImage(string obj)
+        {
+            string a = "http://localhost:2794/Speaker/GetSpeakerImage?name=";
+            a += obj;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<string>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
         }
 
 

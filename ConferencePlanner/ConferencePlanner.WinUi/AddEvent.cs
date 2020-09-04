@@ -15,6 +15,10 @@ using ConferencePlanner.Abstraction.Model;
 using Windows.Media.Capture.Core;
 using ConferencePlanner.Repository.Ado.Repository;
 using System.Windows.Forms.Design;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net.Http;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 
 namespace ConferencePlanner.WinUi
 {
@@ -33,7 +37,6 @@ namespace ConferencePlanner.WinUi
         private AddEventDetailModel eventDetails;
         private AddConferenceDetailModel AddConferenceDetailModel;
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
-        private List<ConferenceModel> conferences;
         private List<ConferenceTypeModel> x;
         private List<DictionaryCityModel> cityList;
         private List<DictionaryCountyModel> countys;
@@ -66,13 +69,12 @@ namespace ConferencePlanner.WinUi
             _ConferenceRepository = ConferenceRepository;
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             _LocationRepository = locationRepository;
-            List<SpeakerDetailModel> speakers = _GetSpeakerDetail.GetSpeakers();
-            List<DictionaryCountryModel> countries = _DictionaryCountryRepository.GetDictionaryCountry();
-            countys = _DictionaryCountyRepository.GetDictionaryCounty();
-            List<DictionaryConferenceCategoryModel> categories = _DictionaryConferenceCategoryRepository.GetDictionaryCategory();
+            List<SpeakerDetailModel> speakers = GetSpeakers().Result;
+            List<DictionaryCountryModel> countries = GetDictionaryCountry().Result;
+            countys = GetDictionaryCounty().Result;
+            List<DictionaryConferenceCategoryModel> categories = GetDictionaryCategory().Result;
             _ConferenceTypeRepository = ConferenceTypeRepository;
-            x = _ConferenceTypeRepository.GetConferenceType();
-            conferences = _ConferenceRepository.GetConference();
+            x = GetConferenceType().Result;
  
             if (countries == null) { return; }
             else
@@ -95,7 +97,7 @@ namespace ConferencePlanner.WinUi
             populateSpeakers(speakers);
 
             _DictionaryCityRepository = dictionaryCityRepository;
-            cityList = _DictionaryCityRepository.GetCity();
+            cityList = GetCity().Result;
             if (cityList == null || cityList.Count() == 0)
             {
                 return;
@@ -116,25 +118,25 @@ namespace ConferencePlanner.WinUi
             {
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
                 eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
-                DictionaryCityModel city = _ConferenceRepository.GetCity(eventDetails.ConferenceId);
+                DictionaryCityModel city = GetCity(eventDetails.ConferenceId).Result;
                 eventDetails.DictionaryCityId = city.DictionaryCityId;
                 eventDetails.DictionaryCityName = city.Name;
                 eventDetails.DictionaryCityCode = city.Code;
                 eventDetails.DictionaryCountyId = city.DictionaryCountyId;
-                DictionaryCountyModel county = _DictionaryCountyRepository.GetCounty(eventDetails.DictionaryCountyId);
+                DictionaryCountyModel county = GetCounty(eventDetails.DictionaryCountyId).Result;
                 eventDetails.DictionaryCountyName = county.DictionaryCountyName;
                 eventDetails.DictionaryCountyCode = county.Code;
                 eventDetails.DictionaryCountryId = county.DictionaryCountryId;
-                DictionaryCountryModel country = _DictionaryCountryRepository.GetCountry(eventDetails.DictionaryCountryId);
+                DictionaryCountryModel country = GetCountry(eventDetails.DictionaryCountryId).Result;
                 eventDetails.DictionaryCountryName = country.DictionaryCountryName;
                 eventDetails.DictionaryCountryCode = country.Code;
                 eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
-                eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
+                eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName; 
                 eventDetails.EndDate = addConferenceDetailModel.EndDate;
                 eventDetails.StartDate = addConferenceDetailModel.StartDate;
                 eventDetails.SpeakerName = addConferenceDetailModel.Speaker;
                 eventDetails.DictionaryConferenceCategoryName = addConferenceDetailModel.ConferenceCategoryName;
-                DictionaryConferenceCategoryModel category = _DictionaryConferenceCategoryRepository.GetDictionaryCategory(eventDetails.ConferenceId);
+                DictionaryConferenceCategoryModel category = GetCategory(eventDetails.ConferenceId).Result;
                 eventDetails.DictionaryConferenceCategoryId = category.DictionaryConferenceCategoryId;
                 eventDetails.LocationName = addConferenceDetailModel.Location;
 
@@ -429,7 +431,7 @@ namespace ConferencePlanner.WinUi
             listView1.Columns.Add("Name");
             listView1.Columns.Add("Is Remote");
             x.Clear();
-            x = _ConferenceTypeRepository.GetConferenceType();
+            x = GetConferenceType().Result;
             foreach (var c in x)
             {
                 if(c.ConferenceTypeId.ToString() != "30" && c.ConferenceTypeId.ToString() != "31")
@@ -612,12 +614,12 @@ namespace ConferencePlanner.WinUi
         }
         public void RefreshLists(string dictionary)
         {
-            if (dictionary == "DictionaryCounty") { listView4.Clear(); populateCounty(_DictionaryCountyRepository.GetDictionaryCounty()); }
-            if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(_DictionaryCityRepository.GetCity()); }
+            if (dictionary == "DictionaryCounty") { listView4.Clear(); populateCounty(GetDictionaryCounty().Result); }
+            if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(GetCity().Result); }
             if (dictionary == "DictionaryType") { listView1.Clear(); listView1_populate(); }
-            if (dictionary == "Speaker") { listView3.Clear(); populateSpeakers(_GetSpeakerDetail.GetSpeakers()); }
-            if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(_DictionaryCountryRepository.GetDictionaryCountry()); }
-            if (dictionary == "DictionaryCategory") { listView6.Clear(); populateCategory(_DictionaryConferenceCategoryRepository.GetDictionaryCategory()); }
+            if (dictionary == "Speaker") { listView3.Clear(); populateSpeakers(GetSpeakers().Result); }
+            if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(GetDictionaryCountry().Result); }
+            if (dictionary == "DictionaryCategory") { listView6.Clear(); populateCategory(GetDictionaryCategory().Result); }
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -631,64 +633,56 @@ namespace ConferencePlanner.WinUi
         {
 
         }
-        private void DeleteType_Click(object sender, EventArgs e)
+        private async void DeleteType_Click(object sender, EventArgs e)
         {
-            
-            bool hey =_ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
-            if (!hey)
-            {
-                SetBalloonTip("You can't delete this","There is a conference with this type");
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(3000);
-            }
+            DeleteType obj = new DeleteType { Id = eventDetails.ConferenceTypeId, isRemote = eventDetails.isRemote };
+            await DDeleteType(obj);
             RefreshLists("DictionaryType");
             DeleteType.Enabled = false;
             btnNext.Enabled = false;
         }
 
-        private void DeleteSpeaker_Click(object sender, EventArgs e)
+        private async void DeleteSpeaker_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteSpeaker(eventDetails.SpeakerId);
+            await DDeleteSpeaker(eventDetails.SpeakerId);
             RefreshLists("Speaker");
             DeleteSpeaker.Enabled = false;
             btnNext3.Enabled = false;
         }
 
-        private void DeleteCounty_Click(object sender, EventArgs e)
+        private async void DeleteCounty_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCounty(eventDetails.DictionaryCountyId, eventDetails.isRemote);
+            await DDeleteCounty(eventDetails.DictionaryCountyId);
             RefreshLists("DictionaryCounty");
             DeleteCounty.Enabled = false;
             btnNext4.Enabled = false;
             
         }
 
-        private void DeleteCity_Click(object sender, EventArgs e)
+        private async void DeleteCity_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCity(eventDetails.DictionaryCityId, eventDetails.isRemote);
+            DeleteType obj = new DeleteType { Id = eventDetails.DictionaryCityId, isRemote = eventDetails.isRemote };
+            await DDeleteCity(obj);
             RefreshLists("DictionaryCity");
             DeleteCity.Enabled = false;
             btnNext5.Enabled = false;
             
         }
 
-        private void DeleteCategory_Click(object sender, EventArgs e)
+        private async void DeleteCategory_Click(object sender, EventArgs e)
         {
-            bool hey =_ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
-            if (!hey)
-            {
-                SetBalloonTip("You can't delete this", "There are conferences in this category");
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(3000);
-            }
+
+            await DDeleteCategory(eventDetails.DictionaryConferenceCategoryId);
             RefreshLists("DictionaryCategory");
             DeleteCategory.Enabled = false;
             btnSave.Visible = false;
         }
 
-        private void DeleteCountry_Click(object sender, EventArgs e)
+        private async void DeleteCountry_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCountry(eventDetails.DictionaryCountryId, eventDetails.isRemote);
+
+            DeleteType obj = new DeleteType { Id = eventDetails.DictionaryCountryId, isRemote = eventDetails.isRemote };
+            await DDeleteCountry(obj);
             RefreshLists("DictionaryCountry");
             DeleteCountry.Enabled = false;
             btnNext2.Enabled = false;
@@ -702,9 +696,18 @@ namespace ConferencePlanner.WinUi
         }
         private void btnBack3_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCountry);
-            tabCountry.Enabled = true;
-            tabType.Enabled = false;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCountry);
+                tabCountry.Enabled = true;
+                tabType.Enabled = false;
+            }
+            else
+            {
+                tabControl1.SelectTab(tabType);
+                tabType.Enabled = true;
+                tabCountry.Enabled = false;
+            }
         }
         private void btnBack4_Click(object sender, EventArgs e)
         {
@@ -714,15 +717,209 @@ namespace ConferencePlanner.WinUi
         }
         private void btnBack5_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCounty);
-            tabCounty.Enabled = true;
-            tabSpeaker.Enabled = false;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCounty);
+                tabCounty.Enabled = true;
+                tabSpeaker.Enabled = false;
+            }
+            else
+            {
+                tabControl1.SelectTab(tabSpeaker);
+                tabSpeaker.Enabled = true;
+                tabCountry.Enabled = false;
+            }
         }
         private void btnBack6_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCity);
-            tabCity.Enabled = true;
-            tabCounty.Enabled = false;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCity);
+                tabCity.Enabled = true;
+                tabCounty.Enabled = false;
+            }
+            else { tabControl1.SelectTab(tabSpeaker);
+                tabSpeaker.Enabled = true;
+                tabCountry.Enabled = false;
+            }
         }
+        static async Task DDeleteCategory(int obj)
+        {
+
+            var json = JsonConvert.SerializeObject(obj); 
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost:2794/DictionaryCategory/DeleteCategory");
+            request.Content = httpContent;
+            await client.SendAsync(request);
+        }
+        static async Task DDeleteCountry(DeleteType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost:2794/DeleteCountry");
+            request.Content = httpContent;
+            await client.SendAsync(request);
+        }
+        static async Task DDeleteSpeaker(int obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost:2794/Speaker/DeleteSpeaker");
+            request.Content = httpContent;
+            await client.SendAsync(request);
+        }
+        static async Task DDeleteCounty(int obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost:2794/DictionaryCounty/DeleteCounty");
+            request.Content = httpContent;
+            await client.SendAsync(request);
+        }
+        static async Task DDeleteCity(DeleteType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost:2794/DictionaryCity/CityDelete");
+            request.Content = httpContent;
+            await client.SendAsync(request);
+        }
+        static async Task DDeleteType(DeleteType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost:2794/DictionaryConferenceType/DeleteType");
+            request.Content = httpContent;
+            await client.SendAsync(request);
+        }
+        static async Task<List<SpeakerDetailModel>> GetSpeakers()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/Speaker/GetSpeakers").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<SpeakerDetailModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryCountryModel>> GetDictionaryCountry() 
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/GetDictionaryCountry").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryCountryModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryCountyModel>> GetDictionaryCounty()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryCounty").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryCountyModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryConferenceCategoryModel>> GetDictionaryCategory()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryConferenceCategory").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryConferenceCategoryModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<ConferenceTypeModel>> GetConferenceType()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryConferenceType").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<ConferenceTypeModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryCityModel>> GetCity()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryCity").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryCityModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<DictionaryCityModel> GetCity(int obj)
+        {
+            if (obj == 0) obj = 35;
+            string a = "http://localhost:2794/DictionaryCity/ConferenceId?conferenceId=";
+            a+=obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage  = client.GetAsync(a).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<DictionaryCityModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<DictionaryCountyModel> GetCounty(int obj)
+        {
+            if (obj == 0) obj = 38;
+            string a = "http://localhost:2794/GetDictionaryCounty?obj=";
+            a += obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<DictionaryCountyModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<DictionaryCountryModel> GetCountry(int obj)
+        {
+            if (obj == 0) obj = 32;
+            string a = "http://localhost:2794/GetDictionaryCountryConf?obj=";
+            a += obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<DictionaryCountryModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<DictionaryConferenceCategoryModel> GetCategory(int obj)
+        {
+            string a = "http://localhost:2794/DictionaryCategory/ConferenceId?conferenceId=";
+            a += obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<DictionaryConferenceCategoryModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+
     }
+
 }

@@ -1,5 +1,6 @@
 ﻿using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
+using System.Net.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -515,9 +516,14 @@ namespace ConferencePlanner.Repository.Ado.Repository
         public int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
             SqlCommand command = _sqlConnection.CreateCommand();
-            command.CommandText = "UPDATE ConferenceAudience " +
-                                    "SET ConferenceStatusId = @ConferenceStatusId " +
-                                    "WHERE Participant = @Participant and ConferenceId = @ConferenceId";
+            if(_conferenceAudienceModel.ConferenceStatusId == 3)
+                command.CommandText = "UPDATE ConferenceAudience " +
+                                        "SET ConferenceStatusId = @ConferenceStatusId " +
+                                        "WHERE Participant = @Participant and ConferenceId = @ConferenceId";
+            else if(_conferenceAudienceModel.ConferenceStatusId == 2)
+                command.CommandText = "UPDATE ConferenceAudience " +
+                                        "SET ConferenceStatusId = @ConferenceStatusId " +
+                                        "WHERE Participant = @Participant and ConferenceId = @ConferenceId and ConferenceStatusId = 3";
             command.Parameters.Add("@ConferenceStatusId ", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceStatusId;
             command.Parameters.Add("@Participant", SqlDbType.VarChar, 100).Value = _conferenceAudienceModel.Participant;
             command.Parameters.Add("@ConferenceId", SqlDbType.Int).Value = _conferenceAudienceModel.ConferenceId;

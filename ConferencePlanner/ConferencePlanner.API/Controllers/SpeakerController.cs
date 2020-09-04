@@ -25,5 +25,40 @@ namespace ConferencePlanner.Api.Controllers
             _speakerrepository.AddSpeaker(obj.Email,obj.Name,obj.Nationality);
             return Ok();
         }
+        [HttpPost]
+        [Route("Speaker/EditSpeaker")]
+        public IActionResult EditSpeaker([FromBody] EditSpeaker obj)
+        {
+            _speakerrepository.EditSpeaker(obj.Email,obj.Name,obj.Id,obj.Nationality);
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("Speaker/DeleteSpeaker")]
+        public IActionResult DeleteSpeaker([FromBody]int TypeId)
+        {
+            _speakerrepository.DeleteSpeaker(TypeId);
+            return Ok();
+        }
+        [HttpGet]
+        [Route("Speaker/GetSpeakers")]
+        public IActionResult GetSpeakers()
+        {
+            var result = _speakerrepository.GetSpeakers();
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("Speaker/GetSpeakerRating")]
+        public IActionResult GetSpeakerRating(string name)
+        {
+            var result = _speakerrepository.GetSpeakerRating(name);
+            return Ok(result);
+        }
+        [HttpGet]
+        [Route("Speaker/GetSpeakerImage")]
+        public IActionResult GetSpeakerImage(string name)
+        {
+            var result = _speakerrepository.GetSpeakerImage(name);
+            return Ok(result);
+        }
     }
 }

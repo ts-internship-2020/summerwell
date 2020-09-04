@@ -1,4 +1,5 @@
 ﻿using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
 using System.Net.Http;
@@ -339,6 +340,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst(List<ConferenceAudienceModel> _attendedConferences, DateTime StartDate, DateTime EndDate)
         {
+
             List<Conference> conferences = _dbContext.Conference
                                                                 .Include(x => x.ConferenceType)
                                                                 .Include(l => l.Location)
@@ -348,7 +350,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
                                                                 .ThenInclude(sxc => sxc.Speaker)
                                                                 .Where(x => x.StartDate >= DateTime.Now)
                                                                 .ToList();
-          
+
             List<ConferenceDetailAttendFirstModel> attendedConferencesFirst = new List<ConferenceDetailAttendFirstModel>();
             attendedConferencesFirst.AddRange(conferences.Select(x => new ConferenceDetailAttendFirstModel()
             {
@@ -365,8 +367,10 @@ namespace ConferencePlanner.Repository.Ef.Repository
                 ConferenceStatusId = _attendedConferences.Exists(currentConference =>
                                            currentConference.ConferenceId == x.ConferenceId && currentConference.ConferenceStatusId == 3) ? 3 : 0,
                 IsRemote = x.ConferenceType.IsRemote
-            }).ToList());    
-            List<ConferenceDetailAttendFirstModel> sortedConferences = attendedConferencesFirst.OrderByDescending(conf => conf.ConferenceStatusId).ToList();
+            }).ToList());
+            List<ConferenceDetailAttendFirstModel> sortedConferences = attendedConferencesFirst.Where(x => x.ConferenceStatusId == 3).ToList();
+            List<ConferenceDetailAttendFirstModel> sortedConferences2 = attendedConferencesFirst.Where(x => x.ConferenceStatusId == 0).OrderBy(x => x.StartDate).ToList();
+            sortedConferences.AddRange(sortedConferences2);
             return sortedConferences;
         }
 
@@ -464,7 +468,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
         {
             List<Conference> conferences = _dbContext.Conference.Include(a=>a.ConferenceType).Include(a => a.ConferenceCategory).Include(a=>a.SpeakerxConference)
                 .Include(a => a.Location).Include(a => a.Location.City)
-                .Where(a=>a.StartDate > StartDate).Where(a => a.EndDate < EndDate).ToList();
+                .Where(a=>a.StartDate > StartDate).Where(a => a.StartDate < EndDate).ToList();
 
             List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
             {
@@ -506,8 +510,8 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate)
         {
-            List<Conference> conferences = _dbContext.Conference.Include(a => a.ConferenceType).Include(a => a.ConferenceCategory).Include(a => a.SpeakerxConference)
-    .Include(a => a.Location).Include(a => a.Location.City).Where(a => a.HostEmail == hostName).Where(a => a.StartDate > StartDate).Where(a => a.EndDate < EndDate).ToList();
+            List<Conference> conferences = _dbContext.Conference.Include(a => a.ConferenceType).Include(a => a.ConferenceCategory).Include(a => a.SpeakerxConference).
+    ThenInclude(a => a.Speaker).Include(a => a.Location).Include(a => a.Location.City).Where(a => a.HostEmail == hostName).Where(a => a.StartDate > StartDate).Where(a => a.StartDate < EndDate).ToList();
 
             List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
             {
@@ -515,6 +519,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
                 DictionaryConferenceTypeName = a.ConferenceType.DictionaryConferenceTypeName,
                 LocationStreet = a.Location.Street,
                 DictionaryConferenceCategoryName = a.ConferenceCategory.DictionaryConferenceCategoryName,
+                SpeakerName = a.SpeakerxConference.FirstOrDefault(x => x.IsMainSpeaker).Speaker.SpeakerName,
                 HostEmail = a.HostEmail,
                 StartDate = a.StartDate,
                 EndDate = a.EndDate,
@@ -587,8 +592,15 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public int UpdateParticipant(ConferenceAudienceModel _conferenceAudienceModel)
         {
-            var result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
-                                                         x.Participant == _conferenceAudienceModel.Participant);
+            ConferenceAudience result;
+            if (_conferenceAudienceModel.ConferenceStatusId == 2)
+                result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
+                                                                            x.Participant == _conferenceAudienceModel.Participant && x.ConferenceStatusId == 3);
+            else if (_conferenceAudienceModel.ConferenceStatusId == 3)
+                result = _dbContext.ConferenceAudience.SingleOrDefault(x => x.ConferenceId == _conferenceAudienceModel.ConferenceId &&
+                                                                            x.Participant == _conferenceAudienceModel.Participant);
+            else
+                result = null;
             if (result != null)
             {
                 result.ConferenceStatusId = _conferenceAudienceModel.ConferenceStatusId;

@@ -48,19 +48,19 @@ namespace ConferencePlanner.Api.Controllers
         [HttpPost]
         [Route("Conference/GetConferenceAudience")]
 
-        public IActionResult GetConferenceAudience([FromBody] string email)
+        public IActionResult GetConferenceAudience([FromBody] EmailOnly obj)
         {
-            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(email);
+            List<ConferenceAudienceModel> conferencesAudience = _conferenceRepository.GetConferenceAudience(obj.Email);
             return Ok(conferencesAudience);
         }
         [HttpPost]
         [Route("Conference/ConferenceDetailForHost")]
-        public IActionResult GetConferenceDetailForHost([FromBody] string email)
+        public IActionResult GetConferenceDetailForHost([FromBody] ConferenceDetailForHostModel obj)
         {
-            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(email);
+            List<ConferenceDetailModel> conferencesDetails = _conferenceRepository.GetConferenceDetailForHost(obj.Email, obj.StartDate, obj.EndDate);
             return Ok(conferencesDetails);
         }
-        [HttpPut]
+        [HttpPost]
         [Route("Conference/EditCountry")]
         public IActionResult EditCountry(int Id, string Code,string Name)
         {
@@ -69,9 +69,9 @@ namespace ConferencePlanner.Api.Controllers
         }
         [HttpDelete]
         [Route("Conference/DeleteType")]
-        public IActionResult DeleteType(int TypeId, bool IsRemote)
+        public IActionResult DeleteType([FromBody]DeleteType obj)
         {
-            _conferenceRepository.DeleteType(TypeId, IsRemote);
+            _conferenceRepository.DeleteType(obj.Id, obj.isRemote);
             return Ok();
         }
 
@@ -82,8 +82,8 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceRepository.AddCountry(Code, Name);
             return Ok();
         }
-       
-        [HttpPut]
+
+        [HttpPost]
         [Route("Conference/AddCategory")]
         public IActionResult AddCategory(string Name)
         {
@@ -99,7 +99,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok(attendedConferencesFirst);
 
         }
-        [HttpPut]
+        [HttpPost]
         [Route("Conference/EditConference")]
         public IActionResult EditConference([FromBody]AddEventDetailModel eventDetail, [FromBody] string newAddress, [FromBody] string newConferenceName)
         {

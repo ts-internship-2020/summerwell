@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConferencePlanner.Abstraction.Model;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -27,28 +28,35 @@ namespace ConferencePlanner.Api.Controllers
             List<DictionaryCountyModel> county = _countyRepository.GetDictionaryCounty();
             return Ok(county);
         }
+        [HttpGet]
+        [Route("GetDictionaryCounty")]
+        public IActionResult GetDictionaryCounty(int obj)
+        {
+            DictionaryCountyModel countries = _countyRepository.GetCounty(obj);
+            return Ok(countries);
+        }
 
         [HttpPost]
         [Route("DictionaryCounty/AddCounty")]
-        public IActionResult AddCounty([FromBody] string Code, [FromBody] string Name, [FromBody] string country)
+        public IActionResult AddCounty([FromBody] AddCounty obj)
         {
-            _countyRepository.AddCounty(Code, Name, country);
+            _countyRepository.AddCounty(obj.Code, obj.Name, obj.country);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("DictionaryCounty/EditCounty")]
-        public IActionResult EditCounty(string Code, string Name, int CountyId)
+        public IActionResult EditCounty([FromBody] EditCounty obj)
         {
-            _countyRepository.EditCounty(Code, Name, CountyId);
+            _countyRepository.EditCounty(obj.Code, obj.Name, obj.Id);
             return Ok();
         }
 
         [HttpDelete]
         [Route("DictionaryCounty/DeleteCounty")]
-        public IActionResult DeleteCounty(int CountyId)
+        public IActionResult DeleteCounty([FromBody] int obj)
         {
-            bool x = _countyRepository.DeleteCounty(CountyId);
+            bool x = _countyRepository.DeleteCounty(obj);
             if (x == true)
                 return Ok();
             else return NoContent();

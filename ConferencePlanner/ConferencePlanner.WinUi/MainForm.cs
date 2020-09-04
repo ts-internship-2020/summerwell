@@ -1,22 +1,17 @@
 ﻿using ConferencePlanner.Abstraction.Repository;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using ConferencePlanner.Abstraction.Model;
 using System.Data.SqlClient;
-using Accessibility;
-using ConferencePlanner.Repository.Ado.Repository;
-using System.Drawing.Text;
-using Windows.UI.Xaml.Documents;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 
 namespace ConferencePlanner.WinUi
 {
@@ -59,14 +54,14 @@ namespace ConferencePlanner.WinUi
             _DictionaryConferenceCategoryRepository = DictionaryConferenceCategoryRepository;
             _Locationrepository = locationRepository;
             currentUser = var_email;
-            conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+            conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
             reloadData = new System.Windows.Forms.Timer();
             reloadData.Tick += new EventHandler(timerReloadData_Tick);
             reloadData.Interval = 10000;
             reloadData.Start();
-            x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+            x = GetAttendedConferencesFirst();
 
-            y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+            y = GetConferenceDetailForHost();
 
             totalEntries = x.Count;
             startingPoint = 0;
@@ -98,7 +93,7 @@ namespace ConferencePlanner.WinUi
                 btnNextHost.Enabled = false; }
 
             else populateHostGridViewByDate(0, nr_row, dateTimePicker4.Value, dateTimePicker3.Value);
-            
+
         }
 
         private void populateConferenceGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
@@ -110,29 +105,29 @@ namespace ConferencePlanner.WinUi
                     dataGridView1.Rows.Add(x[i].ConferenceName, x[i].StartDate, x[i].DictionaryConferenceTypeName,
                                        x[i].DictionaryConferenceCategoryName,
                                        x[i].LocationStreet,
-                                       x[i].SpeakerName,x[i].IsRemote,
+                                       x[i].SpeakerName, x[i].IsRemote,
                                        null, null, null, x[i].ConferenceId);
                 }
             }
 
         }
-        private void populateHostGridViewByDate(int startingPoint, int endingPoint,DateTime StartDate, DateTime EndDate)
-            {   
-                for (int i = startingPoint; i < endingPoint; i++)
+        private void populateHostGridViewByDate(int startingPoint, int endingPoint, DateTime StartDate, DateTime EndDate)
+        {
+            for (int i = startingPoint; i < endingPoint; i++)
+            {
+                if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
                 {
-                    if (y[i].StartDate > StartDate && y[i].StartDate < EndDate)
-                    {
-                        dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate,y[i].EndDate, y[i].DictionaryConferenceTypeName,
-                                  y[i].DictionaryConferenceCategoryName,
-                                  y[i].LocationStreet,
-                                  y[i].SpeakerName, y[i].IsRemote,
-                                  null,  y[i].ConferenceId);
-                    }
+                    dataGridView2.Rows.Add(y[i].ConferenceName, y[i].StartDate, y[i].EndDate, y[i].DictionaryConferenceTypeName,
+                              y[i].DictionaryConferenceCategoryName,
+                              y[i].LocationStreet,
+                              y[i].SpeakerName, y[i].IsRemote,
+                              null, y[i].ConferenceId);
                 }
+            }
 
 
         }
-        private void SetBalloonTip(string title,string text)
+        private void SetBalloonTip(string title, string text)
         {
             notifyIcon1.Icon = SystemIcons.Exclamation;
             notifyIcon1.BalloonTipTitle = title;
@@ -143,7 +138,7 @@ namespace ConferencePlanner.WinUi
 
         private void dataGridView1_SizeChanged(object sender, EventArgs e)
         {
-            int rowHeight = dataGridView1.Size.Height  / 40;
+            int rowHeight = dataGridView1.Size.Height / 40;
             if (rowHeight > 0)
             {
                 nr_row = rowHeight;
@@ -153,8 +148,8 @@ namespace ConferencePlanner.WinUi
                     populateConferenceGridViewByDate(0, totalEntries, dateTimePicker2.Value, dateTimePicker1.Value);
                     changeColor();
                 }
-                else { populateConferenceGridViewByDate(0, nr_row, dateTimePicker2.Value, dateTimePicker1.Value); 
-                    changeColor(); 
+                else { populateConferenceGridViewByDate(0, nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
+                    changeColor();
                 }
             }
         }
@@ -199,29 +194,35 @@ namespace ConferencePlanner.WinUi
                     try
                     {
 
-                        _ConferenceRepository.AddParticipant(_conferenceAudienceModel);
-                        conferencesCurrentUserAttends.Clear();
-                        conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                        x.Clear();
-                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
-                        totalEntries = x.Count();
+                        bool success = AddParticipant(_conferenceAudienceModel).Result;
+                        if(success == true)
+                        {
+                            conferencesCurrentUserAttends.Clear();
+                            conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
+                            x.Clear();
+                            x = GetAttendedConferencesFirst();
+                            totalEntries = x.Count();
 
-                        Thread thread = new Thread(() => _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel));
-                        thread.Start();
+                            Thread thread = new Thread(() => _ConferenceRepository.GetQRCodeUniqueParticipantCode(_conferenceAudienceModel));
+                            thread.Start();
+                        }
+                        else
+                        {
+                            bool temp = UpdateParticipant(_conferenceAudienceModel).Result;
+                            conferencesCurrentUserAttends.Clear();
+                            conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
+                            x.Clear();
+                            x = GetAttendedConferencesFirst();
+                            totalEntries = x.Count();
+                        }
+                        
                     }
                     catch (SqlException ex)
                     {
-                        _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
-                        conferencesCurrentUserAttends.Clear();
-                        conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
-                        x.Clear();
-                        x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
-                        totalEntries = x.Count();
+                        
 
                     }
-                    startingPoint = 0;
-                    dataGridView1.Rows.Clear();
-                    populateConferenceGridViewByDate(startingPoint, startingPoint + nr_row, dateTimePicker2.Value, dateTimePicker1.Value);
+                    
                     changeColor();
                     changeColorForJoinButtons();
                     //InitTimer(sender, e.RowIndex, e.ColumnIndex);
@@ -238,8 +239,8 @@ namespace ConferencePlanner.WinUi
                         _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                         _conferenceAudienceModel.Participant = currentUser;
                         _conferenceAudienceModel.ConferenceStatusId = 1;
-                        int rows_affected = _ConferenceRepository.UpdateParticipantToJoin(_conferenceAudienceModel);
-                        if (rows_affected > 0)
+                        bool success = UpdateParticipantToJoin(_conferenceAudienceModel).Result;
+                        if (success)
                         {
                             JoinConference jc = new JoinConference();
                             jc.Show(this);
@@ -254,7 +255,7 @@ namespace ConferencePlanner.WinUi
                     }
                     else
                     {
-                        SetBalloonTip("You need to attend first","You can't join the conference yet!");
+                        SetBalloonTip("You need to attend first", "You can't join the conference yet!");
                         notifyIcon1.Visible = true;
                         notifyIcon1.ShowBalloonTip(3000);
                     }
@@ -265,9 +266,9 @@ namespace ConferencePlanner.WinUi
                     _conferenceAudienceModel.ConferenceId = (int)dataGridView1.Rows[e.RowIndex].Cells["ConferenceId"].Value;
                     _conferenceAudienceModel.Participant = currentUser;
                     _conferenceAudienceModel.ConferenceStatusId = 2;
-                    int rows_affected = _ConferenceRepository.UpdateParticipant(_conferenceAudienceModel);
-                    if (rows_affected <= 0)
-                    {
+                    bool success = UpdateParticipant(_conferenceAudienceModel).Result;
+                    if (!success)
+                    { 
                         SetBalloonTip("Please attend first", "You have to attend before you can withdraw!");
                         notifyIcon1.Visible = true;
                         notifyIcon1.ShowBalloonTip(3000);
@@ -277,7 +278,7 @@ namespace ConferencePlanner.WinUi
                     isAttend = true;
                     pressButtonGreen(sender, e.RowIndex, e.ColumnIndex - 2);
                     conferencesCurrentUserAttends.Clear();
-                    conferencesCurrentUserAttends = _ConferenceRepository.GetConferenceAudience(currentUser);
+                    conferencesCurrentUserAttends = GetConferenceAudience(currentUser);
                     changeColorForSingleButton(e.RowIndex);
                     changeColorForJoinButtons();
 
@@ -319,7 +320,7 @@ namespace ConferencePlanner.WinUi
                 notifyIcon1.Visible = true;
                 notifyIcon1.ShowBalloonTip(30);
             }
-            
+
         }
 
         private System.Windows.Forms.Timer timer1;
@@ -333,7 +334,7 @@ namespace ConferencePlanner.WinUi
         private void timerReloadData_Tick(object sender, EventArgs e)
         {
             x.Clear();
-            x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+            x = GetAttendedConferencesFirst();
             totalEntries = x.Count();
             changeColorForJoinButtons();
         }
@@ -404,45 +405,45 @@ namespace ConferencePlanner.WinUi
             // 
             try
             {
-                
-                    DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells["AttendButton"]);
-                    bc.FlatStyle = FlatStyle.Flat;
-                    if (conferencesCurrentUserAttends.Exists(currentConference =>
-                                         currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
-                                         && currentConference.ConferenceStatusId == 3))
 
-                    {
-                        bc.Style.BackColor = System.Drawing.Color.DarkRed;
-                        bc.Style.ForeColor = System.Drawing.Color.DarkRed;
-                    }
-                    else
-                    {
-                        bc.Style.BackColor = System.Drawing.Color.DarkGreen;
-                        bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
-                    }
-                
+                DataGridViewButtonCell bc = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells["AttendButton"]);
+                bc.FlatStyle = FlatStyle.Flat;
+                if (conferencesCurrentUserAttends.Exists(currentConference =>
+                                     currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
+                                     && currentConference.ConferenceStatusId == 3))
 
-                    DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells["WithdrawButton"]);
-                    bc1.FlatStyle = FlatStyle.Flat;
-                    if (conferencesCurrentUserAttends.Exists(currentConference =>
-                                         currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
-                                         && currentConference.ConferenceStatusId == 2))
-                    {
-                        bc1.Style.BackColor = System.Drawing.Color.DarkRed;
-                        bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
-                    }
-                    else if (!conferencesCurrentUserAttends.Exists(currentConference =>
-                                          currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())))
-                    {
-                        bc1.Style.BackColor = System.Drawing.Color.DarkRed;
-                        bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
-                    }
-                    else
-                    {
-                        bc1.Style.BackColor = System.Drawing.Color.DarkGreen;
-                        bc1.Style.ForeColor = System.Drawing.Color.DarkGreen;
-                    }
-                
+                {
+                    bc.Style.BackColor = System.Drawing.Color.DarkRed;
+                    bc.Style.ForeColor = System.Drawing.Color.DarkRed;
+                }
+                else
+                {
+                    bc.Style.BackColor = System.Drawing.Color.DarkGreen;
+                    bc.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                }
+
+
+                DataGridViewButtonCell bc1 = ((DataGridViewButtonCell)dataGridView1.Rows[row].Cells["WithdrawButton"]);
+                bc1.FlatStyle = FlatStyle.Flat;
+                if (conferencesCurrentUserAttends.Exists(currentConference =>
+                                     currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())
+                                     && currentConference.ConferenceStatusId == 2))
+                {
+                    bc1.Style.BackColor = System.Drawing.Color.DarkRed;
+                    bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+                }
+                else if (!conferencesCurrentUserAttends.Exists(currentConference =>
+                                      currentConference.ConferenceId == Int32.Parse(dataGridView1.Rows[row].Cells["ConferenceId"].Value.ToString())))
+                {
+                    bc1.Style.BackColor = System.Drawing.Color.DarkRed;
+                    bc1.Style.ForeColor = System.Drawing.Color.DarkRed;
+                }
+                else
+                {
+                    bc1.Style.BackColor = System.Drawing.Color.DarkGreen;
+                    bc1.Style.ForeColor = System.Drawing.Color.DarkGreen;
+                }
+
             }
             catch { }
         }
@@ -520,7 +521,7 @@ namespace ConferencePlanner.WinUi
                         addConferenceDetailModel.Speaker = (string)dataGridView2.Rows[e.RowIndex].Cells["HostMainSpeaker"].Value;
                         addConferenceDetailModel.StartDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostStartDate"].Value;
                         addConferenceDetailModel.EndDate = (DateTime)dataGridView2.Rows[e.RowIndex].Cells["HostEndDate"].Value;
-                        
+
                         AddEvent form3 = new AddEvent(0, f, addConferenceDetailModel, _GetSpeakerDetail,
                             _ConferenceTypeRepository, _ConferenceRepository,
                             _DictionaryCityRepository, _DictionaryCountryRepository,
@@ -532,7 +533,7 @@ namespace ConferencePlanner.WinUi
                     }
                 }
             }
-            catch (Exception ex){
+            catch (Exception ex) {
                 SetBalloonTip("Something is wrong", "Please press again!");
                 notifyIcon1.Visible = true;
                 notifyIcon1.ShowBalloonTip(3000);
@@ -551,29 +552,29 @@ namespace ConferencePlanner.WinUi
                     //textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString();
                     // textBox2.Text = dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[1].Value.ToString();
                 }
-               /* try
-                {
+                /* try
+                 {
 
 
-                    MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository, _GetSpeakerDetail, dataGridView2.CurrentRow.Cells["HostMainSpeaker"].Value.ToString());
-                    mf.textBox1.Text = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
-                    mf.textBox2.Text = this.dataGridView2.CurrentRow.Cells[1].Value.ToString();
-                    mf.textBox3.Text = this.dataGridView2.CurrentRow.Cells[2].Value.ToString();
-                    mf.textBox4.Text = this.dataGridView2.CurrentRow.Cells[3].Value.ToString();
-                    mf.textBox5.Text = this.dataGridView2.CurrentRow.Cells[4].Value.ToString();
-                    mf.textBox6.Text = this.dataGridView2.CurrentRow.Cells[5].Value.ToString();
+                     MainSpeakerDetails mf = new MainSpeakerDetails(_ConferenceRepository, _GetSpeakerDetail, dataGridView2.CurrentRow.Cells["HostMainSpeaker"].Value.ToString());
+                     mf.textBox1.Text = this.dataGridView2.CurrentRow.Cells[0].Value.ToString();
+                     mf.textBox2.Text = this.dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                     mf.textBox3.Text = this.dataGridView2.CurrentRow.Cells[2].Value.ToString();
+                     mf.textBox4.Text = this.dataGridView2.CurrentRow.Cells[3].Value.ToString();
+                     mf.textBox5.Text = this.dataGridView2.CurrentRow.Cells[4].Value.ToString();
+                     mf.textBox6.Text = this.dataGridView2.CurrentRow.Cells[5].Value.ToString();
 
 
 
-                    mf.ShowDialog();
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("You cannot process an empty cell");
-                }
-               */
+                     mf.ShowDialog();
+                 }
+                 catch (NullReferenceException)
+                 {
+                     MessageBox.Show("You cannot process an empty cell");
+                 }
+                */
             }
-    }
+        }
 
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -629,7 +630,7 @@ namespace ConferencePlanner.WinUi
         {
             AddEvent form3 = new AddEvent(1, f, addConferenceDetailModel, _GetSpeakerDetail, _ConferenceTypeRepository,
                         _ConferenceRepository, _DictionaryCityRepository, _DictionaryCountryRepository,
-                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository,_Locationrepository);
+                        _DictionaryCountyRepository, _DictionaryConferenceCategoryRepository, _Locationrepository);
             this.Enabled = false;
             form3.Tag = this;
             form3.Show(this);
@@ -650,7 +651,7 @@ namespace ConferencePlanner.WinUi
             {
                 dataGridView2.Rows.Clear();
                 y.Clear();
-                y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+                y = GetConferenceDetailForHost();
                 HosttotalEntries = y.Count;
                 populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
             }
@@ -814,7 +815,7 @@ namespace ConferencePlanner.WinUi
             {
                 dataGridView1.Rows.Clear();
                 x.Clear();
-                x = _ConferenceRepository.GetAttendedConferencesFirst(conferencesCurrentUserAttends, dateTimePicker2.Value, dateTimePicker1.Value);
+                x = GetAttendedConferencesFirst();
                 totalEntries = x.Count;
                 if (totalEntries >= nr_row)
                 {
@@ -842,7 +843,7 @@ namespace ConferencePlanner.WinUi
         {
             try {
                 dataGridView2.Rows.Clear();
-                y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+                y = GetConferenceDetailForHost();
                 HosttotalEntries = y.Count;
 
                 if (HosttotalEntries < nr_row)
@@ -867,6 +868,98 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+        static async Task<List<ConferenceAudienceModel>> GetConferenceAudience(EmailOnly obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Conference/GetConferenceAudience", httpContent).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<ConferenceAudienceModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<ConferenceDetailAttendFirstModel>> GetAttendedConferencesFirst(GetAttendedConferencesFirstModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Conference/GetAttendedConferencesFirst", httpContent).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<ConferenceDetailAttendFirstModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<ConferenceDetailModel>> GetConferenceDetailForHost(ConferenceDetailForHostModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Conference/ConferenceDetailForHost", httpContent).Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<ConferenceDetailModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<bool> AddParticipant(ConferenceAudienceModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Participant/AddParticipant", httpContent).Result;
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+        static async Task<bool> UpdateParticipant(ConferenceAudienceModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Participant/UpdateParticipant", httpContent).Result;
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+        static async Task<bool> UpdateParticipantToJoin(ConferenceAudienceModel obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.PostAsync("http://localhost:2794/Participant/UpdateParticipantToJoin", httpContent).Result;
+            return httpResponseMessage.IsSuccessStatusCode;
+        }
+        private List<ConferenceAudienceModel> GetConferenceAudience(string currentUser)
+        {
+            EmailOnly email = new EmailOnly();
+            email.Email = currentUser;
+            var temp = GetConferenceAudience(email).Result;
+            return temp;
+        }
+
+        private List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst()
+        {
+            GetAttendedConferencesFirstModel current = new GetAttendedConferencesFirstModel();
+            current.Email = currentUser;
+            current.StartDate = dateTimePicker2.Value;
+            current.EndDate = dateTimePicker1.Value;
+            var temp = GetAttendedConferencesFirst(current).Result;
+            return temp;
+        }
+        private List<ConferenceDetailModel> GetConferenceDetailForHost()
+        {
+            ConferenceDetailForHostModel current = new ConferenceDetailForHostModel();
+            current.Email = currentUser;
+            current.StartDate = dateTimePicker4.Value;
+            current.EndDate = dateTimePicker3.Value;
+            var temp = GetConferenceDetailForHost(current).Result;
+            return temp;
+        }
     }
+    
 }
+
+
 
