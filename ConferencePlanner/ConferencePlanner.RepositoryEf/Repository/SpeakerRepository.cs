@@ -43,7 +43,17 @@ namespace ConferencePlanner.Repository.Ef.Repository
             List<SpeakerxConference> conferencesWithDeletedSpeaker = _dbContext.SpeakerxConference.Where(x => x.SpeakerId == SpeakerId).ToList();
             foreach(var sxc in conferencesWithDeletedSpeaker)
             {
-                sxc.SpeakerId = 30;
+                _dbContext.Remove(sxc);
+                _dbContext.SpeakerxConference.Add(new SpeakerxConference()
+                {
+                    SpeakerId = 30,
+                    IsMainSpeaker = true,
+                    ConferenceId = sxc.ConferenceId,
+                    Conference = sxc.Conference,
+                    
+
+                });
+                
             }
             _dbContext.SaveChanges();
             Speaker current = _dbContext.Speaker.FirstOrDefault(x => x.SpeakerId == SpeakerId);
