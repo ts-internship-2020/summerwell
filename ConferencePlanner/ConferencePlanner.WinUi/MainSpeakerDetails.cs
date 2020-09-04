@@ -25,7 +25,7 @@ namespace ConferencePlanner.WinUi
             InitializeComponent();
             _ConferenceRepository = ConferenceRepository;
             _GetSpeakerDetail = GetSpeakerDetail;
-            pictureBox1.ImageLocation = Base64Decode(GetSpeakerImage(SpeakerName).Result);
+            pictureBox1.ImageLocation = Base64Decode(_GetSpeakerDetail.GetSpeakerImage(SpeakerName));
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.Refresh();
             speakerName = SpeakerName;
