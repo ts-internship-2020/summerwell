@@ -37,7 +37,6 @@ namespace ConferencePlanner.WinUi
         private AddEventDetailModel eventDetails;
         private AddConferenceDetailModel AddConferenceDetailModel;
         private readonly IDictionaryCityRepository _DictionaryCityRepository;
-        private List<ConferenceModel> conferences;
         private List<ConferenceTypeModel> x;
         private List<DictionaryCityModel> cityList;
         private List<DictionaryCountyModel> countys;
@@ -75,8 +74,7 @@ namespace ConferencePlanner.WinUi
             countys = GetDictionaryCounty().Result;
             List<DictionaryConferenceCategoryModel> categories = GetDictionaryCategory().Result;
             _ConferenceTypeRepository = ConferenceTypeRepository;
-            x = _ConferenceTypeRepository.GetConferenceType();
-            conferences = _ConferenceRepository.GetConference();
+            x = GetConferenceType().Result;
  
             if (countries == null) { return; }
             else
@@ -99,7 +97,7 @@ namespace ConferencePlanner.WinUi
             populateSpeakers(speakers);
 
             _DictionaryCityRepository = dictionaryCityRepository;
-            cityList = _DictionaryCityRepository.GetCity();
+            cityList = GetCity().Result;
             if (cityList == null || cityList.Count() == 0)
             {
                 return;
@@ -813,6 +811,29 @@ namespace ConferencePlanner.WinUi
             }
             return null;
         }
+        static async Task<List<ConferenceTypeModel>> GetConferenceType()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryConferenceType").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<ConferenceTypeModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<List<DictionaryCityModel>> GetCity()
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync("http://localhost:2794/DictionaryCity").Result;
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var response = JsonConvert.DeserializeObject<List<DictionaryCityModel>>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        
     }
 
 }

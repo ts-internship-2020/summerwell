@@ -508,8 +508,8 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public List<ConferenceDetailModel> GetConferenceDetailForHost(string hostName, DateTime StartDate, DateTime EndDate)
         {
-            List<Conference> conferences = _dbContext.Conference.Include(a => a.ConferenceType).Include(a => a.ConferenceCategory).Include(a => a.SpeakerxConference)
-    .Include(a => a.Location).Include(a => a.Location.City).Where(a => a.HostEmail == hostName).Where(a => a.StartDate > StartDate).Where(a => a.StartDate < EndDate).ToList();
+            List<Conference> conferences = _dbContext.Conference.Include(a => a.ConferenceType).Include(a => a.ConferenceCategory).Include(a => a.SpeakerxConference).
+    ThenInclude(a => a.Speaker).Include(a => a.Location).Include(a => a.Location.City).Where(a => a.HostEmail == hostName).Where(a => a.StartDate > StartDate).Where(a => a.StartDate < EndDate).ToList();
 
             List<ConferenceDetailModel> conferencesModel = conferences.Select(a => new ConferenceDetailModel()
             {
@@ -517,6 +517,7 @@ namespace ConferencePlanner.Repository.Ef.Repository
                 DictionaryConferenceTypeName = a.ConferenceType.DictionaryConferenceTypeName,
                 LocationStreet = a.Location.Street,
                 DictionaryConferenceCategoryName = a.ConferenceCategory.DictionaryConferenceCategoryName,
+                SpeakerName = a.SpeakerxConference.FirstOrDefault(x => x.IsMainSpeaker).Speaker.SpeakerName,
                 HostEmail = a.HostEmail,
                 StartDate = a.StartDate,
                 EndDate = a.EndDate,

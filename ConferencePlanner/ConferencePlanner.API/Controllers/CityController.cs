@@ -28,7 +28,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok(city);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("DictionaryCity")]
         public IActionResult GetCity()
         {
