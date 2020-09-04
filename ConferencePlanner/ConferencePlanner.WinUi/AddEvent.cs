@@ -431,7 +431,7 @@ namespace ConferencePlanner.WinUi
             listView1.Columns.Add("Name");
             listView1.Columns.Add("Is Remote");
             x.Clear();
-            x = _ConferenceTypeRepository.GetConferenceType();
+            x = GetConferenceType().Result;
             foreach (var c in x)
             {
                 if(c.ConferenceTypeId.ToString() != "30" && c.ConferenceTypeId.ToString() != "31")
@@ -614,12 +614,12 @@ namespace ConferencePlanner.WinUi
         }
         public void RefreshLists(string dictionary)
         {
-            if (dictionary == "DictionaryCounty") { listView4.Clear(); populateCounty(_DictionaryCountyRepository.GetDictionaryCounty()); }
-            if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(_DictionaryCityRepository.GetCity()); }
+            if (dictionary == "DictionaryCounty") { listView4.Clear(); populateCounty(GetDictionaryCounty().Result); }
+            if (dictionary == "DictionaryCity") { listView5.Clear(); populateCity(GetCity().Result); }
             if (dictionary == "DictionaryType") { listView1.Clear(); listView1_populate(); }
-            if (dictionary == "Speaker") { listView3.Clear(); populateSpeakers(_GetSpeakerDetail.GetSpeakers()); }
-            if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(_DictionaryCountryRepository.GetDictionaryCountry()); }
-            if (dictionary == "DictionaryCategory") { listView6.Clear(); populateCategory(_DictionaryConferenceCategoryRepository.GetDictionaryCategory()); }
+            if (dictionary == "Speaker") { listView3.Clear(); populateSpeakers(GetSpeakers().Result); }
+            if (dictionary == "DictionaryCountry") { listView2.Clear(); populateCountry(GetDictionaryCountry().Result); }
+            if (dictionary == "DictionaryCategory") { listView6.Clear(); populateCategory(GetDictionaryCategory().Result); }
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
