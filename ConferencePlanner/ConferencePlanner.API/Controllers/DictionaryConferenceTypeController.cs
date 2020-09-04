@@ -43,6 +43,13 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceTypeRepository.EditType(obj.id, obj.Name, obj.isRemote);
             return Ok();
         }
+        [HttpPost]
+        [Route("DictionaryConferenceType/DeleteType")]
+        public IActionResult DeleteType([FromBody] DeleteType obj)
+        {
+            _conferenceTypeRepository.DeleteType(obj.Id, obj.isRemote);
+            return Ok();
+        }
 
     }
 }

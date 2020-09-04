@@ -28,7 +28,13 @@ namespace ConferencePlanner.Repository.Ef.Repository
 
         public bool DeleteType(int TypeId, bool IsRemote)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _dbContext.Remove(_dbContext.DictionaryConferenceType.First(a => a.DictionaryConferenceTypeId == TypeId));
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch { return false; }
         }
 
         public void EditType(int Id, string Name, bool isRemote)

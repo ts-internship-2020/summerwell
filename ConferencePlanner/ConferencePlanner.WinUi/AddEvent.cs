@@ -15,6 +15,10 @@ using ConferencePlanner.Abstraction.Model;
 using Windows.Media.Capture.Core;
 using ConferencePlanner.Repository.Ado.Repository;
 using System.Windows.Forms.Design;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Net.Http;
+using ConferencePlanner.Abstraction.Model.FromBodyModels;
 
 namespace ConferencePlanner.WinUi
 {
@@ -631,64 +635,56 @@ namespace ConferencePlanner.WinUi
         {
 
         }
-        private void DeleteType_Click(object sender, EventArgs e)
+        private async void DeleteType_Click(object sender, EventArgs e)
         {
-            
-            bool hey =_ConferenceRepository.DeleteType(eventDetails.ConferenceTypeId, eventDetails.isRemote);
-            if (!hey)
-            {
-                SetBalloonTip("You can't delete this","There is a conference with this type");
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(3000);
-            }
+            DeleteType obj = new DeleteType { Id = eventDetails.ConferenceTypeId, isRemote = eventDetails.isRemote };
+            await DDeleteType(obj);
             RefreshLists("DictionaryType");
             DeleteType.Enabled = false;
             btnNext.Enabled = false;
         }
 
-        private void DeleteSpeaker_Click(object sender, EventArgs e)
+        private async void DeleteSpeaker_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteSpeaker(eventDetails.SpeakerId);
+            await DDeleteSpeaker(eventDetails.SpeakerId);
             RefreshLists("Speaker");
             DeleteSpeaker.Enabled = false;
             btnNext3.Enabled = false;
         }
 
-        private void DeleteCounty_Click(object sender, EventArgs e)
+        private async void DeleteCounty_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCounty(eventDetails.DictionaryCountyId, eventDetails.isRemote);
+            await DDeleteCounty(eventDetails.DictionaryCountyId);
             RefreshLists("DictionaryCounty");
             DeleteCounty.Enabled = false;
             btnNext4.Enabled = false;
             
         }
 
-        private void DeleteCity_Click(object sender, EventArgs e)
+        private async void DeleteCity_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCity(eventDetails.DictionaryCityId, eventDetails.isRemote);
+            DeleteType obj = new DeleteType { Id = eventDetails.DictionaryCityId, isRemote = eventDetails.isRemote };
+            await DDeleteCity(obj);
             RefreshLists("DictionaryCity");
             DeleteCity.Enabled = false;
             btnNext5.Enabled = false;
             
         }
 
-        private void DeleteCategory_Click(object sender, EventArgs e)
+        private async void DeleteCategory_Click(object sender, EventArgs e)
         {
-            bool hey =_ConferenceRepository.DeleteCategory(eventDetails.DictionaryConferenceCategoryId);
-            if (!hey)
-            {
-                SetBalloonTip("You can't delete this", "There are conferences in this category");
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(3000);
-            }
+
+            await DDeleteCategory(eventDetails.DictionaryConferenceCategoryId);
             RefreshLists("DictionaryCategory");
             DeleteCategory.Enabled = false;
             btnSave.Visible = false;
         }
 
-        private void DeleteCountry_Click(object sender, EventArgs e)
+        private async void DeleteCountry_Click(object sender, EventArgs e)
         {
-            _ConferenceRepository.DeleteCountry(eventDetails.DictionaryCountryId, eventDetails.isRemote);
+
+            DeleteType obj = new DeleteType { Id = eventDetails.DictionaryCountryId, isRemote = eventDetails.isRemote };
+            await DDeleteCountry(obj);
             RefreshLists("DictionaryCountry");
             DeleteCountry.Enabled = false;
             btnNext2.Enabled = false;
@@ -724,5 +720,49 @@ namespace ConferencePlanner.WinUi
             tabCity.Enabled = true;
             tabCounty.Enabled = false;
         }
+        static async Task DDeleteCategory(int obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCategory/DeleteCategory", httpContent);
+        }
+        static async Task DDeleteCountry(DeleteType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DeleteCountry", httpContent);
+        }
+        static async Task DDeleteSpeaker(int obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Speaker/DeleteSpeaker", httpContent);
+        }
+        static async Task DDeleteCounty(int obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCounty/DeleteCounty", httpContent);
+        }
+        static async Task DDeleteCity(DeleteType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCity/CityDelete", httpContent);
+            MessageBox.Show(httpResponseMessage.ToString());
+        }
+        static async Task DDeleteType(DeleteType obj)
+        {
+            var json = JsonConvert.SerializeObject(obj);
+            var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryConferenceType/DeleteType", httpContent);
+        }
     }
+
 }
