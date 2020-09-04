@@ -44,35 +44,41 @@ namespace ConferencePlanner.WinUi
             this.AddEndDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabType = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.DeleteType = new System.Windows.Forms.Button();
             this.btnAdd1 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.btnNext = new System.Windows.Forms.Button();
             this.tabCountry = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
             this.btnBack2 = new System.Windows.Forms.Button();
             this.DeleteCountry = new System.Windows.Forms.Button();
             this.btnAdd2 = new System.Windows.Forms.Button();
             this.listView2 = new System.Windows.Forms.ListView();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.tabSpeaker = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
             this.btnBack3 = new System.Windows.Forms.Button();
             this.DeleteSpeaker = new System.Windows.Forms.Button();
             this.btnAdd3 = new System.Windows.Forms.Button();
             this.listView3 = new System.Windows.Forms.ListView();
             this.btnNext3 = new System.Windows.Forms.Button();
             this.tabCounty = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnBack4 = new System.Windows.Forms.Button();
             this.DeleteCounty = new System.Windows.Forms.Button();
             this.btnAdd5 = new System.Windows.Forms.Button();
             this.listView4 = new System.Windows.Forms.ListView();
             this.btnNext4 = new System.Windows.Forms.Button();
             this.tabCity = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnBack5 = new System.Windows.Forms.Button();
             this.DeleteCity = new System.Windows.Forms.Button();
             this.btnAdd4 = new System.Windows.Forms.Button();
             this.listView5 = new System.Windows.Forms.ListView();
             this.btnNext5 = new System.Windows.Forms.Button();
             this.tabCategory = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnBack6 = new System.Windows.Forms.Button();
             this.DeleteCategory = new System.Windows.Forms.Button();
             this.btnAdd6 = new System.Windows.Forms.Button();
@@ -205,6 +211,7 @@ namespace ConferencePlanner.WinUi
             // 
             this.tabType.AllowDrop = true;
             this.tabType.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tabType.Controls.Add(this.label9);
             this.tabType.Controls.Add(this.DeleteType);
             this.tabType.Controls.Add(this.btnAdd1);
             this.tabType.Controls.Add(this.listView1);
@@ -216,6 +223,16 @@ namespace ConferencePlanner.WinUi
             this.tabType.TabIndex = 0;
             this.tabType.Text = "Conference Type";
             this.tabType.Click += new System.EventHandler(this.tabType_Click_1);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(58, 1);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(136, 21);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Conference Type";
             // 
             // DeleteType
             // 
@@ -264,7 +281,7 @@ namespace ConferencePlanner.WinUi
             this.btnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNext.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNext.Location = new System.Drawing.Point(298, 152);
+            this.btnNext.Location = new System.Drawing.Point(323, 152);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(41, 35);
             this.btnNext.TabIndex = 9;
@@ -274,6 +291,7 @@ namespace ConferencePlanner.WinUi
             // tabCountry
             // 
             this.tabCountry.BackColor = System.Drawing.Color.White;
+            this.tabCountry.Controls.Add(this.label10);
             this.tabCountry.Controls.Add(this.btnBack2);
             this.tabCountry.Controls.Add(this.DeleteCountry);
             this.tabCountry.Controls.Add(this.btnAdd2);
@@ -286,14 +304,27 @@ namespace ConferencePlanner.WinUi
             this.tabCountry.TabIndex = 1;
             this.tabCountry.Text = "Country";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(52, 1);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(159, 21);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Conference Country";
+            // 
             // btnBack2
             // 
-            this.btnBack2.Location = new System.Drawing.Point(234, 165);
+            this.btnBack2.BackColor = System.Drawing.Color.Transparent;
+            this.btnBack2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack2.BackgroundImage")));
+            this.btnBack2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBack2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBack2.Location = new System.Drawing.Point(266, 159);
             this.btnBack2.Name = "btnBack2";
-            this.btnBack2.Size = new System.Drawing.Size(51, 23);
+            this.btnBack2.Size = new System.Drawing.Size(41, 35);
             this.btnBack2.TabIndex = 12;
-            this.btnBack2.Text = "Back";
-            this.btnBack2.UseVisualStyleBackColor = true;
+            this.btnBack2.UseVisualStyleBackColor = false;
             this.btnBack2.Click += new System.EventHandler(this.btnBack2_Click);
             // 
             // DeleteCountry
@@ -342,7 +373,7 @@ namespace ConferencePlanner.WinUi
             this.btnNext2.Enabled = false;
             this.btnNext2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNext2.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNext2.Location = new System.Drawing.Point(291, 158);
+            this.btnNext2.Location = new System.Drawing.Point(323, 158);
             this.btnNext2.Name = "btnNext2";
             this.btnNext2.Size = new System.Drawing.Size(41, 35);
             this.btnNext2.TabIndex = 0;
@@ -352,6 +383,7 @@ namespace ConferencePlanner.WinUi
             // tabSpeaker
             // 
             this.tabSpeaker.BackColor = System.Drawing.Color.White;
+            this.tabSpeaker.Controls.Add(this.label8);
             this.tabSpeaker.Controls.Add(this.btnBack3);
             this.tabSpeaker.Controls.Add(this.DeleteSpeaker);
             this.tabSpeaker.Controls.Add(this.btnAdd3);
@@ -366,14 +398,26 @@ namespace ConferencePlanner.WinUi
             this.tabSpeaker.TabIndex = 2;
             this.tabSpeaker.Text = "Speaker";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(42, 1);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(158, 21);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Conference Speaker";
+            // 
             // btnBack3
             // 
-            this.btnBack3.Location = new System.Drawing.Point(235, 152);
+            this.btnBack3.BackColor = System.Drawing.Color.Transparent;
+            this.btnBack3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack3.BackgroundImage")));
+            this.btnBack3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBack3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBack3.Location = new System.Drawing.Point(271, 152);
             this.btnBack3.Name = "btnBack3";
-            this.btnBack3.Size = new System.Drawing.Size(51, 23);
+            this.btnBack3.Size = new System.Drawing.Size(41, 35);
             this.btnBack3.TabIndex = 4;
-            this.btnBack3.Text = "Back";
-            this.btnBack3.UseVisualStyleBackColor = true;
+            this.btnBack3.UseVisualStyleBackColor = false;
             this.btnBack3.Click += new System.EventHandler(this.btnBack3_Click);
             // 
             // DeleteSpeaker
@@ -419,7 +463,7 @@ namespace ConferencePlanner.WinUi
             this.btnNext3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNext3.Enabled = false;
             this.btnNext3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNext3.Location = new System.Drawing.Point(297, 152);
+            this.btnNext3.Location = new System.Drawing.Point(323, 152);
             this.btnNext3.Name = "btnNext3";
             this.btnNext3.Size = new System.Drawing.Size(41, 35);
             this.btnNext3.TabIndex = 0;
@@ -429,6 +473,7 @@ namespace ConferencePlanner.WinUi
             // tabCounty
             // 
             this.tabCounty.BackColor = System.Drawing.Color.White;
+            this.tabCounty.Controls.Add(this.label7);
             this.tabCounty.Controls.Add(this.btnBack4);
             this.tabCounty.Controls.Add(this.DeleteCounty);
             this.tabCounty.Controls.Add(this.btnAdd5);
@@ -440,14 +485,27 @@ namespace ConferencePlanner.WinUi
             this.tabCounty.TabIndex = 3;
             this.tabCounty.Text = "County";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(49, 1);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(153, 21);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Conference County";
+            // 
             // btnBack4
             // 
-            this.btnBack4.Location = new System.Drawing.Point(235, 156);
+            this.btnBack4.BackColor = System.Drawing.Color.Transparent;
+            this.btnBack4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack4.BackgroundImage")));
+            this.btnBack4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBack4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBack4.Location = new System.Drawing.Point(267, 152);
             this.btnBack4.Name = "btnBack4";
-            this.btnBack4.Size = new System.Drawing.Size(51, 23);
+            this.btnBack4.Size = new System.Drawing.Size(41, 35);
             this.btnBack4.TabIndex = 4;
-            this.btnBack4.Text = "Back";
-            this.btnBack4.UseVisualStyleBackColor = true;
+            this.btnBack4.UseVisualStyleBackColor = false;
             this.btnBack4.Click += new System.EventHandler(this.btnBack4_Click);
             // 
             // DeleteCounty
@@ -492,7 +550,7 @@ namespace ConferencePlanner.WinUi
             this.btnNext4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNext4.Enabled = false;
             this.btnNext4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNext4.Location = new System.Drawing.Point(297, 152);
+            this.btnNext4.Location = new System.Drawing.Point(323, 152);
             this.btnNext4.Margin = new System.Windows.Forms.Padding(2);
             this.btnNext4.Name = "btnNext4";
             this.btnNext4.Size = new System.Drawing.Size(41, 35);
@@ -503,6 +561,7 @@ namespace ConferencePlanner.WinUi
             // tabCity
             // 
             this.tabCity.BackColor = System.Drawing.Color.White;
+            this.tabCity.Controls.Add(this.label6);
             this.tabCity.Controls.Add(this.btnBack5);
             this.tabCity.Controls.Add(this.DeleteCity);
             this.tabCity.Controls.Add(this.btnAdd4);
@@ -514,14 +573,27 @@ namespace ConferencePlanner.WinUi
             this.tabCity.TabIndex = 4;
             this.tabCity.Text = "City";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(78, 1);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(129, 21);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Conference City";
+            // 
             // btnBack5
             // 
-            this.btnBack5.Location = new System.Drawing.Point(235, 156);
+            this.btnBack5.BackColor = System.Drawing.Color.Transparent;
+            this.btnBack5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack5.BackgroundImage")));
+            this.btnBack5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBack5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBack5.Location = new System.Drawing.Point(267, 152);
             this.btnBack5.Name = "btnBack5";
-            this.btnBack5.Size = new System.Drawing.Size(51, 23);
+            this.btnBack5.Size = new System.Drawing.Size(41, 35);
             this.btnBack5.TabIndex = 4;
-            this.btnBack5.Text = "Back";
-            this.btnBack5.UseVisualStyleBackColor = true;
+            this.btnBack5.UseVisualStyleBackColor = false;
             this.btnBack5.Click += new System.EventHandler(this.btnBack5_Click);
             // 
             // DeleteCity
@@ -570,7 +642,7 @@ namespace ConferencePlanner.WinUi
             this.btnNext5.Enabled = false;
             this.btnNext5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNext5.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNext5.Location = new System.Drawing.Point(294, 152);
+            this.btnNext5.Location = new System.Drawing.Point(323, 153);
             this.btnNext5.Name = "btnNext5";
             this.btnNext5.Size = new System.Drawing.Size(41, 35);
             this.btnNext5.TabIndex = 0;
@@ -580,6 +652,7 @@ namespace ConferencePlanner.WinUi
             // tabCategory
             // 
             this.tabCategory.BackColor = System.Drawing.Color.White;
+            this.tabCategory.Controls.Add(this.label5);
             this.tabCategory.Controls.Add(this.btnBack6);
             this.tabCategory.Controls.Add(this.DeleteCategory);
             this.tabCategory.Controls.Add(this.btnAdd6);
@@ -591,14 +664,29 @@ namespace ConferencePlanner.WinUi
             this.tabCategory.TabIndex = 5;
             this.tabCategory.Text = "Category";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(50, 1);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(154, 21);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Conferece Category";
+            // 
             // btnBack6
             // 
-            this.btnBack6.Location = new System.Drawing.Point(226, 152);
+            this.btnBack6.BackColor = System.Drawing.Color.Transparent;
+            this.btnBack6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack6.BackgroundImage")));
+            this.btnBack6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBack6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBack6.ForeColor = System.Drawing.Color.Transparent;
+            this.btnBack6.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.btnBack6.Location = new System.Drawing.Point(268, 152);
             this.btnBack6.Name = "btnBack6";
-            this.btnBack6.Size = new System.Drawing.Size(51, 23);
+            this.btnBack6.Size = new System.Drawing.Size(41, 35);
             this.btnBack6.TabIndex = 14;
-            this.btnBack6.Text = "Back";
-            this.btnBack6.UseVisualStyleBackColor = true;
+            this.btnBack6.UseVisualStyleBackColor = false;
             this.btnBack6.Click += new System.EventHandler(this.btnBack6_Click);
             // 
             // DeleteCategory
@@ -645,7 +733,7 @@ namespace ConferencePlanner.WinUi
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSave.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSave.Location = new System.Drawing.Point(295, 152);
+            this.btnSave.Location = new System.Drawing.Point(320, 151);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(41, 35);
             this.btnSave.TabIndex = 10;
@@ -693,11 +781,17 @@ namespace ConferencePlanner.WinUi
             this.Text = "AddEvent";
             this.tabControl1.ResumeLayout(false);
             this.tabType.ResumeLayout(false);
+            this.tabType.PerformLayout();
             this.tabCountry.ResumeLayout(false);
+            this.tabCountry.PerformLayout();
             this.tabSpeaker.ResumeLayout(false);
+            this.tabSpeaker.PerformLayout();
             this.tabCounty.ResumeLayout(false);
+            this.tabCounty.PerformLayout();
             this.tabCity.ResumeLayout(false);
+            this.tabCity.PerformLayout();
             this.tabCategory.ResumeLayout(false);
+            this.tabCategory.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -751,5 +845,11 @@ namespace ConferencePlanner.WinUi
         private Button btnBack4;
         private Button btnBack5;
         private Button btnBack6;
+        private Label label9;
+        private Label label10;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        private Label label5;
     }
 }

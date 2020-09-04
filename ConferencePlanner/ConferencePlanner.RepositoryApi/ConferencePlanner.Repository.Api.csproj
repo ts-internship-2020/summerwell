@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Bunifu.Dataviz.WinForms" Version="2.1.4" />
+    <PackageReference Include="Bunifu.UI.WinForms" Version="3.0.2" />
+  </ItemGroup>
+
 </Project>

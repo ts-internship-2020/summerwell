@@ -143,5 +143,25 @@ namespace ConferencePlanner.WinUi
         {
 
         }
+
+        private void freeTrialMessage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void freeTrialMessage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void box3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void box1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

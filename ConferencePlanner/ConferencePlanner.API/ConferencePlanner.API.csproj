@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bunifu.Dataviz.WinForms" Version="2.1.4" />
+    <PackageReference Include="Bunifu.UI.WinForms" Version="3.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>

@@ -696,9 +696,18 @@ namespace ConferencePlanner.WinUi
         }
         private void btnBack3_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCountry);
-            tabCountry.Enabled = true;
-            tabType.Enabled = false;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCountry);
+                tabCountry.Enabled = true;
+                tabType.Enabled = false;
+            }
+            else
+            {
+                tabControl1.SelectTab(tabType);
+                tabType.Enabled = true;
+                tabCountry.Enabled = false;
+            }
         }
         private void btnBack4_Click(object sender, EventArgs e)
         {
@@ -708,15 +717,31 @@ namespace ConferencePlanner.WinUi
         }
         private void btnBack5_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCounty);
-            tabCounty.Enabled = true;
-            tabSpeaker.Enabled = false;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCounty);
+                tabCounty.Enabled = true;
+                tabSpeaker.Enabled = false;
+            }
+            else
+            {
+                tabControl1.SelectTab(tabSpeaker);
+                tabSpeaker.Enabled = true;
+                tabCountry.Enabled = false;
+            }
         }
         private void btnBack6_Click(object sender, EventArgs e)
         {
-            tabControl1.SelectTab(tabCity);
-            tabCity.Enabled = true;
-            tabCounty.Enabled = false;
+            if (!eventDetails.isRemote)
+            {
+                tabControl1.SelectTab(tabCity);
+                tabCity.Enabled = true;
+                tabCounty.Enabled = false;
+            }
+            else { tabControl1.SelectTab(tabSpeaker);
+                tabSpeaker.Enabled = true;
+                tabCountry.Enabled = false;
+            }
         }
         static async Task DDeleteCategory(int obj)
         {

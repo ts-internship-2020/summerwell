@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Schema;
-
+//Comentariu py push
 namespace ConferencePlanner.Repository.Ef.Repository
 {
     public class SpeakerRepository : IGetSpeakerDetail

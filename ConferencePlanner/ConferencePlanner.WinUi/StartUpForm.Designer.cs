@@ -38,6 +38,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,6 +148,13 @@
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
+            // bunifuDragControl1
+            // 
+            this.bunifuDragControl1.Fixed = true;
+            this.bunifuDragControl1.Horizontal = true;
+            this.bunifuDragControl1.TargetControl = null;
+            this.bunifuDragControl1.Vertical = true;
+            // 
             // StartUpForm
             // 
             this.AcceptButton = this.button1;
@@ -181,5 +189,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
     }
 }
