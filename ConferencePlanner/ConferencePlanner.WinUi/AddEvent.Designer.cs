@@ -44,35 +44,41 @@ namespace ConferencePlanner.WinUi
             this.AddEndDate = new System.Windows.Forms.DateTimePicker();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabType = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.DeleteType = new System.Windows.Forms.Button();
             this.btnAdd1 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.btnNext = new System.Windows.Forms.Button();
             this.tabCountry = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
             this.btnBack2 = new System.Windows.Forms.Button();
             this.DeleteCountry = new System.Windows.Forms.Button();
             this.btnAdd2 = new System.Windows.Forms.Button();
             this.listView2 = new System.Windows.Forms.ListView();
             this.btnNext2 = new System.Windows.Forms.Button();
             this.tabSpeaker = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
             this.btnBack3 = new System.Windows.Forms.Button();
             this.DeleteSpeaker = new System.Windows.Forms.Button();
             this.btnAdd3 = new System.Windows.Forms.Button();
             this.listView3 = new System.Windows.Forms.ListView();
             this.btnNext3 = new System.Windows.Forms.Button();
             this.tabCounty = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnBack4 = new System.Windows.Forms.Button();
             this.DeleteCounty = new System.Windows.Forms.Button();
             this.btnAdd5 = new System.Windows.Forms.Button();
             this.listView4 = new System.Windows.Forms.ListView();
             this.btnNext4 = new System.Windows.Forms.Button();
             this.tabCity = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnBack5 = new System.Windows.Forms.Button();
             this.DeleteCity = new System.Windows.Forms.Button();
             this.btnAdd4 = new System.Windows.Forms.Button();
             this.listView5 = new System.Windows.Forms.ListView();
             this.btnNext5 = new System.Windows.Forms.Button();
             this.tabCategory = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnBack6 = new System.Windows.Forms.Button();
             this.DeleteCategory = new System.Windows.Forms.Button();
             this.btnAdd6 = new System.Windows.Forms.Button();
@@ -80,12 +86,6 @@ namespace ConferencePlanner.WinUi
             this.btnSave = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabType.SuspendLayout();
             this.tabCountry.SuspendLayout();
@@ -224,6 +224,16 @@ namespace ConferencePlanner.WinUi
             this.tabType.Text = "Conference Type";
             this.tabType.Click += new System.EventHandler(this.tabType_Click_1);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(58, 1);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(136, 21);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "Conference Type";
+            // 
             // DeleteType
             // 
             this.DeleteType.BackColor = System.Drawing.Color.White;
@@ -293,6 +303,16 @@ namespace ConferencePlanner.WinUi
             this.tabCountry.Size = new System.Drawing.Size(364, 228);
             this.tabCountry.TabIndex = 1;
             this.tabCountry.Text = "Country";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(52, 1);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(159, 21);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "Conference Country";
             // 
             // btnBack2
             // 
@@ -378,6 +398,15 @@ namespace ConferencePlanner.WinUi
             this.tabSpeaker.TabIndex = 2;
             this.tabSpeaker.Text = "Speaker";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(42, 1);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(158, 21);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Conference Speaker";
+            // 
             // btnBack3
             // 
             this.btnBack3.BackColor = System.Drawing.Color.Transparent;
@@ -456,6 +485,16 @@ namespace ConferencePlanner.WinUi
             this.tabCounty.TabIndex = 3;
             this.tabCounty.Text = "County";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(49, 1);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(153, 21);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Conference County";
+            // 
             // btnBack4
             // 
             this.btnBack4.BackColor = System.Drawing.Color.Transparent;
@@ -533,6 +572,16 @@ namespace ConferencePlanner.WinUi
             this.tabCity.Size = new System.Drawing.Size(364, 228);
             this.tabCity.TabIndex = 4;
             this.tabCity.Text = "City";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(78, 1);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(129, 21);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Conference City";
             // 
             // btnBack5
             // 
@@ -614,6 +663,16 @@ namespace ConferencePlanner.WinUi
             this.tabCategory.Size = new System.Drawing.Size(364, 228);
             this.tabCategory.TabIndex = 5;
             this.tabCategory.Text = "Category";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(50, 1);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(154, 21);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Conferece Category";
             // 
             // btnBack6
             // 
@@ -699,65 +758,6 @@ namespace ConferencePlanner.WinUi
             // 
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(50, 1);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(154, 21);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Conferece Category";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(78, 1);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(129, 21);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Conference City";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(49, 1);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(153, 21);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Conference County";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(42, 1);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(158, 21);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Conference Speaker";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label9.Location = new System.Drawing.Point(58, 1);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(136, 21);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "Conference Type";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Book Antiqua", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(52, 1);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(159, 21);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "Conference Country";
             // 
             // AddEvent
             // 
