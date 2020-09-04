@@ -651,7 +651,7 @@ namespace ConferencePlanner.WinUi
             {
                 dataGridView2.Rows.Clear();
                 y.Clear();
-                y = _ConferenceRepository.GetConferenceDetailForHost(currentUser, dateTimePicker4.Value, dateTimePicker3.Value);
+                y = GetConferenceDetailForHost();
                 HosttotalEntries = y.Count;
                 populateHostGridViewByDate(0, 5, dateTimePicker4.Value, dateTimePicker3.Value);
             }

@@ -367,8 +367,10 @@ namespace ConferencePlanner.Repository.Ef.Repository
                 ConferenceStatusId = _attendedConferences.Exists(currentConference =>
                                            currentConference.ConferenceId == x.ConferenceId && currentConference.ConferenceStatusId == 3) ? 3 : 0,
                 IsRemote = x.ConferenceType.IsRemote
-            }).ToList());    
-            List<ConferenceDetailAttendFirstModel> sortedConferences = attendedConferencesFirst.OrderByDescending(conf => conf.ConferenceStatusId).ToList();
+            }).ToList());
+            List<ConferenceDetailAttendFirstModel> sortedConferences = attendedConferencesFirst.Where(x => x.ConferenceStatusId == 3).ToList();
+            List<ConferenceDetailAttendFirstModel> sortedConferences2 = attendedConferencesFirst.Where(x => x.ConferenceStatusId == 0).OrderBy(x => x.StartDate).ToList();
+            sortedConferences.AddRange(sortedConferences2);
             return sortedConferences;
         }
 
