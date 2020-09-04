@@ -118,25 +118,25 @@ namespace ConferencePlanner.WinUi
             {
                 eventDetails.DictionaryCityName = addConferenceDetailModel.Location;
                 eventDetails.ConferenceId = addConferenceDetailModel.ConferenceId;
-                DictionaryCityModel city = _ConferenceRepository.GetCity(eventDetails.ConferenceId);
+                DictionaryCityModel city = GetCity(eventDetails.ConferenceId).Result;
                 eventDetails.DictionaryCityId = city.DictionaryCityId;
                 eventDetails.DictionaryCityName = city.Name;
                 eventDetails.DictionaryCityCode = city.Code;
                 eventDetails.DictionaryCountyId = city.DictionaryCountyId;
-                DictionaryCountyModel county = _DictionaryCountyRepository.GetCounty(eventDetails.DictionaryCountyId);
+                DictionaryCountyModel county = GetCounty(eventDetails.DictionaryCountyId).Result;
                 eventDetails.DictionaryCountyName = county.DictionaryCountyName;
                 eventDetails.DictionaryCountyCode = county.Code;
                 eventDetails.DictionaryCountryId = county.DictionaryCountryId;
-                DictionaryCountryModel country = _DictionaryCountryRepository.GetCountry(eventDetails.DictionaryCountryId);
+                DictionaryCountryModel country = GetCountry(eventDetails.DictionaryCountryId).Result;
                 eventDetails.DictionaryCountryName = country.DictionaryCountryName;
                 eventDetails.DictionaryCountryCode = country.Code;
                 eventDetails.ConferenceName = addConferenceDetailModel.ConferenceName;
-                eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName;
+                eventDetails.ConferenceTypeName = addConferenceDetailModel.ConferenceTypeName; 
                 eventDetails.EndDate = addConferenceDetailModel.EndDate;
                 eventDetails.StartDate = addConferenceDetailModel.StartDate;
                 eventDetails.SpeakerName = addConferenceDetailModel.Speaker;
                 eventDetails.DictionaryConferenceCategoryName = addConferenceDetailModel.ConferenceCategoryName;
-                DictionaryConferenceCategoryModel category = _DictionaryConferenceCategoryRepository.GetDictionaryCategory(eventDetails.ConferenceId);
+                DictionaryConferenceCategoryModel category = GetCategory(eventDetails.ConferenceId).Result;
                 eventDetails.DictionaryConferenceCategoryId = category.DictionaryConferenceCategoryId;
                 eventDetails.LocationName = addConferenceDetailModel.Location;
 
@@ -839,7 +839,70 @@ namespace ConferencePlanner.WinUi
             }
             return null;
         }
-        
+        static async Task<DictionaryCityModel> GetCity(int obj)
+        {
+            if (obj == 0) obj = 35;
+            string a = "http://localhost:2794/DictionaryCity/ConferenceId?conferenceId=";
+            a+=obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage  = client.GetAsync(a).Result;
+            MessageBox.Show(a);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Success");
+                var response = JsonConvert.DeserializeObject<DictionaryCityModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<DictionaryCountyModel> GetCounty(int obj)
+        {
+            if (obj == 0) obj = 38;
+            string a = "http://localhost:2794/GetDictionaryCounty?obj=";
+            a += obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            MessageBox.Show(a);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Success");
+                var response = JsonConvert.DeserializeObject<DictionaryCountyModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<DictionaryCountryModel> GetCountry(int obj)
+        {
+            if (obj == 0) obj = 32;
+            string a = "http://localhost:2794/GetDictionaryCountryConf?obj=";
+            a += obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            MessageBox.Show(a);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Success");
+                var response = JsonConvert.DeserializeObject<DictionaryCountryModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+        static async Task<DictionaryConferenceCategoryModel> GetCategory(int obj)
+        {
+            string a = "http://localhost:2794/DictionaryCategory/ConferenceId?conferenceId=";
+            a += obj.ToString();
+            HttpClient client = new HttpClient();
+            HttpResponseMessage httpResponseMessage = client.GetAsync(a).Result;
+            MessageBox.Show(a);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Success");
+                var response = JsonConvert.DeserializeObject<DictionaryConferenceCategoryModel>(httpResponseMessage.Content.ReadAsStringAsync().Result.ToString());
+                return response;
+            }
+            return null;
+        }
+
     }
 
 }

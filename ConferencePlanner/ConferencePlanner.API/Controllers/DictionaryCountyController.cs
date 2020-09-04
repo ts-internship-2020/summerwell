@@ -28,6 +28,13 @@ namespace ConferencePlanner.Api.Controllers
             List<DictionaryCountyModel> county = _countyRepository.GetDictionaryCounty();
             return Ok(county);
         }
+        [HttpGet]
+        [Route("GetDictionaryCounty")]
+        public IActionResult GetDictionaryCounty(int obj)
+        {
+            DictionaryCountyModel countries = _countyRepository.GetCounty(obj);
+            return Ok(countries);
+        }
 
         [HttpPost]
         [Route("DictionaryCounty/AddCounty")]
