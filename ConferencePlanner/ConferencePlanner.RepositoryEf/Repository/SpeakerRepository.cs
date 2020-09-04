@@ -2,6 +2,7 @@
 using ConferencePlanner.Abstraction.Model.FromBodyModels;
 using ConferencePlanner.Abstraction.Repository;
 using ConferencePlanner.Repository.Ef.Entities;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,21 +42,22 @@ namespace ConferencePlanner.Repository.Ef.Repository
         public void DeleteSpeaker(int SpeakerId)
         {
             List<SpeakerxConference> conferencesWithDeletedSpeaker = _dbContext.SpeakerxConference.Where(x => x.SpeakerId == SpeakerId).ToList();
+            Speaker defaultSpeaker = _dbContext.Speaker.FirstOrDefault(x => x.SpeakerId == 30);
             foreach(var sxc in conferencesWithDeletedSpeaker)
             {
                 _dbContext.Remove(sxc);
+                _dbContext.SaveChanges();
                 _dbContext.SpeakerxConference.Add(new SpeakerxConference()
                 {
                     SpeakerId = 30,
                     IsMainSpeaker = true,
                     ConferenceId = sxc.ConferenceId,
                     Conference = sxc.Conference,
-                    
+                    Speaker = defaultSpeaker
 
-                });
-                
+                }) ;
+                _dbContext.SaveChanges();
             }
-            _dbContext.SaveChanges();
             Speaker current = _dbContext.Speaker.FirstOrDefault(x => x.SpeakerId == SpeakerId);
             _dbContext.Remove(current);
             
