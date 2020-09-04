@@ -39,7 +39,7 @@ namespace ConferencePlanner.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("{DemoName}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult DeleteDemo()

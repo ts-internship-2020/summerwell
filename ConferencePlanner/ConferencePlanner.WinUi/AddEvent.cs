@@ -722,38 +722,45 @@ namespace ConferencePlanner.WinUi
         }
         static async Task DDeleteCategory(int obj)
         {
+           // var request = new HttpRequestMessage(HttpMethod.Delete, "http://www.example.com/");
+            //request.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+           // await client.SendAsync(request);
+
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCategory/DeleteCategory", httpContent);
+            //HttpResponseMessage httpResponseMessage = await client.DeleteAsync("http://localhost:2794/DictionaryCategory/DeleteCategory"t);
+            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost:2794/DictionaryCategory/DeleteCategory");
+            request.Content = httpContent;
+            await client.SendAsync(request);
         }
         static async Task DDeleteCountry(DeleteType obj)
         {
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DeleteCountry", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.DeleteAsync("http://localhost:2794/DeleteCountry");
         }
         static async Task DDeleteSpeaker(int obj)
         {
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/Speaker/DeleteSpeaker", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.DeleteAsync("http://localhost:2794/Speaker/DeleteSpeaker");
         }
         static async Task DDeleteCounty(int obj)
         {
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCounty/DeleteCounty", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.DeleteAsync("http://localhost:2794/DictionaryCounty/DeleteCounty");
         }
         static async Task DDeleteCity(DeleteType obj)
         {
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryCity/CityDelete", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.DeleteAsync("http://localhost:2794/DictionaryCity/CityDelete");
             MessageBox.Show(httpResponseMessage.ToString());
         }
         static async Task DDeleteType(DeleteType obj)
@@ -761,7 +768,7 @@ namespace ConferencePlanner.WinUi
             var json = JsonConvert.SerializeObject(obj);
             var httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:2794/DictionaryConferenceType/DeleteType", httpContent);
+            HttpResponseMessage httpResponseMessage = await client.DeleteAsync("http://localhost:2794/DictionaryConferenceType/DeleteType");//, httpContent);
         }
     }
 

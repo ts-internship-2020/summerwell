@@ -52,7 +52,7 @@ namespace ConferencePlanner.Api.Controllers
             _conferenceCategoryRepository.EditCategory(obj.id,obj.Name);
             return Ok();
         }
-        [HttpPost]
+        [HttpDelete]
         [Route("DictionaryCategory/DeleteCategory")]
         public IActionResult DeleteCategory([FromBody]int TypeId)
         {
