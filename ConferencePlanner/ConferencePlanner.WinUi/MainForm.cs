@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using ConferencePlanner.Abstraction.Model.FromBodyModels;
+using Windows.UI.Xaml.Documents;
 
 namespace ConferencePlanner.WinUi
 {
@@ -933,10 +934,20 @@ namespace ConferencePlanner.WinUi
         }
         private List<ConferenceAudienceModel> GetConferenceAudience(string currentUser)
         {
-            EmailOnly email = new EmailOnly();
-            email.Email = currentUser;
-            var temp = GetConferenceAudience(email).Result;
-            return temp;
+            try
+            {
+                EmailOnly email = new EmailOnly();
+                email.Email = currentUser;
+                var temp = GetConferenceAudience(email).Result;
+                return temp;
+            }
+            catch
+            {
+                SetBalloonTip("No connection to server","Try again later");
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(3000);
+                return null;
+            }
         }
 
         private List<ConferenceDetailAttendFirstModel> GetAttendedConferencesFirst()
